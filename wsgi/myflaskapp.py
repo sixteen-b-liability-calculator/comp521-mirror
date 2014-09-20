@@ -5,7 +5,7 @@ app = Flask(__name__)
 def hello():
     return "Hello World!"
 
-@app.route("/name")
+@app.route("/name", methods=['POST'])
 def name():
     input_data = request.get_json(cache=True)
     if not input_data:
