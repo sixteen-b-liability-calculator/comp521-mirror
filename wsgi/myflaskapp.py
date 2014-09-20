@@ -8,6 +8,8 @@ def hello():
 @app.route("/name")
 def name():
     input_data = request.get_json(cache=True)
+    if not input_data:
+        return "input not json"
     return jsonify(input_data)
 
 if __name__ == "__main__":
