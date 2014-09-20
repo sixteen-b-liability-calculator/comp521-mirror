@@ -1,10 +1,14 @@
-from flask import Flask
+from flask import Flask, jsonify, request
 app = Flask(__name__)
 
 @app.route("/")
 def hello():
     return "Hello World!"
 
+@app.route("/name")
+def name():
+    input_data = request.get_json(cache=True)
+    return jsonify(input_data)
+
 if __name__ == "__main__":
     app.run()
-
