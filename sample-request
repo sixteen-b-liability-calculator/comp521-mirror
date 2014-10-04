@@ -1,10 +1,11 @@
 POST /compute HTTP/1.1
 Host: sixteenbliabilitycalculator-comp521.rhcloud.com
 Content-Type: application/json
-Content-Length: 168
+Content-Length: 241
 Connection: close
 
 {
   "buy": [ { "number": 100, "price": 100, "year": 2000, "month": 1, "day": 1 } ],
-  "sell": [ { "number": 100, "price": 200, "year": 2000, "month": 1, "day": 2 } ]
+  "sell": [ { "number": 100, "price": 200, "year": 2000, "month": 1, "day": 1 },
+	    { "number": 100, "price": 400, "year": 2010, "month": 1, "day": 1 } ]
 }

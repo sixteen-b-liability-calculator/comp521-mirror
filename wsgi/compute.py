@@ -21,6 +21,12 @@ class Trade:
         self.price = price
         self.date = datetime.date(year, month, day)
 
+def introduces_liability(buy, sell):
+    profitable = sell.price > buy.price
+    # TODO: update date check
+    sixmonth = abs((sell.date - buy.date).days) < 180
+    return profitable and sixmonth
+
 def validate_buysell(buysellstr, input_list):
     ret = []
     try:
@@ -49,15 +55,17 @@ def make_model(purchases, sales):
             initialize=dict(sale_counts), domain=PositiveIntegers)
 
     # profitable pairings
-    profits = list((p,s,sales[s].price - purchases[p].price)
-                for p in range(len(purchases)) for s in range(len(sales)))
+    profits = list((p,s)
+                for p in range(len(purchases)) for s in range(len(sales))
+                if introduces_liability(purchases[p], sales[s]))
 
     model.pairings = Set(within=model.purchases * model.sales,
-            initialize=list((p+1,s+1) for (p,s,f) in profits if f > 0))
+            initialize=list((p+1,s+1) for (p,s) in profits))
 
     # profit associated with each pairing
     model.profits = Param(model.pairings, domain=PositiveIntegers,
-            initialize=dict(((p+1,s+1),f) for (p,s,f) in profits if f > 0))
+            initialize=dict(((p+1,s+1),sales[s].price - purchases[p].price)
+                            for (p,s) in profits))
 
     # output counts of each pairing
     model.selected = Var(model.pairings, domain=NonNegativeIntegers)
@@ -68,14 +76,22 @@ def make_model(purchases, sales):
     model.obj = Objective(rule=obj_rule, sense=maximize)
 
     def purchase_limit(model, t):
-        used = sum(model.selected[t, s] for s in model.sales
+        pairings = list(model.selected[t, s] for s in model.sales
                                         if (t,s) in model.pairings)
-        return used <= model.purchase_count[t]
+        if pairings:
+            used = sum(pairings)
+            return used <= model.purchase_count[t]
+        else:
+            return Constraint.Feasible
 
     def sale_limit(model, t):
-        used = sum(model.selected[p, t] for p in model.purchases
+        pairings = list(model.selected[p, t] for p in model.purchases
                                         if (p,t) in model.pairings)
-        return used <= model.sale_count[t]
+        if pairings:
+            used = sum(pairings)
+            return used <= model.sale_count[t]
+        else:
+            return Constraint.Feasible
 
     model.purchase_constraint = Constraint(model.purchases, rule=purchase_limit)
     model.sale_constraint = Constraint(model.sales, rule=sale_limit)
