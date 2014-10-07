@@ -6,5 +6,5 @@ setup(name='sixteen-b-liability-calculator',
       author='',
       author_email='',
       url='',
-      install_requires=['Flask>=0.7.2', 'MarkupSafe'],
+      install_requires=['Flask>=0.7.2', 'MarkupSafe', 'Coopr'],
      )

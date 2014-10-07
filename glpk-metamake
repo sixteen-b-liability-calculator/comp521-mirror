@@ -1,0 +1,17 @@
+PREFIX=$(shell readlink -f .)/glpk-bin
+
+glpk-bin/bin/glpsol: glpk-4.55/examples/glpsol
+	make -C glpk-4.55 prefix=$(PREFIX) install
+
+glpk-4.55/examples/glpsol: glpk-4.55/README
+	cd glpk-4.55 && ./configure --disable-shared --prefix=$(PREFIX)
+	make -C glpk-4.55 prefix=$(PREFIX)
+	touch --no-create $@
+
+glpk-4.55/README: glpk-4.55.tgz
+	zcat $< | tar -x
+	touch --no-create $@
+
+glpk-4.55.tgz:
+	#curl 'ftp://ftp.gnu.org/gnu/glpk/glpk-4.55.tar.gz' > $@
+	cp $(OPENSHIFT_REPO_DIR)/glpk-4.55.tgz $@

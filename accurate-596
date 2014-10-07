@@ -1,0 +1,15 @@
+POST /compute HTTP/1.1
+Host: sixteenbliabilitycalculator-comp521.rhcloud.com
+Content-Type: application/json
+Content-Length: 587
+Connection: close
+
+{
+   "buy": [ { "number": 1000, "price":  9, "year": 2014, "month":  1, "day":  1 },
+            { "number": 2000, "price":  8, "year": 2014, "month":  3, "day":  1 },
+            { "number":  800, "price":  7, "year": 2014, "month":  5, "day":  1 },
+            { "number": 1000, "price":  6, "year": 2014, "month":  9, "day":  1 } ],
+  "sell": [ { "number":  400, "price":  8, "year": 2014, "month":  2, "day": 15 },
+            { "number": 1200, "price": 10, "year": 2014, "month":  6, "day": 15 },
+            { "number": 2400, "price":  9, "year": 2014, "month": 10, "day": 15 } ]
+}

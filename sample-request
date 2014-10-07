@@ -1,31 +1,11 @@
-POST /name HTTP/1.1
+POST /compute HTTP/1.1
 Host: sixteenbliabilitycalculator-comp521.rhcloud.com
 Content-Type: application/json
-Content-Length: 429
+Content-Length: 241
 Connection: close
 
 {
-  "firstName": "John",
-  "lastName": "Smith",
-  "isAlive": true,
-  "age": 25,
-  "height_cm": 167.6,
-  "address": {
-    "streetAddress": "21 2nd Street",
-    "city": "New York",
-    "state": "NY",
-    "postalCode": "10021-3100"
-  },
-  "phoneNumbers": [
-    {
-      "type": "home",
-      "number": "212 555-1234"
-    },
-    {
-      "type": "office",
-      "number": "646 555-4567"
-    }
-  ],
-  "children": [],
-  "spouse": null
+  "buy": [ { "number": 100, "price": 100, "year": 2000, "month": 1, "day": 1 } ],
+  "sell": [ { "number": 100, "price": 200, "year": 2000, "month": 1, "day": 1 },
+	    { "number": 100, "price": 400, "year": 2010, "month": 1, "day": 1 } ]
 }
