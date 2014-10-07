@@ -9,6 +9,10 @@ app = Flask(__name__)
 
 from compute import run_problem, validate_buysell, FourhundredException
 
+@app.route("/", methods = ['GET'])
+def homepage():
+    return app.send_static_file('index.html')
+
 @app.route("/compute", methods=['POST'])
 def compute_endpoint():
     input_data = request.get_json()
