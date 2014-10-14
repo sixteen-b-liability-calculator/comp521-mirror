@@ -8,7 +8,7 @@ function handle_response(data) {
     $( "#request-data" ).val( JSON.stringify(data, null, 3) );
 }
 function do_post() {
-    $.ajax( "//sixteenbliabilitycalculator-comp521.rhcloud.com/compute",
+    $.ajax( "/compute",
 	    ({type: "POST",
 		data: $("#request-data").val(),
 		contentType: "application/json",
