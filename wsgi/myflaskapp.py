@@ -5,7 +5,7 @@ from coopr.pyomo import *
 from coopr.opt import SolverFactory
 import coopr.environ
 
-app = Flask(__name__)
+app = Flask(__name__, static_url_path='')
 
 from compute import run_problem, validate_buysell, FourhundredException
 

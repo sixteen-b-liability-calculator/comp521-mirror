@@ -1,0 +1,39 @@
+<html>
+<title>
+    Request tester.
+</title>
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+<script>
+function handle_response(data) {
+    $( "#request-data" ).val( JSON.stringify(data, null, 3) );
+}
+function do_post() {
+    $.ajax( "/compute",
+	    ({type: "POST",
+		data: $("#request-data").val(),
+		contentType: "application/json",
+		success: handle_response,
+		error: function(data) {
+		document.open();
+		document.write(data.responseText);
+		document.close();
+		}
+	    }));
+}
+</script>
+<body>
+<textarea id="request-data" cols="100" rows="30">
+{
+   "buy": [ { "number": 1000, "price":  9, "year": 2014, "month":  1, "day":  1 },
+            { "number": 2000, "price":  8, "year": 2014, "month":  3, "day":  1 },
+            { "number":  800, "price":  7, "year": 2014, "month":  5, "day":  1 },
+            { "number": 1000, "price":  6, "year": 2014, "month":  9, "day":  1 } ],
+  "sell": [ { "number":  400, "price":  8, "year": 2014, "month":  2, "day": 15 },
+            { "number": 1200, "price": 10, "year": 2014, "month":  6, "day": 15 },
+            { "number": 2400, "price":  9, "year": 2014, "month": 10, "day": 15 } ]
+}
+</textarea>
+<br>
+<input type="button" onClick="do_post()" value="post to /compute"/>
+</body>
+</html>
