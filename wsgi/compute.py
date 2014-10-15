@@ -118,8 +118,3 @@ def run_problem(purchases, sales):
             if ct > 0:
                 output.append((purchases[p-1], sales[s-1], ct))
     return dict(pairs=output, result=results.json_repn())
-
-if __name__ == "__main__":
-    # the reloader would be nice but it doesn't work with subprocesses,
-    # which opt.solve uses
-    app.run(debug=True, host='192.168.56.101', use_reloader=False)
