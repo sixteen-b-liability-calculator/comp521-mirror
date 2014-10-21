@@ -1,7 +1,7 @@
 import sys
 import os
 from coopr.pyomo import *
-from coopr.opt import SolverFactory
+from coopr.opt import SolverFactory, SolverStatus, TerminationCondition
 import coopr.environ
 
 from numbers import Integral
@@ -12,7 +12,7 @@ class FourhundredException(Exception):
         self.msg = msg
 
 class Trade:
-    def __init__(self, number, price, year, month, day):
+    def __init__(self, number=None, price=None, year=None, month=None, day=None, **extra):
         if not (isinstance(number, Integral) and isinstance(price, Integral)):
             raise TypeError()
         if number < 1 or price < 1:
@@ -20,6 +20,10 @@ class Trade:
         self.number = number
         self.price = price
         self.date = datetime.date(year, month, day)
+	self.extra = extra
+    def recreate_dict(self):
+        return dict(number=self.number, price=self.price, year=self.date.year,
+                month=self.date.month, day=self.date.day, **self.extra)
 
 def introduces_liability(buy, sell):
     profitable = sell.price > buy.price
@@ -33,8 +37,7 @@ def validate_buysell(buysellstr, input_list):
         for entry in input_list:
             if not isinstance(entry, dict):
                 raise TypeError()
-            ret.append(Trade(entry.get('number'), entry.get('price'),
-                entry.get('year'), entry.get('month'), entry.get('day')))
+            ret.append(Trade(**entry))
         return ret
     except (ValueError, TypeError):
         raise FourhundredException("invalid '%s' entry" % buysellstr)
@@ -107,8 +110,6 @@ def run_problem(purchases, sales):
 
     results = opt.solve(model)
 
-    #raise Exception(str(results))
-
     output = []
     solutions = results.get('Solution', [])
     if len(solutions) > 0:
@@ -117,4 +118,21 @@ def run_problem(purchases, sales):
             ct = model.selected[p,s].value
             if ct > 0:
                 output.append((purchases[p-1], sales[s-1], ct))
-    return dict(pairs=output, result=results.json_repn())
+
+
+    ret = dict(pairs=output, full_result=results.json_repn())
+
+
+    if results.solver.status == SolverStatus.ok:
+        if results.solver.termination_condition == TerminationCondition.optimal:
+            ret['status'] = "optimal"
+            # the following procedure for getting the value is right from
+            # the coopr source itself...
+            key = results.solution.objective.keys()[0]
+            ret['value'] = results.solution.objective[key].value
+        else:
+            ret['status'] = "not solved"
+    else:
+        ret['status'] = "solver error"
+
+    return ret

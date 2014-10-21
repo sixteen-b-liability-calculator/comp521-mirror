@@ -28,18 +28,12 @@ def compute_endpoint():
     result = run_problem(purchases,sales)
     output = []
     for (a,b,c) in result['pairs']:
-        ad = dict()
-        ad['price'] = a.price
-        ad['year'] = a.date.year
-        ad['month'] = a.date.month
-        ad['day'] = a.date.day
-        bd = dict()
-        bd['price'] = b.price
-        bd['year'] = b.date.year
-        bd['month'] = b.date.month
-        bd['day'] = b.date.day
-        output.append(dict(buy=ad, sell=bd, count=c))
+        output.append(dict(buy=a.recreate_dict(), sell=b.recreate_dict(), count=c))
     result['pairs'] = output
+
+    if not app.debug:
+        del result['full_result']
+
     return jsonify(result)
 
 if __name__ == "__main__":
