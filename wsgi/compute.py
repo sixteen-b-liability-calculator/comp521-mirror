@@ -25,10 +25,76 @@ class Trade:
         return dict(number=self.number, price=self.price, year=self.date.year,
                 month=self.date.month, day=self.date.day, **self.extra)
 
-def introduces_liability(buy, sell):
+def introduces_liability(buy, sell, anniversary_days_back):
     profitable = sell.price > buy.price
-    # TODO: update date check
-    sixmonth = abs((sell.date - buy.date).days) < 180
+
+    earlier_date = min(sell.date, buy.date)
+    later_date = max(sell.date, buy.date)
+
+    # the date algorithm is as follows:
+    # 1. find a "hypothetical anniversary" tuple of the earlier_date, e.g.:
+    #    date(2001,08,31) -> (2001,14,31)
+    #    date(2001,07,01) -> (2001,13,01)
+    # 2. adjust the day of that tuple according to anniversary_days_back, e.g.:
+    #    (2001,14,31), 1 days back -> (2001,14,30)
+    #    (2001,13,01), 0 days back -> (2001,13,01)
+    #    (2001,13,01), 1 days back -> (2001,13,-0)
+    #    (2001,13,01), 2 days back -> (2001,13,-1)
+    # 3. if days is non-positive, decrement month; now non-positive days -N (N
+    #    may be zero) represent days really in the given month
+    #    NB we can't end up with month 0 like this since we only have months 7
+    #    and greater after step 1
+    #    (2001,13,-0) -> (2001,12,-0)
+    #    (2001,13,-1) -> (2001,12,-1)
+    # 4. fixup the month/year without respect to the day
+    #    (2001,14,30) -> (2002,02,30)
+    #    (2001,13,01) -> (2002,01,01)
+    #    (2001,12,-0) -> (2001,12,-0)
+    #    (2001,12,-1) -> (2001,12,-1)
+    # 5. determine "first invalid day" based on tuple by pushing past-last-day
+    #    tuples to the first day of the next month; mapping non-positive day
+    #    values -N (N may be 0), to the day N days before the last day of the
+    #    month; and mapping valid dates to themselves
+    #    (2002,02,30) -> date(2002,03,01)
+    #    (2002,01,01) -> date(2002,01,01)
+    #    (2001,12,-0) -> date(2001,12,31)
+    #    (2001,12,-1) -> date(2001,12,30)
+    # 6. the later_date makes a valid trade iff it falls /before/ the "first
+    #    invalid day"
+
+    def month_fixup(und):
+        if und[1] > 12:
+            und[1] -= 12
+            und[0] += 1
+
+    # steps 1 and 2
+    undate = [earlier_date.year, earlier_date.month + 6, earlier_date.day - anniversary_days_back]
+    # step 3
+    if undate[2] < 1:
+        undate[1] -= 1
+    # step 4
+    month_fixup(undate)
+    # determine the number of days in the real month; this is where step 2 came
+    # in handy to simplify matters since undate[1] is always the one
+    # we need to know
+    if undate[1] == 2:
+        # find the day of the day before march 1
+        days_in_month = (datetime.date(undate[0], 3, 1) - datetime.timedelta(days=1)).day
+    elif undate[1] in [1, 3, 5, 7, 8, 10, 12]:
+        days_in_month = 31
+    else:
+        days_in_month = 30
+    # step 5
+    if undate[2] < 1: # non-positive values:
+        undate[2] += days_in_month
+    elif undate[2] > days_in_month:
+        undate[2] -= days_in_month
+        undate[1] += 1
+        month_fixup(undate)
+    first_invalid_date = datetime.date(*undate)
+
+    sixmonth = later_date < first_invalid_date
+
     return profitable and sixmonth
 
 def validate_buysell(buysellstr, input_list):
@@ -60,7 +126,7 @@ def make_model(purchases, sales):
     # profitable pairings
     profits = list((p,s)
                 for p in range(len(purchases)) for s in range(len(sales))
-                if introduces_liability(purchases[p], sales[s]))
+                if introduces_liability(purchases[p], sales[s], 0))
 
     model.pairings = Set(within=model.purchases * model.sales,
             initialize=list((p+1,s+1) for (p,s) in profits))
