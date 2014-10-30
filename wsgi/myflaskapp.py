@@ -49,7 +49,7 @@ def compute_endpoint():
 
     if not app.debug:
         del result['full_result']
-    if (recipient != None):    
+    if (recipient != None):
 	    msg = Message(subject = "Test e-mail", body =str(result), sender="kevin.valakuzhy@gmail.com", recipients=[recipient])
 	    mail.send(msg)
     return jsonify(result)
