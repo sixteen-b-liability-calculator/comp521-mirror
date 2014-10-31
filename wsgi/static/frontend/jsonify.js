@@ -101,19 +101,19 @@ function inputToJSON(){
 	jsonData = jsonData.substring(0, jsonData.length - 1);
 	jsonData += ']}';
 	
-/*
-	$.ajax( "/compute",
-	    ({type: "POST",
-		data: jsonData,
-		contentType: "application/json",
-		success: handle_response,
-		error: function(data) {
-			document.open();
-			document.write(data.responseText);
-			document.close();
-		}
-	    }))
-*/
+
+$.ajax( "/compute",
+    ({type: "POST",
+	data: jsonData,
+	contentType: "application/json",
+	success: handle_response,
+	error: function(data) {
+		document.open();
+		document.write(data.responseText);
+		document.close();
+	}
+    }))
+
 }
 
 function handle_response(data){
