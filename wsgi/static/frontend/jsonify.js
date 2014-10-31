@@ -32,7 +32,7 @@ function firstLoad(){
 		cell.className = 'col-md-1';
 		
 		cell = row.insertCell(3);
-		cell.innerHTML = '<input type="text" id="pday'+ i +'" class="form-control">';
+		cell.innerHTML = '<input type="text" id="pshare'+ i +'" class="form-control">';
 		cell.className = 'col-md-2';
 		
 		cell = row.insertCell(4);
@@ -56,7 +56,7 @@ function firstLoad(){
 		cell.className = 'col-md-1';
 		
 		cell = row.insertCell(3);
-		cell.innerHTML = '<input type="text" id="sday'+ i +'" class="form-control">';
+		cell.innerHTML = '<input type="text" id="sshare'+ i +'" class="form-control">';
 		cell.className = 'col-md-2';
 		
 		cell = row.insertCell(4);
