@@ -112,5 +112,8 @@ echo $parsing[0];
 			</div>
 			<a href="#" class="btn btn-default" onclick="inputToJSON()">Compute</a>
 		</div>
+		<div>
+			<textarea cols="10" rows="10" id="request-data"></textarea>
+		</div>
 	</body>
 </html>

@@ -50,7 +50,7 @@ function inputToJSON(){
 	jsonData += ']}';
 	
 /*
-	$.ajax( "needURL",
+	$.ajax( "/compute",
 	    ({type: "POST",
 		data: jsonData,
 		contentType: "application/json",
