@@ -5,7 +5,6 @@ import tempfile
 
 class FlaskrTestCase(unittest.TestCase):
 
-
     def test_empty_db(self):
         rv = self.get('/')
         assert 'No entries here so far' in rv.data
