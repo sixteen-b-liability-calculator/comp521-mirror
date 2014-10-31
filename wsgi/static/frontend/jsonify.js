@@ -13,6 +13,16 @@ var jsonData;
 // # of input rows
 var inputCount = 10;
 
+function firstLoad(){
+	var table = document.getElementById("purchases");
+	for(i = 0; i < inputCount; i++){
+		var row = table.insertRow(i);
+		var cell = row.insertCell(0);
+		cell.innerHTML = '<input type="text" id="pday'+ i + '" class="form-control">';
+		cell.className = 'col-md-1';
+	}
+}
+
 function inputToJSON(){
 	// Store input values into variables
 	for(i = 0; i < 10; i++){

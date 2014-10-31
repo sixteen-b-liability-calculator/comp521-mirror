@@ -37,7 +37,7 @@ echo $parsing[0];
 		<link href="css/datepicker.css" rel="stylesheet">
 		<link rel="stylesheet" href="css/font-awesome.min.css">
 	</head>
-	<body>
+	<body onload="firstload()">
 		<!-- input form in table format, loop entries -->
 		<div class="indent">
 			<h2>Purchases</h2>
@@ -50,7 +50,8 @@ echo $parsing[0];
 						<th># Shares</th>
 						<th>Expense</th>
 					</tr>
-					<?php 
+					<!--
+<?php 
 						for($i = 0; $i < 10; $i++){
 							echo 	'	<tr>
 											<td class="col-md-1">
@@ -72,6 +73,7 @@ echo $parsing[0];
 									';
 						}
 					?>
+-->
 				</table>
 			</div>
 
@@ -85,6 +87,8 @@ echo $parsing[0];
 						<th># Shares</th>
 						<th>Revenue</th>
 					</tr>
+					
+<!--
 					<?php 
 						for($i = 0; $i < 10; $i++){
 							echo 	'	<tr>
@@ -107,6 +111,7 @@ echo $parsing[0];
 									';
 						}
 					?>
+-->
 				</table>
 				</table>
 			</div>
