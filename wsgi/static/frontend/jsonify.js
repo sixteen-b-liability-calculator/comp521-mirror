@@ -9,18 +9,41 @@ var syears = new Array();
 var sshares = new Array();
 var svalues = new Array();
 var jsonData;
+var row, cell, table;
+var flag = 0;
 
 // # of input rows
 var inputCount = 10;
 
 function firstLoad(){
-	var table = document.getElementById("purchases");
-	for(i = 0; i < inputCount; i++){
-		var row = table.insertRow(i);
-		var cell = row.insertCell(0);
-		cell.innerHTML = '<input type="text" id="pday'+ i + '" class="form-control">';
-		cell.className = 'col-md-1';
-	}
+	table = document.getElementById("purchases");
+	do{
+		for(i = 0; i < inputCount; i++){
+			row = table.insertRow(i+1);
+			cell = row.insertCell(0);
+			cell.innerHTML = '<input type="text" id="pday'+ i +'" class="form-control">';
+			cell.className = 'col-md-1';
+			
+			cell = row.insertCell(1);
+			cell.innerHTML = '<input type="text" id="pmonth'+ i +'" class="form-control">';
+			cell.className = 'col-md-1';
+			
+			cell = row.insertCell(2);
+			cell.innerHTML = '<input type="text" id="pyear'+ i +'" class="form-control">';
+			cell.className = 'col-md-1';
+			
+			cell = row.insertCell(3);
+			cell.innerHTML = '<input type="text" id="pday'+ i +'" class="form-control">';
+			cell.className = 'col-md-2';
+			
+			cell = row.insertCell(4);
+			cell.innerHTML = '<div class="input-group"><span class="input-group-addon">$</span><input type="text" id="pvalue'+ i +'" class="value form-control">';
+			cell.className = 'col-md-6';
+			
+		}
+		table = document.getElementById("sales");
+		flag++;
+	}while(flag < 2)
 }
 
 function inputToJSON(){

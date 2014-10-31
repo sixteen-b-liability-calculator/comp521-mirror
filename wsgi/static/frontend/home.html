@@ -1,32 +1,3 @@
-<?php
-$row = 1;
-/*
-if (($handle = fopen("test.csv", "r")) !== FALSE) {
-    while (($data = fgetcsv($handle, 1000, ",")) !== FALSE) {
-        $num = count($data);
-	
-        for ($c=19; $c < $num; $c++) {
-	    if($data[$c] == ""){
-			$c+=4;
-	    }
-	    else{
-			echo $data[$c] . "<br />\n";
-			$parsed[$c-19] = $data[$c];
-	    }
-        }
-    }
-    fclose($handle);
-}
-*/
-
-/*
-$file = file_get_contents("test.csv");
-$parsing = explode("\n\r", $file);
-echo $parsing[0];
-*/
-?>
-
-
 <html>
 	<head>
 		<link rel="stylesheet" type="text/css" href="style.css">
@@ -37,7 +8,7 @@ echo $parsing[0];
 		<link href="css/datepicker.css" rel="stylesheet">
 		<link rel="stylesheet" href="css/font-awesome.min.css">
 	</head>
-	<body onload="firstload()">
+	<body onload="firstLoad()">
 		<!-- input form in table format, loop entries -->
 		<div class="indent">
 			<h2>Purchases</h2>
@@ -118,7 +89,7 @@ echo $parsing[0];
 			<a href="#" class="btn btn-default" onclick="inputToJSON()">Compute</a>
 		</div>
 		<div>
-			<textarea cols="10" rows="10" id="request-data"></textarea>
+			<textarea cols="30" rows="10" id="request-data"></textarea>
 		</div>
 	</body>
 </html>
