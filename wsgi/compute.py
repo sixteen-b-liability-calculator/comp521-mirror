@@ -202,3 +202,31 @@ def run_problem(purchases, sales):
         ret['status'] = "solver error"
 
     return ret
+
+def run_greedy(purchases, sales):
+    s_purchases = sorted(purchases, key=lambda t: t.price)
+    s_sales = sorted(sales, key=lambda t: -t.price)
+    s_sales_amts = map(lambda s: s.number, s_sales)
+
+    ret = dict(pairs = [], value = 0)
+
+    def collect(p, s, amt):
+        ret['pairs'].append((p,s,amt))
+        ret['value'] += amt*(s.price-p.price)
+
+    for p in s_purchases:
+        amt = p.number
+        for i in range(0, len(s_sales)):
+            s = s_sales[i]
+            s_amt = s_sales_amts[i]
+            if amt > 0 and s_amt > 0 and introduces_liability(p, s, 0):
+                if amt >= s_amt:
+                    s_sales_amts[i] = 0
+                    amt -= s_amt
+                    collect(p,s,s_amt)
+                else:
+                    s_sales_amts[i] -= amt
+                    collect(p,s,amt)
+                    amt = 0
+
+    return ret
