@@ -19,10 +19,11 @@ app.config.update(dict(
 mail = Mail(app)
 
 from compute import run_problem, run_greedy, validate_buysell, FourhundredException
+from edgar_api import *
 
 @app.route("/", methods = ['GET'])
-def homepage():
-	return ("Whoopsie", 400, [])
+def home_page():
+	return homepage()
 
 def gen_compute_endpoint(runner):
     input_data = request.get_json()
@@ -52,6 +53,8 @@ def gen_compute_endpoint(runner):
 	    msg = Message(subject = "Test e-mail", body =str(result), sender="kevin.valakuzhy@gmail.com", recipients=[recipient])
 	    mail.send(msg)
     return jsonify(result)
+
+
 
 @app.route("/compute", methods=['POST'])
 def compute_endpoint():
