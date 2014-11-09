@@ -9,87 +9,57 @@
 		<link rel="stylesheet" href="css/font-awesome.min.css">
 	</head>
 	<body onload="firstLoad()">
+		<!-- Nav tabs -->
+		<ul id="myTabs" class="nav nav-tabs" role="tablist">
+		  <li role="presentation" class="active"><a href="#input" role="tab" data-toggle="tab">Input</a></li>
+		  <li role="presentation"><a href="#output" role="tab" data-toggle="tab">Output</a></li>
+		</ul>
 		<!-- input form in table format, loop entries -->
-		<div class="indent">
-			<h2>Purchases</h2>
+		<div class="tab-content">
+		<div role="tabpanel" class="tab-pane fade in active" id="input">
+		  
 			<div class="indent">
-				<table id="purchases" class="form-group">
-					<tr>
-						<th>Day</th>
-						<th>Month</th>
-						<th>Year</th>
-						<th># Shares</th>
-						<th>Expense</th>
-					</tr>
-					<!--
-<?php 
-						for($i = 0; $i < 10; $i++){
-							echo 	'	<tr>
-											<td class="col-md-1">
-												<input type="text" id="pday'. $i .'" class="form-control">
-											</td>
-											<td class="col-md-1">
-												<input type="text" id="pmonth'. $i .'" class="form-control">
-											</td>
-											<td class="col-md-1">
-												<input type="text" id="pyear'. $i .'" class="form-control">
-											</td>
-											<td class="col-md-2">
-												<input type="text" id="pshare'. $i .'" class="form-control">
-											</td>
-											<td class="col-md-6">
-												<div class="input-group"><span class="input-group-addon">$</span><input type="text" id="pvalue'. $i .'" class="value form-control"></div>
-											</td>
-										</tr>
-									';
-						}
-					?>
--->
-				</table>
+				<h2>Purchases</h2>
+				<div class="indent">
+					<table id="purchases" class="form-group">
+						<tr>
+							<th>Day</th>
+							<th>Month</th>
+							<th>Year</th>
+							<th># Shares</th>
+							<th>Expense</th>
+						</tr>
+					</table>
+				</div>
+	
+				<h2>Sales</h2>
+				<div class="indent">
+					<table id="sales" class="form-group">
+						<tr>
+							<th>Day</th>
+							<th>Month</th>
+							<th>Year</th>
+							<th># Shares</th>
+							<th>Revenue</th>
+						</tr>
+					</table>
+				</div>
+				<a href="#" class="btn btn-default" onclick="inputToJSON()">Compute</a>
 			</div>
-
-			<h2>Sales</h2>
-			<div class="indent">
-				<table id="sales" class="form-group">
-					<tr>
-						<th>Day</th>
-						<th>Month</th>
-						<th>Year</th>
-						<th># Shares</th>
-						<th>Revenue</th>
-					</tr>
-					
-<!--
-					<?php 
-						for($i = 0; $i < 10; $i++){
-							echo 	'	<tr>
-											<td class="col-md-1">
-												<input type="text" id="sday'. $i .'" class="form-control">
-											</td>
-											<td class="col-md-1">
-												<input type="text" id="smonth'. $i .'" class="form-control">
-											</td>
-											<td class="col-md-1">
-												<input type="text" id="syear'. $i .'" class="form-control">
-											</td>
-											<td class="col-md-2">
-												<input type="text" id="sshare'. $i .'" class="form-control">
-											</td>
-											<td class="col-md-6">
-												<div class="input-group"><span class="input-group-addon">$</span><input type="text" id="svalue'. $i .'" class="value form-control"></div>
-											</td>
-										</tr>
-									';
-						}
-					?>
--->
-				</table>
-				</table>
-			</div>
-			<a href="#" class="btn btn-default" onclick="inputToJSON()">Compute</a>
 		</div>
-		<div>
-			<textarea cols="30" rows="10" id="request-data"></textarea>
+		<div role="tabpanel" class="tab-pane fade" id="output">
+			<div class="indent">
+				<table id="pairings">
+					<tr>
+						<th>Date</th>
+						<th>Shares</th>
+						<th>Amount</th>
+						<th>Date</th>
+						<th>Amount</th>
+						<th>Profit</th>
+					</tr>
+				</table>
+			</div>
 		</div>
 	</body>
 </html>
