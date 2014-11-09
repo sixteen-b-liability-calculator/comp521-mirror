@@ -121,7 +121,7 @@ function inputToJSON(){
 }
 
 function handle_response(data){
-	$('#myTabs li:eq(1) a').tab('show');
+	$('#myTabs li:eq(1) a').tab('show'); 
     
     testData = data.split("\"");
     var pday, pmonth, pnumber, pprice, pyear, sday, smonth, snumber, sprice, syear, count;
