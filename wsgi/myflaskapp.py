@@ -18,14 +18,14 @@ app.config.update(dict(
 ))
 mail = Mail(app)
 
-from compute import run_problem, validate_buysell, FourhundredException
+from compute import run_problem, run_greedy, validate_buysell, FourhundredException
+from edgar_api import *
 
 @app.route("/", methods = ['GET'])
-def homepage():
-	return ("Whoopsie", 400, [])
+def home_page():
+	return homepage()
 
-@app.route("/compute", methods=['POST'])
-def compute_endpoint():
+def gen_compute_endpoint(runner):
     input_data = request.get_json()
     if not (isinstance(input_data, dict)
             and isinstance(input_data.get('buy'), list)
@@ -41,18 +41,28 @@ def compute_endpoint():
     except FourhundredException as e:
         return (e.msg, 400, [])
 
-    result = run_problem(purchases,sales)
+    result = runner(purchases,sales)
     output = []
     for (a,b,c) in result['pairs']:
         output.append(dict(buy=a.recreate_dict(), sell=b.recreate_dict(), count=c))
     result['pairs'] = output
 
-    if not app.debug:
+    if not app.debug and 'full_result' in result:
         del result['full_result']
     if (recipient != None):
 	    msg = Message(subject = "Test e-mail", body =str(result), sender="kevin.valakuzhy@gmail.com", recipients=[recipient])
 	    mail.send(msg)
     return jsonify(result)
+
+
+
+@app.route("/compute", methods=['POST'])
+def compute_endpoint():
+    return gen_compute_endpoint(run_problem)
+
+@app.route("/greedy", methods=['POST'])
+def greedy_endpoint():
+    return gen_compute_endpoint(run_greedy)
 
 if __name__ == "__main__":
     # the reloader would be nice but it doesn't work with subprocesses,

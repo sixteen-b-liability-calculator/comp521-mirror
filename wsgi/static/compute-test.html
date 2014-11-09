@@ -7,8 +7,8 @@
 function handle_response(data) {
     $( "#request-data" ).val( JSON.stringify(data, null, 3) );
 }
-function do_post() {
-    $.ajax( "/compute",
+function do_post(where) {
+    $.ajax( where,
 	    ({type: "POST",
 		data: $("#request-data").val(),
 		contentType: "application/json",
@@ -19,6 +19,12 @@ function do_post() {
 		document.close();
 		}
 	    }));
+}
+function do_post_compute() {
+    do_post("/compute")
+}
+function do_post_greedy() {
+    do_post("/greedy")
 }
 </script>
 <body>
@@ -34,6 +40,8 @@ function do_post() {
 }
 </textarea>
 <br>
-<input type="button" onClick="do_post()" value="post to /compute"/>
+<input type="button" onClick="do_post_compute()" value="post to /compute"/>
+<br>
+<input type="button" onClick="do_post_greedy()" value="post to /greedy"/>
 </body>
 </html>
