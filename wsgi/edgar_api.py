@@ -1,39 +1,54 @@
 from ftplib import FTP
 from datetime import datetime
+from flask import request, jsonify
 import xml.etree.ElementTree as ET
 import tempfile
-
-
-
 import re
 import gzip
 
 def homepage():
-	return ("Whoopsie", 400, [])
+    return ("Whoopsie", 400, [])
 
-# Function in order to retrieve an index from the edgar database
-def pull_index_Edgar():
+def pull_trades():
+# TODO(valakuzh) Who will test the inputs? Front-end or backend?
     input_data = request.get_json()
-	# TODO(valakuzh) Test the inputs
-    try:
-        year = input_data.get('year')
-        quarter = input_data.get('quarter')
-        indexType = input_data.get('indexType')
+    year = input_data.get('year')
+    quarter = input_data.get('quarter')
+    indexType = input_data.get('indexType')
+    cik = input_data.get('cik')
+
+    ftp = FTP('ftp.sec.gov')
+    indexDirPath = 'edgar/full-index/'+str(year)+'/QTR'+str(quarter)+'/'+indexType+'.gz'
+    totalBuys = []
+    totalSells = []
+    try: 
+        ftp.login()
+        binaryIndexFile = pull_edgar_file(ftp, indexDirPath)
+        indexFile = ungzip_tempfile(binaryIndexFile)
+        edgarFileURLs = parse_idx(indexFile, cik, ['4']) # TODO(valakuzh) allow specification of types of documents
+        for url in edgarFileURLs:
+            fileTrades = pull_edgar_file(ftp, url)
+            xmlTree = parse_section_4(fileTrades)
+            trades = return_trade_information_from_xml(xmlTree)
+            for trade in trades[0]:
+                totalBuys.append(trade)
+            for trade in trades[1]:
+                totalSells.append(trade)
     except FourhundredException as e:
         return (e.msg, 400, [])
-
-	ftp = FTP('ftp.sec.gov')
-    pracFile = tempfile.TemporaryFile()
-    try: 
-    	ftp.login()
-    	directoryPath = 'edgar/'+year+'/QTR'+quarter+'/'+indexType+'.gz'
-    	ftp.cwd(directoryPath)
-
-    	ftp.retrbinary('RETR '+ indexType + '.gz', pracFile.write)
-    	pracFile.seek(0)
     finally:
         ftp.close()
-	return pracFile
+    return jsonify({"buys" : totalBuys, "sells": totalSells})
+
+# Function in order to retrieve an index from the edgar database
+# Assumes the ftp channel has been opened already
+def pull_edgar_file(ftp, directoryPath):
+
+    pracFile = tempfile.TemporaryFile()
+
+    ftp.retrbinary('RETR '+ directoryPath, pracFile.write)
+    pracFile.seek(0)
+    return pracFile
 
 parse_idx_start = re.compile(r'-+$')
 parse_idx_entry = re.compile(r''' ( [0-9]  + )    # CIK
@@ -62,7 +77,6 @@ def parse_idx(fileobj, target_cik, form_types):
             found_start = True
     if not found_start:
         raise Exception("could not find start line in EDGAR idx")
-
     return out
 
 # Parses a file containing text from the edgar database.  Returns a tree containing

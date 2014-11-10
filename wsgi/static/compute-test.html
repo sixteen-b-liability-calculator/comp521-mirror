@@ -26,6 +26,9 @@ function do_post_compute() {
 function do_post_greedy() {
     do_post("/greedy")
 }
+function do_post_pullSEC() {
+    do_post("/pullSEC")
+}
 </script>
 <body>
 <textarea id="request-data" cols="100" rows="30">
@@ -43,5 +46,7 @@ function do_post_greedy() {
 <input type="button" onClick="do_post_compute()" value="post to /compute"/>
 <br>
 <input type="button" onClick="do_post_greedy()" value="post to /greedy"/>
+<br>
+<input type="button" onClick="do_post_pullSEC()" value="post to /pullSEC"/>
 </body>
 </html>
