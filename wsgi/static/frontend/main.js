@@ -1,17 +1,3 @@
-// Load Dropzone
-$("div#fileupload").dropzone({ url: "/file/post" });
-
-Dropzone.options.myAwesomeDropzone = {
-  paramName: "file", // The name that will be used to transfer the file
-  maxFilesize: 2, // MB
-  accept: function(file, done) {
-    if (file.name == "justinbieber.jpg") {
-      done("Naha, you don't.");
-    }
-    else { done(); }
-  }
-};
-
 // Lazy code, will consolidate soon.
 var pdays = new Array();
 var pmonths = new Array();
@@ -139,6 +125,7 @@ function inputToJSON(){
 }
 
 function handle_response(data){
+	$('#myTabs li:eq(1) a').tab('show');
 	
     testData = data.split("\"");
     var pday, pmonth, pnumber, pprice, pyear, sday, smonth, snumber, sprice, syear, count;
