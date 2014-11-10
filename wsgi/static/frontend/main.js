@@ -1,4 +1,8 @@
-var pdays = new Array();
+// Load Dropzone
+$("div#myId").dropzone({ url: "/file/post" });
+
+// Lazy code, will consolidate soon.
+var pdays = new Array(["pday"]);
 var pmonths = new Array();
 var pyears = new Array();
 var pshares = new Array();
@@ -18,6 +22,7 @@ var returnData = '{"pairs":[{"buy": {"day": 29,"month": 10,"number": 28,"price":
 // # of input rows
 var inputCount = 10;
 
+// page's first page load. two tabs
 function firstLoad(){
 	table = document.getElementById("purchases");
 	for(i = 0; i < inputCount; i++){
@@ -69,7 +74,7 @@ function firstLoad(){
 }
 
 function inputToJSON(){
-	// Store input values into variables
+	// Store input values into arrays
 	for(i = 0; i < 10; i++){
 		pdays[i] = $("#pday" + i).val();
 		pmonths[i] = $("#pmonth" + i).val();
@@ -103,9 +108,9 @@ function inputToJSON(){
 	}
 	jsonData = jsonData.substring(0, jsonData.length - 1);
 	jsonData += ']}';
+	// End format data
+
 	
-
-
 	$.ajax( "/compute",
 	    ({type: "POST",
 		data: jsonData,
@@ -117,12 +122,13 @@ function inputToJSON(){
 			document.close();
 		}
 	}))
-
+	
+	// Switches to second tab
+	$('#myTabs li:eq(1) a').tab('show');
 }
 
 function handle_response(data){
-	$('#myTabs li:eq(1) a').tab('show'); 
-    
+	
     testData = data.split("\"");
     var pday, pmonth, pnumber, pprice, pyear, sday, smonth, snumber, sprice, syear, count;
     table = document.getElementById("pairings");

@@ -1,12 +1,17 @@
 <html>
 	<head>
+		<!-- CSS -->
 		<link rel="stylesheet" type="text/css" href="style.css">
-		<script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
-		<script src="js/bootstrap.min.js"></script>
-		<script src="jsonify.js"></script>
 		<link href="css/bootstrap.min.css" rel="stylesheet">
 		<link href="css/datepicker.css" rel="stylesheet">
 		<link rel="stylesheet" href="css/font-awesome.min.css">
+		
+		<! Javascript -->
+		<script data-main="scripts/main" src="scripts/require.js"></script>
+		<script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+		<script src="js/bootstrap.min.js"></script>
+		<script src="functions.js"></script>
+		<script src="js/dropzone.js"></script>
 	</head>
 	<body onload="firstLoad()">
 		<!-- Nav tabs -->
@@ -14,10 +19,12 @@
 		  <li role="presentation" class="active"><a href="#input" role="tab" data-toggle="tab">Input</a></li>
 		  <li role="presentation"><a href="#output" role="tab" data-toggle="tab">Output</a></li>
 		</ul>
-		<!-- input form in table format, loop entries -->
+		
+		<!-- Beginning of tab pane -->
 		<div class="tab-content">
+		
+		<!-- tab 1 "input" -->
 		<div role="tabpanel" class="tab-pane fade in active" id="input">
-		  
 			<div class="indent">
 				<h2>Purchases</h2>
 				<div class="indent">
@@ -46,10 +53,11 @@
 				</div>
 				<a href="#" class="btn btn-default" onclick="inputToJSON()">Compute</a>
 			</div>
-			
 		</div>
+		
+		<!-- tab 2 "output" -->
 		<div role="tabpanel" class="tab-pane fade" id="output">
-			<div class="indent">
+			<div class="cornerindent">
 				<table id="pairings">
 					<tr>
 						<th>Date</th>
@@ -62,5 +70,11 @@
 				</table>
 			</div>
 		</div>
+		
+		<!-- tab 3 "file upload" -->
+		<div role="tabpanel" class="tab-pane fade" id="output">
+		<form action="/file-upload" class="dropzone" id="my-awesome-dropzone"></form>
+		
+		
 	</body>
 </html>
