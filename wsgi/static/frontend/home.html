@@ -7,10 +7,9 @@
 		<link rel="stylesheet" href="css/font-awesome.min.css">
 		
 		<! Javascript -->
-		<script data-main="scripts/main" src="scripts/require.js"></script>
 		<script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
 		<script src="js/bootstrap.min.js"></script>
-		<script src="functions.js"></script>
+		<script src="main.js"></script>
 		<script src="js/dropzone.js"></script>
 	</head>
 	<body onload="firstLoad()">
@@ -72,9 +71,11 @@
 		</div>
 		
 		<!-- tab 3 "file upload" -->
-		<div role="tabpanel" class="tab-pane fade" id="output">
-		<form action="/file-upload" class="dropzone" id="my-awesome-dropzone"></form>
+		<div role="tabpanel" class="tab-pane fade" id="fileupload">
+			<form action="/file-upload" class="dropzone" id="my-awesome-dropzone"></form>
+		</div>
 		
+		<!-- Ending of tab pane -->
 		
 	</body>
 </html>
