@@ -26,7 +26,7 @@ def home_page():
 	return homepage()
 
 def gen_compute_endpoint(runner):
-    input_data = request.get_json()
+    input_data = request.get_json(force=False)
     if not (isinstance(input_data, dict)
             and isinstance(input_data.get('buy'), list)
             and isinstance(input_data.get('sell'), list)):
@@ -54,8 +54,6 @@ def gen_compute_endpoint(runner):
 	    mail.send(msg)
     return jsonify(result)
 
-
-
 @app.route("/compute", methods=['POST'])
 def compute_endpoint():
     return gen_compute_endpoint(run_problem)
@@ -63,6 +61,11 @@ def compute_endpoint():
 @app.route("/greedy", methods=['POST'])
 def greedy_endpoint():
     return gen_compute_endpoint(run_greedy)
+
+# function that pulls trades from the SEC database.
+@app.route("/pullSEC", methods=['POST'])
+def pullSEC():
+    return pull_trades()
 
 if __name__ == "__main__":
     # the reloader would be nice but it doesn't work with subprocesses,
