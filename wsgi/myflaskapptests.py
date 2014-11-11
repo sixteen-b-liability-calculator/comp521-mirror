@@ -34,7 +34,7 @@ class FlaskrTestCase(unittest.TestCase):
 
     # This test can be flaky depending on the connection to the SEC database
     def test_pull_trades(self):
-        jsonData = json.dumps({ 'year': 2007, 'quarter': 1, 'indexType': "master", 'cik': 1000180 })
+        jsonData = json.dumps({ "year": 2007, "quarter": 1, "cik": 1000180 })
         rv = self.app.post('/pullSEC', content_type= 'application/json', data = jsonData)
         data = json.loads(rv.get_data())
 

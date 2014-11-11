@@ -14,8 +14,8 @@ def pull_trades():
     input_data = request.get_json()
     year = input_data.get('year')
     quarter = input_data.get('quarter')
-    indexType = input_data.get('indexType')
     cik = input_data.get('cik')
+    indexType = "master"
 
     ftp = FTP('ftp.sec.gov')
     indexDirPath = 'edgar/full-index/'+str(year)+'/QTR'+str(quarter)+'/'+indexType+'.gz'
