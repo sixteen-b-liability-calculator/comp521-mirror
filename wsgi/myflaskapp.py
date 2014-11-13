@@ -62,11 +62,18 @@ def compute_endpoint():
 def greedy_endpoint():
     return gen_compute_endpoint(run_greedy)
 
+<<<<<<< HEAD
 # function that pulls trades from the SEC database. 
 @app.route("/pullSEC", methods=['POST'])
 def pullSEC():
     return pull_trades()
     
+=======
+# function that pulls trades from the SEC database.
+@app.route("/pullSEC", methods=['POST'])
+def pullSEC():
+    return pull_trades()
+>>>>>>> 0e49c2e9b17ea60a7ac5f02a4adb0c1b8f4364f0
 
 if __name__ == "__main__":
     # the reloader would be nice but it doesn't work with subprocesses,
