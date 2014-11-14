@@ -40,7 +40,5 @@ class FlaskrTestCase(unittest.TestCase):
 
         assert data['buys'][0] == {"day": 11,"month": 1,"number": 2000,"price": 44.1, "year": 2007}
 
-
-
 if __name__ == '__main__':
     unittest.main()
