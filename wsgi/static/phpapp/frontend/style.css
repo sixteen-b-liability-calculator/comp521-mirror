@@ -1,0 +1,15 @@
+.indent {
+	padding-left: 20px;
+}
+.cornerindent {
+	padding-left: 20px; padding-top: 20px;
+}
+td:not(.theader) {
+	text-align: center;
+}
+.theader {
+	font-weight: bold;
+}
+.shrink {
+	width: 1000px;
+}
