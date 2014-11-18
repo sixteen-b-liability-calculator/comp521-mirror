@@ -127,6 +127,7 @@ function inputToJSON(){
 function printOutput(data){
 	
 	alert(data);
+	
     testData = data.split("\"");
     var pday, pmonth, pnumber, pprice, pyear, sday, smonth, snumber, sprice, syear, count;
     table = document.getElementById("pairings");
