@@ -112,7 +112,7 @@ function inputToJSON(){
 	    ({type: "POST",
 		data: jsonData,
 		contentType: "application/json",
-		success: handle_response,
+		success: handle_response(data),
 		error: function(data) {
 			document.open();
 			document.write(data.responseText);
