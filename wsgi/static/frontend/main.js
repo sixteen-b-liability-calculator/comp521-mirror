@@ -125,12 +125,12 @@ function inputToJSON(){
 }
 
 function handle_response(data){
-	$('#myTabs li:eq(1) a').tab('show');
 	
     testData = data.split("\"");
     var pday, pmonth, pnumber, pprice, pyear, sday, smonth, snumber, sprice, syear, count;
     table = document.getElementById("pairings");
     var pairingsRow = 0;
+    var maxprofit = 0;
     
     for(i = 0; i < testData.length; i++){
     	if(testData[i] == "buy"){
@@ -154,20 +154,43 @@ function handle_response(data){
 			cell.innerHTML = pmonth + '/' + pday + '/' + pyear;
 			cell.className = 'col-md-1';
 			cell = row.insertCell(1);
-			cell.innerHTML = count;
-			cell.className = 'col-md-1';
-			cell = row.insertCell(2);
 			cell.innerHTML = '$' + pprice;
 			cell.className = 'col-md-1';
-			cell = row.insertCell(3);
+			cell = row.insertCell(2);
 			cell.innerHTML = smonth + '/' + sday + '/' + syear;
 			cell.className = 'col-md-1';
-			cell = row.insertCell(4);
+			cell = row.insertCell(3);
 			cell.innerHTML = '$' + sprice;
 			cell.className = 'col-md-1';
-			cell = row.insertCell(5);
-			cell.innerHTML = '$' + (count*sprice - count*pprice);
+			cell = row.insertCell(4);
+			cell.innerHTML = count;
 			cell.className = 'col-md-1';
+			cell = row.insertCell(5);
+			var profit = count*sprice - count*pprice;
+			cell.innerHTML = '$' + profit;
+			cell.className = 'col-md-1';
+			maxprofit += profit;
     	}
     }
+    // Add summation line
+    row = table.insertRow(pairingsRow+1);
+    for(i = 0; i < 5; i++){
+    	row.insertCell(i);
+    }
+    cell = row.insertCell(5);
+    cell.innerHTML = '___________';
+    
+    // Add max profit
+    row = table.insertRow(pairingsRow+2);
+    for(i = 0; i < 4; i++){
+    	row.insertCell(i);
+    }
+    cell = row.insertCell(4);
+    cell.innerHTML = '<strong>Total</strong>';
+    cell = row.insertCell(5);
+    cell.innerHTML = '$' + maxprofit;
+    
+    document.getElementById("save").style.display = 'block';
+    
+    // <form action="save.php" method="post" id="save"><input type="submit" class="btn btn-default col-md-6" value="Save Data"></form>
 }
