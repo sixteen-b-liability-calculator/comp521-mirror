@@ -112,9 +112,7 @@ function inputToJSON(){
 	    ({type: "POST",
 		data: jsonData,
 		contentType: "application/json",
-		success: function(data){
-					handle_response(data);
-				},
+		success: printOutput,
 		error: function(data) {
 			document.open();
 			document.write(data.responseText);
@@ -126,8 +124,9 @@ function inputToJSON(){
 	$('#myTabs li:eq(1) a').tab('show');
 }
 
-function handle_response(data){
+function printOutput(data){
 	
+	alert(data);
     testData = data.split("\"");
     var pday, pmonth, pnumber, pprice, pyear, sday, smonth, snumber, sprice, syear, count;
     table = document.getElementById("pairings");
