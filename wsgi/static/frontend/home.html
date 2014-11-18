@@ -1,0 +1,82 @@
+<html>
+	<head>
+		<!-- CSS -->
+		<link rel="stylesheet" type="text/css" href="style.css">
+		<link href="css/bootstrap.min.css" rel="stylesheet">
+		<link href="css/datepicker.css" rel="stylesheet">
+		<link rel="stylesheet" href="css/font-awesome.min.css">
+		
+		<! Javascript -->
+		<script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+		<script src="js/bootstrap.min.js"></script>
+		<script src="main.js"></script>
+		<script src="js/dropzone.js"></script>
+	</head>
+	<body onload="firstLoad()">
+		<!-- Nav tabs -->
+		<ul id="myTabs" class="nav nav-tabs" role="tablist">
+		  <li role="presentation" class="active"><a href="#input" role="tab" data-toggle="tab">Input</a></li>
+		  <li role="presentation"><a href="#output" role="tab" data-toggle="tab">Output</a></li>
+		  <li role="presentation"><a href="#upload" role="tab" data-toggle="tab">Upload (.cvs)</a></li>
+		</ul>
+		
+		<!-- Beginning of tab pane -->
+		<div class="tab-content">
+		
+		<!-- tab 1 "input" -->
+		<div role="tabpanel" class="tab-pane fade in active" id="input">
+			<div class="indent">
+				<h2>Purchases</h2>
+				<div class="indent">
+					<table id="purchases" class="form-group">
+						<tr>
+							<th>Day</th>
+							<th>Month</th>
+							<th>Year</th>
+							<th># Shares</th>
+							<th>Expense</th>
+						</tr>
+					</table>
+				</div>
+	
+				<h2>Sales</h2>
+				<div class="indent">
+					<table id="sales" class="form-group">
+						<tr>
+							<th>Day</th>
+							<th>Month</th>
+							<th>Year</th>
+							<th># Shares</th>
+							<th>Revenue</th>
+						</tr>
+					</table>
+				</div>
+				<a href="#" class="btn btn-default" onclick="inputToJSON()">Compute</a>
+			</div>
+		</div>
+		
+		<!-- tab 2 "output" -->
+		<div role="tabpanel" class="tab-pane fade" id="output">
+			<div class="cornerindent">
+				<table id="pairings">
+					<tr>
+						<th>Date</th>
+						<th>Shares</th>
+						<th>Amount</th>
+						<th>Date</th>
+						<th>Amount</th>
+						<th>Profit</th>
+					</tr>
+				</table>
+			</div>
+		</div>
+		
+		<!-- tab 3 "file upload" -->
+		<div role="tabpanel" class="tab-pane fade" id="fileupload">
+			<form action="/file-upload" class="dropzone" id="dropzonefiles"></form>
+		</div>
+		
+		<!-- Ending of tab pane -->
+		
+	</body>
+</html>
