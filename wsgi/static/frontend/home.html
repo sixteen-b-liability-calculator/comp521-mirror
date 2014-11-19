@@ -17,7 +17,8 @@
 		<ul id="myTabs" class="nav nav-tabs" role="tablist">
 		  <li role="presentation" class="active"><a href="#input" role="tab" data-toggle="tab">Input</a></li>
 		  <li role="presentation"><a href="#output" role="tab" data-toggle="tab">Output</a></li>
-		  <li role="presentation"><a href="#upload" role="tab" data-toggle="tab">Upload (.cvs)</a></li>
+		  <li role="presentation"><a href="#sec" role="tab" data-toggle="tab">SEC Database</a></li>
+		  <!--<li role="presentation"><a href="#upload" role="tab" data-toggle="tab">Upload (.cvs)</a></li>-->
 		</ul>
 		
 		<!-- Beginning of tab pane -->
@@ -30,28 +31,32 @@
 				<div class="indent">
 					<table id="purchases" class="form-group">
 						<tr>
-							<th>Day</th>
 							<th>Month</th>
+							<th>Day</th>
 							<th>Year</th>
 							<th># Shares</th>
 							<th>Expense</th>
 						</tr>
 					</table>
+					 <a href="#" class="btn btn-default" onclick="purchaseRow()">Add Row <i class="fa fa-plus"></i></a>
 				</div>
 	
 				<h2>Sales</h2>
 				<div class="indent">
 					<table id="sales" class="form-group">
 						<tr>
-							<th>Day</th>
 							<th>Month</th>
+							<th>Day</th>
 							<th>Year</th>
 							<th># Shares</th>
 							<th>Revenue</th>
 						</tr>
 					</table>
+					 <a href="#" class="btn btn-default" onclick="saleRow()">Add Row <i class="fa fa-plus"></i></a>
 				</div>
-				<a href="#" class="btn btn-default" onclick="inputToJSON()">Compute</a>
+				<div style="padding-top:10px">
+					<a href="#" class="btn btn-default" onclick="inputToJSON()">Compute</a>
+				</div>
 			</div>
 		</div>
 		
@@ -71,11 +76,35 @@
 			</div>
 		</div>
 		
+		
 		<!-- tab 3 "file upload" -->
 		<div role="tabpanel" class="tab-pane fade" id="fileupload">
 			<form action="/file-upload" class="dropzone" id="dropzonefiles"></form>
 		</div>
-		
+		<!-- Ending of tab pane -->
+		<!-- tab 3 "file upload" -->
+		<div role="tabpanel" class="tab-pane fade" id="sec">
+			<div class="indent">
+				<h2>Purchases</h2>
+				<div class="indent">
+					<table id="purchases" class="form-group">
+						<tr>
+							<th>Year</th>
+							<th>Quarter</th>
+							<th>CIK</th>
+						</tr>
+						<tr>
+							<td><input type="text" id="secYear" class="form-control col-md-1"></td>
+							<td><input type="text" id="secQuarter" class="form-control col-md-1"></td>
+							<td><input type="text" id="secCIK" class="form-control col-md-1"></td>
+						</tr>
+					</table>
+				</div>
+				<div style="padding-top:10px">
+					<a href="#" class="btn btn-default" onclick="pullSEC()">Pull Records</a>
+				</div>
+			</div>
+		</div>
 		<!-- Ending of tab pane -->
 		
 	</body>
