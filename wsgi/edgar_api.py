@@ -19,7 +19,7 @@ def pull_trades():
         endYear = input_data.get('endYear')
         endMonth = input_data.get('endMonth')
     except Exception:
-        return FourhundredException("Input Error")
+        return ("Input Error", 400, [])
     
     cik = input_data.get('cik')
 
