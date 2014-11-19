@@ -7,9 +7,7 @@ import coopr.environ
 from numbers import Integral
 import datetime
 
-class FourhundredException(Exception):
-    def __init__(self, msg):
-        self.msg = msg
+from aux_code.httpExceptions import *
 
 class Trade:
     def __init__(self, number=None, price=None, year=None, month=None, day=None, **extra):
