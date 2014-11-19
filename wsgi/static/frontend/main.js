@@ -254,15 +254,15 @@ function printOutput(data){
 }
 
 function pullSEC(){
-	secBeginYear = $("#secStartYear").val();
-	secBeginMonth = $("#secStartMonth").val();
+	secStartYear = $("#secStartYear").val();
+	secStartMonth = $("#secStartMonth").val();
 	secEndYear = $("#secEndYear").val();
 	secEndMonth = $("#secEndMonth").val();
 
 	secCIK = $("#secCIK").val();
 	
-	secJSON = '{"startYear":'+secStartYear+',"startMonth":'+secStartMonth+',"endYear":'+secEndYear+',"endMonth":'+secEndMonth+',"cik":'+secCIK+'}';
-	
+	secJSON = '{ "startYear":'+secStartYear+',"startMonth":'+secStartMonth+',"endYear":'+secEndYear+',"endMonth":'+secEndMonth+',"cik":'+secCIK+'}';
+
 	$.ajax( "/pullSEC",
 	    ({type: "POST",
 		data: secJSON,
