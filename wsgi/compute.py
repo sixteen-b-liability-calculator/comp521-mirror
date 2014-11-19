@@ -23,9 +23,7 @@ class Trade:
         return dict(number=self.number, price=self.price, year=self.date.year,
                 month=self.date.month, day=self.date.day, **self.extra)
 
-def introduces_liability(buy, sell, anniversary_days_back):
-    profitable = sell.price > buy.price
-
+def dates_within_range(buy, sell, stella_correction, jammies_correction):
     earlier_date = min(sell.date, buy.date)
     later_date = max(sell.date, buy.date)
 
@@ -33,67 +31,45 @@ def introduces_liability(buy, sell, anniversary_days_back):
     # 1. find a "hypothetical anniversary" tuple of the earlier_date, e.g.:
     #    date(2001,08,31) -> (2001,14,31)
     #    date(2001,07,01) -> (2001,13,01)
-    # 2. adjust the day of that tuple according to anniversary_days_back, e.g.:
-    #    (2001,14,31), 1 days back -> (2001,14,30)
-    #    (2001,13,01), 0 days back -> (2001,13,01)
-    #    (2001,13,01), 1 days back -> (2001,13,-0)
-    #    (2001,13,01), 2 days back -> (2001,13,-1)
-    # 3. if days is non-positive, decrement month; now non-positive days -N (N
-    #    may be zero) represent days really in the given month
-    #    NB we can't end up with month 0 like this since we only have months 7
-    #    and greater after step 1
-    #    (2001,13,-0) -> (2001,12,-0)
-    #    (2001,13,-1) -> (2001,12,-1)
-    # 4. fixup the month/year without respect to the day
-    #    (2001,14,30) -> (2002,02,30)
-    #    (2001,13,01) -> (2002,01,01)
-    #    (2001,12,-0) -> (2001,12,-0)
-    #    (2001,12,-1) -> (2001,12,-1)
-    # 5. determine "first invalid day" based on tuple by pushing past-last-day
-    #    tuples to the first day of the next month; mapping non-positive day
-    #    values -N (N may be 0), to the day N days before the last day of the
-    #    month; and mapping valid dates to themselves
-    #    (2002,02,30) -> date(2002,03,01)
-    #    (2002,01,01) -> date(2002,01,01)
-    #    (2001,12,-0) -> date(2001,12,31)
-    #    (2001,12,-1) -> date(2001,12,30)
-    # 6. the later_date makes a valid trade iff it falls /before/ the "first
-    #    invalid day"
+    # 2. end-of-month adjustment.
+    #    Increment the month and set day to 1 to make a real date object
+    #    Decrement this by a day; now we have the end of the month.
+    #    Iff date is larger than this, then:
+    #    if Jammies is ON: use the last-day date
+    #    if Jammies is OFF: use the first-day date
+    # 3. stella adjustment, iff stella is ON: take the previous real day
+    # this yields the first day on which the trade could not be paired
 
-    def month_fixup(und):
-        if und[1] > 12:
-            und[1] -= 12
-            und[0] += 1
+    def first_day_of_next_month(und):
+        if und[1] > 11:
+            return datetime.date(und[0] + 1, und[1] - 11, 1)
+        else:
+            return datetime.date(und[0], und[1] + 1, 1)
+    def date_less_one(dat):
+        return dat - datetime.timedelta(days=1)
 
-    # steps 1 and 2
-    undate = [earlier_date.year, earlier_date.month + 6, earlier_date.day - anniversary_days_back]
-    # step 3
-    if undate[2] < 1:
-        undate[1] -= 1
-    # step 4
-    month_fixup(undate)
-    # determine the number of days in the real month; this is where step 2 came
-    # in handy to simplify matters since undate[1] is always the one
-    # we need to know
-    if undate[1] == 2:
-        # find the day of the day before march 1
-        days_in_month = (datetime.date(undate[0], 3, 1) - datetime.timedelta(days=1)).day
-    elif undate[1] in [1, 3, 5, 7, 8, 10, 12]:
-        days_in_month = 31
+    # step 1
+    undate = [earlier_date.year, earlier_date.month + 6, earlier_date.day]
+    # step 2
+    first_day = first_day_of_next_month(undate)
+    last_day = date_less_one(first_day)
+    if undate[2] > last_day.day:
+        if jammies_correction:
+            real_anniversary = last_day
+        else:
+            real_anniversary = first_day
     else:
-        days_in_month = 30
-    # step 5
-    if undate[2] < 1: # non-positive values:
-        undate[2] += days_in_month
-    elif undate[2] > days_in_month:
-        undate[2] -= days_in_month
-        undate[1] += 1
-        month_fixup(undate)
-    first_invalid_date = datetime.date(*undate)
+        real_anniversary = datetime.date(last_day.year, last_day.month, undate[2])
+    # step 3
+    if stella_correction:
+        first_invalid_date = date_less_one(real_anniversary)
+    else:
+        first_invalid_date = real_anniversary
 
-    sixmonth = later_date < first_invalid_date
+    return later_date < first_invalid_date
 
-    return profitable and sixmonth
+def introduces_liability(buy, sell, stella_correction, jammies_correction):
+    return (sell.price > buy.price) and dates_within_range(buy, sell, stella_correction, jammies_correction)
 
 def validate_buysell(buysellstr, input_list):
     ret = []
@@ -106,7 +82,7 @@ def validate_buysell(buysellstr, input_list):
     except (ValueError, TypeError):
         raise FourhundredException("invalid '%s' entry" % buysellstr)
 
-def make_model(purchases, sales):
+def make_model(purchases, sales, stella_correction, jammies_correction):
     model = ConcreteModel()
 
     # purchases
@@ -124,7 +100,7 @@ def make_model(purchases, sales):
     # profitable pairings
     profits = list((p,s)
                 for p in range(len(purchases)) for s in range(len(sales))
-                if introduces_liability(purchases[p], sales[s], 0))
+                if introduces_liability(purchases[p], sales[s], stella_correction, jammies_correction))
 
     model.pairings = Set(within=model.purchases * model.sales,
             initialize=list((p+1,s+1) for (p,s) in profits))
@@ -167,10 +143,10 @@ def make_model(purchases, sales):
 
     return model
 
-def run_problem(purchases, sales):
+def run_problem(purchases, sales, stella_correction, jammies_correction):
     opt = SolverFactory('glpk')
 
-    model = make_model(purchases,sales)
+    model = make_model(purchases,sales,stella_correction,jammies_correction)
 
     results = opt.solve(model)
 
@@ -201,7 +177,7 @@ def run_problem(purchases, sales):
 
     return ret
 
-def run_greedy(purchases, sales):
+def run_greedy(purchases, sales, stella_correction, jammies_correction):
     s_purchases = sorted(purchases, key=lambda t: t.price)
     s_sales = sorted(sales, key=lambda t: -t.price)
     s_sales_amts = map(lambda s: s.number, s_sales)
@@ -217,7 +193,7 @@ def run_greedy(purchases, sales):
         for i in range(0, len(s_sales)):
             s = s_sales[i]
             s_amt = s_sales_amts[i]
-            if amt > 0 and s_amt > 0 and introduces_liability(p, s, 0):
+            if amt > 0 and s_amt > 0 and introduces_liability(p, s, stella_correction, jammies_correction):
                 if amt >= s_amt:
                     s_sales_amts[i] = 0
                     amt -= s_amt
