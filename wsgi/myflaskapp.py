@@ -38,10 +38,16 @@ def gen_compute_endpoint(runner):
         purchases = validate_buysell('buy', input_data.get('buy'))
         sales = validate_buysell('sell', input_data.get('sell'))
         recipient = input_data.get('recipient')
+        stella_correction = input_data.get('stella_correction', True)
+        jammies_correction = input_data.get('jammies_correction', True)
+        if not isinstance(stella_correction, bool):
+            raise FourhundredException("illegal stella_correction value")
+        if not isinstance(jammies_correction, bool):
+            raise FourhundredException("illegal jammies_correction value")
     except FourhundredException as e:
         return (e.msg, 400, [])
 
-    result = runner(purchases,sales)
+    result = runner(purchases,sales,stella_correction,jammies_correction)
     output = []
     for (a,b,c) in result['pairs']:
         output.append(dict(buy=a.recreate_dict(), sell=b.recreate_dict(), count=c))
