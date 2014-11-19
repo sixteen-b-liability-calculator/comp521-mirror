@@ -254,9 +254,9 @@ function printOutput(data){
 }
 
 function pullSEC(){
-	secYear = $("#secYear" + i).val();
-	secQuarter = $("#secQuarter" + i).val();
-	secCIK = $("#secCIK" + i).val();
+	secYear = $("#secYear").val();
+	secQuarter = $("#secQuarter").val();
+	secCIK = $("#secCIK").val();
 	
 	secJSON = '{"year":'+secYear+',"quarter":'+secQuarter+',"cik":'+secCIK+'}';
 	
