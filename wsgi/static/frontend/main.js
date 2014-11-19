@@ -274,7 +274,7 @@ function pullSEC(){
 }
 
 function populate(data){
-	$('#myTabs li:eq(1) a').tab('show');
+	$('#myTabs li:eq(0) a').tab('show');
 
 	$("#purchases tr:gt(0)").remove();
 	$("#sales tr:gt(0)").remove();
