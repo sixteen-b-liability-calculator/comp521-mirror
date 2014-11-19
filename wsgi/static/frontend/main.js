@@ -126,9 +126,7 @@ function inputToJSON(){
 
 function printOutput(data){
 	
-	testData = JSON.stringify(data);
-	alert(testData);
-    testData = newData.split("\"");
+	testData = JSON.stringify(data).split("\"");
     var pday, pmonth, pnumber, pprice, pyear, sday, smonth, snumber, sprice, syear, count;
     table = document.getElementById("pairings");
     var pairingsRow = 0;
