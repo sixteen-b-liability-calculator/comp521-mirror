@@ -5,37 +5,68 @@ import xml.etree.ElementTree as ET
 import tempfile
 import re
 import gzip
+from aux_code.httpExceptions import *
+from aux_code.dateFunctions import *
 
 def homepage():
     return ("Whoopsie", 400, [])
 
 def pull_trades():
-# TODO(valakuzh) Who will test the inputs? Front-end or backend?
-    input_data = request.get_json()
-    year = input_data.get('year')
-    quarter = input_data.get('quarter')
+    try:
+        input_data = request.get_json()
+        startYear = input_data.get('startYear')
+        startMonth = input_data.get('startMonth')
+        endYear = input_data.get('endYear')
+        endMonth = input_data.get('endMonth')
+    except Exception:
+        return FourhundredException("Input Error")
+    
     cik = input_data.get('cik')
+
+    startQuarter = month2quarter(startMonth)
+    endQuarter = month2quarter(endMonth)
     indexType = "master"
 
+    #Ensure that you won't run into an infinite loop due to bad input
+    errorMsg = isStartBeforeEnd(startYear,startMonth,endYear, endMonth)
+    if not (errorMsg == ""):
+        return (errorMsg, 400, [])
+
+    year = startYear
+    quarter = startQuarter
+
     ftp = FTP('ftp.sec.gov')
-    indexDirPath = 'edgar/full-index/'+str(year)+'/QTR'+str(quarter)+'/'+indexType+'.gz'
     totalBuys = []
     totalSells = []
     try: 
         ftp.login()
-        binaryIndexFile = pull_edgar_file(ftp, indexDirPath)
-        indexFile = ungzip_tempfile(binaryIndexFile)
-        edgarFileURLs = parse_idx(indexFile, cik, ['4']) # TODO(valakuzh) allow specification of types of documents
-        for url in edgarFileURLs:
-            fileTrades = pull_edgar_file(ftp, url)
-            xmlTree = parse_section_4(fileTrades)
-            trades = return_trade_information_from_xml(xmlTree)
-            for trade in trades[0]:
-                totalBuys.append(trade)
-            for trade in trades[1]:
-                totalSells.append(trade)
-    except FourhundredException as e:
-        return (e.msg, 400, [])
+        while (isStartBeforeEnd(year, quarter, endYear, endQuarter) == ""):
+            indexDirPath = 'edgar/full-index/'+str(year)+'/QTR'+str(quarter)+'/'+indexType+'.gz'
+            binaryIndexFile = pull_edgar_file(ftp, indexDirPath)
+            indexFile = ungzip_tempfile(binaryIndexFile)
+            edgarFileURLs = parse_idx(indexFile, cik, ['4']) # TODO(valakuzh) allow specification of types of documents
+            for url in edgarFileURLs:
+                fileTrades = pull_edgar_file(ftp, url)
+                xmlTree = parse_section_4(fileTrades)
+                trades = return_trade_information_from_xml(xmlTree)
+                for trade in trades[0]:
+                    if (isStartBeforeEnd(trade['year'],trade['month'],endYear,endMonth) == ""):
+                        totalBuys.append(trade)
+                for trade in trades[1]:
+                    if (isStartBeforeEnd(trade['year'],trade['month'],endYear,endMonth) == ""):
+                        totalSells.append(trade)
+
+            #Pull the next index file
+            if (quarter<4):
+                quarter = quarter + 1
+            else:
+                year = year + 1
+                quarter = 1
+
+    except FivehundredException as e:
+        return (e.msg, 504, [])
+#    except Exception:
+#        return ("Edgar error", 504, [])
     finally:
         ftp.close()
     return jsonify({"buys" : totalBuys, "sells": totalSells})
@@ -45,8 +76,12 @@ def pull_trades():
 def pull_edgar_file(ftp, directoryPath):
 
     pracFile = tempfile.TemporaryFile()
-
+    print directoryPath
     ftp.retrbinary('RETR '+ directoryPath, pracFile.write)
+#    try:
+#        ftp.retrbinary('RETR '+ directoryPath, pracFile.write)
+#    except Exception as e:
+#        raise FivehundredException("File not found in Edgar database")
     pracFile.seek(0)
     return pracFile
 
@@ -109,10 +144,13 @@ def return_trade_information_from_xml(tree):
     buy = []
     sell = []
     for node in tree.iter('nonDerivativeTransaction'):
-        shares = float(node.find('.//transactionShares/value').text)
-        date = node.find('.//transactionDate/value').text
-        pricePerShare = float(node.find('.//transactionPricePerShare/value').text)
-        BuyOrSell = node.find('.//transactionAcquiredDisposedCode/value').text
+        try:
+            shares = float(node.find('.//transactionShares/value').text)
+            date = node.find('.//transactionDate/value').text
+            pricePerShare = float(node.find('.//transactionPricePerShare/value').text)
+            BuyOrSell = node.find('.//transactionAcquiredDisposedCode/value').text
+        except Exception:
+            continue    
 
         # Parse date to get day month and year
         dateElement = datetime.strptime(date,'%Y-%m-%d')
@@ -121,5 +159,4 @@ def return_trade_information_from_xml(tree):
             buy.append(dict(number=shares, price=pricePerShare, year=dateElement.year, month=dateElement.month, day=dateElement.day))
         elif (BuyOrSell == 'A'): # Implies buy
             sell.append(dict(number=shares, price=pricePerShare, year=dateElement.year, month=dateElement.month, day=dateElement.day))
-
     return [buy,sell]
