@@ -76,7 +76,7 @@ function firstLoad(){
 
 function purchaseRow(){
 	table = document.getElementById("purchases");
-	i = $('#purchases tr').length;
+	i = $('#input #purchases tr').length;
 	row = table.insertRow(i);
 		
 		cell = row.insertCell(0);
@@ -102,7 +102,7 @@ function purchaseRow(){
 
 function saleRow(){
 	table = document.getElementById("sales");
-	i = $('#sales tr').length;
+	i = $('#input #sales tr').length;
 	row = table.insertRow(i);
 		
 		cell = row.insertCell(0);
