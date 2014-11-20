@@ -18,112 +18,50 @@ var returnData = '{"pairs":[{"buy": {"day": 29,"month": 10,"number": 28,"price":
 
 var beforeJSON = '{"buys":[{"day":11,"month":1,"number":2000,"price":44.1,"year":2007},{"day":11,"month":1,"number":1200,"price":44.39,"year":2007},{"day":11,"month":1,"number":3600,"price":44.76,"year":2007},{"day":11,"month":1,"number":2500,"price":45.04,"year":2007},{"day":11,"month":1,"number":700,"price":45.31,"year":2007},{"day":9,"month":2,"number":2000,"price":40.2,"year":2007},{"day":9,"month":2,"number":750,"price":40.6,"year":2007},{"day":23,"month":9,"number":15730,"price":54.84,"year":2006}],"sells":[{"day":11,"month":1,"number":10000,"price":34.585,"year":2007},{"day":9,"month":2,"number":5000,"price":3.125,"year":2007},{"day":9,"month":3,"number":5000,"price":2.5,"year":2007}]}';
 
-// # of input rows
-var inputCount = 10;
+var defaultInputCount = 10;
 
-// page's first page load. two tabs
+function insertPSRow(table){
+    i = table.rows.length
+    row = table.insertRow();
+
+    cell = row.insertCell();
+    cell.innerHTML = '<input type="text" id="pmonth'+ i +'" class="form-control">';
+    cell.className = 'col-md-1';
+    
+    cell = row.insertCell();
+    cell.innerHTML = '<input type="text" id="pday'+ i +'" class="form-control">';
+    cell.className = 'col-md-1';
+    
+    cell = row.insertCell();
+    cell.innerHTML = '<input type="text" id="pyear'+ i +'" class="form-control">';
+    cell.className = 'col-md-1';
+    
+    cell = row.insertCell();
+    cell.innerHTML = '<input type="text" id="pshare'+ i +'" class="form-control">';
+    cell.className = 'col-md-2';
+    
+    cell = row.insertCell();
+    cell.innerHTML = '<div class="input-group"><span class="input-group-addon">$</span><input type="text" id="pvalue'+ i +'" class="value form-control">';
+    cell.className = 'col-md-6';
+}
+
 function firstLoad(){
-	table = document.getElementById("purchases");
-	for(i = 0; i < inputCount; i++){
-		row = table.insertRow(i+1);
-		
-		cell = row.insertCell(0);
-		cell.innerHTML = '<input type="text" id="pmonth'+ i +'" class="form-control">';
-		cell.className = 'col-md-1';
-		
-		cell = row.insertCell(1);
-		cell.innerHTML = '<input type="text" id="pday'+ i +'" class="form-control">';
-		cell.className = 'col-md-1';
-		
-		cell = row.insertCell(2);
-		cell.innerHTML = '<input type="text" id="pyear'+ i +'" class="form-control">';
-		cell.className = 'col-md-1';
-		
-		cell = row.insertCell(3);
-		cell.innerHTML = '<input type="text" id="pshare'+ i +'" class="form-control">';
-		cell.className = 'col-md-2';
-		
-		cell = row.insertCell(4);
-		cell.innerHTML = '<div class="input-group"><span class="input-group-addon">$</span><input type="text" id="pvalue'+ i +'" class="value form-control">';
-		cell.className = 'col-md-6';
-	}
-	
-	table = document.getElementById("sales");
-	for(i = 0; i < inputCount; i++){
-		row = table.insertRow(i+1);
-		
-		cell = row.insertCell(0);
-		cell.innerHTML = '<input type="text" id="smonth'+ i +'" class="form-control">';
-		cell.className = 'col-md-1';
-		
-		cell = row.insertCell(1);
-		cell.innerHTML = '<input type="text" id="sday'+ i +'" class="form-control">';
-		cell.className = 'col-md-1';
-		
-		cell = row.insertCell(2);
-		cell.innerHTML = '<input type="text" id="syear'+ i +'" class="form-control">';
-		cell.className = 'col-md-1';
-		
-		cell = row.insertCell(3);
-		cell.innerHTML = '<input type="text" id="sshare'+ i +'" class="form-control">';
-		cell.className = 'col-md-2';
-		
-		cell = row.insertCell(4);
-		cell.innerHTML = '<div class="input-group"><span class="input-group-addon">$</span><input type="text" id="svalue'+ i +'" class="value form-control">';
-		cell.className = 'col-md-6';
-	}
+    purchases = document.getElementById("purchases");
+    sales = document.getElementById("sales");
+    for(i = 0; i < defaultInputCount; ++i){
+	insertPSRow(purchases);
+	insertPSRow(sales);
+    }
 }
 
 function purchaseRow(){
-	table = document.getElementById("purchases");
-	i = $('#input #purchases tr').length;
-	row = table.insertRow(i);
-		
-		cell = row.insertCell(0);
-		cell.innerHTML = '<input type="text" id="pmonth'+ i +'" class="form-control">';
-		cell.className = 'col-md-1';
-		
-		cell = row.insertCell(1);
-		cell.innerHTML = '<input type="text" id="pday'+ i +'" class="form-control">';
-		cell.className = 'col-md-1';
-		
-		cell = row.insertCell(2);
-		cell.innerHTML = '<input type="text" id="pyear'+ i +'" class="form-control">';
-		cell.className = 'col-md-1';
-		
-		cell = row.insertCell(3);
-		cell.innerHTML = '<input type="text" id="pshare'+ i +'" class="form-control">';
-		cell.className = 'col-md-2';
-		
-		cell = row.insertCell(4);
-		cell.innerHTML = '<div class="input-group"><span class="input-group-addon">$</span><input type="text" id="pvalue'+ i +'" class="value form-control">';
-		cell.className = 'col-md-6';
+    purchases = document.getElementById("purchases");
+    insertPSRow(purchases);
 }
 
 function saleRow(){
-	table = document.getElementById("sales");
-	i = $('#input #sales tr').length;
-	row = table.insertRow(i);
-		
-		cell = row.insertCell(0);
-		cell.innerHTML = '<input type="text" id="pmonth'+ i +'" class="form-control">';
-		cell.className = 'col-md-1';
-		
-		cell = row.insertCell(1);
-		cell.innerHTML = '<input type="text" id="pday'+ i +'" class="form-control">';
-		cell.className = 'col-md-1';
-		
-		cell = row.insertCell(2);
-		cell.innerHTML = '<input type="text" id="pyear'+ i +'" class="form-control">';
-		cell.className = 'col-md-1';
-		
-		cell = row.insertCell(3);
-		cell.innerHTML = '<input type="text" id="pshare'+ i +'" class="form-control">';
-		cell.className = 'col-md-2';
-		
-		cell = row.insertCell(4);
-		cell.innerHTML = '<div class="input-group"><span class="input-group-addon">$</span><input type="text" id="pvalue'+ i +'" class="value form-control">';
-		cell.className = 'col-md-6';
+    sales = document.getElementById("sales");
+    insertPSRow(sales);
 }
 
 function inputToJSON(){
