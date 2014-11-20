@@ -25,31 +25,31 @@ function insertPSRow(table){
     row = table.insertRow();
 
     cell = row.insertCell();
-    cell.innerHTML = '<input type="text" id="pmonth" class="form-control">';
+    cell.innerHTML = '<input type="text" id="month" class="form-control">';
     cell.className = 'col-md-1';
     
     cell = row.insertCell();
-    cell.innerHTML = '<input type="text" id="pday" class="form-control">';
+    cell.innerHTML = '<input type="text" id="day" class="form-control">';
     cell.className = 'col-md-1';
     
     cell = row.insertCell();
-    cell.innerHTML = '<input type="text" id="pyear" class="form-control">';
+    cell.innerHTML = '<input type="text" id="year" class="form-control">';
     cell.className = 'col-md-1';
     
     cell = row.insertCell();
-    cell.innerHTML = '<input type="text" id="pshare" class="form-control">';
+    cell.innerHTML = '<input type="text" id="shares" class="form-control">';
     cell.className = 'col-md-2';
     
     cell = row.insertCell();
-    cell.innerHTML = '<div class="input-group"><span class="input-group-addon">$</span><input type="text" id="pvalue" class="value form-control">';
+    cell.innerHTML = '<div class="input-group"><span class="input-group-addon">$</span><input type="text" id="value" class="value form-control">';
     cell.className = 'col-md-6';
 
     return row;
 }
 
 function firstLoad(){
-    purchases = document.getElementById("purchases");
-    sales = document.getElementById("sales");
+    purchases = $("#purchases")[0];
+    sales = $("#sales")[0];
     for(i = 0; i < defaultInputCount; ++i){
 	insertPSRow(purchases);
 	insertPSRow(sales);
@@ -57,67 +57,58 @@ function firstLoad(){
 }
 
 function purchaseRow(){
-    purchases = document.getElementById("purchases");
+    purchases = $("#purchases")[0];
     insertPSRow(purchases);
 }
 
 function saleRow(){
-    sales = document.getElementById("sales");
+    sales = $("#sales")[0];
     insertPSRow(sales);
 }
 
-function inputToJSON(){
-	// Store input values into arrays
-	for(i = 0; i < 10; i++){
-		pdays[i] = $("#pday" + i).val();
-		pmonths[i] = $("#pmonth" + i).val();
-		pyears[i] = $("#pyear" + i).val();
-		pshares[i] = $("#pshare" + i).val();
-		pvalues[i] = $("#pvalue" + i).val();
-		
-		sdays[i] = $("#sday" + i).val();
-		smonths[i] = $("#smonth" + i).val();
-		syears[i] = $("#syear" + i).val();
-		sshares[i] = $("#sshare" + i).val();
-		svalues[i] = $("#svalue" + i).val();
-	}
-	
-	// Format data into JSON
-	jsonData = '{"buy":[';
-	for(i = 0; i < inputCount; i++){
-		// Rough validation (days is empty)
-		if(pdays[i] != ''){
-			jsonData += '{"number":' + pshares[i] + ',"price":' + pvalues[i] + ',"year":' + pyears[i] + ',"month":' + pmonths[i] + ',"day":' + 				pdays[i] + '}';
-			jsonData += ','
-		}
-	}
-	jsonData = jsonData.substring(0, jsonData.length - 1);
-	jsonData += '],"sell":[';
-	for(i = 0; i < inputCount; i++){
-		if(sdays[i] != ''){
-			jsonData += '{"number":' + sshares[i] + ',"price":' + svalues[i] + ',"year":' + syears[i] + ',"month":' + smonths[i] + ',"day":' + 				sdays[i] + '}';
-			jsonData += ','
-		}
-	}
-	jsonData = jsonData.substring(0, jsonData.length - 1);
-	jsonData += ']}';
-	// End format data
+function eltFromRow(row){
+    elt = {};
+    elt.price = parseInt($("#value", row).val());
+    elt.day = parseInt($("#day", row).val());
+    elt.month = parseInt($("#month", row).val());
+    elt.year = parseInt($("#year", row).val());
+    elt.number = parseInt($("#shares", row).val());
+    return elt;
+}
 
-	
-	$.ajax( "/compute",
-	    ({type: "POST",
-		data: jsonData,
-		contentType: "application/json",
-		success: printOutput,
-		error: function(data) {
-			document.open();
-			document.write(data.responseText);
-			document.close();
-		}
-	}))
-	
-	// Switches to second tab
-	$('#myTabs li:eq(1) a').tab('show');
+
+function inputToJSON(){
+    purchasesTable = $("#purchases")[0];
+    salesTable = $("#sales")[0];
+    purchases = []
+    sales = []
+    for(i = 1; i < purchasesTable.rows.length; ++i){
+	row = purchasesTable.rows[i];
+	elt = eltFromRow(row);
+	if(! isNaN(elt.price)){
+	    purchases.push(elt);
+	}
+    }
+    for(i = 1; i < salesTable.rows.length; ++i){
+	row = salesTable.rows[i];
+	elt = eltFromRow(row);
+	if(! isNaN(elt.price)){
+	    sales.push(elt);
+	}
+    }
+    $.ajax( "/compute",
+	({type: "POST",
+	    data: $.toJSON({ "buy": purchases, "sell": sales }),
+	    contentType: "application/json",
+	    success: printOutput,
+	    error: function(data) {
+		    document.open();
+		    document.write(data.responseText);
+		    document.close();
+	    }
+    }))
+    // Switches to second tab
+    $('#myTabs li:eq(1) a').tab('show');
 }
 
 function printOutput(data){
