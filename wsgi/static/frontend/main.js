@@ -60,20 +60,11 @@ function saleRow(){
     insertPSRow(sales);
 }
 
-function eltFromRow(row){
-    elt = {};
-    elt.price = parseInt($("#value", row).val());
-    elt.day = parseInt($("#day", row).val());
-    elt.month = parseInt($("#month", row).val());
-    elt.year = parseInt($("#year", row).val());
-    elt.number = parseInt($("#shares", row).val());
-    return elt;
-}
-
 function readTable(table){
     out = []
     for(i = 1; i < table.rows.length; ++i){
-	elt = {};
+	row = table.rows[i];
+	elt = new Object();
 	elt.price = parseFloat($("#value", row).val());
 	elt.day = parseFloat($("#day", row).val());
 	elt.month = parseFloat($("#month", row).val());
