@@ -4,16 +4,18 @@ from coopr.pyomo import *
 from coopr.opt import SolverFactory, SolverStatus, TerminationCondition
 import coopr.environ
 
-from numbers import Integral
+from numbers import Number
 import datetime
+
+import itertools
 
 from aux_code.httpExceptions import *
 
 class Trade:
     def __init__(self, number=None, price=None, year=None, month=None, day=None, **extra):
-        if not (isinstance(number, Integral) and isinstance(price, Integral)):
+        if not (isinstance(number, Number) and isinstance(price, Number)):
             raise TypeError()
-        if number < 1 or price < 1:
+        if number <= 0 or price <= 0:
             raise ValueError()
         self.number = number
         self.price = price
@@ -84,16 +86,23 @@ def validate_buysell(buysellstr, input_list):
 
 def make_model(purchases, sales, stella_correction, jammies_correction):
     model = ConcreteModel()
+    number_corr = 1
+    price_corr = 1
+    for t in itertools.chain(purchases, sales):
+        while int(number_corr * t.number) != number_corr * t.number:
+            number_corr *= 10
+        while int(price_corr * t.price) != price_corr * t.price:
+            price_corr *= 10
 
     # purchases
     model.purchases = RangeSet(len(purchases))
-    purchase_counts = ((p+1,purchases[p].number) for p in range(len(purchases)))
+    purchase_counts = ((p+1,int(number_corr * purchases[p].number)) for p in range(len(purchases)))
     model.purchase_count = Param(model.purchases,
             initialize=dict(purchase_counts), domain=PositiveIntegers)
 
     # sales
     model.sales = RangeSet(len(sales))
-    sale_counts = ((p+1,sales[p].number) for p in range(len(sales)))
+    sale_counts = ((p+1,int(number_corr * sales[p].number)) for p in range(len(sales)))
     model.sale_count = Param(model.sales,
             initialize=dict(sale_counts), domain=PositiveIntegers)
 
@@ -105,10 +114,11 @@ def make_model(purchases, sales, stella_correction, jammies_correction):
     model.pairings = Set(within=model.purchases * model.sales,
             initialize=list((p+1,s+1) for (p,s) in profits))
 
+    profit_values = dict(((p+1,s+1),int(price_corr * sales[s].price) - int(price_corr * purchases[p].price))
+                            for (p,s) in profits)
     # profit associated with each pairing
     model.profits = Param(model.pairings, domain=PositiveIntegers,
-            initialize=dict(((p+1,s+1),sales[s].price - purchases[p].price)
-                            for (p,s) in profits))
+            initialize=profit_values)
 
     # output counts of each pairing
     model.selected = Var(model.pairings, domain=NonNegativeIntegers)
@@ -141,12 +151,12 @@ def make_model(purchases, sales, stella_correction, jammies_correction):
 
     model.preprocess()
 
-    return model
+    return (number_corr, price_corr, model)
 
 def run_problem(purchases, sales, stella_correction, jammies_correction):
     opt = SolverFactory('glpk')
 
-    model = make_model(purchases,sales,stella_correction,jammies_correction)
+    (number_corr, price_corr, model) = make_model(purchases,sales,stella_correction,jammies_correction)
 
     results = opt.solve(model)
 
@@ -157,7 +167,7 @@ def run_problem(purchases, sales, stella_correction, jammies_correction):
         for (p,s) in model.pairings:
             ct = model.selected[p,s].value
             if ct > 0:
-                output.append((purchases[p-1], sales[s-1], ct))
+                output.append((purchases[p-1], sales[s-1], float(ct) / number_corr))
 
 
     ret = dict(pairs=output, full_result=results.json_repn())
@@ -169,7 +179,7 @@ def run_problem(purchases, sales, stella_correction, jammies_correction):
             # the following procedure for getting the value is right from
             # the coopr source itself...
             key = results.solution.objective.keys()[0]
-            ret['value'] = results.solution.objective[key].value
+            ret['value'] = float(results.solution.objective[key].value) / price_corr
         else:
             ret['status'] = "not solved"
     else:
