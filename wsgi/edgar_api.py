@@ -50,10 +50,10 @@ def pull_trades():
                 xmlTree = parse_section_4(fileTrades)
                 trades = return_trade_information_from_xml(xmlTree)
                 for trade in trades[0]:
-                    if (isStartBeforeEnd(trade['year'],trade['month'],endYear,endMonth) == ""):
+                    if (isWithinTimeRange(trade['year'],trade['month'],startYear,startMonth,endYear,endMonth)):
                         totalBuys.append(trade)
                 for trade in trades[1]:
-                    if (isStartBeforeEnd(trade['year'],trade['month'],endYear,endMonth) == ""):
+                    if (isWithinTimeRange(trade['year'],trade['month'],startYear,startMonth,endYear,endMonth)):
                         totalSells.append(trade)
 
             #Pull the next index file
