@@ -25,24 +25,26 @@ function insertPSRow(table){
     row = table.insertRow();
 
     cell = row.insertCell();
-    cell.innerHTML = '<input type="text" id="pmonth'+ i +'" class="form-control">';
+    cell.innerHTML = '<input type="text" id="pmonth" class="form-control">';
     cell.className = 'col-md-1';
     
     cell = row.insertCell();
-    cell.innerHTML = '<input type="text" id="pday'+ i +'" class="form-control">';
+    cell.innerHTML = '<input type="text" id="pday" class="form-control">';
     cell.className = 'col-md-1';
     
     cell = row.insertCell();
-    cell.innerHTML = '<input type="text" id="pyear'+ i +'" class="form-control">';
+    cell.innerHTML = '<input type="text" id="pyear" class="form-control">';
     cell.className = 'col-md-1';
     
     cell = row.insertCell();
-    cell.innerHTML = '<input type="text" id="pshare'+ i +'" class="form-control">';
+    cell.innerHTML = '<input type="text" id="pshare" class="form-control">';
     cell.className = 'col-md-2';
     
     cell = row.insertCell();
-    cell.innerHTML = '<div class="input-group"><span class="input-group-addon">$</span><input type="text" id="pvalue'+ i +'" class="value form-control">';
+    cell.innerHTML = '<div class="input-group"><span class="input-group-addon">$</span><input type="text" id="pvalue" class="value form-control">';
     cell.className = 'col-md-6';
+
+    return row;
 }
 
 function firstLoad(){
