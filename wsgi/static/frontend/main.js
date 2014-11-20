@@ -1,8 +1,15 @@
 var defaultInputCount = 10;
 
+function removePSRow(button){
+    button.parentElement.parentElement.remove();
+}
+
 function insertPSRow(table){
     i = table.rows.length
     row = table.insertRow();
+
+    cell = row.insertCell();
+    cell.innerHTML = '<input type="button" id="remove" value="X" class="form-control" onClick="removePSRow(this);">';
 
     cell = row.insertCell();
     cell.innerHTML = '<input type="text" id="month" class="form-control">';
