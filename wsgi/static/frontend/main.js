@@ -38,7 +38,7 @@ function insertPSRow(table){
 }
 
 function insertFilingURL(url){
-	return '<a href="'+ url +'" class="btn btn-default btn-xs">Link to filing</a>';
+	return '<a href="'+ url +'" class="btn btn-default btn-xs" target="_blank">Link to filing</a>';
 }
 
 function firstLoad(){
