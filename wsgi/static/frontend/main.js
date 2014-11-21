@@ -185,131 +185,64 @@ function printOutput(data){
 }
 
 function pullSEC(){
-	secStartYear = $("#secStartYear").val();
-	secStartMonth = $("#secStartMonth").val();
-	secEndYear = $("#secEndYear").val();
-	secEndMonth = $("#secEndMonth").val();
+    secStartYear = $("#secStartYear").val();
+    secStartMonth = $("#secStartMonth").val();
+    secEndYear = $("#secEndYear").val();
+    secEndMonth = $("#secEndMonth").val();
 
-	secCIK = $("#secCIK").val();
-	
-	secJSON = '{ "startYear":'+secStartYear+',"startMonth":'+secStartMonth+',"endYear":'+secEndYear+',"endMonth":'+secEndMonth+',"cik":'+secCIK+'}';
+    secCIK = $("#secCIK").val();
+    
+    secJSON = '{ "startYear":'+secStartYear+',"startMonth":'+secStartMonth+',"endYear":'+secEndYear+',"endMonth":'+secEndMonth+',"cik":'+secCIK+'}';
 
-	$.ajax( "/pullSEC",
-	    ({type: "POST",
-		data: secJSON,
-		contentType: "application/json",
-		success: populate,
-		error: function(data) {
-			document.open();
-			document.write(data.responseText);
-			document.close();
-		}
-	}))
+    $.ajax( "/pullSEC",
+        ({type: "POST",
+        data: secJSON,
+        contentType: "application/json",
+        dataType: "json",
+        success: populate,
+        error: function(data) {
+            document.open();
+            document.write(data.responseText);
+            document.close();
+        }
+    }))
 }
 
 function populate(data){
-	$('#myTabs li:eq(0) a').tab('show');
+    $('#myTabs li:eq(0) a').tab('show');
 
-	$("#purchases tr:gt(0)").remove();
-	$("#sales tr:gt(0)").remove();
-	
-	var secData = JSON.stringify(data).split("\"");
-	
-//	var beforeJSON = '{"buys":[{"day":11,"month":1,"number":2000,"price":44.1,"year":2007},{"day":11,"month":1,"number":1200,"price":44.39,"year":2007},{"day":11,"month":1,"number":3600,"price":44.76,"year":2007},{"day":11,"month":1,"number":2500,"price":45.04,"year":2007},{"day":11,"month":1,"number":700,"price":45.31,"year":2007},{"day":9,"month":2,"number":2000,"price":40.2,"year":2007},{"day":9,"month":2,"number":750,"price":40.6,"year":2007},{"day":23,"month":9,"number":15730,"price":54.84,"year":2006}],"sells":[{"day":11,"month":1,"number":10000,"price":34.585,"year":2007},{"day":9,"month":2,"number":5000,"price":3.125,"year":2007},{"day":9,"month":3,"number":5000,"price":2.5,"year":2007}]}';
-	
-	var month,day,year,number,price;
-	
-	for(j = 0; j < secData.length; j++){
-		var exitFlag = true;
-    	if(secData[j] == "buys"){
-    		// Populate Purchases
-			table = document.getElementById("purchases");
-			var rowCount = 0;
-    	
-    		i = j+2;
-    		do{
-		    	day = secData[i+1].substring(0, secData[i+1].length-1).substring(1);
-		    	month = secData[i+3].substring(0, secData[i+3].length-1).substring(1);
-		    	number = secData[i+5].substring(0, secData[i+5].length-1).substring(1);
-		    	price = secData[i+7].substring(0, secData[i+7].length-1).substring(1);
-		    	year = secData[i+9].substring(0, secData[i+9].length-3).substring(1);
-		    	
-		    	row = table.insertRow(rowCount+1);
-			
-				cell = row.insertCell(0);
-				cell.innerHTML = '<input type="text" id="pmonth'+ i +'" class="form-control" value="'+ month +'">';
-				cell.className = 'col-md-1';
-				
-				cell = row.insertCell(1);
-				cell.innerHTML = '<input type="text" id="pday'+ i +'" class="form-control" value="'+ day +'">';
-				cell.className = 'col-md-1';
-				
-				cell = row.insertCell(2);
-				cell.innerHTML = '<input type="text" id="pyear'+ i +'" class="form-control" value="'+ year +'">';
-				cell.className = 'col-md-1';
-				
-				cell = row.insertCell(3);
-				cell.innerHTML = '<input type="text" id="pshare'+ i +'" class="form-control" value="'+ number +'">';
-				cell.className = 'col-md-2';
-				
-				cell = row.insertCell(4);
-				cell.innerHTML = '<div class="input-group"><span class="input-group-addon">$</span><input type="text" id="pvalue'+ i +'" class="value form-control" value="'+ price +'">';
-				cell.className = 'col-md-6';
-				
-				rowCount++;
-				
-				if(secData[i+10] == "sells"){
-					exitFlag = false;
-				}else{
-					i+=10;
-				}
-			}while(exitFlag);
-    	}
-    	
-    	var exitFlag = true;
-    	if(secData[j] == "sells"){
-    		// Populate Purchases
-			table = document.getElementById("sales");
-			var rowCount = 0;
-			
-    		i = j+2;
-    		do{
-		    	day = secData[i+1].substring(0, secData[i+1].length-1).substring(1);
-		    	month = secData[i+3].substring(0, secData[i+3].length-1).substring(1);
-		    	number = secData[i+5].substring(0, secData[i+5].length-1).substring(1);
-		    	price = secData[i+7].substring(0, secData[i+7].length-1).substring(1);
-		    	year = secData[i+9].substring(0, secData[i+9].length-3).substring(1);
-		    	
-		    	row = table.insertRow(rowCount+1);
-			
-				cell = row.insertCell(0);
-				cell.innerHTML = '<input type="text" id="smonth'+ i +'" class="form-control" value="'+ month +'">';
-				cell.className = 'col-md-1';
-				
-				cell = row.insertCell(1);
-				cell.innerHTML = '<input type="text" id="sday'+ i +'" class="form-control" value="'+ day +'">';
-				cell.className = 'col-md-1';
-				
-				cell = row.insertCell(2);
-				cell.innerHTML = '<input type="text" id="syear'+ i +'" class="form-control" value="'+ year +'">';
-				cell.className = 'col-md-1';
-				
-				cell = row.insertCell(3);
-				cell.innerHTML = '<input type="text" id="sshare'+ i +'" class="form-control" value="'+ number +'">';
-				cell.className = 'col-md-2';
-				
-				cell = row.insertCell(4);
-				cell.innerHTML = '<div class="input-group"><span class="input-group-addon">$</span><input type="text" id="svalue'+ i +'" class="value form-control" value="'+ price +'">';
-				cell.className = 'col-md-6';
-				
-				rowCount++;
-				
-				if(secData[i+10] == ""){
-					exitFlag = false;
-				}else{
-					i+=10;
-				}
-			}while(exitFlag);
-    	}
+//  Clears the table from other values
+    $("#purchases tr:gt(0)").remove();
+    $("#sales tr:gt(0)").remove();
+    
+//  var beforeJSON = '{"buys":[{"day":11,"month":1,"number":2000,"price":44.1,"year":2007},{"day":11,"month":1,"number":1200,"price":44.39,"year":2007},{"day":11,"month":1,"number":3600,"price":44.76,"year":2007},{"day":11,"month":1,"number":2500,"price":45.04,"year":2007},{"day":11,"month":1,"number":700,"price":45.31,"year":2007},{"day":9,"month":2,"number":2000,"price":40.2,"year":2007},{"day":9,"month":2,"number":750,"price":40.6,"year":2007},{"day":23,"month":9,"number":15730,"price":54.84,"year":2006}],"sells":[{"day":11,"month":1,"number":10000,"price":34.585,"year":2007},{"day":9,"month":2,"number":5000,"price":3.125,"year":2007},{"day":9,"month":3,"number":5000,"price":2.5,"year":2007}]}';
+    
+    var month,day,year,number,price;
+    
+    var buys = data["buys"];
+    var purchaseTable = $("#purchases")[0]
+
+    for (tradeIdx in buys) {
+        trade = buys[tradeIdx];
+
+        row = insertPSRow(purchaseTable)
+        $('#day', row).val(trade["day"]);
+        $('#month', row).val(trade["month"]);
+        $('#year', row).val(trade["year"]);
+        $('#shares', row).val(trade["number"]);
+        $('#value', row).val(trade["price"]);
+    }
+    var sells = data["sells"];
+    var salesTable = $("#sales")[0]
+
+    for (var tradeIdx in sells) {
+        trade = sells[tradeIdx];
+
+        row = insertPSRow(salesTable)
+        $('#day', row).val(trade["day"]);
+        $('#month', row).val(trade["month"]);
+        $('#year', row).val(trade["year"]);
+        $('#shares', row).val(trade["number"]);
+        $('#value', row).val(trade["price"]);
     }
 }
