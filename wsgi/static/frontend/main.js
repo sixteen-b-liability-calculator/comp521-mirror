@@ -106,6 +106,7 @@ function printOutput(data){
 	testData = JSON.stringify(data).split("\"");
     var pday, pmonth, pnumber, pprice, pyear, sday, smonth, snumber, sprice, syear, count;
     table = document.getElementById("pairings");
+    $("#pairings tr:gt(0)").remove();
     var pairingsRow = 0;
     var maxprofit = 0;
     
