@@ -48,7 +48,7 @@ def pull_trades():
             for url in edgarFileURLs:
                 fileTrades = pull_edgar_file(ftp, url)
                 xmlTree = parse_section_4(fileTrades)
-                trades = return_trade_information_from_xml(xmlTree)
+                trades = return_trade_information_from_xml(xmlTree, url)
                 for trade in trades[0]:
                     if (isWithinTimeRange(trade['year'],trade['month'],startYear,startMonth,endYear,endMonth)):
                         totalBuys.append(trade)
@@ -140,7 +140,7 @@ def parse_section_4(inputFile):
 
 # Parses the tree to gain the information needed to return the proper object
 # Right now : only includes non-derivative transactions
-def return_trade_information_from_xml(tree):
+def return_trade_information_from_xml(tree, url):
     buy = []
     sell = []
     for node in tree.iter('nonDerivativeTransaction'):
@@ -149,6 +149,7 @@ def return_trade_information_from_xml(tree):
             date = node.find('.//transactionDate/value').text
             pricePerShare = float(node.find('.//transactionPricePerShare/value').text)
             BuyOrSell = node.find('.//transactionAcquiredDisposedCode/value').text
+            filingURLVal = "ftp://ftp.sec.gov/" + url
         except Exception:
             continue    
 
@@ -156,7 +157,7 @@ def return_trade_information_from_xml(tree):
         dateElement = datetime.strptime(date,'%Y-%m-%d')
 
         if (BuyOrSell == 'D'): # Implies sell
-            buy.append(dict(number=shares, price=pricePerShare, year=dateElement.year, month=dateElement.month, day=dateElement.day))
+            buy.append(dict(number=shares, price=pricePerShare, year=dateElement.year, month=dateElement.month, day=dateElement.day, filingURL=filingURLVal))
         elif (BuyOrSell == 'A'): # Implies buy
-            sell.append(dict(number=shares, price=pricePerShare, year=dateElement.year, month=dateElement.month, day=dateElement.day))
+            sell.append(dict(number=shares, price=pricePerShare, year=dateElement.year, month=dateElement.month, day=dateElement.day, filingURL= filingURLVal))
     return [buy,sell]
