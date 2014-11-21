@@ -45,8 +45,8 @@ function firstLoad(){
     purchases = $("#purchases")[0];
     sales = $("#sales")[0];
     for(i = 0; i < defaultInputCount; ++i){
-	insertPSRow(purchases);
-	insertPSRow(sales);
+    	insertPSRow(purchases);
+    	insertPSRow(sales);
     }
 }
 
@@ -63,16 +63,16 @@ function saleRow(){
 function readTable(table){
     out = []
     for(i = 1; i < table.rows.length; ++i){
-	row = table.rows[i];
-	elt = new Object();
-	elt.price = parseFloat($("#value", row).val());
-	elt.day = parseFloat($("#day", row).val());
-	elt.month = parseFloat($("#month", row).val());
-	elt.year = parseFloat($("#year", row).val());
-	elt.number = parseFloat($("#shares", row).val());
-	if(!isNaN(elt.price)){
-	    out.push(elt);
-	}
+    	row = table.rows[i];
+    	elt = new Object();
+    	elt.price = parseFloat($("#value", row).val());
+    	elt.day = parseFloat($("#day", row).val());
+    	elt.month = parseFloat($("#month", row).val());
+    	elt.year = parseFloat($("#year", row).val());
+    	elt.number = parseFloat($("#shares", row).val());
+    	if(!isNaN(elt.price)){
+    	    out.push(elt);
+    	}
     }
     return out;
 }
@@ -191,8 +191,7 @@ function populate(data){
     $("#purchases tr:gt(0)").remove();
     $("#sales tr:gt(0)").remove();
     
-//  var beforeJSON = '{"buys":[{"day":11,"month":1,"number":2000,"price":44.1,"year":2007},{"day":11,"month":1,"number":1200,"price":44.39,"year":2007},{"day":11,"month":1,"number":3600,"price":44.76,"year":2007},{"day":11,"month":1,"number":2500,"price":45.04,"year":2007},{"day":11,"month":1,"number":700,"price":45.31,"year":2007},{"day":9,"month":2,"number":2000,"price":40.2,"year":2007},{"day":9,"month":2,"number":750,"price":40.6,"year":2007},{"day":23,"month":9,"number":15730,"price":54.84,"year":2006}],"sells":[{"day":11,"month":1,"number":10000,"price":34.585,"year":2007},{"day":9,"month":2,"number":5000,"price":3.125,"year":2007},{"day":9,"month":3,"number":5000,"price":2.5,"year":2007}]}';
-    
+//  var beforeJSON = '{"buys":[{"day":11,"month":1,"number":2000,"price":44.1,"year":2007},{"day":11,"month":1,"number":1200,"price":44.39,"year":2007},{"day":11,"month":1,"number":3600,"price":44.76,"year":2007},{"day":11,"month":1,"number":2500,"price":45.04,"year":2007},{"day":11,"month":1,"number":700,"price":45.31,"year":2007},{"day":9,"month":2,"number":2000,"price":40.2,"year":2007},{"day":9,"month":2,"number":750,"price":40.6,"year":2007},{"day":23,"month":9,"number":15730,"price":54.84,"year":2006}],"sells":[{"day":11,"month":1,"number":10000,"price":34.585,"year":2007},{"day":9,"month":2,"number":5000,"price":3.125,"year":2007},{"day":9,"month":3,"number":5000,"price":2.5,"year":2007}]}';   
     var buys = data["buys"];
     var purchaseTable = $("#purchases")[0]
 
