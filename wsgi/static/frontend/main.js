@@ -9,7 +9,7 @@ function insertPSRow(table){
     row = table.insertRow();
 
     cell = row.insertCell();
-    cell.innerHTML = '<input type="button" id="remove" value="X" class="form-control" onClick="removePSRow(this);">';
+    cell.innerHTML = '<input type="button" id="remove" value="Remove" class="btn btn-default form-control" onClick="removePSRow(this);">';
 
     cell = row.insertCell();
     cell.innerHTML = '<input type="text" id="month" class="form-control">';
@@ -70,22 +70,25 @@ function inputToJSON(){
     purchases = []
     sales = []
     for(i = 1; i < purchasesTable.rows.length; ++i){
-	row = purchasesTable.rows[i];
-	elt = eltFromRow(row);
-	if(! isNaN(elt.price)){
-	    purchases.push(elt);
-	}
+		row = purchasesTable.rows[i];
+		elt = eltFromRow(row);
+		if(! isNaN(elt.price)){
+		    purchases.push(elt);
+		}
     }
     for(i = 1; i < salesTable.rows.length; ++i){
-	row = salesTable.rows[i];
-	elt = eltFromRow(row);
-	if(! isNaN(elt.price)){
-	    sales.push(elt);
-	}
+		row = salesTable.rows[i];
+		elt = eltFromRow(row);
+		if(! isNaN(elt.price)){
+		    sales.push(elt);
+		}
     }
+    
+    email = $("#email").val()
+    
     $.ajax( "/compute",
 	({type: "POST",
-	    data: $.toJSON({ "buy": purchases, "sell": sales }),
+	    data: $.toJSON({ "buy": purchases, "sell": sales, "recipient": email }),
 	    contentType: "application/json",
 	    success: printOutput,
 	    error: function(data) {
