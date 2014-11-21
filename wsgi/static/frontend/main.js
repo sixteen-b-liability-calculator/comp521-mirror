@@ -202,7 +202,6 @@ function pullSEC(){
 function populate(data){
     $('#myTabs li:eq(0) a').tab('show');
 
-<<<<<<< HEAD
 //  Clears the table from other values
     $("#purchases tr:gt(0)").remove();
     $("#sales tr:gt(0)").remove();
@@ -236,106 +235,5 @@ function populate(data){
         $('#year', row).val(trade["year"]);
         $('#shares', row).val(trade["number"]);
         $('#value', row).val(trade["price"]);
-=======
-	$("#purchases tr:gt(0)").remove();
-	$("#sales tr:gt(0)").remove();
-	
-	var secData = JSON.stringify(data).split("\"");
-	
-	var month,day,year,number,price;
-	
-	for(j = 0; j < secData.length; j++){
-		var exitFlag = true;
-    	if(secData[j] == "buys"){
-    		// Populate Purchases
-			table = document.getElementById("purchases");
-			var rowCount = 0;
-    	
-    		i = j+2;
-    		do{
-		    	day = secData[i+1].substring(0, secData[i+1].length-1).substring(1);
-		    	month = secData[i+3].substring(0, secData[i+3].length-1).substring(1);
-		    	number = secData[i+5].substring(0, secData[i+5].length-1).substring(1);
-		    	price = secData[i+7].substring(0, secData[i+7].length-1).substring(1);
-		    	year = secData[i+9].substring(0, secData[i+9].length-3).substring(1);
-		    	
-		    	row = table.insertRow(rowCount+1);
-			
-				cell = row.insertCell(0);
-				cell.innerHTML = '<input type="text" id="pmonth'+ i +'" class="form-control" value="'+ month +'">';
-				cell.className = 'col-md-1';
-				
-				cell = row.insertCell(1);
-				cell.innerHTML = '<input type="text" id="pday'+ i +'" class="form-control" value="'+ day +'">';
-				cell.className = 'col-md-1';
-				
-				cell = row.insertCell(2);
-				cell.innerHTML = '<input type="text" id="pyear'+ i +'" class="form-control" value="'+ year +'">';
-				cell.className = 'col-md-1';
-				
-				cell = row.insertCell(3);
-				cell.innerHTML = '<input type="text" id="pshare'+ i +'" class="form-control" value="'+ number +'">';
-				cell.className = 'col-md-2';
-				
-				cell = row.insertCell(4);
-				cell.innerHTML = '<div class="input-group"><span class="input-group-addon">$</span><input type="text" id="pvalue'+ i +'" class="value form-control" value="'+ price +'">';
-				cell.className = 'col-md-6';
-				
-				rowCount++;
-				
-				if(secData[i+10] == "sells"){
-					exitFlag = false;
-				}else{
-					i+=10;
-				}
-			}while(exitFlag);
-    	}
-    	
-    	var exitFlag = true;
-    	if(secData[j] == "sells"){
-    		// Populate Purchases
-			table = document.getElementById("sales");
-			var rowCount = 0;
-			
-    		i = j+2;
-    		do{
-		    	day = secData[i+1].substring(0, secData[i+1].length-1).substring(1);
-		    	month = secData[i+3].substring(0, secData[i+3].length-1).substring(1);
-		    	number = secData[i+5].substring(0, secData[i+5].length-1).substring(1);
-		    	price = secData[i+7].substring(0, secData[i+7].length-1).substring(1);
-		    	year = secData[i+9].substring(0, secData[i+9].length-3).substring(1);
-		    	
-		    	row = table.insertRow(rowCount+1);
-			
-				cell = row.insertCell(0);
-				cell.innerHTML = '<input type="text" id="smonth'+ i +'" class="form-control" value="'+ month +'">';
-				cell.className = 'col-md-1';
-				
-				cell = row.insertCell(1);
-				cell.innerHTML = '<input type="text" id="sday'+ i +'" class="form-control" value="'+ day +'">';
-				cell.className = 'col-md-1';
-				
-				cell = row.insertCell(2);
-				cell.innerHTML = '<input type="text" id="syear'+ i +'" class="form-control" value="'+ year +'">';
-				cell.className = 'col-md-1';
-				
-				cell = row.insertCell(3);
-				cell.innerHTML = '<input type="text" id="sshare'+ i +'" class="form-control" value="'+ number +'">';
-				cell.className = 'col-md-2';
-				
-				cell = row.insertCell(4);
-				cell.innerHTML = '<div class="input-group"><span class="input-group-addon">$</span><input type="text" id="svalue'+ i +'" class="value form-control" value="'+ price +'">';
-				cell.className = 'col-md-6';
-				
-				rowCount++;
-				
-				if(secData[i+10] == ""){
-					exitFlag = false;
-				}else{
-					i+=10;
-				}
-			}while(exitFlag);
-    	}
->>>>>>> 5d5439f80fe1083193beb8159c07edc8ff4c60da
     }
 }
