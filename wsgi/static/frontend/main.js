@@ -60,36 +60,26 @@ function saleRow(){
     insertPSRow(sales);
 }
 
-function eltFromRow(row){
-    elt = {};
-    elt.price = parseInt($("#value", row).val());
-    elt.day = parseInt($("#day", row).val());
-    elt.month = parseInt($("#month", row).val());
-    elt.year = parseInt($("#year", row).val());
-    elt.number = parseInt($("#shares", row).val());
-    return elt;
+function readTable(table){
+    out = []
+    for(i = 1; i < table.rows.length; ++i){
+	row = table.rows[i];
+	elt = new Object();
+	elt.price = parseFloat($("#value", row).val());
+	elt.day = parseFloat($("#day", row).val());
+	elt.month = parseFloat($("#month", row).val());
+	elt.year = parseFloat($("#year", row).val());
+	elt.number = parseFloat($("#shares", row).val());
+	if(!isNaN(elt.price)){
+	    out.push(elt);
+	}
+    }
+    return out;
 }
 
-
 function inputToJSON(){
-    purchasesTable = $("#purchases")[0];
-    salesTable = $("#sales")[0];
-    purchases = []
-    sales = []
-    for(i = 1; i < purchasesTable.rows.length; ++i){
-		row = purchasesTable.rows[i];
-		elt = eltFromRow(row);
-		if(! isNaN(elt.price)){
-		    purchases.push(elt);
-		}
-    }
-    for(i = 1; i < salesTable.rows.length; ++i){
-		row = salesTable.rows[i];
-		elt = eltFromRow(row);
-		if(! isNaN(elt.price)){
-		    sales.push(elt);
-		}
-    }
+    purchases = readTable($("#purchases")[0]);
+    sales = readTable($("#sales")[0]);
     
     email = $("#email").val()
 
