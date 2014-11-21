@@ -30,8 +30,15 @@ function insertPSRow(table){
     cell = row.insertCell();
     cell.innerHTML = '<div class="input-group"><span class="input-group-addon">$</span><input type="text" id="value" class="value form-control">';
     cell.className = 'col-md-6';
+    
+    cell = row.insertCell();
+    cell.innerHTML = '<div id="filing"></div>'
 
     return row;
+}
+
+function insertFilingURL(url){
+	return '<a href="'+ url +'" class="btn btn-default btn-xs">Link to filing</a>';
 }
 
 function firstLoad(){
@@ -222,6 +229,7 @@ function populate(data){
         $('#year', row).val(trade["year"]);
         $('#shares', row).val(trade["number"]);
         $('#value', row).val(trade["price"]);
+        $('#filing', row).append(insertFilingURL(trade["filingURL"]));
     }
     var sells = data["sells"];
     var salesTable = $("#sales")[0]
@@ -235,5 +243,6 @@ function populate(data){
         $('#year', row).val(trade["year"]);
         $('#shares', row).val(trade["number"]);
         $('#value', row).val(trade["price"]);
+        $('#filing', row).append(insertFilingURL(trade["filingURL"]));
     }
 }
