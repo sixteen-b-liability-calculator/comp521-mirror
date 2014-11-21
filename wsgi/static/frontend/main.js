@@ -9,7 +9,7 @@ function insertPSRow(table){
     row = table.insertRow();
 
     cell = row.insertCell();
-    cell.innerHTML = '<input type="button" id="remove" value="Remove" class="btn btn-default form-control" onClick="removePSRow(this);">';
+    cell.innerHTML = '<input type="button" id="remove" value="Remove Row" class="btn btn-default btn-xs" onClick="removePSRow(this);">';
 
     cell = row.insertCell();
     cell.innerHTML = '<input type="text" id="month" class="form-control">';
