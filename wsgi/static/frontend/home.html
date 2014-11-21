@@ -39,7 +39,7 @@
 							<th>Expense</th>
 						</tr>
 					</table>
-					 <a href="#" class="btn btn-default" onclick="purchaseRow()">Add Row <i class="fa fa-plus"></i></a>
+					 <button type="button" class="btn btn-default" onclick="purchaseRow()">Add Row <i class="fa fa-plus"></i></button>
 				</div>
 	
 				<h2>Sales</h2>
@@ -53,10 +53,11 @@
 							<th>Revenue</th>
 						</tr>
 					</table>
-					 <a href="#" class="btn btn-default" onclick="saleRow()">Add Row <i class="fa fa-plus"></i></a>
+					 <button type="button" class="btn btn-default" onclick="saleRow()">Add Row <i class="fa fa-plus"></i></button>
 				</div>
 				<div style="padding-top:10px">
-					<a href="#" class="btn btn-default" onclick="inputToJSON()">Compute</a>
+					<button type="button" class="btn btn-default" onclick="inputToJSON()">Compute</button>
+					<div>E-mail Results: <input type="email" id="email" class="form-control"></div>
 				</div>
 			</div>
 		</div>
