@@ -145,9 +145,9 @@ def return_trade_information_from_xml(tree):
     sell = []
     for node in tree.iter('nonDerivativeTransaction'):
         try:
-            shares = int(float(node.find('.//transactionShares/value').text))
+            shares = float(node.find('.//transactionShares/value').text)
             date = node.find('.//transactionDate/value').text
-            pricePerShare = int(float(node.find('.//transactionPricePerShare/value').text))
+            pricePerShare = float(node.find('.//transactionPricePerShare/value').text)
             BuyOrSell = node.find('.//transactionAcquiredDisposedCode/value').text
         except Exception:
             continue    

@@ -1,28 +1,15 @@
-// Lazy code, will consolidate soon.
-var pdays = new Array();
-var pmonths = new Array();
-var pyears = new Array();
-var pshares = new Array();
-var pvalues = new Array();
-var sdays = new Array();
-var smonths = new Array();
-var syears = new Array();
-var sshares = new Array();
-var svalues = new Array();
-var jsonData;
-var row, cell, table;
-var flag = 0;
-var testData;
-
-var returnData = '{"pairs":[{"buy": {"day": 29,"month": 10,"number": 28,"price": 1879,"year": 5},"count": 10,"sell": {"day": 14,"month": 12,"number": 10,"price": 9872,"year": 5}},{"buy": {"day": 3,"month": 5,"number": 29,"price": 109,"year": 5},"count": 23,"sell": {"day": 8,"month": 8,"number": 23,"price": 1987,"year": 5}},{"buy": {"day": 3,"month": 5,"number": 29,"price": 109,"year": 5},"count": 6,"sell": {"day": 29,"month": 6,"number": 29,"price": 1827,"year": 5}}],"status": "optimal","value": 133432}';
-
-var beforeJSON = '{"buys":[{"day":11,"month":1,"number":2000,"price":44.1,"year":2007},{"day":11,"month":1,"number":1200,"price":44.39,"year":2007},{"day":11,"month":1,"number":3600,"price":44.76,"year":2007},{"day":11,"month":1,"number":2500,"price":45.04,"year":2007},{"day":11,"month":1,"number":700,"price":45.31,"year":2007},{"day":9,"month":2,"number":2000,"price":40.2,"year":2007},{"day":9,"month":2,"number":750,"price":40.6,"year":2007},{"day":23,"month":9,"number":15730,"price":54.84,"year":2006}],"sells":[{"day":11,"month":1,"number":10000,"price":34.585,"year":2007},{"day":9,"month":2,"number":5000,"price":3.125,"year":2007},{"day":9,"month":3,"number":5000,"price":2.5,"year":2007}]}';
-
 var defaultInputCount = 10;
+
+function removePSRow(button){
+    button.parentElement.parentElement.remove();
+}
 
 function insertPSRow(table){
     i = table.rows.length
     row = table.insertRow();
+
+    cell = row.insertCell();
+    cell.innerHTML = '<input type="button" id="remove" value="Remove Row" class="btn btn-default btn-xs" onClick="removePSRow(this);">';
 
     cell = row.insertCell();
     cell.innerHTML = '<input type="text" id="month" class="form-control">';
@@ -83,22 +70,25 @@ function inputToJSON(){
     purchases = []
     sales = []
     for(i = 1; i < purchasesTable.rows.length; ++i){
-	row = purchasesTable.rows[i];
-	elt = eltFromRow(row);
-	if(! isNaN(elt.price)){
-	    purchases.push(elt);
-	}
+		row = purchasesTable.rows[i];
+		elt = eltFromRow(row);
+		if(! isNaN(elt.price)){
+		    purchases.push(elt);
+		}
     }
     for(i = 1; i < salesTable.rows.length; ++i){
-	row = salesTable.rows[i];
-	elt = eltFromRow(row);
-	if(! isNaN(elt.price)){
-	    sales.push(elt);
-	}
+		row = salesTable.rows[i];
+		elt = eltFromRow(row);
+		if(! isNaN(elt.price)){
+		    sales.push(elt);
+		}
     }
+    
+    email = $("#email").val()
+    
     $.ajax( "/compute",
 	({type: "POST",
-	    data: $.toJSON({ "buy": purchases, "sell": sales }),
+	    data: $.toJSON({ "buy": purchases, "sell": sales, "recipient": email }),
 	    contentType: "application/json",
 	    success: printOutput,
 	    error: function(data) {
@@ -116,6 +106,7 @@ function printOutput(data){
 	testData = JSON.stringify(data).split("\"");
     var pday, pmonth, pnumber, pprice, pyear, sday, smonth, snumber, sprice, syear, count;
     table = document.getElementById("pairings");
+    $("#pairings tr:gt(0)").remove();
     var pairingsRow = 0;
     var maxprofit = 0;
     
@@ -211,6 +202,7 @@ function pullSEC(){
 function populate(data){
     $('#myTabs li:eq(0) a').tab('show');
 
+<<<<<<< HEAD
 //  Clears the table from other values
     $("#purchases tr:gt(0)").remove();
     $("#sales tr:gt(0)").remove();
@@ -244,5 +236,106 @@ function populate(data){
         $('#year', row).val(trade["year"]);
         $('#shares', row).val(trade["number"]);
         $('#value', row).val(trade["price"]);
+=======
+	$("#purchases tr:gt(0)").remove();
+	$("#sales tr:gt(0)").remove();
+	
+	var secData = JSON.stringify(data).split("\"");
+	
+	var month,day,year,number,price;
+	
+	for(j = 0; j < secData.length; j++){
+		var exitFlag = true;
+    	if(secData[j] == "buys"){
+    		// Populate Purchases
+			table = document.getElementById("purchases");
+			var rowCount = 0;
+    	
+    		i = j+2;
+    		do{
+		    	day = secData[i+1].substring(0, secData[i+1].length-1).substring(1);
+		    	month = secData[i+3].substring(0, secData[i+3].length-1).substring(1);
+		    	number = secData[i+5].substring(0, secData[i+5].length-1).substring(1);
+		    	price = secData[i+7].substring(0, secData[i+7].length-1).substring(1);
+		    	year = secData[i+9].substring(0, secData[i+9].length-3).substring(1);
+		    	
+		    	row = table.insertRow(rowCount+1);
+			
+				cell = row.insertCell(0);
+				cell.innerHTML = '<input type="text" id="pmonth'+ i +'" class="form-control" value="'+ month +'">';
+				cell.className = 'col-md-1';
+				
+				cell = row.insertCell(1);
+				cell.innerHTML = '<input type="text" id="pday'+ i +'" class="form-control" value="'+ day +'">';
+				cell.className = 'col-md-1';
+				
+				cell = row.insertCell(2);
+				cell.innerHTML = '<input type="text" id="pyear'+ i +'" class="form-control" value="'+ year +'">';
+				cell.className = 'col-md-1';
+				
+				cell = row.insertCell(3);
+				cell.innerHTML = '<input type="text" id="pshare'+ i +'" class="form-control" value="'+ number +'">';
+				cell.className = 'col-md-2';
+				
+				cell = row.insertCell(4);
+				cell.innerHTML = '<div class="input-group"><span class="input-group-addon">$</span><input type="text" id="pvalue'+ i +'" class="value form-control" value="'+ price +'">';
+				cell.className = 'col-md-6';
+				
+				rowCount++;
+				
+				if(secData[i+10] == "sells"){
+					exitFlag = false;
+				}else{
+					i+=10;
+				}
+			}while(exitFlag);
+    	}
+    	
+    	var exitFlag = true;
+    	if(secData[j] == "sells"){
+    		// Populate Purchases
+			table = document.getElementById("sales");
+			var rowCount = 0;
+			
+    		i = j+2;
+    		do{
+		    	day = secData[i+1].substring(0, secData[i+1].length-1).substring(1);
+		    	month = secData[i+3].substring(0, secData[i+3].length-1).substring(1);
+		    	number = secData[i+5].substring(0, secData[i+5].length-1).substring(1);
+		    	price = secData[i+7].substring(0, secData[i+7].length-1).substring(1);
+		    	year = secData[i+9].substring(0, secData[i+9].length-3).substring(1);
+		    	
+		    	row = table.insertRow(rowCount+1);
+			
+				cell = row.insertCell(0);
+				cell.innerHTML = '<input type="text" id="smonth'+ i +'" class="form-control" value="'+ month +'">';
+				cell.className = 'col-md-1';
+				
+				cell = row.insertCell(1);
+				cell.innerHTML = '<input type="text" id="sday'+ i +'" class="form-control" value="'+ day +'">';
+				cell.className = 'col-md-1';
+				
+				cell = row.insertCell(2);
+				cell.innerHTML = '<input type="text" id="syear'+ i +'" class="form-control" value="'+ year +'">';
+				cell.className = 'col-md-1';
+				
+				cell = row.insertCell(3);
+				cell.innerHTML = '<input type="text" id="sshare'+ i +'" class="form-control" value="'+ number +'">';
+				cell.className = 'col-md-2';
+				
+				cell = row.insertCell(4);
+				cell.innerHTML = '<div class="input-group"><span class="input-group-addon">$</span><input type="text" id="svalue'+ i +'" class="value form-control" value="'+ price +'">';
+				cell.className = 'col-md-6';
+				
+				rowCount++;
+				
+				if(secData[i+10] == ""){
+					exitFlag = false;
+				}else{
+					i+=10;
+				}
+			}while(exitFlag);
+    	}
+>>>>>>> 5d5439f80fe1083193beb8159c07edc8ff4c60da
     }
 }
