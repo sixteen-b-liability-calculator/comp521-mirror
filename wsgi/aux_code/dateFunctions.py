@@ -12,3 +12,8 @@ def isStartBeforeEnd(startYear, startMonth, endYear, endMonth):
         if (startMonth> endMonth):
             return "Start month cannot be after the end month"
     return ""
+
+def isWithinTimeRange(testYear, testMonth, startYear, startMonth, endYear, endMonth):
+    isAfterEnd = isStartBeforeEnd(testYear,testMonth,endYear,endMonth) == ""
+    isBeforeBeginning = isStartBeforeEnd(startYear, startMonth, testYear, testMonth) == ""
+    return (isAfterEnd and isBeforeBeginning) 
