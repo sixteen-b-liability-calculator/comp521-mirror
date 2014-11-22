@@ -1,4 +1,4 @@
-from flask import Flask, jsonify, request, json
+from flask import Flask, jsonify, request, json, redirect, url_for
 from flask_mail import Message, Mail
 import sys
 import os
@@ -23,7 +23,7 @@ from edgar_api import *
 
 @app.route("/", methods = ['GET'])
 def home_page():
-	return homepage()
+	return redirect(url_for('static', filename = "/frontend/home.html"), code=302)
 
 def gen_compute_endpoint(runner):
     input_data = request.get_json(force=False)
@@ -56,9 +56,14 @@ def gen_compute_endpoint(runner):
     if not app.debug and 'full_result' in result:
         del result['full_result']
     if (recipient != None and recipient != ""):
-	    msg = Message(subject = "Test e-mail", body =str(result), sender="kevin.valakuzhy@gmail.com", recipients=[recipient])
-	    mail.send(msg)
+ #       emailBody = prettifyResult(result)
+         emailBody = "Not implemented yet"
+        msg = Message(subject = "Test e-mail", body =emailBody, sender="kevin.valakuzhy@gmail.com", recipients=[recipient])
+        mail.send(msg)
     return jsonify(result)
+
+#def prettifyResult(result):
+#    return ""
 
 @app.route("/compute", methods=['POST'])
 def compute_endpoint():
