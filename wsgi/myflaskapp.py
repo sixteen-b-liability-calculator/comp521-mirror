@@ -56,8 +56,8 @@ def gen_compute_endpoint(runner):
     if not app.debug and 'full_result' in result:
         del result['full_result']
     if (recipient != None and recipient != ""):
- #       emailBody = prettifyResult(result)
-         emailBody = "Not implemented yet"
+#       emailBody = prettifyResult(result)
+        emailBody = "Not implemented yet"
         msg = Message(subject = "Test e-mail", body =emailBody, sender="kevin.valakuzhy@gmail.com", recipients=[recipient])
         mail.send(msg)
     return jsonify(result)
