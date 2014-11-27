@@ -157,7 +157,7 @@ def return_trade_information_from_xml(tree, url):
         dateElement = datetime.strptime(date,'%Y-%m-%d')
 
         if (BuyOrSell == 'D'): # Implies sell
-            buy.append(dict(number=shares, price=pricePerShare, year=dateElement.year, month=dateElement.month, day=dateElement.day, filingURL=filingURLVal))
+            sell.append(dict(number=shares, price=pricePerShare, year=dateElement.year, month=dateElement.month, day=dateElement.day, filingURL=filingURLVal))
         elif (BuyOrSell == 'A'): # Implies buy
-            sell.append(dict(number=shares, price=pricePerShare, year=dateElement.year, month=dateElement.month, day=dateElement.day, filingURL= filingURLVal))
+            buy.append(dict(number=shares, price=pricePerShare, year=dateElement.year, month=dateElement.month, day=dateElement.day, filingURL= filingURLVal))
     return [buy,sell]
