@@ -157,14 +157,14 @@ def return_trade_information_from_xml(tree, url):
 
         # Parse date to get day month and year
         dateElement = datetime.strptime(date,'%Y-%m-%d')
-            newTrade = dict(number=shares,
-                            price=pricePerShare,
-                            year=dateElement.year,
-                            month=dateElement.month,
-                            day=dateElement.day,
-                            securityTitle = securityTitle,
-                            directOrIndirectOwnership = directOrIndirectOwnership,
-                            filingURL=filingURLVal)
+        newTrade = dict(number=shares,
+                        price=pricePerShare,
+                        year=dateElement.year,
+                        month=dateElement.month,
+                        day=dateElement.day,
+                        securityTitle = securityTitle,
+                        directOrIndirectOwnership = directOrIndirectOwnership,
+                        filingURL=filingURLVal)
         if (BuyOrSell == 'D'): # Implies sell
             sell.append(newTrade)
         elif (BuyOrSell == 'A'): # Implies buy
