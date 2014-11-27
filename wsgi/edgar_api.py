@@ -149,15 +149,24 @@ def return_trade_information_from_xml(tree, url):
             date = node.find('.//transactionDate/value').text
             pricePerShare = float(node.find('.//transactionPricePerShare/value').text)
             BuyOrSell = node.find('.//transactionAcquiredDisposedCode/value').text
+            securityTitle = node.find('.//securityTitle/value').text
+            directOrIndirectOwnership = node.find('.//directOrIndirectOwnership/value').text
             filingURLVal = "ftp://ftp.sec.gov/" + url
         except Exception:
-            continue    
+            continue
 
         # Parse date to get day month and year
         dateElement = datetime.strptime(date,'%Y-%m-%d')
-
+            newTrade = dict(number=shares,
+                            price=pricePerShare,
+                            year=dateElement.year,
+                            month=dateElement.month,
+                            day=dateElement.day,
+                            securityTitle = securityTitle,
+                            directOrIndirectOwnership = directOrIndirectOwnership,
+                            filingURL=filingURLVal)
         if (BuyOrSell == 'D'): # Implies sell
-            sell.append(dict(number=shares, price=pricePerShare, year=dateElement.year, month=dateElement.month, day=dateElement.day, filingURL=filingURLVal))
+            sell.append(newTrade)
         elif (BuyOrSell == 'A'): # Implies buy
-            buy.append(dict(number=shares, price=pricePerShare, year=dateElement.year, month=dateElement.month, day=dateElement.day, filingURL= filingURLVal))
+            buy.append(newTrade)
     return [buy,sell]
