@@ -168,7 +168,7 @@ function pullSEC(){
 
     secCIK = $("#secCIK").val();
     
-    secJSON = '{ "startYear":'+secStartYear+',"startMonth":'+secStartMonth+',"endYear":'+secEndYear+',"endMonth":'+secEndMonth+',"cik":'+secCIK+'}';
+    secJSON = '{ "startYear":'+secStartYear+',"startMonth":'+secStartMonth+',"endYear":'+secEndYear+',"endMonth":'+secEndMonth+',"cik": "'+secCIK+'"}';
 
     $.ajax( "/pullSEC",
         ({type: "POST",

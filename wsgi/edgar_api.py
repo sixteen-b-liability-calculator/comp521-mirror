@@ -14,14 +14,17 @@ def homepage():
 def pull_trades():
     try:
         input_data = request.get_json()
-        startYear = input_data.get('startYear')
-        startMonth = input_data.get('startMonth')
-        endYear = input_data.get('endYear')
-        endMonth = input_data.get('endMonth')
     except Exception:
-        return ("Input Error", 400, [])
+        return ("There is an issue with the information sent to the server.  Look at the HTTP POST request to identify the issue", 400, [])
     
-    cik = input_data.get('cik')
+# Leading zeros for the cik are removed.
+    cik = int(input_data.get('cik'))
+
+    startYear = input_data.get('startYear')
+    startMonth = input_data.get('startMonth')
+    endYear = input_data.get('endYear')
+    endMonth = input_data.get('endMonth')
+
 
     startQuarter = month2quarter(startMonth)
     endQuarter = month2quarter(endMonth)
@@ -30,7 +33,7 @@ def pull_trades():
     #Ensure that you won't run into an infinite loop due to bad input
     errorMsg = isStartBeforeEnd(startYear,startMonth,endYear, endMonth)
     if not (errorMsg == ""):
-        return (errorMsg, 400, [])
+        return ("The start date must occur before the end date", 400, [])
 
     year = startYear
     quarter = startQuarter
