@@ -29,10 +29,19 @@ function insertPSRow(table){
     
     cell = row.insertCell();
     cell.innerHTML = '<div class="input-group"><span class="input-group-addon">$</span><input type="text" id="value" class="value form-control">';
-    cell.className = 'col-md-6';
+    cell.className = 'col-md-3';
+    
+    cell = row.insertCell();
+    cell.innerHTML = '<div id="title"></div>';
+    cell.className = 'col-md-1';
+    
+    cell = row.insertCell();
+    cell.innerHTML = '<div id="ownership"></div>';
+    cell.className = 'col-md-1';
     
     cell = row.insertCell();
     cell.innerHTML = '<div id="filing"></div>'
+    cell.className = 'col-md-1';
 
     return row;
 }
@@ -195,6 +204,10 @@ function populate(data){
     var buys = data["buys"];
     var purchaseTable = $("#purchases")[0]
 
+	row = insertPSRow(purchaseTable);
+	$('#title', row).append("Stock Title");
+	$('#ownership', row).append("Ownership (Indirect/Direct)");
+
     for (tradeIdx in buys) {
         trade = buys[tradeIdx];
 
@@ -204,6 +217,8 @@ function populate(data){
         $('#year', row).val(trade["year"]);
         $('#shares', row).val(trade["number"]);
         $('#value', row).val(trade["price"]);
+        $('#title', row).append(trade["securityTitle"]);
+        $('#ownership', row).append(trade["directOrIndirectOwnership"]);
         $('#filing', row).append(insertFilingURL(trade["filingURL"]));
     }
     var sells = data["sells"];
@@ -218,6 +233,8 @@ function populate(data){
         $('#year', row).val(trade["year"]);
         $('#shares', row).val(trade["number"]);
         $('#value', row).val(trade["price"]);
+        $('#title', row).append(trade["securityTitle"]);
+        $('#ownership', row).append(trade["directOrIndirectOwnership"]);
         $('#filing', row).append(insertFilingURL(trade["filingURL"]));
     }
 }
