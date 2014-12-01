@@ -144,6 +144,9 @@ def parse_section_4(inputFile):
     xmlFile.close()
     return tree
 
+parse_url = re.compile(r''' edgar/data/
+                            ( [0-9]  + )  /   # CIK
+                            ( [0-9-] + )\.txt # docno ''', re.VERBOSE)
 # Parses the tree to gain the information needed to return the proper object
 # Right now : only includes non-derivative transactions
 def return_trade_information_from_xml(tree, url):
@@ -157,7 +160,13 @@ def return_trade_information_from_xml(tree, url):
             BuyOrSell = node.find('.//transactionAcquiredDisposedCode/value').text
             securityTitle = node.find('.//securityTitle/value').text
             directOrIndirectOwnership = node.find('.//directOrIndirectOwnership/value').text
-            filingURLVal = "ftp://ftp.sec.gov/" + url
+            url_match = parse_url.match(url)
+            if url_match:
+                filingURLVal = ("http://www.sec.gov/Archives/edgar/data/" + url_match.group(1)
+                                 + "/" + url_match.group(2).replace('-', '') + "/"
+                                 + url_match.group(2) + "-index.htm")
+            else:
+                filingURLVal = "ftp://ftp.sec.gov/" + url
         except Exception:
             continue
 
