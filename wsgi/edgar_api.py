@@ -5,6 +5,7 @@ import xml.etree.ElementTree as ET
 import tempfile
 import re
 import gzip
+import os.path
 from aux_code.httpExceptions import *
 from aux_code.dateFunctions import *
 
@@ -79,13 +80,15 @@ def pull_trades():
 def pull_edgar_file(ftp, directoryPath):
 
     pracFile = tempfile.TemporaryFile()
-    print directoryPath
-    ftp.retrbinary('RETR '+ directoryPath, pracFile.write)
-#    try:
-#        ftp.retrbinary('RETR '+ directoryPath, pracFile.write)
-#    except Exception as e:
-#        raise FivehundredException("File not found in Edgar database")
-    pracFile.seek(0)
+# Check the tempFile directory to see whether the file has already been pulled before.
+    tempFileDirPath = "tempFiles/" + directoryPath
+    if os.path.isfile(tempFileDirPath):
+        print tempFileDirPath
+        return open(tempFileDirPath,'rb')
+    else:
+        print directoryPath
+        ftp.retrbinary('RETR '+ directoryPath, pracFile.write)
+        pracFile.seek(0)
     return pracFile
 
 parse_idx_start = re.compile(r'-+$')

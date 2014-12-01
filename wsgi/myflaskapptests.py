@@ -23,7 +23,6 @@ class FlaskrTestCase(unittest.TestCase):
         tree = parse_section_4(inputFile)
         assert tree.getroot().tag == 'ownershipDocument'
         trades = return_trade_information_from_xml(tree,"")
-        print trades
         assert trades[0][0] == expectedBuy
         assert trades[1][0] == expectedSell  
 
@@ -38,10 +37,19 @@ class FlaskrTestCase(unittest.TestCase):
     def test_pull_trades(self):
         jsonData = json.dumps({ "startYear": 2007, "startMonth": 1, "endYear": 2007, "endMonth": 3, "cik": 1000180 })
         rv = self.app.post('/pullSEC', content_type= 'application/json', data = jsonData)
-        print rv.get_data()
         data = json.loads(rv.get_data())
-        print data['sells'][0]
         assert data['sells'][0] == {"day": 11,"month": 1,"number": 2000,"price": 44.1, "year": 2007, "securityTitle":"Common Stock", "directOrIndirectOwnership" : "D", "filingURL" : "ftp://ftp.sec.gov/edgar/data/1000180/0001242648-07-000001.txt"}
+
+    # Testing the ability to pull files locally
+    def test_pull_index_local(self):
+        # Give an ftp that is bad.  This will cause a failure if it doesn't pull the correct file
+        year = 2008
+        quarter = 1
+        indexType = 'master'
+        fileLoc = 'edgar/full-index/'+str(year)+'/QTR'+str(quarter)+'/'+indexType+'.gz'
+        assert os.path.isfile("tempFiles/"+fileLoc) #Be sure to include this file in this location for this test to pass
+        pull_edgar_file("bad_ftp",fileLoc)
+
 
 if __name__ == '__main__':
     unittest.main()
