@@ -151,12 +151,77 @@ def make_model(purchases, sales, stella_correction, jammies_correction):
 
     model.preprocess()
 
-    return (number_corr, price_corr, model)
+    # # # # # # # # # # # # # dual model # # # # # # # # # # # # # #
+
+    dual_model = ConcreteModel()
+
+    # purchases
+    dual_model.purchases = RangeSet(len(purchases))
+    purchase_counts = ((p+1,int(number_corr * purchases[p].number)) for p in range(len(purchases)))
+    dual_model.purchase_count = Param(dual_model.purchases,
+            initialize=dict(purchase_counts), domain=PositiveIntegers)
+    dual_model.purchase_dual = Var(dual_model.purchases, domain=NonNegativeIntegers)
+
+    # sales
+    dual_model.sales = RangeSet(len(sales))
+    sale_counts = ((p+1,int(number_corr * sales[p].number)) for p in range(len(sales)))
+    dual_model.sale_count = Param(dual_model.sales,
+            initialize=dict(sale_counts), domain=PositiveIntegers)
+    dual_model.sale_dual = Var(dual_model.sales, domain=NonNegativeIntegers)
+
+    dual_model.pairings = Set(within=dual_model.purchases * dual_model.sales,
+            initialize=list((p+1,s+1) for (p,s) in profits))
+
+    dual_model.profits = Param(dual_model.pairings, domain=PositiveIntegers,
+            initialize=profit_values)
+
+    def profit_match(dual_model, p, s):
+        return dual_model.sale_dual[s] + dual_model.purchase_dual[p] >= dual_model.profits[(p,s)]
+
+    def dual_obj_rule(dual_model):
+        return summation(dual_model.sale_count, dual_model.sale_dual) + summation(dual_model.purchase_count, dual_model.purchase_dual)
+
+    dual_model.obj = Objective(rule=dual_obj_rule, sense=minimize)
+    dual_model.profit_constraint = Constraint(dual_model.pairings, rule=profit_match)
+
+    dual_model.preprocess()
+
+    return (number_corr, price_corr, model, dual_model)
+
+def collect_dual(dual_model, number_corr, price_corr, ret, purchases, sales, opt, **ignore):
+    results = opt.solve(dual_model)
+
+    outputB = []
+    outputS = []
+    solutions = results.get('Solution', [])
+    if len(solutions) > 0:
+        dual_model.load(results)
+        for p in dual_model.purchases:
+            d = dual_model.purchase_dual[p].value
+            outputB.append((purchases[p-1], float(d) / price_corr))
+        for s in dual_model.sales:
+            d = dual_model.sale_dual[s].value
+            outputS.append((sales[s-1], float(d) / price_corr))
+
+    ret['dual_solution'] = dict(buy=outputB, sell=outputS)
+    ret['full_dual_result'] = results.json_repn()
+
+    if results.solver.status == SolverStatus.ok:
+        if results.solver.termination_condition == TerminationCondition.optimal:
+            ret['dual_status'] = "optimal"
+            # the following procedure for getting the value is right from
+            # the coopr source itself...
+            key = results.solution.objective.keys()[0]
+            ret['dual_value'] = float(results.solution.objective[key].value) / price_corr / number_corr
+        else:
+            ret['dual_status'] = "not solved"
+    else:
+        ret['dual_status'] = "solver error"
 
 def run_problem(purchases, sales, stella_correction, jammies_correction):
     opt = SolverFactory('glpk')
 
-    (number_corr, price_corr, model) = make_model(purchases,sales,stella_correction,jammies_correction)
+    (number_corr, price_corr, model, dual_model) = make_model(purchases,sales,stella_correction,jammies_correction)
 
     results = opt.solve(model)
 
@@ -179,7 +244,8 @@ def run_problem(purchases, sales, stella_correction, jammies_correction):
             # the following procedure for getting the value is right from
             # the coopr source itself...
             key = results.solution.objective.keys()[0]
-            ret['value'] = float(results.solution.objective[key].value) / price_corr
+            ret['value'] = float(results.solution.objective[key].value) / price_corr / number_corr
+            collect_dual(**locals())
         else:
             ret['status'] = "not solved"
     else:
