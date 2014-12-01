@@ -14,14 +14,16 @@ class FlaskrTestCase(unittest.TestCase):
 
     def test_parse_section_4(self):
 
-    	expectedBuy = dict(price = 44.10, month = 1, number = 2000, day = 11, year = 2007)
-    	expectedSell = dict(price= 34.585, month= 1, number= 10000, day= 11, year= 2007)
+    	expectedSell = dict(price = 44.10, month = 1, number = 2000, day = 11, year = 2007,
+                           securityTitle="Common Stock", directOrIndirectOwnership="D", filingURL ="ftp://ftp.sec.gov/")
+    	expectedBuy = dict(price= 34.585, month= 1, number= 10000, day= 11, year= 2007,
+                            securityTitle="Common Stock", directOrIndirectOwnership="D", filingURL ="ftp://ftp.sec.gov/")
 
         inputFile = open('testing/edgarTestingFile.txt', 'r+')
         tree = parse_section_4(inputFile)
         assert tree.getroot().tag == 'ownershipDocument'
-        trades = return_trade_information_from_xml(tree)
-
+        trades = return_trade_information_from_xml(tree,"")
+        print trades
         assert trades[0][0] == expectedBuy
         assert trades[1][0] == expectedSell  
 
@@ -34,12 +36,12 @@ class FlaskrTestCase(unittest.TestCase):
 
     # This test can be flaky depending on the connection to the SEC database
     def test_pull_trades(self):
-        jsonData = json.dumps({ "startYear": 2007, "startMonth": 1, "endYear": 2007, "endMonth": 6, "cik": 1000180 })
+        jsonData = json.dumps({ "startYear": 2007, "startMonth": 1, "endYear": 2007, "endMonth": 3, "cik": 1000180 })
         rv = self.app.post('/pullSEC', content_type= 'application/json', data = jsonData)
         print rv.get_data()
         data = json.loads(rv.get_data())
-
-        assert data['buys'][0] == {"day": 11,"month": 1,"number": 2000,"price": 44.1, "year": 2007}
+        print data['sells'][0]
+        assert data['sells'][0] == {"day": 11,"month": 1,"number": 2000,"price": 44.1, "year": 2007, "securityTitle":"Common Stock", "directOrIndirectOwnership" : "D", "filingURL" : "ftp://ftp.sec.gov/edgar/data/1000180/0001242648-07-000001.txt"}
 
 if __name__ == '__main__':
     unittest.main()

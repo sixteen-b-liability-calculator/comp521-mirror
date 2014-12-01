@@ -14,14 +14,17 @@ def homepage():
 def pull_trades():
     try:
         input_data = request.get_json()
-        startYear = input_data.get('startYear')
-        startMonth = input_data.get('startMonth')
-        endYear = input_data.get('endYear')
-        endMonth = input_data.get('endMonth')
     except Exception:
-        return ("Input Error", 400, [])
+        return ("There is an issue with the information sent to the server.  Look at the HTTP POST request to identify the issue", 400, [])
     
-    cik = input_data.get('cik')
+# Leading zeros for the cik are removed.
+    cik = int(input_data.get('cik'))
+
+    startYear = input_data.get('startYear')
+    startMonth = input_data.get('startMonth')
+    endYear = input_data.get('endYear')
+    endMonth = input_data.get('endMonth')
+
 
     startQuarter = month2quarter(startMonth)
     endQuarter = month2quarter(endMonth)
@@ -30,7 +33,7 @@ def pull_trades():
     #Ensure that you won't run into an infinite loop due to bad input
     errorMsg = isStartBeforeEnd(startYear,startMonth,endYear, endMonth)
     if not (errorMsg == ""):
-        return (errorMsg, 400, [])
+        return ("The start date must occur before the end date", 400, [])
 
     year = startYear
     quarter = startQuarter
@@ -149,15 +152,24 @@ def return_trade_information_from_xml(tree, url):
             date = node.find('.//transactionDate/value').text
             pricePerShare = float(node.find('.//transactionPricePerShare/value').text)
             BuyOrSell = node.find('.//transactionAcquiredDisposedCode/value').text
+            securityTitle = node.find('.//securityTitle/value').text
+            directOrIndirectOwnership = node.find('.//directOrIndirectOwnership/value').text
             filingURLVal = "ftp://ftp.sec.gov/" + url
         except Exception:
-            continue    
+            continue
 
         # Parse date to get day month and year
         dateElement = datetime.strptime(date,'%Y-%m-%d')
-
+        newTrade = dict(number=shares,
+                        price=pricePerShare,
+                        year=dateElement.year,
+                        month=dateElement.month,
+                        day=dateElement.day,
+                        securityTitle = securityTitle,
+                        directOrIndirectOwnership = directOrIndirectOwnership,
+                        filingURL=filingURLVal)
         if (BuyOrSell == 'D'): # Implies sell
-            buy.append(dict(number=shares, price=pricePerShare, year=dateElement.year, month=dateElement.month, day=dateElement.day, filingURL=filingURLVal))
+            sell.append(newTrade)
         elif (BuyOrSell == 'A'): # Implies buy
-            sell.append(dict(number=shares, price=pricePerShare, year=dateElement.year, month=dateElement.month, day=dateElement.day, filingURL= filingURLVal))
+            buy.append(newTrade)
     return [buy,sell]
