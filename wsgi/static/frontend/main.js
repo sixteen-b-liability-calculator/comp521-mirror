@@ -204,10 +204,6 @@ function populate(data){
     var buys = data["buys"];
     var purchaseTable = $("#purchases")[0]
 
-	row = insertPSRow(purchaseTable);
-	$('#title', row).append("Stock Title");
-	$('#ownership', row).append("Ownership (Indirect/Direct)");
-
     for (tradeIdx in buys) {
         trade = buys[tradeIdx];
 
