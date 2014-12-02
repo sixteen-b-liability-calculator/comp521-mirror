@@ -71,10 +71,10 @@ def prettifyResult(result):
         sell = pair['sell']
         sellDate = str(sell['year']) +"/"+ str(sell['month']) +"/"+ str(sell['day'])
 
-        lineString = "Trade " + str(count) + ": "
+        lineString = "Pairing " + str(count) + ": "
         lineString += "Buy Date: " + buyDate + "  Buy Price: $" + str(buy['price'])+"  "
         lineString += "Sell Date: " + sellDate + "  Sell Price: $" + str(sell['price'])+"  "
-        lineString += "# of Pairings: " + str(pair['count']) + "  "
+        lineString += "# of Shares: " + str(pair['count']) + "  "
         outputString += lineString + "\n"
         count += 1
     outputString += "Total Profit: " + str(result['value'])
