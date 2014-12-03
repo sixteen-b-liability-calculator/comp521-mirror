@@ -19,10 +19,10 @@ def trade2CSV(pairings):
 
         outputString += str(count) + ", "           #pairing_number
         outputString += buyDate + ", "              #buy_date
-        outputString += buy['price'] + ", "         #buy_price
+        outputString += str(buy['price']) + ", "         #buy_price
         outputString += sellDate + ", "             #sell_date
-        outputString += sell['price'] + ", "        #sell_price
-        outputString += pair['count'] + ", "        #num_of_shares
+        outputString += str(sell['price']) + ", "        #sell_price
+        outputString += str(pair['count']) + ", "        #num_of_shares
         outputString += str(pairProfit(pair)) + "\n"#pairing_profit
         count += 1
     return outputString
