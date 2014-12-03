@@ -48,7 +48,7 @@ def pull_trades():
             indexDirPath = 'edgar/full-index/'+str(year)+'/QTR'+str(quarter)+'/'+indexType+'.gz'
             binaryIndexFile = pull_edgar_file(ftp, indexDirPath)
             indexFile = ungzip_tempfile(binaryIndexFile)
-            edgarFileURLs = parse_idx(indexFile, cik, ['4']) # TODO(valakuzh) allow specification of types of documents
+            edgarFileURLs = parse_idx(indexFile, cik, ['4','4/A']) # TODO(valakuzh) allow specification of types of documents
             for url in edgarFileURLs:
                 fileTrades = pull_edgar_file(ftp, url)
                 xmlTree = parse_section_4(fileTrades)
