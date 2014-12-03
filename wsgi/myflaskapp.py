@@ -20,6 +20,8 @@ mail = Mail(app)
 
 from compute import run_problem, run_greedy, validate_buysell, FourhundredException
 from edgar_api import *
+from aux_code.dateFunctions import *
+from aux_code.createCSV import *
 
 @app.route("/", methods = ['GET'])
 def home_page():
@@ -53,16 +55,25 @@ def gen_compute_endpoint(runner):
         output.append(dict(buy=a.recreate_dict(), sell=b.recreate_dict(), count=c))
     result['pairs'] = output
 
+    if 'dual_solution' in result:
+        output = []
+        for (a,c) in result['dual_solution']['buy']:
+            output.append(dict(buy=a.recreate_dict(), dual_value=c))
+        for (a,c) in result['dual_solution']['sell']:
+            output.append(dict(sell=a.recreate_dict(), dual_value=c))
+    result['dual_solution'] = output
+
     if not app.debug and 'full_result' in result:
         del result['full_result']
+    if not app.debug and 'full_dual_result' in result:
+        del result['full_dual_result']
     if (recipient != None and recipient != ""):
-        emailBody = "Not implemented yet"
+        emailBody = prettifyResult(result)
         msg = Message(subject = "Test e-mail", body =emailBody, sender="kevin.valakuzhy@gmail.com", recipients=[recipient])
+        csvString = trade2CSV(result['pairs'])
+        msg.attach("pairingResult.csv", "text/csv", csvString)
         mail.send(msg)
     return jsonify(result)
-
-def prettifyResult(result):
-    return ""
 
 @app.route("/compute", methods=['POST'])
 def compute_endpoint():

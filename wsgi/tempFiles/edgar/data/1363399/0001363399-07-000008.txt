@@ -1,0 +1,330 @@
+-----BEGIN PRIVACY-ENHANCED MESSAGE-----
+Proc-Type: 2001,MIC-CLEAR
+Originator-Name: webmaster@www.sec.gov
+Originator-Key-Asymmetric:
+ MFgwCgYEVQgBAQICAf8DSgAwRwJAW2sNKK9AVtBzYZmr6aGjlWyK3XmZv3dTINen
+ TWSM7vrzLADbmYQaionwg5sDW3P6oaM5D3tdezXMm7z1T+B+twIDAQAB
+MIC-Info: RSA-MD5,RSA,
+ P2Xs/syt/2mKuYPFkg5wfp7F+08AQsFRu15Ett9SslMQOTmcSI2Yko2n1ggGZLRi
+ 1SfqP4Vv4iFeB67kSdv1NA==
+
+<SEC-DOCUMENT>0001363399-07-000008.txt : 20070509
+<SEC-HEADER>0001363399-07-000008.hdr.sgml : 20070509
+<ACCEPTANCE-DATETIME>20070509105757
+ACCESSION NUMBER:		0001363399-07-000008
+CONFORMED SUBMISSION TYPE:	4/A
+PUBLIC DOCUMENT COUNT:		1
+CONFORMED PERIOD OF REPORT:	20070508
+FILED AS OF DATE:		20070509
+DATE AS OF CHANGE:		20070509
+
+ISSUER:		
+
+	COMPANY DATA:	
+		COMPANY CONFORMED NAME:			AspenBio Pharma, Inc.
+		CENTRAL INDEX KEY:			0001167419
+		STANDARD INDUSTRIAL CLASSIFICATION:	IN VITRO & IN VIVO DIAGNOSTIC SUBSTANCES [2835]
+		IRS NUMBER:				841553387
+		STATE OF INCORPORATION:			CO
+		FISCAL YEAR END:			1231
+
+	BUSINESS ADDRESS:	
+		STREET 1:		1585 S. PERRY STREET
+		CITY:			CASTLE ROCK
+		STATE:			CO
+		ZIP:			80104
+		BUSINESS PHONE:		(303) 794-2000
+
+	MAIL ADDRESS:	
+		STREET 1:		1585 S. PERRY STREET
+		CITY:			CASTLE ROCK
+		STATE:			CO
+		ZIP:			80104
+
+	FORMER COMPANY:	
+		FORMER CONFORMED NAME:	ASPENBIO INC
+		DATE OF NAME CHANGE:	20020213
+
+REPORTING-OWNER:	
+
+	OWNER DATA:	
+		COMPANY CONFORMED NAME:			1837 Partners Ltd.
+		CENTRAL INDEX KEY:			0001396487
+		STATE OF INCORPORATION:			DE
+		FISCAL YEAR END:			1231
+
+	FILING VALUES:
+		FORM TYPE:		4/A
+		SEC ACT:		1934 Act
+		SEC FILE NUMBER:	000-50019
+		FILM NUMBER:		07830878
+
+	BUSINESS ADDRESS:	
+		STREET 1:		C/O RMB CAPITAL MANAGEMENT, LLC
+		STREET 2:		10 S. WACKER DRIVE, STE. 3210
+		CITY:			CHICAGO
+		STATE:			IL
+		ZIP:			60606
+		BUSINESS PHONE:		(312) 993-5800
+
+	MAIL ADDRESS:	
+		STREET 1:		C/O RMB CAPITAL MANAGEMENT, LLC
+		STREET 2:		10 S. WACKER DRIVE, STE. 3210
+		CITY:			CHICAGO
+		STATE:			IL
+		ZIP:			60606
+
+REPORTING-OWNER:	
+
+	OWNER DATA:	
+		COMPANY CONFORMED NAME:			1837 Partners QP L.P.
+		CENTRAL INDEX KEY:			0001376884
+		STATE OF INCORPORATION:			DE
+		FISCAL YEAR END:			1231
+
+	FILING VALUES:
+		FORM TYPE:		4/A
+		SEC ACT:		1934 Act
+		SEC FILE NUMBER:	000-50019
+		FILM NUMBER:		07830879
+
+	BUSINESS ADDRESS:	
+		STREET 1:		C/O RMB CAPITAL MANAGEMENT, LLC
+		STREET 2:		10 S. WACKER DR. STE. 3210
+		CITY:			CHICAGO
+		STATE:			IL
+		ZIP:			60606
+		BUSINESS PHONE:		312-993-5800
+
+	MAIL ADDRESS:	
+		STREET 1:		C/O RMB CAPITAL MANAGEMENT, LLC
+		STREET 2:		10 S. WACKER DR. STE. 3210
+		CITY:			CHICAGO
+		STATE:			IL
+		ZIP:			60606
+
+REPORTING-OWNER:	
+
+	OWNER DATA:	
+		COMPANY CONFORMED NAME:			1837 Partners L.P.
+		CENTRAL INDEX KEY:			0001363397
+		STATE OF INCORPORATION:			DE
+		FISCAL YEAR END:			1231
+
+	FILING VALUES:
+		FORM TYPE:		4/A
+		SEC ACT:		1934 Act
+		SEC FILE NUMBER:	000-50019
+		FILM NUMBER:		07830880
+
+	BUSINESS ADDRESS:	
+		STREET 1:		C/O RMB CAPITAL MANAGEMENT, LLC
+		STREET 2:		10 S. WACKER DR. STE 3210
+		CITY:			CHICAGO
+		STATE:			IL
+		ZIP:			60606
+		BUSINESS PHONE:		312-993-5800
+
+	MAIL ADDRESS:	
+		STREET 1:		C/O RMB CAPITAL MANAGEMENT, LLC
+		STREET 2:		10 S. WACKER DR. STE 3210
+		CITY:			CHICAGO
+		STATE:			IL
+		ZIP:			60606
+
+REPORTING-OWNER:	
+
+	OWNER DATA:	
+		COMPANY CONFORMED NAME:			1837 RMB Managers L.L.C.
+		CENTRAL INDEX KEY:			0001363399
+		STATE OF INCORPORATION:			DE
+		FISCAL YEAR END:			1231
+
+	FILING VALUES:
+		FORM TYPE:		4/A
+		SEC ACT:		1934 Act
+		SEC FILE NUMBER:	000-50019
+		FILM NUMBER:		07830881
+
+	BUSINESS ADDRESS:	
+		STREET 1:		C/O RMB CAPITAL MANAGEMENT, LLC
+		STREET 2:		10 S. WACKER DR. STE 3210
+		CITY:			CHICAGO
+		STATE:			IL
+		ZIP:			60606
+		BUSINESS PHONE:		312-993-5800
+
+	MAIL ADDRESS:	
+		STREET 1:		C/O RMB CAPITAL MANAGEMENT, LLC
+		STREET 2:		10 S. WACKER DR. STE 3210
+		CITY:			CHICAGO
+		STATE:			IL
+		ZIP:			60606
+</SEC-HEADER>
+<DOCUMENT>
+<TYPE>4/A
+<SEQUENCE>1
+<FILENAME>primary_doc.xml
+<DESCRIPTION>PRIMARY DOCUMENT
+<TEXT>
+<XML>
+<?xml version="1.0"?>
+<ownershipDocument>
+
+    <schemaVersion>X0202</schemaVersion>
+
+    <documentType>4/A</documentType>
+
+    <periodOfReport>2007-05-08</periodOfReport>
+
+    <dateOfOriginalSubmission>2007-05-08</dateOfOriginalSubmission>
+
+    <notSubjectToSection16>0</notSubjectToSection16>
+
+    <issuer>
+        <issuerCik>0001167419</issuerCik>
+        <issuerName>AspenBio Pharma, Inc.</issuerName>
+        <issuerTradingSymbol>apnb</issuerTradingSymbol>
+    </issuer>
+
+    <reportingOwner>
+        <reportingOwnerId>
+            <rptOwnerCik>0001363399</rptOwnerCik>
+            <rptOwnerName>1837 RMB Managers L.L.C.</rptOwnerName>
+        </reportingOwnerId>
+        <reportingOwnerAddress>
+            <rptOwnerStreet1>C/O RMB CAPITAL MANAGEMENT, LLC</rptOwnerStreet1>
+            <rptOwnerStreet2>10 S. WACKER DR. STE 3210</rptOwnerStreet2>
+            <rptOwnerCity>CHICAGO</rptOwnerCity>
+            <rptOwnerState>IL</rptOwnerState>
+            <rptOwnerZipCode>60606</rptOwnerZipCode>
+            <rptOwnerStateDescription></rptOwnerStateDescription>
+        </reportingOwnerAddress>
+        <reportingOwnerRelationship>
+            <isDirector>0</isDirector>
+            <isOfficer>0</isOfficer>
+            <isTenPercentOwner>1</isTenPercentOwner>
+            <isOther>0</isOther>
+        </reportingOwnerRelationship>
+    </reportingOwner>
+
+    <reportingOwner>
+        <reportingOwnerId>
+            <rptOwnerCik>0001363397</rptOwnerCik>
+            <rptOwnerName>1837 Partners L.P.</rptOwnerName>
+        </reportingOwnerId>
+        <reportingOwnerAddress>
+            <rptOwnerStreet1>C/O RMB CAPITAL MANAGEMENT, LLC</rptOwnerStreet1>
+            <rptOwnerStreet2>10 S. WACKER DR. STE 3210</rptOwnerStreet2>
+            <rptOwnerCity>CHICAGO</rptOwnerCity>
+            <rptOwnerState>IL</rptOwnerState>
+            <rptOwnerZipCode>60606</rptOwnerZipCode>
+            <rptOwnerStateDescription></rptOwnerStateDescription>
+        </reportingOwnerAddress>
+        <reportingOwnerRelationship>
+            <isDirector>0</isDirector>
+            <isOfficer>0</isOfficer>
+            <isTenPercentOwner>1</isTenPercentOwner>
+            <isOther>0</isOther>
+        </reportingOwnerRelationship>
+    </reportingOwner>
+
+    <reportingOwner>
+        <reportingOwnerId>
+            <rptOwnerCik>0001376884</rptOwnerCik>
+            <rptOwnerName>1837 Partners QP L.P.</rptOwnerName>
+        </reportingOwnerId>
+        <reportingOwnerAddress>
+            <rptOwnerStreet1>C/O RMB CAPITAL MANAGEMENT, LLC</rptOwnerStreet1>
+            <rptOwnerStreet2>10 S. WACKER DR. STE. 3210</rptOwnerStreet2>
+            <rptOwnerCity>CHICAGO</rptOwnerCity>
+            <rptOwnerState>IL</rptOwnerState>
+            <rptOwnerZipCode>60606</rptOwnerZipCode>
+            <rptOwnerStateDescription></rptOwnerStateDescription>
+        </reportingOwnerAddress>
+        <reportingOwnerRelationship>
+            <isDirector>0</isDirector>
+            <isOfficer>0</isOfficer>
+            <isTenPercentOwner>1</isTenPercentOwner>
+            <isOther>0</isOther>
+        </reportingOwnerRelationship>
+    </reportingOwner>
+
+    <reportingOwner>
+        <reportingOwnerId>
+            <rptOwnerCik>0001396487</rptOwnerCik>
+            <rptOwnerName>1837 Partners Ltd.</rptOwnerName>
+        </reportingOwnerId>
+        <reportingOwnerAddress>
+            <rptOwnerStreet1>C/O RMB CAPITAL MANAGEMENT, LLC</rptOwnerStreet1>
+            <rptOwnerStreet2>10 S. WACKER DRIVE, STE. 3210</rptOwnerStreet2>
+            <rptOwnerCity>CHICAGO</rptOwnerCity>
+            <rptOwnerState>IL</rptOwnerState>
+            <rptOwnerZipCode>60606</rptOwnerZipCode>
+            <rptOwnerStateDescription></rptOwnerStateDescription>
+        </reportingOwnerAddress>
+        <reportingOwnerRelationship>
+            <isDirector>0</isDirector>
+            <isOfficer>0</isOfficer>
+            <isTenPercentOwner>1</isTenPercentOwner>
+            <isOther>0</isOther>
+        </reportingOwnerRelationship>
+    </reportingOwner>
+
+    <nonDerivativeTable>
+        <nonDerivativeTransaction>
+            <securityTitle>
+                <value>AspenBio Pharma, Inc.</value>
+            </securityTitle>
+            <transactionDate>
+                <value>2007-05-08</value>
+            </transactionDate>
+            <transactionCoding>
+                <transactionFormType>4</transactionFormType>
+                <transactionCode>P</transactionCode>
+                <equitySwapInvolved>0</equitySwapInvolved>
+            </transactionCoding>
+            <transactionTimeliness>
+                <value></value>
+            </transactionTimeliness>
+            <transactionAmounts>
+                <transactionShares>
+                    <value>6000</value>
+                    <footnoteId id="F2"/>
+                </transactionShares>
+                <transactionPricePerShare>
+                    <value>4.47</value>
+                </transactionPricePerShare>
+                <transactionAcquiredDisposedCode>
+                    <value>A</value>
+                </transactionAcquiredDisposedCode>
+            </transactionAmounts>
+            <postTransactionAmounts>
+                <sharesOwnedFollowingTransaction>
+                    <value>2863945</value>
+                    <footnoteId id="F1"/>
+                </sharesOwnedFollowingTransaction>
+            </postTransactionAmounts>
+            <ownershipNature>
+                <directOrIndirectOwnership>
+                    <value>D</value>
+                </directOrIndirectOwnership>
+            </ownershipNature>
+        </nonDerivativeTransaction>
+    </nonDerivativeTable>
+
+    <footnotes>
+        <footnote id="F1">These securities are directly owned by 1837 Partners L.P., 1837 Partners QP L.P., and 1837 Partners Ltd. (&quot;Partnerships&quot;).  As the General Partner to the Partnerships, 1837 RMB Managers LLC, may be deemed to be the beneficial owner of the Issuer's securities held by the Partnerships.  1837 RMB Managers LLC disclaims any beneficial ownership of any of the Issuer's securities reported herein for the purposes of Rule 16a-1 under the Securities Exchange Act of 1934, as amended, or otherwise, except as to securities representing 1837 RMB Managers LLC's pro rata interest in the profits of the Partnerships.</footnote>
+        <footnote id="F2">These shares are allocated to 1837 Partners QP L.P.</footnote>
+    </footnotes>
+
+    <ownerSignature>
+        <signatureName>Richard M. Burridge, Jr.</signatureName>
+        <signatureDate>2007-05-09</signatureDate>
+    </ownerSignature>
+</ownershipDocument>
+</XML>
+</TEXT>
+</DOCUMENT>
+</SEC-DOCUMENT>
+-----END PRIVACY-ENHANCED MESSAGE-----
