@@ -180,7 +180,7 @@ function printOutput(data){
     cell = row.insertCell(4);
     cell.innerHTML = '<strong>Total</strong>';
     cell = row.insertCell(5);
-    cell.innerHTML = '$' + maxprofit;
+    cell.innerHTML = '$' + decimalCorrection(maxprofit);
     
     // <form action="save.php" method="post" id="save"><input type="submit" class="btn btn-default col-md-6" value="Save Data"></form>
 }
