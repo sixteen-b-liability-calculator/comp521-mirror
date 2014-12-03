@@ -213,6 +213,9 @@ function populateWithExample() {
 //  Clears the table from other values
     $("#purchases tr:gt(0)").remove();
     $("#sales tr:gt(0)").remove();
+    
+    var purchaseTable = $("#purchases")[0]
+    var salesTable = $("#sales")[0]
 
     buyNumber = [1000, 2000, 800, 1000];
     buyPrice = [9,8,7,6];
