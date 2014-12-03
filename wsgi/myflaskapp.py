@@ -20,6 +20,8 @@ mail = Mail(app)
 
 from compute import run_problem, run_greedy, validate_buysell, FourhundredException
 from edgar_api import *
+from aux_code.dateFunctions import *
+from aux_code.createCSV import *
 
 @app.route("/", methods = ['GET'])
 def home_page():
@@ -60,25 +62,6 @@ def gen_compute_endpoint(runner):
         msg = Message(subject = "Test e-mail", body =emailBody, sender="kevin.valakuzhy@gmail.com", recipients=[recipient])
         mail.send(msg)
     return jsonify(result)
-
-def prettifyResult(result):
-    pairings = result['pairs']
-    outputString = "The following is the result of your 16b liability calculation!\n"
-    count = 1
-    for pair in pairings:
-        buy = pair['buy']
-        buyDate = str(buy['year']) +"/"+ str(buy['month']) +"/"+ str(buy['day'])
-        sell = pair['sell']
-        sellDate = str(sell['year']) +"/"+ str(sell['month']) +"/"+ str(sell['day'])
-
-        lineString = "Pairing " + str(count) + ": "
-        lineString += "Buy Date: " + buyDate + "  Buy Price: $" + str(buy['price'])+"  "
-        lineString += "Sell Date: " + sellDate + "  Sell Price: $" + str(sell['price'])+"  "
-        lineString += "# of Shares: " + str(pair['count']) + "  "
-        outputString += lineString + "\n"
-        count += 1
-    outputString += "Total Profit: " + str(result['value'])
-    return outputString
 
 @app.route("/compute", methods=['POST'])
 def compute_endpoint():

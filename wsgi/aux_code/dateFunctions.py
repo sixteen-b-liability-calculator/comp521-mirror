@@ -17,3 +17,7 @@ def isWithinTimeRange(testYear, testMonth, startYear, startMonth, endYear, endMo
     isAfterEnd = isStartBeforeEnd(testYear,testMonth,endYear,endMonth) == ""
     isBeforeBeginning = isStartBeforeEnd(startYear, startMonth, testYear, testMonth) == ""
     return (isAfterEnd and isBeforeBeginning) 
+
+# Date returned is formatted YYYY/MM/DD
+def tradeDateString(trade):
+    return str(trade['year']) +"/"+ str(trade['month']) +"/"+ str(trade['day'])
