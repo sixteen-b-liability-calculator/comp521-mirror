@@ -91,10 +91,16 @@ function inputToJSON(){
     sales = readTable($("#sales")[0]);
     
     email = $("#email").val()
+    
+    stella = document.getElementById("stella").selected;
+    jammies = document.getElementById("jammies").selected;
+    if(jammies){
+	    stella = true;
+    }
 
     $.ajax( "/compute",
 	({type: "POST",
-	    data: $.toJSON({ "buy": purchases, "sell": sales, "recipient": email }),
+	    data: $.toJSON({ "buy": purchases, "sell": sales, "stella_correction": stella, "jammies_correction": jammies, "recipient": email }),
 	    contentType: "application/json",
         dataType: "json",
 	    success: printOutput,
@@ -203,10 +209,6 @@ function populate(data){
 //  var beforeJSON = '{"buys":[{"day":11,"month":1,"number":2000,"price":44.1,"year":2007},{"day":11,"month":1,"number":1200,"price":44.39,"year":2007},{"day":11,"month":1,"number":3600,"price":44.76,"year":2007},{"day":11,"month":1,"number":2500,"price":45.04,"year":2007},{"day":11,"month":1,"number":700,"price":45.31,"year":2007},{"day":9,"month":2,"number":2000,"price":40.2,"year":2007},{"day":9,"month":2,"number":750,"price":40.6,"year":2007},{"day":23,"month":9,"number":15730,"price":54.84,"year":2006}],"sells":[{"day":11,"month":1,"number":10000,"price":34.585,"year":2007},{"day":9,"month":2,"number":5000,"price":3.125,"year":2007},{"day":9,"month":3,"number":5000,"price":2.5,"year":2007}]}';   
     var buys = data["buys"];
     var purchaseTable = $("#purchases")[0]
-
-	row = insertPSRow(purchaseTable);
-	$('#title', row).append("Stock Title");
-	$('#ownership', row).append("Ownership (Indirect/Direct)");
 
     for (tradeIdx in buys) {
         trade = buys[tradeIdx];

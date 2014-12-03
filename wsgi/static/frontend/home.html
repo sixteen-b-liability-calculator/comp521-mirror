@@ -3,12 +3,14 @@
 		<!-- CSS -->
 		<link rel="stylesheet" type="text/css" href="style.css">
 		<link href="css/bootstrap.min.css" rel="stylesheet">
+		<link href="css/bootstrap-select.css" rel="stylesheet">
 		<link href="css/datepicker.css" rel="stylesheet">
 		<link rel="stylesheet" href="css/font-awesome.min.css">
 		
 		<! Javascript -->
 		<script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
 		<script src="js/bootstrap.min.js"></script>
+		<script src="js/bootstrap-select.js"></script>
 		<script src="js/jquery.json-2.4.js"></script>
 		<script src="main.js"></script>
 		<script src="js/dropzone.js"></script>
@@ -63,7 +65,14 @@
 				</div>
 				<div style="padding-top:10px">
 					<div class="col-md-1"><button type="button" class="btn btn-default" onclick="inputToJSON()">Compute</button></div>
-					<div class="col-md-5"><input type="email" id="email" class="form-control" placeholder="Email Address for Results"></div>
+					<div class="col-md-3">
+						<select class="selectpicker">
+							<option>Month Adjustment</option>
+							<option id="stella">Stella</option>
+							<option id="jammies">Jammies</option>
+						</select>
+					</div>
+					<div class="col-md-6"><input type="email" id="email" class="form-control" placeholder="Email Address for Results"></div>&nbsp;
 				</div>
 			</div>
 		</div>
@@ -118,6 +127,6 @@
 			</div>
 		</div>
 		<!-- Ending of tab pane -->
-		
+	<p style="padding-bottom:100px"></p>
 	</body>
 </html>
