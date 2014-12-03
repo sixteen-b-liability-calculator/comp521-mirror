@@ -199,6 +199,42 @@ function pullSEC(){
     }))
 }
 
+function populateWithExample() {
+//  Clears the table from other values
+    $("#purchases tr:gt(0)").remove();
+    $("#sales tr:gt(0)").remove();
+
+    buyNumber = [1000, 2000, 800, 1000];
+    buyPrice = [9,8,7,6];
+    buyYear = [2014,2014,2014,2014];
+    buyMonth = [1,3,5,9];
+    buyDay = [1,1,1,1];
+
+    for (i = 0; i<4; i++) {
+        row = insertPSRow(purchaseTable)
+        $('#day', row).val(buyDay[i]);
+        $('#month', row).val(buyMonth[i]);
+        $('#year', row).val(buyYear[i]);
+        $('#shares', row).val(buyNumber[i]);
+        $('#value', row).val(buyPrice[i]);        
+    }
+
+    sellNumber = [400,1200,2400];
+    sellPrice = [8,10,9];
+    sellYear = [2014,2014,2014];
+    sellMonth = [2,6,10];
+    sellDay = [15,15,15];
+
+    for (i = 0; i<3; i++) {
+        row = insertPSRow(salesTable)
+        $('#day', row).val(sellDay[i]);
+        $('#month', row).val(sellMonth[i]);
+        $('#year', row).val(sellYear[i]);
+        $('#shares', row).val(sellNumber[i]);
+        $('#value', row).val(sellPrice[i]);        
+    }
+}
+
 function populate(data){
     $('#myTabs li:eq(0) a').tab('show');
 
