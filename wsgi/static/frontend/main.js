@@ -86,6 +86,16 @@ function readTable(table){
     return out;
 }
 
+function decimalCorrection(price){
+	decimal = price.toString().split(".")[1];
+	if(decimal == null){
+		price = price.toFixed(2);
+	}else if(decimal.length < 2){
+		price = price.toFixed(2);
+	}
+	return price;
+}
+
 function inputToJSON(){
     purchases = readTable($("#purchases")[0]);
     sales = readTable($("#sales")[0]);
@@ -137,20 +147,20 @@ function printOutput(data){
 		cell.innerHTML = buy["month"] + '/' + buy["day"] + '/' + buy["year"];
 		cell.className = 'col-md-1';
 		cell = row.insertCell(1);
-		cell.innerHTML = '$' + buy["price"];
+		cell.innerHTML = '$' + decimalCorrection(buy["price"]);
 		cell.className = 'col-md-1';
 		cell = row.insertCell(2);
 		cell.innerHTML = sell["month"] + '/' + sell["day"] + '/' + sell["year"];
 		cell.className = 'col-md-1';
 		cell = row.insertCell(3);
-		cell.innerHTML = '$' + sell["price"];
+		cell.innerHTML = '$' + decimalCorrection(sell["price"]);
 		cell.className = 'col-md-1';
 		cell = row.insertCell(4);
 		cell.innerHTML = pair["count"];
 		cell.className = 'col-md-1';
 		cell = row.insertCell(5);
 		var profit = pair["count"]*sell["price"] - pair["count"]*buy["price"];
-		cell.innerHTML = '$' + profit;
+		cell.innerHTML = '$' + decimalCorrection(profit);
 		cell.className = 'col-md-1';
 		maxprofit += profit;
     }
