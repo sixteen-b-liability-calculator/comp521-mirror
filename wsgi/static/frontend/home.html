@@ -28,7 +28,7 @@
 		<!-- tab 1 "input" -->
 		<div role="tabpanel" class="tab-pane fade in active" id="input">
 			<div class="indent">
-				<h2>Purchases</h2>
+				<h2>Acquisitions</h2>
 				<div class="indent">
 					<table id="purchases" class="form-group">
 						<tr>
@@ -36,8 +36,8 @@
 							<th style="text-align:center">Month</th>
 							<th style="text-align:center">Day</th>
 							<th style="text-align:center">Year</th>
-							<th style="text-align:center"># Shares</th>
-							<th style="text-align:center">Cost</th>
+							<th style="text-align:center"># Securities</th>
+							<th style="text-align:center">Per-unit Price</th>
 							<th style="text-align:center">Security Title</th>
 							<th style="text-align:center">Ownership</th>
 						</tr>
@@ -45,7 +45,7 @@
 					 <button type="button" class="btn btn-default btn-xs" onclick="purchaseRow()">Add Row <i class="fa fa-plus"></i></button>
 				</div>
 	
-				<h2>Sales</h2>
+				<h2>Disposals</h2>
 				<div class="indent">
 					<table id="sales" class="form-group">
 						<tr>
@@ -53,8 +53,8 @@
 							<th style="text-align:center">Month</th>
 							<th style="text-align:center">Day</th>
 							<th style="text-align:center">Year</th>
-							<th style="text-align:center"># Shares</th>
-							<th style="text-align:center">Proceeds</th>
+							<th style="text-align:center"># Securities</th>
+							<th style="text-align:center">Per-unit Price</th>
 							<th style="text-align:center">Security Title</th>
 							<th style="text-align:center">Ownership</th>
 						</tr>
@@ -73,11 +73,11 @@
 			<div class="cornerindent">
 				<table id="pairings">
 					<tr>
-						<th style="text-align:center">Date</th>
-						<th style="text-align:center">Shares</th>
-						<th style="text-align:center">Amount</th>
-						<th style="text-align:center">Date</th>
-						<th style="text-align:center">Amount</th>
+						<th style="text-align:center">Acquisition Date</th>
+						<th style="text-align:center">Per-unit Price</th>
+						<th style="text-align:center">Disposal Date</th>
+						<th style="text-align:center">Per-unit Price</th>
+						<th style="text-align:center">Paired Securities</th>
 						<th style="text-align:center">Profit</th>
 					</tr>
 				</table>
