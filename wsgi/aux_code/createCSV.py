@@ -6,7 +6,7 @@ def trade2CSV(pairings):
     outputString = ""
 
     CSV_title_columns = "pairing_number, buy_date, buy_price, sell_date, " + \
-                         "sell_price, num_of_shares, pairing_profit"
+                         "sell_price, num_of_shares, pairing_profit\n"
     
     outputString += CSV_title_columns
 
@@ -49,7 +49,7 @@ def prettifyResult(result):
 
 # Return the profit made through a pairing of trades.
 def pairProfit(pair):
-    buy = pair['buy']
-    sell = pair['sell']
+    buy = pair['buy']['price']
+    sell = pair['sell']['price']
     count = pair['count']
     return (sell-buy)*count

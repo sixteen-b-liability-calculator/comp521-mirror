@@ -68,6 +68,8 @@ def gen_compute_endpoint(runner):
     if (recipient != None and recipient != ""):
         emailBody = prettifyResult(result)
         msg = Message(subject = "Test e-mail", body =emailBody, sender="kevin.valakuzhy@gmail.com", recipients=[recipient])
+        csvString = trade2CSV(result['pairs'])
+        msg.attach("pairingResult.csv", "text/csv", csvString)
         mail.send(msg)
     return jsonify(result)
 
