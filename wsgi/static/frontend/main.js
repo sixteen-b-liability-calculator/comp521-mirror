@@ -124,6 +124,28 @@ function inputToJSON(){
     $('#myTabs li:eq(1) a').tab('show');
 }
 
+function greedy(){
+    purchases = readTable($("#purchases")[0]);
+    sales = readTable($("#sales")[0]);
+    
+    email = $("#email").val()
+
+    $.ajax( "/greedy",
+	({type: "POST",
+	    data: $.toJSON({ "buy": purchases, "sell": sales, "recipient": email }),
+	    contentType: "application/json",
+        dataType: "json",
+	    success: printOutput,
+	    error: function(data) {
+		    document.open();
+		    document.write(data.responseText);
+		    document.close();
+	    }
+    }))
+    // Switches to second tab
+    $('#myTabs li:eq(1) a').tab('show');
+}
+
 function printOutput(data){
 	
     var pairs, pair, buy, sell, count;
