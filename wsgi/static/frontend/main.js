@@ -87,8 +87,8 @@ function readTable(table){
     return out;
 }
 
-// Calculate with linear programming
-function inputToJSON(){
+// Calculates with linear programming
+function inputToJSON(url){
     purchases = readTable($("#purchases")[0]);
     sales = readTable($("#sales")[0]);
     
@@ -100,7 +100,7 @@ function inputToJSON(){
 	    stella = true;
     }
 
-    $.ajax( "/compute",
+    $.ajax( url,
 	({type: "POST",
 	    data: $.toJSON({ "buy": purchases, "sell": sales, "stella_correction": stella, "jammies_correction": jammies, "recipient": email }),
 	    contentType: "application/json",
