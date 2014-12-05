@@ -1,9 +1,11 @@
 var defaultInputCount = 10;
 
+// Removes row of data
 function removePSRow(button){
     button.parentElement.parentElement.remove();
 }
 
+// Inserts empty row for acquisitions or disposal table
 function insertPSRow(table){
     row = table.insertRow();
 
@@ -45,10 +47,7 @@ function insertPSRow(table){
     return row;
 }
 
-function insertFilingURL(url){
-	return '<a href="'+ url +'" class="btn btn-default btn-xs" target="_blank">Link to filing</a>';
-}
-
+// Called by <body> onload
 function firstLoad(){
     purchases = $("#purchases")[0];
     sales = $("#sales")[0];
@@ -58,16 +57,19 @@ function firstLoad(){
     }
 }
 
+// Called by "Add Row" button for Acquisitions table
 function purchaseRow(){
     purchases = $("#purchases")[0];
     insertPSRow(purchases);
 }
 
+// Called by "Add Row" button for Disposals table
 function saleRow(){
     sales = $("#sales")[0];
     insertPSRow(sales);
 }
 
+// Called in inputToJSON() to store living input data
 function readTable(table){
     out = []
     for(i = 1; i < table.rows.length; ++i){
@@ -85,16 +87,7 @@ function readTable(table){
     return out;
 }
 
-function decimalCorrection(price){
-	decimal = price.toString().split(".")[1];
-	if(decimal == null){
-		price = price.toFixed(2);
-	}else if(decimal.length < 2){
-		price = price.toFixed(2);
-	}
-	return price;
-}
-
+// Calculate with linear programming
 function inputToJSON(){
     purchases = readTable($("#purchases")[0]);
     sales = readTable($("#sales")[0]);
@@ -123,6 +116,7 @@ function inputToJSON(){
     $('#myTabs li:eq(1) a').tab('show');
 }
 
+// Calculate with greedy algorithm
 function greedy(){
     purchases = readTable($("#purchases")[0]);
     sales = readTable($("#sales")[0]);
@@ -145,6 +139,19 @@ function greedy(){
     $('#myTabs li:eq(1) a').tab('show');
 }
 
+
+// If less than two decimal places, correct value. If more than two decimal places, do nothing.
+function decimalCorrection(price){
+	decimal = price.toString().split(".")[1];
+	if(decimal == null){
+		price = price.toFixed(2);
+	}else if(decimal.length < 2){
+		price = price.toFixed(2);
+	}
+	return price;
+}
+
+// Prints output and switches to HTML Output tab
 function printOutput(data){
 	
     var pairs, pair, buy, sell, count;
@@ -152,9 +159,7 @@ function printOutput(data){
     $("#pairings tr:gt(0)").remove();
     var pairingsRow = 0;
     var maxprofit = 0;
-    
-    //{"pairs":[{"buy": {"day": 29,"month": 10,"number": 28,"price": 1879,"year": 5},"count": 10,"sell": {"day": 14,"month": 12,"number": 10,"price": 9872,"year": 5}},{"buy": {"day": 3,"month": 5,"number": 29,"price": 109,"year": 5},"count": 23,"sell": {"day": 8,"month": 8,"number": 23,"price": 1987,"year": 5}},{"buy": {"day": 3,"month": 5,"number": 29,"price": 109,"year": 5},"count": 6,"sell": {"day": 29,"month": 6,"number": 29,"price": 1827,"year": 5}}],"status": "optimal","value": 133432}
-    //{"pairs":[{"buy":{"day":3,"month":4,"number":6,"price":10,"year":5},"count":6,"sell":{"day":5,"month":5,"number":200,"price":1029,"year":5}},{"buy":{"day":3,"month":4,"number":30,"price":500,"year":5},"count":30,"sell":{"day":5,"month":5,"number":200,"price":1029,"year":5}},{"buy":{"day":3,"month":4,"number":8,"price":20,"year":5},"count":8,"sell":{"day":5,"month":5,"number":200,"price":1029,"year":5}}],"status":"optimal","value":30056}
+
     pairs = data["pairs"]
 
     for(var pairIdx in pairs){
@@ -206,6 +211,7 @@ function printOutput(data){
     // <form action="save.php" method="post" id="save"><input type="submit" class="btn btn-default col-md-6" value="Save Data"></form>
 }
 
+// Takes month, year and CIK parameters for SEC database pull
 function pullSEC(){
     secStartYear = $("#secStartYear").val();
     secStartMonth = $("#secStartMonth").val();
@@ -230,14 +236,15 @@ function pullSEC(){
     }))
 }
 
+// Takes predetermined example data and populates Acquisitions and Disposals tables
 function populateWithExample() {
-//  Clears the table from other values
     $("#purchases tr:gt(0)").remove();
     $("#sales tr:gt(0)").remove();
     
     var purchaseTable = $("#purchases")[0]
     var salesTable = $("#sales")[0]
 
+	// Example data
     buyNumber = [1000, 2000, 800, 1000];
     buyPrice = [9,8,7,6];
     buyYear = [2014,2014,2014,2014];
@@ -269,14 +276,18 @@ function populateWithExample() {
     }
 }
 
+// Format URL with HTML link
+function insertFilingURL(url){
+	return '<a href="'+ url +'" class="btn btn-default btn-xs" target="_blank">Link to filing</a>';
+}
+
+// Takes SEC data and populates Acquisitions and Disposals tables
 function populate(data){
     $('#myTabs li:eq(0) a').tab('show');
 
-//  Clears the table from other values
     $("#purchases tr:gt(0)").remove();
     $("#sales tr:gt(0)").remove();
     
-//  var beforeJSON = '{"buys":[{"day":11,"month":1,"number":2000,"price":44.1,"year":2007},{"day":11,"month":1,"number":1200,"price":44.39,"year":2007},{"day":11,"month":1,"number":3600,"price":44.76,"year":2007},{"day":11,"month":1,"number":2500,"price":45.04,"year":2007},{"day":11,"month":1,"number":700,"price":45.31,"year":2007},{"day":9,"month":2,"number":2000,"price":40.2,"year":2007},{"day":9,"month":2,"number":750,"price":40.6,"year":2007},{"day":23,"month":9,"number":15730,"price":54.84,"year":2006}],"sells":[{"day":11,"month":1,"number":10000,"price":34.585,"year":2007},{"day":9,"month":2,"number":5000,"price":3.125,"year":2007},{"day":9,"month":3,"number":5000,"price":2.5,"year":2007}]}';   
     var buys = data["buys"];
     var purchaseTable = $("#purchases")[0]
 

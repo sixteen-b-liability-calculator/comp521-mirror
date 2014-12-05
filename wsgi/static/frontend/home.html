@@ -17,21 +17,18 @@
 		<script src="js/bootstrap-select.js"></script>
 		<script src="js/jquery.json-2.4.js"></script>
 		<script src="main.js"></script>
-		<script src="js/dropzone.js"></script>
 	</head>
 	<body onload="firstLoad()">
-		<!-- Nav tabs -->
+		<!-- Nav tabs / Header -->
 		<ul id="myTabs" class="nav nav-tabs" role="tablist">
 		  <li role="presentation" class="active"><a href="#input" role="tab" data-toggle="tab">Input</a></li>
 		  <li role="presentation"><a href="#output" role="tab" data-toggle="tab">Output</a></li>
 		  <li role="presentation"><a href="#sec" role="tab" data-toggle="tab">SEC Database</a></li>
-		  <!--<li role="presentation"><a href="#upload" role="tab" data-toggle="tab">Upload (.cvs)</a></li>-->
 		</ul>
 		
 		<!-- Beginning of tab pane -->
 		<div class="tab-content">
-		
-		<!-- tab 1 "input" -->
+		<!-- tab 1: Input -->
 		<div role="tabpanel" class="tab-pane fade in active" id="input">
 			<div class="indent">
 				<h2>Acquisitions <button type="button" class="btn btn-default" onclick="populateWithExample()">Sample Data</button></h2>
@@ -84,7 +81,7 @@
 			</div>
 		</div>
 		
-		<!-- tab 2 "output" -->
+		<!-- tab 2: Output -->
 		<div role="tabpanel" class="tab-pane fade" id="output">
 			<div class="cornerindent">
 				<table id="pairings" style="width: 1000px">
@@ -99,14 +96,8 @@
 				</table>
 			</div>
 		</div>
-		
-		
-		<!-- tab 3 "file upload" -->
-		<div role="tabpanel" class="tab-pane fade" id="fileupload">
-			<form action="/file-upload" class="dropzone" id="dropzonefiles"></form>
-		</div>
-		<!-- Ending of tab pane -->
-		<!-- tab 3 "file upload" -->
+
+		<!-- tab 3: SEC Database  -->
 		<div role="tabpanel" class="tab-pane fade" id="sec">
 			<div class="indent">
 				<h2>Upload Information from SEC Database</h2>
@@ -134,7 +125,8 @@
 				</div>
 			</div>
 		</div>
-		<!-- Ending of tab pane -->
+		
+		<!-- End of tab pane -->
 	<p style="padding-bottom:100px"></p>
 	</body>
 </html>
