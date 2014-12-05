@@ -5,7 +5,6 @@ function removePSRow(button){
 }
 
 function insertPSRow(table){
-    i = table.rows.length
     row = table.insertRow();
 
     cell = row.insertCell();
@@ -224,7 +223,7 @@ function populateWithExample() {
     buyDay = [1,1,1,1];
 
     for (i = 0; i<4; i++) {
-        row = insertPSRow(purchaseTable)
+        row = insertPSRow(purchaseTable);
         $('#day', row).val(buyDay[i]);
         $('#month', row).val(buyMonth[i]);
         $('#year', row).val(buyYear[i]);
@@ -239,7 +238,7 @@ function populateWithExample() {
     sellDay = [15,15,15];
 
     for (i = 0; i<3; i++) {
-        row = insertPSRow(salesTable)
+        row = insertPSRow(salesTable);
         $('#day', row).val(sellDay[i]);
         $('#month', row).val(sellMonth[i]);
         $('#year', row).val(sellYear[i]);
