@@ -1,0 +1,863 @@
+[
+{ "input": {
+   "buy": [ { "number": 1000, "price":  9, "year": 2014, "month":  1, "day":  1 },
+            { "number": 2000, "price":  8, "year": 2014, "month":  3, "day":  1 },
+            { "number":  800, "price":  7, "year": 2014, "month":  5, "day":  1 },
+            { "number": 1000, "price":  6, "year": 2014, "month":  9, "day":  1 },
+            { "number": 1000, "price": 1, "year": 2000, "month": 3, "day": 31} ],
+  "sell": [ { "number":  400, "price":  8, "year": 2014, "month":  2, "day": 15 },
+            { "number": 1200, "price": 10, "year": 2014, "month":  6, "day": 15 },
+            { "number": 2400, "price":  9, "year": 2014, "month": 10, "day": 15 },
+            { "number": 1000, "price":  2, "year": 2000, "month": 9, "day": 28 },
+            { "number": 1000, "price":  3, "year": 2000, "month": 9, "day": 29 },
+            { "number": 1000, "price":  4, "year": 2000, "month": 9, "day": 30 },
+            { "number": 1000, "price":  5, "year": 2000, "month": 10, "day": 1 } ],
+  "stella_correction": true,
+  "jammies_correction": true
+},
+"output_greedy": {
+   "pairs": [
+      {
+         "buy": {
+            "day": 31,
+            "month": 3,
+            "number": 1000,
+            "price": 1,
+            "year": 2000
+         },
+         "count": 1000,
+         "sell": {
+            "day": 28,
+            "month": 9,
+            "number": 1000,
+            "price": 2,
+            "year": 2000
+         }
+      },
+      {
+         "buy": {
+            "day": 1,
+            "month": 9,
+            "number": 1000,
+            "price": 6,
+            "year": 2014
+         },
+         "count": 1000,
+         "sell": {
+            "day": 15,
+            "month": 6,
+            "number": 1200,
+            "price": 10,
+            "year": 2014
+         }
+      },
+      {
+         "buy": {
+            "day": 1,
+            "month": 5,
+            "number": 800,
+            "price": 7,
+            "year": 2014
+         },
+         "count": 200,
+         "sell": {
+            "day": 15,
+            "month": 6,
+            "number": 1200,
+            "price": 10,
+            "year": 2014
+         }
+      },
+      {
+         "buy": {
+            "day": 1,
+            "month": 5,
+            "number": 800,
+            "price": 7,
+            "year": 2014
+         },
+         "count": 600,
+         "sell": {
+            "day": 15,
+            "month": 10,
+            "number": 2400,
+            "price": 9,
+            "year": 2014
+         }
+      }
+   ],
+   "value": 6800
+},
+"output_compute": {
+   "dual_solution": [
+      {
+         "buy": {
+            "day": 1,
+            "month": 1,
+            "number": 1000,
+            "price": 9,
+            "year": 2014
+         },
+         "dual_value": 0
+      },
+      {
+         "buy": {
+            "day": 1,
+            "month": 3,
+            "number": 2000,
+            "price": 8,
+            "year": 2014
+         },
+         "dual_value": 0
+      },
+      {
+         "buy": {
+            "day": 1,
+            "month": 5,
+            "number": 800,
+            "price": 7,
+            "year": 2014
+         },
+         "dual_value": 2
+      },
+      {
+         "buy": {
+            "day": 1,
+            "month": 9,
+            "number": 1000,
+            "price": 6,
+            "year": 2014
+         },
+         "dual_value": 3
+      },
+      {
+         "buy": {
+            "day": 31,
+            "month": 3,
+            "number": 1000,
+            "price": 1,
+            "year": 2000
+         },
+         "dual_value": 1
+      },
+      {
+         "dual_value": 0,
+         "sell": {
+            "day": 15,
+            "month": 2,
+            "number": 400,
+            "price": 8,
+            "year": 2014
+         }
+      },
+      {
+         "dual_value": 2,
+         "sell": {
+            "day": 15,
+            "month": 6,
+            "number": 1200,
+            "price": 10,
+            "year": 2014
+         }
+      },
+      {
+         "dual_value": 0,
+         "sell": {
+            "day": 15,
+            "month": 10,
+            "number": 2400,
+            "price": 9,
+            "year": 2014
+         }
+      },
+      {
+         "dual_value": 0,
+         "sell": {
+            "day": 28,
+            "month": 9,
+            "number": 1000,
+            "price": 2,
+            "year": 2000
+         }
+      },
+      {
+         "dual_value": 0,
+         "sell": {
+            "day": 29,
+            "month": 9,
+            "number": 1000,
+            "price": 3,
+            "year": 2000
+         }
+      },
+      {
+         "dual_value": 0,
+         "sell": {
+            "day": 30,
+            "month": 9,
+            "number": 1000,
+            "price": 4,
+            "year": 2000
+         }
+      },
+      {
+         "dual_value": 0,
+         "sell": {
+            "day": 1,
+            "month": 10,
+            "number": 1000,
+            "price": 5,
+            "year": 2000
+         }
+      }
+   ],
+   "dual_status": "optimal",
+   "dual_value": 8000,
+   "pairs": [
+      {
+         "buy": {
+            "day": 1,
+            "month": 5,
+            "number": 800,
+            "price": 7,
+            "year": 2014
+         },
+         "count": 800,
+         "sell": {
+            "day": 15,
+            "month": 10,
+            "number": 2400,
+            "price": 9,
+            "year": 2014
+         }
+      },
+      {
+         "buy": {
+            "day": 31,
+            "month": 3,
+            "number": 1000,
+            "price": 1,
+            "year": 2000
+         },
+         "count": 1000,
+         "sell": {
+            "day": 28,
+            "month": 9,
+            "number": 1000,
+            "price": 2,
+            "year": 2000
+         }
+      },
+      {
+         "buy": {
+            "day": 1,
+            "month": 9,
+            "number": 1000,
+            "price": 6,
+            "year": 2014
+         },
+         "count": 1000,
+         "sell": {
+            "day": 15,
+            "month": 10,
+            "number": 2400,
+            "price": 9,
+            "year": 2014
+         }
+      },
+      {
+         "buy": {
+            "day": 1,
+            "month": 3,
+            "number": 2000,
+            "price": 8,
+            "year": 2014
+         },
+         "count": 1200,
+         "sell": {
+            "day": 15,
+            "month": 6,
+            "number": 1200,
+            "price": 10,
+            "year": 2014
+         }
+      }
+   ],
+   "status": "optimal",
+   "value": 8000
+} },
+{ "input": {
+   "buy": [ { "number": 1000, "price":  9, "year": 2014, "month":  1, "day":  1 },
+            { "number": 2000, "price":  8, "year": 2014, "month":  3, "day":  1 },
+            { "number":  800, "price":  7, "year": 2014, "month":  5, "day":  1 },
+            { "number": 1000, "price":  6, "year": 2014, "month":  9, "day":  1 },
+            { "number": 1000, "price": 1, "year": 2000, "month": 3, "day": 31} ],
+  "sell": [ { "number":  400, "price":  8, "year": 2014, "month":  2, "day": 15 },
+            { "number": 1200, "price": 10, "year": 2014, "month":  6, "day": 15 },
+            { "number": 2400, "price":  9, "year": 2014, "month": 10, "day": 15 },
+            { "number": 1000, "price":  2, "year": 2000, "month": 9, "day": 28 },
+            { "number": 1000, "price":  3, "year": 2000, "month": 9, "day": 29 },
+            { "number": 1000, "price":  4, "year": 2000, "month": 9, "day": 30 },
+            { "number": 1000, "price":  5, "year": 2000, "month": 10, "day": 1 } ],
+  "stella_correction": true,
+  "jammies_correction": false
+},
+"output_greedy": {
+   "pairs": [
+      {
+         "buy": {
+            "day": 31,
+            "month": 3,
+            "number": 1000,
+            "price": 1,
+            "year": 2000
+         },
+         "count": 1000,
+         "sell": {
+            "day": 29,
+            "month": 9,
+            "number": 1000,
+            "price": 3,
+            "year": 2000
+         }
+      },
+      {
+         "buy": {
+            "day": 1,
+            "month": 9,
+            "number": 1000,
+            "price": 6,
+            "year": 2014
+         },
+         "count": 1000,
+         "sell": {
+            "day": 15,
+            "month": 6,
+            "number": 1200,
+            "price": 10,
+            "year": 2014
+         }
+      },
+      {
+         "buy": {
+            "day": 1,
+            "month": 5,
+            "number": 800,
+            "price": 7,
+            "year": 2014
+         },
+         "count": 200,
+         "sell": {
+            "day": 15,
+            "month": 6,
+            "number": 1200,
+            "price": 10,
+            "year": 2014
+         }
+      },
+      {
+         "buy": {
+            "day": 1,
+            "month": 5,
+            "number": 800,
+            "price": 7,
+            "year": 2014
+         },
+         "count": 600,
+         "sell": {
+            "day": 15,
+            "month": 10,
+            "number": 2400,
+            "price": 9,
+            "year": 2014
+         }
+      }
+   ],
+   "value": 7800
+},
+"output_compute": {
+   "dual_solution": [
+      {
+         "buy": {
+            "day": 1,
+            "month": 1,
+            "number": 1000,
+            "price": 9,
+            "year": 2014
+         },
+         "dual_value": 0
+      },
+      {
+         "buy": {
+            "day": 1,
+            "month": 3,
+            "number": 2000,
+            "price": 8,
+            "year": 2014
+         },
+         "dual_value": 0
+      },
+      {
+         "buy": {
+            "day": 1,
+            "month": 5,
+            "number": 800,
+            "price": 7,
+            "year": 2014
+         },
+         "dual_value": 2
+      },
+      {
+         "buy": {
+            "day": 1,
+            "month": 9,
+            "number": 1000,
+            "price": 6,
+            "year": 2014
+         },
+         "dual_value": 3
+      },
+      {
+         "buy": {
+            "day": 31,
+            "month": 3,
+            "number": 1000,
+            "price": 1,
+            "year": 2000
+         },
+         "dual_value": 2
+      },
+      {
+         "dual_value": 0,
+         "sell": {
+            "day": 15,
+            "month": 2,
+            "number": 400,
+            "price": 8,
+            "year": 2014
+         }
+      },
+      {
+         "dual_value": 2,
+         "sell": {
+            "day": 15,
+            "month": 6,
+            "number": 1200,
+            "price": 10,
+            "year": 2014
+         }
+      },
+      {
+         "dual_value": 0,
+         "sell": {
+            "day": 15,
+            "month": 10,
+            "number": 2400,
+            "price": 9,
+            "year": 2014
+         }
+      },
+      {
+         "dual_value": 0,
+         "sell": {
+            "day": 28,
+            "month": 9,
+            "number": 1000,
+            "price": 2,
+            "year": 2000
+         }
+      },
+      {
+         "dual_value": 0,
+         "sell": {
+            "day": 29,
+            "month": 9,
+            "number": 1000,
+            "price": 3,
+            "year": 2000
+         }
+      },
+      {
+         "dual_value": 0,
+         "sell": {
+            "day": 30,
+            "month": 9,
+            "number": 1000,
+            "price": 4,
+            "year": 2000
+         }
+      },
+      {
+         "dual_value": 0,
+         "sell": {
+            "day": 1,
+            "month": 10,
+            "number": 1000,
+            "price": 5,
+            "year": 2000
+         }
+      }
+   ],
+   "dual_status": "optimal",
+   "dual_value": 9000,
+   "pairs": [
+      {
+         "buy": {
+            "day": 1,
+            "month": 5,
+            "number": 800,
+            "price": 7,
+            "year": 2014
+         },
+         "count": 800,
+         "sell": {
+            "day": 15,
+            "month": 10,
+            "number": 2400,
+            "price": 9,
+            "year": 2014
+         }
+      },
+      {
+         "buy": {
+            "day": 1,
+            "month": 9,
+            "number": 1000,
+            "price": 6,
+            "year": 2014
+         },
+         "count": 1000,
+         "sell": {
+            "day": 15,
+            "month": 10,
+            "number": 2400,
+            "price": 9,
+            "year": 2014
+         }
+      },
+      {
+         "buy": {
+            "day": 1,
+            "month": 3,
+            "number": 2000,
+            "price": 8,
+            "year": 2014
+         },
+         "count": 1200,
+         "sell": {
+            "day": 15,
+            "month": 6,
+            "number": 1200,
+            "price": 10,
+            "year": 2014
+         }
+      },
+      {
+         "buy": {
+            "day": 31,
+            "month": 3,
+            "number": 1000,
+            "price": 1,
+            "year": 2000
+         },
+         "count": 1000,
+         "sell": {
+            "day": 29,
+            "month": 9,
+            "number": 1000,
+            "price": 3,
+            "year": 2000
+         }
+      }
+   ],
+   "status": "optimal",
+   "value": 9000
+} },
+{ "input": {
+   "buy": [ { "number": 1000, "price":  9, "year": 2014, "month":  1, "day":  1 },
+            { "number": 2000, "price":  8, "year": 2014, "month":  3, "day":  1 },
+            { "number":  800, "price":  7, "year": 2014, "month":  5, "day":  1 },
+            { "number": 1000, "price":  6, "year": 2014, "month":  9, "day":  1 },
+            { "number": 1000, "price": 1, "year": 2000, "month": 3, "day": 31} ],
+  "sell": [ { "number":  400, "price":  8, "year": 2014, "month":  2, "day": 15 },
+            { "number": 1200, "price": 10, "year": 2014, "month":  6, "day": 15 },
+            { "number": 2400, "price":  9, "year": 2014, "month": 10, "day": 15 },
+            { "number": 1000, "price":  2, "year": 2000, "month": 9, "day": 28 },
+            { "number": 1000, "price":  3, "year": 2000, "month": 9, "day": 29 },
+            { "number": 1000, "price":  4, "year": 2000, "month": 9, "day": 30 },
+            { "number": 1000, "price":  5, "year": 2000, "month": 10, "day": 1 } ],
+  "stella_correction": false,
+  "jammies_correction": false
+},
+"output_greedy": {
+   "pairs": [
+      {
+         "buy": {
+            "day": 31,
+            "month": 3,
+            "number": 1000,
+            "price": 1,
+            "year": 2000
+         },
+         "count": 1000,
+         "sell": {
+            "day": 30,
+            "month": 9,
+            "number": 1000,
+            "price": 4,
+            "year": 2000
+         }
+      },
+      {
+         "buy": {
+            "day": 1,
+            "month": 9,
+            "number": 1000,
+            "price": 6,
+            "year": 2014
+         },
+         "count": 1000,
+         "sell": {
+            "day": 15,
+            "month": 6,
+            "number": 1200,
+            "price": 10,
+            "year": 2014
+         }
+      },
+      {
+         "buy": {
+            "day": 1,
+            "month": 5,
+            "number": 800,
+            "price": 7,
+            "year": 2014
+         },
+         "count": 200,
+         "sell": {
+            "day": 15,
+            "month": 6,
+            "number": 1200,
+            "price": 10,
+            "year": 2014
+         }
+      },
+      {
+         "buy": {
+            "day": 1,
+            "month": 5,
+            "number": 800,
+            "price": 7,
+            "year": 2014
+         },
+         "count": 600,
+         "sell": {
+            "day": 15,
+            "month": 10,
+            "number": 2400,
+            "price": 9,
+            "year": 2014
+         }
+      }
+   ],
+   "value": 8800
+},
+"output_compute": {
+   "dual_solution": [
+      {
+         "buy": {
+            "day": 1,
+            "month": 1,
+            "number": 1000,
+            "price": 9,
+            "year": 2014
+         },
+         "dual_value": 0
+      },
+      {
+         "buy": {
+            "day": 1,
+            "month": 3,
+            "number": 2000,
+            "price": 8,
+            "year": 2014
+         },
+         "dual_value": 0
+      },
+      {
+         "buy": {
+            "day": 1,
+            "month": 5,
+            "number": 800,
+            "price": 7,
+            "year": 2014
+         },
+         "dual_value": 2
+      },
+      {
+         "buy": {
+            "day": 1,
+            "month": 9,
+            "number": 1000,
+            "price": 6,
+            "year": 2014
+         },
+         "dual_value": 3
+      },
+      {
+         "buy": {
+            "day": 31,
+            "month": 3,
+            "number": 1000,
+            "price": 1,
+            "year": 2000
+         },
+         "dual_value": 3
+      },
+      {
+         "dual_value": 0,
+         "sell": {
+            "day": 15,
+            "month": 2,
+            "number": 400,
+            "price": 8,
+            "year": 2014
+         }
+      },
+      {
+         "dual_value": 2,
+         "sell": {
+            "day": 15,
+            "month": 6,
+            "number": 1200,
+            "price": 10,
+            "year": 2014
+         }
+      },
+      {
+         "dual_value": 0,
+         "sell": {
+            "day": 15,
+            "month": 10,
+            "number": 2400,
+            "price": 9,
+            "year": 2014
+         }
+      },
+      {
+         "dual_value": 0,
+         "sell": {
+            "day": 28,
+            "month": 9,
+            "number": 1000,
+            "price": 2,
+            "year": 2000
+         }
+      },
+      {
+         "dual_value": 0,
+         "sell": {
+            "day": 29,
+            "month": 9,
+            "number": 1000,
+            "price": 3,
+            "year": 2000
+         }
+      },
+      {
+         "dual_value": 0,
+         "sell": {
+            "day": 30,
+            "month": 9,
+            "number": 1000,
+            "price": 4,
+            "year": 2000
+         }
+      },
+      {
+         "dual_value": 0,
+         "sell": {
+            "day": 1,
+            "month": 10,
+            "number": 1000,
+            "price": 5,
+            "year": 2000
+         }
+      }
+   ],
+   "dual_status": "optimal",
+   "dual_value": 10000,
+   "pairs": [
+      {
+         "buy": {
+            "day": 1,
+            "month": 5,
+            "number": 800,
+            "price": 7,
+            "year": 2014
+         },
+         "count": 800,
+         "sell": {
+            "day": 15,
+            "month": 10,
+            "number": 2400,
+            "price": 9,
+            "year": 2014
+         }
+      },
+      {
+         "buy": {
+            "day": 31,
+            "month": 3,
+            "number": 1000,
+            "price": 1,
+            "year": 2000
+         },
+         "count": 1000,
+         "sell": {
+            "day": 30,
+            "month": 9,
+            "number": 1000,
+            "price": 4,
+            "year": 2000
+         }
+      },
+      {
+         "buy": {
+            "day": 1,
+            "month": 9,
+            "number": 1000,
+            "price": 6,
+            "year": 2014
+         },
+         "count": 1000,
+         "sell": {
+            "day": 15,
+            "month": 10,
+            "number": 2400,
+            "price": 9,
+            "year": 2014
+         }
+      },
+      {
+         "buy": {
+            "day": 1,
+            "month": 3,
+            "number": 2000,
+            "price": 8,
+            "year": 2014
+         },
+         "count": 1200,
+         "sell": {
+            "day": 15,
+            "month": 6,
+            "number": 1200,
+            "price": 10,
+            "year": 2014
+         }
+      }
+   ],
+   "status": "optimal",
+   "value": 10000
+} }
+]
