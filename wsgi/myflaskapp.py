@@ -1,10 +1,11 @@
-from flask import Flask, jsonify, request, json, redirect, url_for
+from flask import Flask, jsonify, request, json, redirect, url_for, make_response
 from flask_mail import Message, Mail
 import sys
 import os
 from coopr.pyomo import *
 from coopr.opt import SolverFactory
 import coopr.environ
+from functools import wraps
 
 app = Flask(__name__, static_url_path='')
 app.config.update(dict(
@@ -22,6 +23,19 @@ from compute import run_problem, run_greedy, validate_buysell, FourhundredExcept
 from edgar_api import *
 from aux_code.dateFunctions import *
 from aux_code.createCSV import *
+
+def add_response_headers(headers={}):
+    """This decorator adds the headers passed in to the response"""
+    def decorator(f):
+        @wraps(f)
+        def decorated_function(*args, **kwargs):
+            resp = make_response(f(*args, **kwargs))
+            h = resp.headers
+            for header, value in headers.items():
+                h[header] = value
+            return resp
+        return decorated_function
+    return decorator
 
 @app.route("/", methods = ['GET'])
 def home_page():
@@ -76,15 +90,18 @@ def gen_compute_endpoint(runner):
     return jsonify(result)
 
 @app.route("/compute", methods=['POST'])
+@add_response_headers({'Access-Control-Allow-Origin': 'example.com'})
 def compute_endpoint():
     return gen_compute_endpoint(run_problem)
 
 @app.route("/greedy", methods=['POST'])
+@add_response_headers({'Access-Control-Allow-Origin': 'example.com'})
 def greedy_endpoint():
     return gen_compute_endpoint(run_greedy)
 
 # function that pulls trades from the SEC database. 
 @app.route("/pullSEC", methods=['POST'])
+@add_response_headers({'Access-Control-Allow-Origin': 'example.com'})
 def pullSEC():
     return pull_trades()
 
