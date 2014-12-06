@@ -61,7 +61,7 @@ def gen_compute_endpoint(runner):
             output.append(dict(buy=a.recreate_dict(), dual_value=c))
         for (a,c) in result['dual_solution']['sell']:
             output.append(dict(sell=a.recreate_dict(), dual_value=c))
-    result['dual_solution'] = output
+        result['dual_solution'] = output
 
     if not app.debug and 'full_result' in result:
         del result['full_result']
