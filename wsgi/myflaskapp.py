@@ -10,12 +10,11 @@ from functools import wraps
 app = Flask(__name__, static_url_path='')
 app.config.update(dict(
     DEBUG = False,
-    MAIL_SERVER = 'smtp.gmail.com',
-    MAIL_PORT = 465,
+    MAIL_SERVER = 'relay.unc.edu',
+    MAIL_PORT = 25,
     MAIL_USE_TLS = False,
-    MAIL_USE_SSL = True,
-    MAIL_USERNAME = 'spam28211@gmail.com',
-    MAIL_PASSWORD = 'comp523project',
+    MAIL_USE_SSL = False,
+    MAIL_USERNAME = 'chin@unc.edu',
 ))
 mail = Mail(app)
 
@@ -83,7 +82,7 @@ def gen_compute_endpoint(runner):
         del result['full_dual_result']
     if (recipient != None and recipient != ""):
         emailBody = prettifyResult(result)
-        msg = Message(subject = "Test e-mail", body =emailBody, sender="kevin.valakuzhy@gmail.com", recipients=[recipient])
+        msg = Message(subject = "Test e-mail", body = emailBody, recipients=[recipient])
         csvString = trade2CSV(result['pairs'])
         msg.attach("pairingResult.csv", "text/csv", csvString)
         mail.send(msg)
