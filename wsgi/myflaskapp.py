@@ -82,7 +82,7 @@ def gen_compute_endpoint(runner):
         del result['full_dual_result']
     if (recipient != None and recipient != ""):
         emailBody = prettifyResult(result)
-        msg = Message(subject = "Test e-mail", body = emailBody, recipients=[recipient])
+        msg = Message(subject = "Test e-mail", body = emailBody, sender = 'chin@unc.edu', recipients=[recipient])
         csvString = trade2CSV(result['pairs'])
         msg.attach("pairingResult.csv", "text/csv", csvString)
         mail.send(msg)
