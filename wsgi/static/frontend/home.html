@@ -31,7 +31,7 @@
 		<!-- tab 1: Input -->
 		<div role="tabpanel" class="tab-pane fade in active" id="input">
 			<div class="indent">
-				<h2>Acquisitions <button type="button" class="btn btn-default" onclick="populateWithExample()">Sample Data</button></h2>
+				<h2>Purchases <button type="button" class="btn btn-default" onclick="populateWithExample()">Example Data</button></h2>
 				<div class="indent">
 					<table id="purchases" class="form-group">
 						<tr>
@@ -48,7 +48,7 @@
 					 <button type="button" class="btn btn-default btn-xs" onclick="purchaseRow()">Add Row <i class="fa fa-plus"></i></button>
 				</div>
 	
-				<h2>Disposals</h2>
+				<h2>Sales</h2>
 				<div class="indent">
 					<table id="sales" class="form-group">
 						<tr>
@@ -65,10 +65,10 @@
 					 <button type="button" class="btn btn-default btn-xs" onclick="saleRow()">Add Row <i class="fa fa-plus"></i></button>
 				</div>
 				<div style="padding-top:10px">
-					<div class="col-md-1"><button type="button" class="btn btn-default" onclick="inputToJSON('/compute')">Compute</button></div>
+					<div class="col-md-1"><button type="button" class="btn btn-default" onclick="inputToJSON('/compute')">Compute with LP</button></div>
 					<div class="col-md-3">
 						<select class="selectpicker">
-							<option>No Month Adjustment</option>
+							<option>Full Six Months</option>
 							<option id="stella" style="font-style: italic">Stella</option>
 							<option id="jammies" style="font-style: italic"><emphasize>Jammies</emphasize></option>
 						</select>
@@ -76,7 +76,7 @@
 					<div class="col-md-6"><input type="email" id="email" class="form-control" placeholder="Email Address for Results"></div>
 				</div>
 				<div style="padding-top:50px">
-					<div class="col-md-1"><button type="button" class="btn btn-default" onclick="inputToJSON('/greedy')">Compute Greedy</button></div>
+					<div class="col-md-1"><button type="button" class="btn btn-default" onclick="inputToJSON('/greedy')">Compute with LIHO</button></div>
 				</div>
 			</div>
 		</div>
@@ -86,9 +86,9 @@
 			<div class="cornerindent">
 				<table id="pairings" style="width: 1000px">
 					<tr>
-						<th style="text-align:center">Acquisition Date</th>
+						<th style="text-align:center">Purchase Date</th>
 						<th style="text-align:center">Per-unit Price</th>
-						<th style="text-align:center">Disposal Date</th>
+						<th style="text-align:center">Sample Date</th>
 						<th style="text-align:center">Per-unit Price</th>
 						<th style="text-align:center">Paired Securities</th>
 						<th style="text-align:center">Profit</th>
@@ -100,7 +100,7 @@
 		<!-- tab 3: SEC Database  -->
 		<div role="tabpanel" class="tab-pane fade" id="sec">
 			<div class="indent">
-				<h2>Upload Information from SEC Database</h2>
+				<h2>Compile Data from EDGAR</h2>
                 <p>Include the following information to pull trades straight from the SEC database.  If you need to lookup a CIK, go to <a href='http://www.sec.gov/edgar/searchedgar/cik.htm#' target="_blank">this</a> website!</p>
 				<div class="indent">
 					<table id="purchases" class="form-group">
@@ -121,7 +121,7 @@
 					</table>
 				</div>
 				<div style="padding-top:10px">
-					<a href="#" class="btn btn-default" onclick="pullSEC()">Pull Records</a>
+					<a href="#" class="btn btn-default" onclick="pullSEC()">Compile SEC Data </a>
 				</div>
 			</div>
 		</div>
