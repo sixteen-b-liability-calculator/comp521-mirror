@@ -1,4 +1,5 @@
 from dateFunctions import *
+from createCSV import *
 import unittest
 
 class FlaskrTestCase(unittest.TestCase):
@@ -10,6 +11,66 @@ class FlaskrTestCase(unittest.TestCase):
 
     def test_isStartBeforeEnd(self):
         assert isStartBeforeEnd(2007, 1, 2008,2) == ""
+
+    # Basic Test
+    def test_csv2trade_good(self):
+        
+        initString = """2012/12/2, 1, 2
+                        2014/11/3, 2, 3"""
+        trades = csv2trade(initString)
+
+        assert (type(trades) == list)
+        trade1 = trades[0]
+        trade2 = trades[1]
+
+        assert (trade1['price'] == '1')
+        assert (trade1['number'] == '2')
+        assert (trade2['month'] == '11')
+
+    # Ignores the first line if it's text
+    def test_csv2trade_withTitleLine(self):
+        initString = """Date, price, number
+                        2012/12/2, 1, 2
+                        2014/11/3, 2, 3"""
+        trades = csv2trade(initString)
+
+        assert (type(trades) == list)
+        trade1 = trades[0]
+        trade2 = trades[1]
+
+        assert (trade1['price'] == '1')
+        assert (trade1['number'] == '2')
+        assert (trade2['month'] == '11')        
+
+    # Ignores lines that have an invalid date on the first line
+    def test_csv2trade_invalidDateFormat_dateIssue(self):
+        initString = """Date, price, number
+                        2012/12, 1, 2
+                        2014/11/3, 2, 3"""
+        trades = csv2trade(initString)
+
+        assert (type(trades) == list)
+        assert (len(trades) == 1)
+        trade2 = trades[0]
+
+        assert (trade2['day'] == '3')
+        assert (trade2['year'] == '2014')
+        assert (trade2['month'] == '11')        
+
+    # Ignores lines that don't have at least 3 values to read in a line.  
+    def test_csv2trade_invalidCsvFormat(self):
+        initString = """Date, price, number
+                        2012/12/1, 2
+                        2014/11/3,   2,        3"""
+        trades = csv2trade(initString)
+
+        assert (type(trades) == list)
+        assert (len(trades) == 1)
+        trade2 = trades[0]
+
+        assert (trade2['day'] == '3')
+        assert (trade2['year'] == '2014')
+        assert (trade2['month'] == '11')
 
 if __name__ == '__main__':
     unittest.main()

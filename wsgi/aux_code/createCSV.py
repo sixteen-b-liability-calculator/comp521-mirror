@@ -28,11 +28,13 @@ def pair2csv(pairings):
         count += 1
     return outputString
 
-# Requires the string to be in the following format
-# "date, price, numberOfShares"
+# Requires the string to be in the following format  'date, price, numberOfShares' "
+# If the format is incorrect, the trade is dropped. 
 def csv2trade(inputString):
     # Using stringIO since csv reader only works with files.
-    reader = csv.reader(StringIO.StringIO(inputString))
+
+    csv.register_dialect('withoutSpaces', skipinitialspace=True)
+    reader = csv.reader(StringIO.StringIO(inputString), "withoutSpaces")
 
     if not (inputString[0].isdigit()):
         reader.next()
@@ -41,9 +43,13 @@ def csv2trade(inputString):
 
     for line in reader:
         trade = parseDateString(line[0])
-        trade['price'] = line[1]
-        trade['number'] = line[2]
-        trades.append(trade)
+        if type(trade) == dict:
+            try:
+                trade['price'] = line[1]
+                trade['number'] = line[2]
+                trades.append(trade)
+            except IndexError:
+                continue
     return trades
 
 # Creates a nicer looking text e-mail that contains the results of a compute run.

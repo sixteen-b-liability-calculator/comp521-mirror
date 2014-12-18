@@ -26,4 +26,7 @@ def tradeDateString(trade):
 # Return: Dict with year, month, day
 def parseDateString(string):
     dateInfo = string.split("/")
-    return {"year": dateInfo[0], "month": dateInfo[1], "day": dateInfo[2]}
+    try:
+        return {"year": dateInfo[0], "month": dateInfo[1], "day": dateInfo[2]}
+    except IndexError:
+        return "Invalid Date Format"
