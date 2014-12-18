@@ -104,6 +104,12 @@ def greedy_endpoint():
 def pullSEC():
     return pull_trades()
 
+@app.route("/populateWithCSV", methods=['POST'])
+@add_response_headers({'Access-Control-Allow-Origin': 'example.com'})
+def populateWithCSV():
+    trades = csv2trade(request.get_data())
+    return jsonify(trades)
+
 if __name__ == "__main__":
     # the reloader would be nice but it doesn't work with subprocesses,
     # which opt.solve uses

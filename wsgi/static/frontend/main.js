@@ -153,7 +153,6 @@ function decimalCorrection(price){
 
 // Prints output and switches to HTML Output tab
 function printOutput(data){
-	
     var pairs, pair, buy, sell, count;
     table = document.getElementById("pairings");
     $("#pairings tr:gt(0)").remove();
@@ -281,6 +280,25 @@ function insertFilingURL(url){
 	return '<a href="'+ url +'" class="btn btn-default btn-xs" target="_blank">Link to filing</a>';
 }
 
+function populateWithCSV() {
+    inputString = $('#request-data').val();
+
+    jsonString = '{ "csvString":'+ inputString + ' }';
+
+    $.ajax( "/populateWithCSV",
+        ({type: "POST",
+        data: inputString,
+        contentType: "text/csv",
+        dataType: "json",
+        success: populate,
+        error: function(data) {
+            document.open();
+            document.write(data.responseText);
+            document.close();
+        }
+    }))
+}
+
 // Takes SEC data and populates Acquisitions and Disposals tables
 function populate(data){
     $('#myTabs li:eq(0) a').tab('show');
@@ -302,7 +320,9 @@ function populate(data){
         $('#value', row).val(trade["price"]);
         $('#title', row).append(trade["securityTitle"]);
         $('#ownership', row).append(trade["directOrIndirectOwnership"]);
-        $('#filing', row).append(insertFilingURL(trade["filingURL"]));
+        if ("filingURL" in trade) {
+            $('#filing', row).append(insertFilingURL(trade["filingURL"]));
+        }
     }
     var sells = data["sells"];
     var salesTable = $("#sales")[0]
@@ -318,6 +338,8 @@ function populate(data){
         $('#value', row).val(trade["price"]);
         $('#title', row).append(trade["securityTitle"]);
         $('#ownership', row).append(trade["directOrIndirectOwnership"]);
-        $('#filing', row).append(insertFilingURL(trade["filingURL"]));
+        if ("filingURL" in trade) {
+            $('#filing', row).append(insertFilingURL(trade["filingURL"]));
+        }
     }
 }

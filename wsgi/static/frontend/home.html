@@ -23,6 +23,7 @@
 		<ul id="myTabs" class="nav nav-tabs" role="tablist">
 		  <li role="presentation" class="active"><a href="#input" role="tab" data-toggle="tab">Input</a></li>
 		  <li role="presentation"><a href="#output" role="tab" data-toggle="tab">Output</a></li>
+		  <li role="presentation"><a href="#csv" role="tab" data-toggle="tab">CSV Upload</a></li>
 		  <li role="presentation"><a href="#sec" role="tab" data-toggle="tab">SEC Database</a></li>
 		</ul>
 		
@@ -97,7 +98,22 @@
 			</div>
 		</div>
 
-		<!-- tab 3: SEC Database  -->
+		<!-- tab 3: CSV Tab -->
+		<div role="tabpanel" class="tab-pane fade" id="csv">
+			<div class="indent">
+				<h2>Upload CSV </h2>
+                <p> Use this tab to translate things </p>
+				<div class="indent">
+					<textarea id="request-data" cols="100" rows="30"></textarea>
+				</div>
+				<div style="padding-top:10px">
+					<a href="#" class="btn btn-default" onclick="populateWithCSV()">Compile SEC Data </a>
+				</div>
+			</div>
+		</div>
+
+
+		<!-- tab 4: SEC Database  -->
 		<div role="tabpanel" class="tab-pane fade" id="sec">
 			<div class="indent">
 				<h2>Compile Data from EDGAR</h2>

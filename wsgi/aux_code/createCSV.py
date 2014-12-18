@@ -40,6 +40,7 @@ def csv2trade(inputString):
     if not (inputString[0].isdigit()):
         reader.next()
     
+    # What strings are accepted as indicating a buy or sell.
     buySet = ["b", "B", "buy", "Buy", "BUY"]
     sellSet = ["s", "S", "sell", "Sell", "SELL"]
 
