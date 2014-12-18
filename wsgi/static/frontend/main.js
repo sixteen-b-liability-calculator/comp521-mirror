@@ -13,15 +13,15 @@ function insertPSRow(table){
     cell.innerHTML = '<input type="button" id="remove" value="Remove Row" class="btn btn-default btn-xs" onClick="removePSRow(this);">';
 
     cell = row.insertCell();
+    cell.innerHTML = '<input type="text" id="year" class="form-control">';
+    cell.className = 'col-md-1';
+    
+    cell = row.insertCell();
     cell.innerHTML = '<input type="text" id="month" class="form-control">';
     cell.className = 'col-md-1';
     
     cell = row.insertCell();
     cell.innerHTML = '<input type="text" id="day" class="form-control">';
-    cell.className = 'col-md-1';
-    
-    cell = row.insertCell();
-    cell.innerHTML = '<input type="text" id="year" class="form-control">';
     cell.className = 'col-md-1';
     
     cell = row.insertCell();

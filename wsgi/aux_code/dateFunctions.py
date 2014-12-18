@@ -21,3 +21,9 @@ def isWithinTimeRange(testYear, testMonth, startYear, startMonth, endYear, endMo
 # Date returned is formatted YYYY/MM/DD
 def tradeDateString(trade):
     return str(trade['year']) +"/"+ str(trade['month']) +"/"+ str(trade['day'])
+
+# Assumes that date is formatted YYYY/MM/DD
+# Return: Dict with year, month, day
+def parseDateString(string):
+    dateInfo = string.split("/")
+    return {"year": dateInfo[0], "month": dateInfo[1], "day": dateInfo[2]}

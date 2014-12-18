@@ -83,7 +83,7 @@ def gen_compute_endpoint(runner):
     if (recipient != None and recipient != ""):
         emailBody = prettifyResult(result)
         msg = Message(subject = "16b liability calculator: Results", body = emailBody, sender = 'chin@unc.edu', recipients=[recipient])
-        csvString = trade2CSV(result['pairs'])
+        csvString = pair2CSV(result['pairs'])
         msg.attach("pairingResult.csv", "text/csv", csvString)
         mail.send(msg)
     return jsonify(result)
