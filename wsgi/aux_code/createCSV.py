@@ -30,6 +30,7 @@ def pair2csv(pairings):
 
 # Requires the string to be in the following format  'date, price, numberOfShares' "
 # If the format is incorrect, the trade is dropped. 
+# Returns an array containing the buys, then the sells
 def csv2trade(inputString):
     # Using stringIO since csv reader only works with files.
 
@@ -39,7 +40,11 @@ def csv2trade(inputString):
     if not (inputString[0].isdigit()):
         reader.next()
     
-    trades = []
+    buySet = ["b", "B", "buy", "Buy", "BUY"]
+    sellSet = ["s", "S", "sell", "Sell", "SELL"]
+
+    buys = []
+    sells = []
 
     for line in reader:
         trade = parseDateString(line[0])
@@ -47,10 +52,13 @@ def csv2trade(inputString):
             try:
                 trade['price'] = line[1]
                 trade['number'] = line[2]
-                trades.append(trade)
+                if line[3] in buySet:
+                    buys.append(trade)
+                elif line[3] in sellSet:
+                    sells.append(trade)
             except IndexError:
                 continue
-    return trades
+    return {"buys": buys, "sells": sells}
 
 # Creates a nicer looking text e-mail that contains the results of a compute run.
 def prettifyResult(result):
