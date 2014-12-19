@@ -102,16 +102,24 @@
 		<div role="tabpanel" class="tab-pane fade" id="csv">
 			<div class="indent">
 				<h2>Upload CSV </h2>
-                <p> Use this tab to translate things </p>
-				<div class="indent">
-					<textarea id="request-data" cols="100" rows="30"></textarea>
-				</div>
+                <p> Use this tab to translate things. There are four required columns in a valid CSV file. The first column must contain a date formatted as YYYY/MM/DD. The second column is the price per share. The third is the number of shares that were traded that date. Finally, a column that indicates if the trade was a buy or a sell. </p>
 				<div style="padding-top:10px">
-					<a href="#" class="btn btn-default" onclick="populateWithCSV()">Compile SEC Data </a>
+					<a href="#" class="btn btn-default" onclick="populateWithCSV()">Parse CSV</a>
+					<a href="#" class="btn btn-default" onclick="convertToCSV()"> Convert to CSV</a>
 				</div>
+
+				<p>Use this to upload csv files.</p>
+				<input id="csv-file" type= "file"> </input>
+				<a href="#" class="btn btn-default" onclick="populateWithCSVFile()">Parse CSV File</a>
+
+
+				<div class="indent" style="padding-top:10px">
+					<textarea id="csv-data" cols="100" rows="30"></textarea>
+				</div>
+				
+
 			</div>
 		</div>
-
 
 		<!-- tab 4: SEC Database  -->
 		<div role="tabpanel" class="tab-pane fade" id="sec">

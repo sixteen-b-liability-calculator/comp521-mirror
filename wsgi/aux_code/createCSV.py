@@ -48,18 +48,20 @@ def csv2trade(inputString):
     sells = []
 
     for line in reader:
-        trade = parseDateString(line[0])
-        if type(trade) == dict:
-            try:
-                trade['price'] = line[1]
-                trade['number'] = line[2]
-                if line[3] in buySet:
-                    buys.append(trade)
-                elif line[3] in sellSet:
-                    sells.append(trade)
-            except IndexError:
+        try:
+            trade = parseDateString(line[0])
+            if type(trade) is str:   # Implies that an error message was sent
                 continue
+            trade['price'] = line[1]
+            trade['number'] = line[2]
+            if line[3] in buySet:
+                buys.append(trade)
+            elif line[3] in sellSet:
+                sells.append(trade)
+        except IndexError:
+            continue
     return {"buys": buys, "sells": sells}
+
 
 # Creates a nicer looking text e-mail that contains the results of a compute run.
 def prettifyResult(result):

@@ -49,8 +49,8 @@ function insertPSRow(table){
 
 // Called by <body> onload
 function firstLoad(){
-    purchases = $("#purchases")[0];
-    sales = $("#sales")[0];
+    var purchases = $("#purchases")[0];
+    var sales = $("#sales")[0];
     for(i = 0; i < defaultInputCount; ++i){
     	insertPSRow(purchases);
     	insertPSRow(sales);
@@ -72,8 +72,9 @@ function saleRow(){
 // Called in inputToJSON() to store living input data
 function readTable(table){
     out = []
-    for(i = 1; i < table.rows.length; ++i){
-    	row = table.rows[i];
+    var elt;
+    for (var i = 1; i< table.length; i++) {
+        var row = table[i];
     	elt = new Object();
     	elt.price = parseFloat($("#value", row).val());
     	elt.day = parseFloat($("#day", row).val());
@@ -89,13 +90,13 @@ function readTable(table){
 
 // Calculates with linear programming
 function inputToJSON(url){
-    purchases = readTable($("#purchases")[0]);
-    sales = readTable($("#sales")[0]);
+    var purchases = readTable($("#purchases")[0]);
+    var sales = readTable($("#sales")[0]);
     
-    email = $("#email").val()
+    var email = $("#email").val()
     
-    stella = document.getElementById("stella").selected;
-    jammies = document.getElementById("jammies").selected;
+    var stella = document.getElementById("stella").selected;
+    var jammies = document.getElementById("jammies").selected;
     if(jammies){
 	    stella = true;
     }
@@ -118,10 +119,10 @@ function inputToJSON(url){
 
 // Calculate with greedy algorithm
 function greedy(){
-    purchases = readTable($("#purchases")[0]);
-    sales = readTable($("#sales")[0]);
+    var purchases = readTable($("#purchases")[0]);
+    var sales = readTable($("#sales")[0]);
     
-    email = $("#email").val()
+    var email = $("#email").val()
 
     $.ajax( "/greedy",
 	({type: "POST",
@@ -142,7 +143,8 @@ function greedy(){
 
 // If less than two decimal places, correct value. If more than two decimal places, do nothing.
 function decimalCorrection(price){
-	decimal = price.toString().split(".")[1];
+	var decimal = price.toString().split(".")[1];
+    var price;
 	if(decimal == null){
 		price = price.toFixed(2);
 	}else if(decimal.length < 2){
@@ -153,7 +155,7 @@ function decimalCorrection(price){
 
 // Prints output and switches to HTML Output tab
 function printOutput(data){
-    var pairs, pair, buy, sell, count;
+    var pairs, pair, buy, sell, count, table, cell, profit;
     table = document.getElementById("pairings");
     $("#pairings tr:gt(0)").remove();
     var pairingsRow = 0;
@@ -162,9 +164,9 @@ function printOutput(data){
     pairs = data["pairs"]
 
     for(var pairIdx in pairs){
-    	pair = pairs[pairIdx];
-        buy = pair["buy"];
-        sell = pair["sell"];
+    	var pair = pairs[pairIdx];
+        var buy = pair["buy"];
+        var sell = pair["sell"];
     	
     	pairingsRow++;
 		row = table.insertRow(pairingsRow);
@@ -184,7 +186,7 @@ function printOutput(data){
 		cell.innerHTML = pair["count"];
 		cell.className = 'col-md-1';
 		cell = row.insertCell(5);
-		var profit = pair["count"]*sell["price"] - pair["count"]*buy["price"];
+		profit = pair["count"]*sell["price"] - pair["count"]*buy["price"];
 		cell.innerHTML = '$' + decimalCorrection(profit);
 		cell.className = 'col-md-1';
 		maxprofit += profit;
@@ -212,14 +214,14 @@ function printOutput(data){
 
 // Takes month, year and CIK parameters for SEC database pull
 function pullSEC(){
-    secStartYear = $("#secStartYear").val();
-    secStartMonth = $("#secStartMonth").val();
-    secEndYear = $("#secEndYear").val();
-    secEndMonth = $("#secEndMonth").val();
+    var secStartYear = $("#secStartYear").val();
+    var secStartMonth = $("#secStartMonth").val();
+    var secEndYear = $("#secEndYear").val();
+    var secEndMonth = $("#secEndMonth").val();
 
-    secCIK = $("#secCIK").val();
+    var secCIK = $("#secCIK").val();
     
-    secJSON = '{ "startYear":'+secStartYear+',"startMonth":'+secStartMonth+',"endYear":'+secEndYear+',"endMonth":'+secEndMonth+',"cik": "'+secCIK+'"}';
+    var secJSON = '{ "startYear":'+secStartYear+',"startMonth":'+secStartMonth+',"endYear":'+secEndYear+',"endMonth":'+secEndMonth+',"cik": "'+secCIK+'"}';
 
     $.ajax( "/pullSEC",
         ({type: "POST",
@@ -244,14 +246,14 @@ function populateWithExample() {
     var salesTable = $("#sales")[0]
 
 	// Example data
-    buyNumber = [1000, 2000, 800, 1000, 1000];
-    buyPrice = [9,8,7,6,1];
-    buyYear = [2014,2014,2014,2014,2012];
-    buyMonth = [1,3,5,9,3];
-    buyDay = [1,1,1,1,31];
+    var buyNumber = [1000, 2000, 800, 1000, 1000];
+    var buyPrice = [9,8,7,6,1];
+    var buyYear = [2014,2014,2014,2014,2012];
+    var buyMonth = [1,3,5,9,3];
+    var buyDay = [1,1,1,1,31];
 
     for (i = 0; i < buyNumber.length; i++) {
-        row = insertPSRow(purchaseTable);
+        var row = insertPSRow(purchaseTable);
         $('#day', row).val(buyDay[i]);
         $('#month', row).val(buyMonth[i]);
         $('#year', row).val(buyYear[i]);
@@ -259,14 +261,14 @@ function populateWithExample() {
         $('#value', row).val(buyPrice[i]);        
     }
 
-    sellNumber = [400,1200,2400,1000,1000,1000,1000];
-    sellPrice = [8,10,9,2,3,4,5];
-    sellYear = [2014,2014,2014,2012,2012,2012,2012];
-    sellMonth = [2,6,10,9,9,9,10];
-    sellDay = [15,15,15,28,29,30,1];
+    var sellNumber = [400,1200,2400,1000,1000,1000,1000];
+    var sellPrice = [8,10,9,2,3,4,5];
+    var sellYear = [2014,2014,2014,2012,2012,2012,2012];
+    var sellMonth = [2,6,10,9,9,9,10];
+    var sellDay = [15,15,15,28,29,30,1];
 
     for (i = 0; i < sellNumber.length; i++) {
-        row = insertPSRow(salesTable);
+        var row = insertPSRow(salesTable);
         $('#day', row).val(sellDay[i]);
         $('#month', row).val(sellMonth[i]);
         $('#year', row).val(sellYear[i]);
@@ -281,9 +283,9 @@ function insertFilingURL(url){
 }
 
 function populateWithCSV() {
-    inputString = $('#request-data').val();
+    var inputString = $('#csv-data').val();
 
-    jsonString = '{ "csvString":'+ inputString + ' }';
+    var jsonString = '{ "csvString":'+ inputString + ' }';
 
     $.ajax( "/populateWithCSV",
         ({type: "POST",
@@ -299,6 +301,37 @@ function populateWithCSV() {
     }))
 }
 
+// Converts the input page into CSV and displays it on the CSV upload page.
+function convertToCSV() {
+    var purchaseTable = $('#purchases')[0].rows;
+    var csvString = "Date, price per share, number of shares, buy or sell\n"
+
+// Skip the header line
+    for (var i = 1; i< purchaseTable.length; i++) {
+        var row = purchaseTable[i];
+        var year = $('#year', row)[0].value;
+        var month = $('#month', row)[0].value;
+        var day = $('#day', row)[0].value;
+        var number = $('#shares', row)[0].value;
+        var price = $('#value', row)[0].value;
+        var date = year + "/" + month + "/" + day;
+        csvString += date + ", " + price + ", " + number + ", buy\n"
+    }
+
+    var saleTable = $('#sales')[0].rows;
+    for (var i = 1; i< saleTable.length; i++) {
+        var row = saleTable[i];
+        var year = $('#year', row)[0].value;
+        var month = $('#month', row)[0].value;
+        var day = $('#day', row)[0].value;
+        var number = $('#shares', row)[0].value;
+        var price = $('#value', row)[0].value;
+        var date = year + "/" + month + "/" + day;
+        csvString += date + ", " + price + ", " + number + ", sell\n"
+    }
+    $('#csv-data')[0].value = csvString;
+}
+
 // Takes SEC data and populates Acquisitions and Disposals tables
 function populate(data){
     $('#myTabs li:eq(0) a').tab('show');
@@ -309,10 +342,11 @@ function populate(data){
     var buys = data["buys"];
     var purchaseTable = $("#purchases")[0]
 
-    for (tradeIdx in buys) {
-        trade = buys[tradeIdx];
 
-        row = insertPSRow(purchaseTable)
+    for (var tradeIdx in buys) {
+        var trade = buys[tradeIdx];
+
+        var row = insertPSRow(purchaseTable)
         $('#day', row).val(trade["day"]);
         $('#month', row).val(trade["month"]);
         $('#year', row).val(trade["year"]);
@@ -328,9 +362,9 @@ function populate(data){
     var salesTable = $("#sales")[0]
 
     for (var tradeIdx in sells) {
-        trade = sells[tradeIdx];
+        var trade = sells[tradeIdx];
 
-        row = insertPSRow(salesTable)
+        var row = insertPSRow(salesTable)
         $('#day', row).val(trade["day"]);
         $('#month', row).val(trade["month"]);
         $('#year', row).val(trade["year"]);
