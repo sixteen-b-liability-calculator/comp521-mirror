@@ -13,17 +13,10 @@ function insertPSRow(table){
     cell.innerHTML = '<input type="button" id="remove" value="Remove Row" class="btn btn-default btn-xs" onClick="removePSRow(this);">';
 
     cell = row.insertCell();
-    cell.innerHTML = '<input type="text" id="year" class="form-control">';
+    cell.innerHTML = '<input type="text" class="datepicker">';
+    $(".datepicker").datepicker();
     cell.className = 'col-md-1';
-    
-    cell = row.insertCell();
-    cell.innerHTML = '<input type="text" id="month" class="form-control">';
-    cell.className = 'col-md-1';
-    
-    cell = row.insertCell();
-    cell.innerHTML = '<input type="text" id="day" class="form-control">';
-    cell.className = 'col-md-1';
-    
+
     cell = row.insertCell();
     cell.innerHTML = '<input type="text" id="shares" class="form-control">';
     cell.className = 'col-md-2';
@@ -31,6 +24,7 @@ function insertPSRow(table){
     cell = row.insertCell();
     cell.innerHTML = '<div class="input-group"><span class="input-group-addon">$</span><input type="text" id="value" class="value form-control">';
     cell.className = 'col-md-3';
+
     
     cell = row.insertCell();
     cell.innerHTML = '<div id="title"></div>';
@@ -73,13 +67,14 @@ function saleRow(){
 function readTable(table){
     out = []
     var elt;
-    for (var i = 1; i< table.length; i++) {
-        var row = table[i];
+    for (var i = 1; i < table.rows.length; i++) {
+        var row = table.rows[i];
     	elt = new Object();
     	elt.price = parseFloat($("#value", row).val());
-    	elt.day = parseFloat($("#day", row).val());
-    	elt.month = parseFloat($("#month", row).val());
-    	elt.year = parseFloat($("#year", row).val());
+        var date = $(".datepicker", row).val();
+    	elt.month = parseDate(date, "m");
+        elt.day = parseDate(date, "d")
+    	elt.year = parseDate(date, "y");
     	elt.number = parseFloat($("#shares", row).val());
     	if(!isNaN(elt.price)){
     	    out.push(elt);
@@ -93,7 +88,7 @@ function inputToJSON(url){
     var purchases = readTable($("#purchases")[0]);
     var sales = readTable($("#sales")[0]);
     
-    var email = $("#email").val()
+    var email = $("#email").val();
     
     var stella = document.getElementById("stella").selected;
     var jammies = document.getElementById("jammies").selected;
@@ -122,7 +117,7 @@ function greedy(){
     var purchases = readTable($("#purchases")[0]);
     var sales = readTable($("#sales")[0]);
     
-    var email = $("#email").val()
+    var email = $("#email").val();
 
     $.ajax( "/greedy",
 	({type: "POST",
@@ -252,11 +247,10 @@ function populateWithExample() {
     var buyMonth = [1,3,5,9,3];
     var buyDay = [1,1,1,1,31];
 
-    for (i = 0; i < buyNumber.length; i++) {
+    for (var i = 0; i < buyNumber.length; i++) {
         var row = insertPSRow(purchaseTable);
-        $('#day', row).val(buyDay[i]);
-        $('#month', row).val(buyMonth[i]);
-        $('#year', row).val(buyYear[i]);
+        var date = createDateString(buyDay[i], buyMonth[i], buyYear[i]);
+        $('.datepicker',row).val(date);
         $('#shares', row).val(buyNumber[i]);
         $('#value', row).val(buyPrice[i]);        
     }
@@ -267,11 +261,10 @@ function populateWithExample() {
     var sellMonth = [2,6,10,9,9,9,10];
     var sellDay = [15,15,15,28,29,30,1];
 
-    for (i = 0; i < sellNumber.length; i++) {
+    for (var i = 0; i < sellNumber.length; i++) {
         var row = insertPSRow(salesTable);
-        $('#day', row).val(sellDay[i]);
-        $('#month', row).val(sellMonth[i]);
-        $('#year', row).val(sellYear[i]);
+        var date = createDateString(sellDay[i], sellMonth[i], sellYear[i]);
+        $('.datepicker',row).val(date);
         $('#shares', row).val(sellNumber[i]);
         $('#value', row).val(sellPrice[i]);        
     }
@@ -301,6 +294,9 @@ function populateWithCSV() {
     }))
 }
 
+function populateWithCSVFile() {
+}
+
 // Converts the input page into CSV and displays it on the CSV upload page.
 function convertToCSV() {
     var purchaseTable = $('#purchases')[0].rows;
@@ -309,24 +305,18 @@ function convertToCSV() {
 // Skip the header line
     for (var i = 1; i< purchaseTable.length; i++) {
         var row = purchaseTable[i];
-        var year = $('#year', row)[0].value;
-        var month = $('#month', row)[0].value;
-        var day = $('#day', row)[0].value;
+        var date = $('.datepicker', row)[0].value;
         var number = $('#shares', row)[0].value;
         var price = $('#value', row)[0].value;
-        var date = year + "/" + month + "/" + day;
         csvString += date + ", " + price + ", " + number + ", buy\n"
     }
 
     var saleTable = $('#sales')[0].rows;
     for (var i = 1; i< saleTable.length; i++) {
         var row = saleTable[i];
-        var year = $('#year', row)[0].value;
-        var month = $('#month', row)[0].value;
-        var day = $('#day', row)[0].value;
+        var date = $('.datepicker', row)[0].value;
         var number = $('#shares', row)[0].value;
         var price = $('#value', row)[0].value;
-        var date = year + "/" + month + "/" + day;
         csvString += date + ", " + price + ", " + number + ", sell\n"
     }
     $('#csv-data')[0].value = csvString;
@@ -346,10 +336,10 @@ function populate(data){
     for (var tradeIdx in buys) {
         var trade = buys[tradeIdx];
 
-        var row = insertPSRow(purchaseTable)
-        $('#day', row).val(trade["day"]);
-        $('#month', row).val(trade["month"]);
-        $('#year', row).val(trade["year"]);
+        var row = insertPSRow(purchaseTable);
+        var date = createDateString(trade["day"], trade["month"], trade["year"]);
+
+        $('.datepicker', row).val(date);
         $('#shares', row).val(trade["number"]);
         $('#value', row).val(trade["price"]);
         $('#title', row).append(trade["securityTitle"]);
@@ -364,10 +354,10 @@ function populate(data){
     for (var tradeIdx in sells) {
         var trade = sells[tradeIdx];
 
-        var row = insertPSRow(salesTable)
-        $('#day', row).val(trade["day"]);
-        $('#month', row).val(trade["month"]);
-        $('#year', row).val(trade["year"]);
+        var row = insertPSRow(salesTable);
+        var date = createDateString(trade["day"], trade["month"], trade["year"]);
+
+        $('.datepicker', row).val(date);
         $('#shares', row).val(trade["number"]);
         $('#value', row).val(trade["price"]);
         $('#title', row).append(trade["securityTitle"]);
@@ -376,4 +366,27 @@ function populate(data){
             $('#filing', row).append(insertFilingURL(trade["filingURL"]));
         }
     }
+}
+
+// Given the current implementation, dates are mm/dd/yyyy
+function parseDate(dateString, d_m_y) {
+    if (typeof dateString != 'string') {
+        return;
+    }
+    var dateArray = dateString.split("/");
+    if (d_m_y.indexOf("d") >= 0) {
+        return parseInt(dateArray[1]);
+    } else if (d_m_y.indexOf("m") >= 0) {
+        return parseInt(dateArray[0]);
+    } else {
+        return parseInt(dateArray[2]);
+    }
+}
+
+// Given the current implementation, dates are mm/dd/yyyy
+function createDateString(day, month, year) {
+    if (parseInt(month) >12) {
+        throw "Invalid month value " + month;
+    }
+    return month + "/" + day + "/" + year;
 }

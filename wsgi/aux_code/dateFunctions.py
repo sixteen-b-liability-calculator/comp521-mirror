@@ -18,15 +18,15 @@ def isWithinTimeRange(testYear, testMonth, startYear, startMonth, endYear, endMo
     isBeforeBeginning = isStartBeforeEnd(startYear, startMonth, testYear, testMonth) == ""
     return (isAfterEnd and isBeforeBeginning) 
 
-# Date returned is formatted YYYY/MM/DD
+# Date returned is formatted MM/DD/YYYY
 def tradeDateString(trade):
-    return str(trade['year']) +"/"+ str(trade['month']) +"/"+ str(trade['day'])
+    return str(trade['month']) +"/"+ str(trade['day']) +"/"+ str(trade['year'])
 
-# Assumes that date is formatted YYYY/MM/DD
+# Assumes that date is formatted MM/DD/YYYY
 # Return: Dict with year, month, day
 def parseDateString(string):
     dateInfo = string.split("/")
     try:
-        return {"year": dateInfo[0], "month": dateInfo[1], "day": dateInfo[2]}
+        return {"month": dateInfo[0], "day": dateInfo[1], "year": dateInfo[2]}
     except IndexError:
         return "Invalid Date Format"
