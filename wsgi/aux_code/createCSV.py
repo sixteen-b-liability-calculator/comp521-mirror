@@ -33,6 +33,8 @@ def pair2csv(pairings):
 # Returns an array containing the buys, then the sells
 def csv2trade(inputString):
     # Using stringIO since csv reader only works with files.
+    if len(inputString) == 0:
+        return {"buys": "", "sells": ""}
 
     csv.register_dialect('withoutSpaces', skipinitialspace=True)
     reader = csv.reader(StringIO.StringIO(inputString), "withoutSpaces")
