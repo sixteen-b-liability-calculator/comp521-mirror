@@ -39,15 +39,38 @@ function insertPSRow(table){
     cell.innerHTML = '<div id="filing"></div>'
     cell.className = 'col-md-1';
 
+    row.onchange = checkIfMissingValue;
+
     return row;
 }
 
 // For use when adding rows to check whether there is an error when new values are included.
+// Applies a "inputDataError" class on these elements.
 function checkIfPositiveOnChange() {
     if ($(this).val() > 0 || $(this).val() == "") {
         $(this).removeClass("inputDataError");
     } else {
         $(this).addClass("inputDataError");
+    }
+}
+
+// Checks to see if there are partially filled rows.
+// Applies a "inputDataWarning" class on these rows.
+function checkIfMissingValue() {
+    var row = $(this);
+
+    // The three values you must check are: date, value, and shares
+    var valueHasVal = $('#value', row).val() != "";
+    var sharesHasVal = $('#shares', row).val() != "";
+    var dateHasVal = $('.datepicker', row).val() != "";
+    
+    var isFilledRow = valueHasVal && sharesHasVal && dateHasVal;
+    var isEmptyRow = !(valueHasVal || sharesHasVal || dateHasVal); 
+
+    if (isFilledRow || isEmptyRow) {
+        row.removeClass("inputDataWarning");
+    } else {
+        row.addClass("inputDataWarning");
     }
 }
 
@@ -79,6 +102,10 @@ function readTable(table){
     var elt;
     for (var i = 1; i < table.rows.length; i++) {
         var row = table.rows[i];
+        
+        // Do not include rows that have warnings in them.
+        if (row.className.indexOf("inputDataWarning") > -1) continue;
+
     	elt = new Object();
     	elt.price = parseFloat($("#value", row).val());
         var date = $(".datepicker", row).val();
@@ -95,15 +122,8 @@ function readTable(table){
 
 // Calculates with linear programming
 function inputToJSON(url){
-    var errors;
-    if ((errors = inputHasErrors()).length != 0) {
-        if (errors.length == 1 ) {
-            alert("There is an error in the input. Unable to continue computation");
-        } else {
-            alert("There are "+ errors.length +" errors in the input. Unable to continue computation");
-        }
-        return;
-    }
+    if (inputHasErrors()) return;
+    if (!ignoreWarnings()) return;
 
     var purchases = readTable($("#purchases")[0]);
     var sales = readTable($("#sales")[0]);
@@ -133,7 +153,22 @@ function inputToJSON(url){
 }
 
 function inputHasErrors() {
-    return $('.inputDataError');
+    var errors = $('.inputDataError');
+    if (errors.length == 0) return false;
+    if (errors.length == 1 ) {
+        alert("There is an error in the input. Unable to continue computation");
+    } else {
+        alert("There are "+ errors.length +" errors in the input. Unable to continue computation");
+    }
+    return true;
+}
+
+// Returns true if you want to ignore all warnings that have appeared.
+function ignoreWarnings() {
+    var warnings = $('.inputDataWarning');
+    if (warnings.length == 0) return true;
+    if (warnings.length == 1) return confirm("1 incomplete row will be excluded from the computation.  Would you like to continue?");
+    return confirm(warnings.length+" incomplete rows will be excluded from the computation.  Would you like to continue?");
 }
 
 // If less than two decimal places, correct value. If more than two decimal places, do nothing.
@@ -234,39 +269,23 @@ function pullSEC(){
 
 // Takes predetermined example data and populates Acquisitions and Disposals tables
 function populateWithExample() {
-    clearInputTab();
     
-    var purchaseTable = $("#purchases")[0];
-    var salesTable = $("#sales")[0];
+    buyData = [];
+    buyData.push({number: 1000, price:9, day:1, month:1, year:2014});
+    buyData.push({number: 2000, price:8, day:1, month:3, year:2014});
+    buyData.push({number: 800, price:7, day:1, month:5, year:2014});
+    buyData.push({number: 1000, price:6, day:1, month:9, year:2014});
+    buyData.push({number: 1000, price:1, day:31, month:3, year:2012});
+    sellData = [];
+    sellData.push({number: 400, price:8, day:15, month:2, year:2014});
+    sellData.push({number: 1200, price:10, day:15, month:6, year:2014});
+    sellData.push({number: 2400, price:9, day:15, month:10, year:2014});
+    sellData.push({number: 1000, price:2, day:28, month:9, year:2012});
+    sellData.push({number: 1000, price:3, day:29, month:9, year:2012});
+    sellData.push({number: 1000, price:4, day:30, month:9, year:2012});
+    sellData.push({number: 1000, price:5, day:1, month:10, year:2012});
 
-	// Example data
-    var buyNumber = [1000, 2000, 800, 1000, 1000];
-    var buyPrice = [9,8,7,6,1];
-    var buyYear = [2014,2014,2014,2014,2012];
-    var buyMonth = [1,3,5,9,3];
-    var buyDay = [1,1,1,1,31];
-
-    for (var i = 0; i < buyNumber.length; i++) {
-        var row = insertPSRow(purchaseTable);
-        var date = createDateString(buyDay[i], buyMonth[i], buyYear[i]);
-        $('.datepicker',row).val(date);
-        $('#shares', row).val(buyNumber[i]);
-        $('#value', row).val(buyPrice[i]);        
-    }
-
-    var sellNumber = [400,1200,2400,1000,1000,1000,1000];
-    var sellPrice = [8,10,9,2,3,4,5];
-    var sellYear = [2014,2014,2014,2012,2012,2012,2012];
-    var sellMonth = [2,6,10,9,9,9,10];
-    var sellDay = [15,15,15,28,29,30,1];
-
-    for (var i = 0; i < sellNumber.length; i++) {
-        var row = insertPSRow(salesTable);
-        var date = createDateString(sellDay[i], sellMonth[i], sellYear[i]);
-        $('.datepicker',row).val(date);
-        $('#shares', row).val(sellNumber[i]);
-        $('#value', row).val(sellPrice[i]);        
-    }
+    populate({buys: buyData, sells: sellData});
 }
 
 // Format URL with HTML link
@@ -276,7 +295,6 @@ function insertFilingURL(url){
 
 function populateWithCSV() {
     var inputString = $('#csv-data').val();
-
     var jsonString = '{ "csvString":'+ inputString + ' }';
 
     $.ajax( "/populateWithCSV",
@@ -325,7 +343,6 @@ function convertToCSV() {
 // Takes JSON Data and populates Purchase and Sales tables
 function populate(data){
     $('#myTabs li:eq(0) a').tab('show');
-
     clearInputTab();
     
     var buys = data["buys"];
