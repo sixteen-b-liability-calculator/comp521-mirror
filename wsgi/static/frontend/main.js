@@ -7,9 +7,9 @@ function removePSRow(button){
 
 // Inserts empty row for acquisitions or disposal table
 function insertPSRow(table){
-    row = table.insertRow();
+    var row = table.insertRow();
 
-    cell = row.insertCell();
+    var cell = row.insertCell();
     cell.innerHTML = '<input type="button" id="remove" value="Remove Row" class="btn btn-default btn-xs" onClick="removePSRow(this);">';
 
     cell = row.insertCell();
@@ -20,11 +20,12 @@ function insertPSRow(table){
     cell = row.insertCell();
     cell.innerHTML = '<input type="text" id="shares" class="form-control">';
     cell.className = 'col-md-2';
+    $('#shares',row)[0].onchange = checkIfPositiveOnChange;
     
     cell = row.insertCell();
     cell.innerHTML = '<div class="input-group"><span class="input-group-addon">$</span><input type="text" id="value" class="value form-control">';
     cell.className = 'col-md-3';
-
+    $('#value',row)[0].onchange = checkIfPositiveOnChange;
     
     cell = row.insertCell();
     cell.innerHTML = '<div id="title"></div>';
@@ -39,6 +40,15 @@ function insertPSRow(table){
     cell.className = 'col-md-1';
 
     return row;
+}
+
+// For use when adding rows to check whether there is an error when new values are included.
+function checkIfPositiveOnChange() {
+    if ($(this).val() > 0 || $(this).val() == "") {
+        $(this).removeClass("inputDataError");
+    } else {
+        $(this).addClass("inputDataError");
+    }
 }
 
 // Called by <body> onload
@@ -85,9 +95,19 @@ function readTable(table){
 
 // Calculates with linear programming
 function inputToJSON(url){
+    var errors;
+    if ((errors = inputHasErrors()).length != 0) {
+        if (errors.length == 1 ) {
+            alert("There is an error in the input. Unable to continue computation");
+        } else {
+            alert("There are "+ numOfErrors +" errors in the input. Unable to continue computation");
+        }
+        return;
+    }
+
     var purchases = readTable($("#purchases")[0]);
     var sales = readTable($("#sales")[0]);
-    
+
     var email = $("#email").val();
     
     var stella = document.getElementById("stella").selected;
@@ -112,29 +132,9 @@ function inputToJSON(url){
     $('#myTabs li:eq(1) a').tab('show');
 }
 
-// Calculate with greedy algorithm
-function greedy(){
-    var purchases = readTable($("#purchases")[0]);
-    var sales = readTable($("#sales")[0]);
-    
-    var email = $("#email").val();
-
-    $.ajax( "/greedy",
-	({type: "POST",
-	    data: $.toJSON({ "buy": purchases, "sell": sales, "recipient": email }),
-	    contentType: "application/json",
-        dataType: "json",
-	    success: printOutput,
-	    error: function(data) {
-		    document.open();
-		    document.write(data.responseText);
-		    document.close();
-	    }
-    }))
-    // Switches to second tab
-    $('#myTabs li:eq(1) a').tab('show');
+function inputHasErrors() {
+    return $('.inputDataError');
 }
-
 
 // If less than two decimal places, correct value. If more than two decimal places, do nothing.
 function decimalCorrection(price){
@@ -234,11 +234,10 @@ function pullSEC(){
 
 // Takes predetermined example data and populates Acquisitions and Disposals tables
 function populateWithExample() {
-    $("#purchases tr:gt(0)").remove();
-    $("#sales tr:gt(0)").remove();
+    clearInputTab();
     
-    var purchaseTable = $("#purchases")[0]
-    var salesTable = $("#sales")[0]
+    var purchaseTable = $("#purchases")[0];
+    var salesTable = $("#sales")[0];
 
 	// Example data
     var buyNumber = [1000, 2000, 800, 1000, 1000];
@@ -294,6 +293,7 @@ function populateWithCSV() {
     }))
 }
 
+// TODO
 function populateWithCSVFile() {
 }
 
@@ -322,16 +322,14 @@ function convertToCSV() {
     $('#csv-data')[0].value = csvString;
 }
 
-// Takes SEC data and populates Acquisitions and Disposals tables
+// Takes JSON Data and populates Purchase and Sales tables
 function populate(data){
     $('#myTabs li:eq(0) a').tab('show');
 
-    $("#purchases tr:gt(0)").remove();
-    $("#sales tr:gt(0)").remove();
+    clearInputTab();
     
     var buys = data["buys"];
     var purchaseTable = $("#purchases")[0]
-
 
     for (var tradeIdx in buys) {
         var trade = buys[tradeIdx];
@@ -389,4 +387,10 @@ function createDateString(day, month, year) {
         throw "Invalid month value " + month;
     }
     return month + "/" + day + "/" + year;
+}
+
+// Clears the input tab of all information 
+function clearInputTab() {
+    $("#purchases tr:gt(0)").remove();
+    $("#sales tr:gt(0)").remove();
 }

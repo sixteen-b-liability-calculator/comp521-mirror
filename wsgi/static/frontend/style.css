@@ -7,3 +7,6 @@
 .topindent {
 	padding-top: 20px;
 }
+.inputDataError {
+    background-color: blue
+}
