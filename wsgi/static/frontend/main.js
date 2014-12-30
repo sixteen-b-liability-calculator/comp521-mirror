@@ -100,7 +100,7 @@ function inputToJSON(url){
         if (errors.length == 1 ) {
             alert("There is an error in the input. Unable to continue computation");
         } else {
-            alert("There are "+ numOfErrors +" errors in the input. Unable to continue computation");
+            alert("There are "+ errors.length +" errors in the input. Unable to continue computation");
         }
         return;
     }
