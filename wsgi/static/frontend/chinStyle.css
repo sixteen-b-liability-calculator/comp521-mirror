@@ -1,0 +1,337 @@
+@charset "UTF-8";
+
+/* Edits made to fix the CSS */
+
+.form-control {
+    font-size: medium;
+}
+
+th {
+    font-size: 11;
+}
+
+.ui-widget input {
+    font-size: 12;
+}
+
+.ui-widget button {
+    font-size: 12;
+}
+
+p {
+    font-size: 12px;
+    color: #003366
+}
+
+body {
+    background-color: #003366;
+/*    background-image: url("../../images/bottom_bkgnd_dark.jpg"); */
+    margin-left: 0;
+    margin-right: 0;
+    margin-top: 0;
+}
+
+
+.topnav {
+    font-family: Arial;
+    color: #003366;
+    padding-right: 20px;
+    padding-bottom: 0px;
+    padding-left: 20px;
+    font-weight: bold;
+    letter-spacing: 0.1em;
+}
+
+a.topnav {font-size: 14px; color: #003366;}
+a.topnav:link {text-decoration: none;}
+a.topnav:visited {text-decoration: none; color: #003366;}
+a.topnav:hover {text-decoration: none; color: #7B9ABB;}
+a.topnav:active {text-decoration: none; color: #003366;}
+.topnavtxt {color: #003366;}
+
+a.emailnav {font-size: 12px; color: #003366;}
+a.emailnav:link {text-decoration: none; font-family: Verdana;}
+a.emailnav:visited {text-decoration: none; color: #003366; font-family: Verdana;}
+a.emailnav:hover {text-decoration: none; color: #7B9ABB; font-family: Verdana;}
+a.emailnav:active {text-decoration: none; color: #003366; font-family: Verdana;}
+.emailnavtxt {  color: #003366; font-family: Verdana;   font-size: 12px;}
+
+
+a.legal_news {font-family: Verdana; font-size: 12px; font-style: normal; font-weight: bold; font-variant: normal; text-transform: uppercase; text-decoration:none; color: #7B9ABB; padding-left: 0px;}
+a.legal_news:link {font-family: Verdana; font-size: 12px; font-style: normal; font-weight: bold; font-variant: normal; text-transform: uppercase; text-decoration:none; color: #7B9ABB6; padding-left: 0px;}
+a.legal_news:visited {font-family: Verdana; font-size: 12px; font-style: normal; font-weight: bold; font-variant: normal; text-transform: uppercase; text-decoration:none; color: #7B9ABB; padding-left: 0px;}
+a.legal_news:hover {font-family: Verdana; font-size: 12px; font-style: normal; font-weight: bold; font-variant: normal; text-transform: uppercase; text-decoration:none; color: #003366; padding-left: 0px;}
+a.legal_news:active {font-family: Verdana; font-size: 12px; font-style: normal; font-weight: bold; font-variant: normal; text-transform: uppercase; text-decoration:none; color: #7B9ABB; padding-left: 0px;}
+    
+
+
+
+
+.index_image_spacing {
+    padding-top: 10px;
+    padding-right: 0px;
+    padding-bottom: 0px;
+    padding-left: 0px;
+}
+.navheading {
+    font-family: Arial;
+    font-size: 12px;
+    font-style: normal;
+    font-weight: bold;
+    font-variant: normal;
+    text-transform: uppercase;
+    color: #7B9ABB;
+    padding-left: 10px;
+    line-height: 25px;
+}
+
+.bottomnav {
+    font-family: Verdana;
+    color: #FFFFFF;
+    padding-right: 6px;
+    padding-bottom: 0px;
+    font-weight: normal;
+    text-align: left;
+    text-indent: 20pt;
+    padding-left: 6px;
+    margin-left: 0px;
+}
+
+a.bottomnav {font-size: 12px; color: #FFFFFF;}
+a.bottomnav:link {text-decoration: none;}
+a.bottomnav:visited {text-decoration: none; color: #FFFFFF;}
+a.bottomnav:hover {text-decoration: none; color: #7B9ABB;}
+a.bottomnav:active {text-decoration: none; color: #FFFFFF;}
+.bottomnavtxt {color: #FFFFFF;}
+
+
+.practicenav {font-family: Arial; font-size: 12px; font-style: normal; line-height: 18px;   color: #003366; padding-right: 10px; padding-bottom: 0px; padding-left: 10px; text-decoration:none; font-weight: bold; letter-spacing: 0em;}
+a.practicenav:link {font-family: Arial; font-size: 12px; font-style: normal; line-height: 18px; color: #003366; padding-right: 10px; padding-bottom: 0px; padding-left: 10px; text-decoration:none; font-weight: bold; letter-spacing: 0em;}
+a.practicenav:visited {font-family: Arial; font-size: 12px; font-style: normal; line-height: 18px;  color: #003366; padding-right: 10px; padding-bottom: 0px; padding-left: 10px; text-decoration:none; font-weight: bold; letter-spacing: 0em;}
+a.practicenav:hover {font-family: Arial; font-size: 12px; font-style: normal; line-height: 18px;    color: #7B9ABB; padding-right: 10px; padding-bottom: 0px; padding-left: 10px; text-decoration:none; font-weight: bold; letter-spacing: 0em;}
+a.practicenav:active {font-family: Arial; font-size: 12px; font-style: normal; line-height: 18px;   color: #003366; padding-right: 10px; padding-bottom: 0px; padding-left: 10px; text-decoration:none; font-weight: bold; letter-spacing: 0em;}
+
+
+a.attorneynav {font-family: Arial; font-size: 12px; font-style: normal; line-height: 18px; color: #003366; padding-left: 10px; text-decoration:none; font-weight: bold;}
+a.attorneynav:link {font-family: Arial; font-size: 12px; font-style: normal; line-height: 18px; color: #003366; padding-left: 10px; text-decoration:none; font-weight: bold;}
+a.attorneynav:visited {font-family: Arial; font-size: 12px; font-style: normal; line-height: 18px; color: #003366; padding-left: 10px; text-decoration:none; font-weight: bold;}
+a.attorneynav:hover {font-family: Arial; font-size: 12px; font-style: normal; line-height: 18px; color: #7B9ABB; padding-left: 10px; text-decoration:none; font-weight: bold;}
+a.attorneynav:active {font-family: Arial; font-size: 12px; font-style: normal; line-height: 18px; color: #003366; padding-left: 10px; text-decoration:none; font-weight: bold;}
+
+
+a.attorneynavbold {font-family: Verdana; font-size: 12px; line-height: 17px; color: #003366; text-decoration:none; font-weight:bold; }
+a.attorneynavbold:link {font-family: Verdana; font-size: 12px; line-height: 17px; color: #003366; text-decoration:none; font-weight:bold;}
+a.attorneynavbold:visited {font-family: Verdana; font-size: 12px; line-height: 17px; color: #003366; text-decoration:none; font-weight:bold;}
+a.attorneynavbold:hover {font-family: Verdana; font-size: 12px; line-height: 17px; color: #7B9ABB; text-decoration:none; font-weight:bold;}
+a.attorneynavbold:active {font-family: Verdana; font-size: 12px; line-height: 17px; color: #003366; text-decoration:none; font-weight:bold;}
+
+.attorneynavbold-nolink {font-family: Verdana; font-size: 12px; line-height: 17px; color: #003366; text-decoration:none; font-weight:bold; }
+
+
+
+.ChinHeader {
+    font-family: Arial;
+    font-size: 18px;
+    font-weight: normal;
+    color: #003366;
+    font-style: normal;
+}
+.pageHeadings {
+    padding-top: 15px;
+}
+.pagecopy {
+    font-family: Verdana;
+    font-size: 12px;
+    font-weight: normal;
+    color: #003366;
+    line-height: 17px;
+}
+
+
+a.pagecopynav {font-family: Verdana; font-size: 12px;  line-height: 17px; color: #003366; text-decoration:none; font-weight: normal;}
+a.pagecopynav:link {font-family: Verdana; font-size: 12px; line-height: 17px; color: #003366; text-decoration:none; font-weight: normal;}
+a.pagecopynav:visited {font-family: Verdana; font-size: 12px; line-height: 17px; color: #003366; text-decoration:none; font-weight: normal;}
+a.pagecopynav:hover {font-family: Verdana; font-size: 12px; line-height: 17px; color: #7B9ABB; text-decoration:none; font-weight: normal;}
+a.pagecopynav:active {font-family: Verdana; font-size: 12px; line-height: 17px; color: #003366; text-decoration:none; font-weight: normal;}
+
+
+a.readmore {font-family: Verdana; font-size: 14px; color: #003366; text-decoration:none; font-weight: normal;}
+a.readmore:link {font-family: Verdana; font-size: 14px; color: #003366; text-decoration:none; font-weight: normal;}
+a.readmore:visited {font-family: Verdana; font-size: 14px; color: #003366; text-decoration:none; font-weight: normal;}
+a.readmore:hover {font-family: Verdana; font-size: 14px; color: #7B9ABB; text-decoration:none; font-weight: normal;}
+a.readmore:active {font-family: Verdana; font-size: 14px; color: #003366; text-decoration:none; font-weight: normal;}
+
+
+
+.pagecopyBold {
+    font-family: Verdana;
+    font-size: 12px;
+    font-weight: bold;
+    color: #003366;
+    line-height: 17px;
+}
+.pagecopyLight {
+    font-family: Verdana;
+    font-size: 12px;
+    font-weight: normal;
+    color: #003366;
+    line-height: 17px;
+}
+.navheadingNoIndent {
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 12px;
+    font-style: normal;
+    font-weight: bold;
+    font-variant: normal;
+    text-transform: uppercase;
+    color: #003366;
+}
+.copyrightText {
+    font-family: Verdana;
+    font-size: 12px;
+    color: #FFFFFF;
+}
+.attorney_image_spacing {
+    padding-top: 0px;
+    padding-right: 25px;
+    padding-bottom: 0px;
+    padding-left: 0px;
+}
+
+.attorney_page_practicearea {
+    font-family: Verdana;
+    font-size: 10px;
+    font-weight: bold;
+    color: #003366;
+}
+a.attorney_page_practicearea:link {font-family: Verdana; font-size: 11px; color: #003366; text-decoration:none; font-weight: normal;}
+a.attorney_page_practicearea:visited {font-family: Verdana; font-size: 11px; color: #003366; text-decoration:none; font-weight: normal;}
+a.attorney_page_practicearea:hover {font-family: Verdana; font-size: 11px; color: #7B9ABB; text-decoration:none; font-weight: normal;}
+a.attorney_page_practicearea:active {font-family: Verdana; font-size: 11px; color: #003366; text-decoration:none; font-weight: normal;}
+
+
+
+.attorney_page_practice_list {
+    font-family: Verdana;
+    font-size: 11px;
+    font-weight: bold;
+    color: #003366;
+    line-height: 15px;
+    font-style: bbold;
+}
+.attorneyBio {
+    font-family: Verdana;
+    font-size: 12px;
+    font-weight: normal;
+    line-height: 17px;
+    color: #003366;
+}
+
+.attorneyBioNav {
+    font-family: Verdana;
+    font-size: 12px;
+    font-weight: bold;
+    color: #003366;
+}
+a.attorneyBioNav:link {
+    font-family: Verdana;
+    font-size: 12px;
+    font-weight: bold;
+    color: #003366;
+    text-decoration:underline;
+}
+a.attorneyBioNav:visited {
+    font-family: Verdana;
+    font-size: 12px;
+    font-weight: bold;
+    color: #003366;
+    text-decoration:underline;
+}
+a.attorneyBioNav:hover {
+    font-family: Verdana;
+    font-size: 12px;
+    font-weight: bold;
+    color: #7B9ABB;
+    text-decoration:underline;
+}
+a.attorneyBioNav:active {
+    font-family: Verdana;
+    font-size: 12px;
+    font-weight: bold;
+    color: #003366;
+    text-decoration:underline;
+}
+
+
+.practicelist { font-family: Verdana;   font-size: 12px;    font-weight: normal;    color: #003366; list-style-type: disc;  text-decoration: none;}
+
+
+.practicelistnav {  font-family: Verdana;   font-size: 12px;    font-weight: bold;  color: #003366; list-style-type: disc;  text-decoration: none; line-height:18px;}
+.practicelistnav:link { font-family: Verdana;   font-size: 12px;    font-weight: bold;  color: #003366; list-style-type: disc;  text-decoration: none; line-height:18px;}
+.practicelistnav:visited {  font-family: Verdana;   font-size: 12px;    font-weight: bold;  color: #003366;     list-style-type: disc;  text-decoration: none; line-height:18px;}
+.practicelistnav:hover {    font-family: Verdana;   font-size: 12px;    font-weight: bold;  color: #7B9ABB; list-style-type: disc;  text-decoration: none; line-height:18px;}
+.practicelistnav:active {   font-family: Verdana;   font-size: 12px;    font-weight: bold;  color: #003366;     list-style-type: disc;  text-decoration: none; line-height:18px;}
+
+.alink {    font-family: Verdana;   font-size: 12px;    font-weight: bold;  color: #003366; list-style-type: disc;  text-decoration: none; line-height:18px;}
+.alink:link {   font-family: Verdana;   font-size: 12px;    font-weight: bold;  color: #003366; list-style-type: disc;  text-decoration: none; line-height:18px;}
+.alink:visited {    font-family: Verdana;   font-size: 12px;    font-weight: bold;  color: #003366;     list-style-type: disc;  text-decoration: none; line-height:18px;}
+.alink:hover {  font-family: Verdana;   font-size: 12px;    font-weight: bold;  color: #7B9ABB; list-style-type: disc;  text-decoration: none; line-height:18px;}
+.alink:active { font-family: Verdana;   font-size: 12px;    font-weight: bold;  color: #003366;     list-style-type: disc;  text-decoration: none; line-height:18px;}
+
+
+.practicelistnav2 { font-family: Verdana;   font-size: 12px;    font-weight: bold;  color: #003366; list-style-type: disc;  text-decoration: none;}
+.practicelistnav2:link {    font-family: Verdana;   font-size: 12px;    font-weight: bold;  color: #003366; list-style-type: disc;  text-decoration: none;}
+.practicelistnav2:visited { font-family: Verdana;   font-size: 12px;    font-weight: bold;  color: #003366;     list-style-type: disc;  text-decoration: none;}
+.practicelistnav2:hover {   font-family: Verdana;   font-size: 12px;    font-weight: bold;  color: #7B9ABB; list-style-type: disc;  text-decoration: none;}
+.practicelistnav2:active {  font-family: Verdana;   font-size: 12px;    font-weight: bold;  color: #003366;     list-style-type: disc;  text-decoration: none;}
+
+
+
+.keyareasofexperience {
+    border: thin none #003366;
+    font-family: Verdana;
+    font-size: 12px;
+    font-weight: bold;
+    color: #003366;
+    padding-bottom: 5px;
+}
+.keyareas-list-dot {
+    padding-top: 0px;
+    padding-right: 0px;
+    padding-bottom: 2px;
+    border: thin none #003366;
+    margin-top: 0px;
+    font-family: Verdana;
+    font-size: 12px;
+    font-weight: normal;
+    color: #003366;
+    list-style-type: decimal;
+    padding-left: 0px;
+    margin-left: 2px;
+}
+.keyareas-list-lines {
+    border: thin none #003366;
+    font-family: Verdana;
+    font-size: 12px;
+    font-weight: normal;
+    color: #003366;
+    padding-left: 13px;
+}
+.rapid-response-team {
+    font-family: Verdana;
+    font-size: 12px;
+    font-weight: bold;
+    color: #003366;
+    padding-bottom: 6px;
+}
+.rapid-response-team-heading {
+    font-family: Verdana;
+    font-size: 15px;
+    font-weight: normal;
+    color: #003366;
+}
+.rapid-response-horiz-line {
+    border-bottom-width: thin;
+    border-bottom-style: dotted;
+    border-bottom-color: #003366;
+}
