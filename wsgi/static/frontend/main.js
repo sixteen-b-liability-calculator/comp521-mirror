@@ -10,35 +10,28 @@ function insertPSRow(table){
     var row = table.insertRow();
 
     var cell = row.insertCell();
-    cell.innerHTML = '<input type="button" id="remove" value="Remove Row" class="btn btn-default btn-xs" onClick="removePSRow(this);">';
+    cell.innerHTML = '<input type="button" id="remove" value="Remove" class="btn btn-default btn-xs" onClick="removePSRow(this);">';
 
     cell = row.insertCell();
-    cell.innerHTML = '<input type="text" class="datepicker">';
+    cell.innerHTML = '<input type="text" size="12" class="datepicker">';
     $(".datepicker").datepicker();
-    cell.className = 'col-md-1';
 
     cell = row.insertCell();
-    cell.innerHTML = '<input type="text" id="shares" class="form-control">';
-    cell.className = 'col-md-2';
+    cell.innerHTML = '<input type="text" id="shares" size=15 class="form-control">';
     $('#shares',row)[0].onchange = checkIfPositiveOnChange;
     
     cell = row.insertCell();
-    cell.innerHTML = '<div class="input-group"><span class="input-group-addon">$</span><input type="text" id="value" class="value form-control">';
-    cell.className = 'col-md-3';
+    cell.innerHTML = '<input type="text" id="value" size =15 class="value form-control">';
     $('#value',row)[0].onchange = checkIfPositiveOnChange;
     
     cell = row.insertCell();
     cell.innerHTML = '<div id="title"></div>';
-    cell.className = 'col-md-1';
     
     cell = row.insertCell();
     cell.innerHTML = '<div id="ownership"></div>';
-    cell.className = 'col-md-1';
     
     cell = row.insertCell();
     cell.innerHTML = '<div id="filing"></div>'
-    cell.className = 'col-md-1';
-
     row.onchange = checkIfMissingValue;
 
     return row;
@@ -202,23 +195,17 @@ function printOutput(data){
 		row = table.insertRow(pairingsRow);
 		cell = row.insertCell(0);
 		cell.innerHTML = buy["month"] + '/' + buy["day"] + '/' + buy["year"];
-		cell.className = 'col-md-1';
 		cell = row.insertCell(1);
 		cell.innerHTML = '$' + decimalCorrection(buy["price"]);
-		cell.className = 'col-md-1';
 		cell = row.insertCell(2);
 		cell.innerHTML = sell["month"] + '/' + sell["day"] + '/' + sell["year"];
-		cell.className = 'col-md-1';
 		cell = row.insertCell(3);
 		cell.innerHTML = '$' + decimalCorrection(sell["price"]);
-		cell.className = 'col-md-1';
 		cell = row.insertCell(4);
 		cell.innerHTML = pair["count"];
-		cell.className = 'col-md-1';
 		cell = row.insertCell(5);
 		profit = pair["count"]*sell["price"] - pair["count"]*buy["price"];
 		cell.innerHTML = '$' + decimalCorrection(profit);
-		cell.className = 'col-md-1';
 		maxprofit += profit;
     }
     // Add summation line
@@ -244,10 +231,14 @@ function printOutput(data){
 
 // Takes month, year and CIK parameters for SEC database pull
 function pullSEC(){
-    var secStartYear = $("#secStartYear").val();
-    var secStartMonth = $("#secStartMonth").val();
-    var secEndYear = $("#secEndYear").val();
-    var secEndMonth = $("#secEndMonth").val();
+    var startDate = $("#secStartDate").val();
+    var secStartYear = parseDate(startDate, "y");
+    var secStartMonth = parseDate(startDate, "m");
+
+    var endDate = $("#secEndDate").val();
+
+    var secEndYear = parseDate(endDate, "y");
+    var secEndMonth = parseDate(endDate, "m");
 
     var secCIK = $("#secCIK").val();
     
