@@ -67,13 +67,13 @@
 					 <button type="button" class="btn btn-default btn-xs" onclick="saleRow()">Add Row <i class="fa fa-plus"></i></button>
 				</div>
 				<div style="padding-top:10px">
+					<div class="col-md-3">
+						<input type="radio" name = 'correction' id= "correction-none" checked='checked'>Full Six Months
+						<input type="radio" name = 'correction' id = "correction-stella">Stella
+						<input type="radio" name = 'correction' id = "correction-jammies">Jammies
+					</div>
 					<div class="col-md-1"><button type="button" class="btn btn-default" onclick="inputToJSON('/compute')">Compute with LP</button></div>
 					<div class="col-md-3">
-						<select class="selectpicker">
-							<option>Full Six Months</option>
-							<option id="stella" style="font-style: italic">Stella</option>
-							<option id="jammies" style="font-style: italic"><emphasize>Jammies</emphasize></option>
-						</select>
 					</div>
 					<div class="col-md-6"><input type="email" id="email" class="form-control" placeholder="Email Address for Results"></div>
 				</div>

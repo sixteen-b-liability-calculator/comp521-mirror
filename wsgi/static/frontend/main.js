@@ -13,15 +13,15 @@ function insertPSRow(table){
     cell.innerHTML = '<input type="button" id="remove" value="Remove" class="btn btn-default btn-xs" onClick="removePSRow(this);">';
 
     cell = row.insertCell();
-    cell.innerHTML = '<input type="text" size="12" class="datepicker">';
+    cell.innerHTML = '<input type="text" size="9" class="datepicker">';
     $(".datepicker").datepicker();
 
     cell = row.insertCell();
-    cell.innerHTML = '<input type="text" id="shares" size=15 class="form-control">';
+    cell.innerHTML = '<input type="text" id="shares" size=12 class="form-control">';
     $('#shares',row)[0].onchange = checkIfPositiveOnChange;
     
     cell = row.insertCell();
-    cell.innerHTML = '<input type="text" id="value" size =15 class="value form-control">';
+    cell.innerHTML = '<input type="text" id="value" size =14 class="value form-control">';
     $('#value',row)[0].onchange = checkIfPositiveOnChange;
     
     cell = row.insertCell();
@@ -123,10 +123,10 @@ function inputToJSON(url){
 
     var email = $("#email").val();
     
-    var stella = document.getElementById("stella").selected;
-    var jammies = document.getElementById("jammies").selected;
-    if(jammies){
-	    stella = true;
+    var stella = $('#correction-stella')[0].checked;
+    var jammies = $('#correction-jammies')[0].checked;
+    if (jammies) {
+        stella = true;  // Since jammies implies stella.
     }
 
     $.ajax( url,
@@ -142,7 +142,7 @@ function inputToJSON(url){
 	    }
     }))
     // Switches to second tab
-    $('#myTabs li:eq(1) a').tab('show');
+    $('#tabs').tabs('option','active',1);
 }
 
 function inputHasErrors() {
@@ -333,8 +333,8 @@ function convertToCSV() {
 
 // Takes JSON Data and populates Purchase and Sales tables
 function populate(data){
-    $('#myTabs li:eq(0) a').tab('show');
     clearInputTab();
+    $('#tabs').tabs('option','active',0);
     
     var buys = data["buys"];
     var purchaseTable = $("#purchases")[0]

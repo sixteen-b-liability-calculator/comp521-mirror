@@ -23,7 +23,7 @@
 
   		<script>
   		$(function() {
-			$( "#tabs" ).tabs();
+			$( "#tabs" ).tabs({active: 0});
 		});
   		</script>
 
@@ -196,18 +196,17 @@ March 2001 (revised December 2010)
 					 <button type="button" class="btn btn-default btn-xs" onclick="saleRow()">Add Row <i class="fa fa-plus"></i></button>
 				</div>
 				<div style="padding-top:10px">
-					<div class="col-md-1"><button type="button" class="btn btn-default" onclick="inputToJSON('/compute')">Compute with LP</button></div>
 					<div class="col-md-3">
-						<select class="selectpicker">
-							<option>Full Six Months</option>
-							<option id="stella" style="font-style: italic">Stella</option>
-							<option id="jammies" style="font-style: italic"><emphasize>Jammies</emphasize></option>
-						</select>
+						<input type="radio" name = 'correction' id= "correction-none" checked='checked'>Full Six Months
+						<input type="radio" name = 'correction' id = "correction-stella">Stella
+						<input type="radio" name = 'correction' id = "correction-jammies">Jammies
 					</div>
+					<div class="col-md-1">
+						<button type="button" class="btn btn-default" onclick="inputToJSON('/compute')">Compute with LP</button>
+						<button type="button" class="btn btn-default" onclick="inputToJSON('/greedy')">Compute with LIHO</button>
+					</div>
+					<p>If you would like your results sent to you, please provide your e-mail here! </p>
 					<div class="col-md-6"><input type="email" id="email" class="form-control" placeholder="Email Address for Results"></div>
-				</div>
-				<div style="padding-top:50px">
-					<div class="col-md-1"><button type="button" class="btn btn-default" onclick="inputToJSON('/greedy')">Compute with LIHO</button></div>
 				</div>
 			</div>
 		</div>
@@ -234,13 +233,13 @@ March 2001 (revised December 2010)
 				<h2>Upload CSV </h2>
                 <p> Use this tab to translate things. There are four required columns in a valid CSV file. The first column must contain a date formatted as MM/DD/YYYY. The second column is the price per share. The third is the number of shares that were traded that date. Finally, a column that indicates if the trade was a buy or a sell. </p>
 				<div style="padding-top:10px">
-					<a href="#" class="btn btn-default" onclick="populateWithCSV()">Parse CSV</a>
-					<a href="#" class="btn btn-default" onclick="convertToCSV()"> Convert to CSV</a>
+					<a href="#!" class="btn btn-default" onclick="populateWithCSV()">Parse CSV</a>
+					<a href="#!" class="btn btn-default" onclick="convertToCSV()"> Convert to CSV</a>
 				</div>
 
 				<p>Use this to upload csv files.</p>
 				<input id="csv-file" type= "file"> </input>
-				<a href="#" class="btn btn-default" onclick="populateWithCSVFile()">Parse CSV File</a>
+				<a href="#!" class="btn btn-default" onclick="populateWithCSVFile()">Parse CSV File</a>
 
 
 				<div class="indent" style="padding-top:10px">
