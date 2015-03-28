@@ -75,6 +75,20 @@ function firstLoad(){
     	insertPSRow(purchases);
     	insertPSRow(sales);
     }
+    // Sets the Edgar Date range for selecting from the database.
+    $('#secEndDate').datepicker("setDate",'0');
+    $('#secStartDate').datepicker("setDate",setStartDate());
+}
+
+function setStartDate(){
+    var date = new Date();
+    // Subtract 2 years
+    date.setYear(1900+date.getYear()-2);
+    //subtract 6 months
+    date.setMonth(date.getMonth()-6);
+    // Jammies allow for subtracting up to three days.
+    date.setDate(date.getDate()-3);
+    return date;
 }
 
 // Called by "Add Row" button for Acquisitions table
