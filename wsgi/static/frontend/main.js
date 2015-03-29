@@ -86,7 +86,9 @@ function setStartDate(){
     date.setYear(1900+date.getYear()-2);
     //subtract 6 months
     date.setMonth(date.getMonth()-6);
+    // TODO:valakuzhy
     // Jammies allow for subtracting up to three days.
+    // Will need something more sophisticated to get this completed right though
     date.setDate(date.getDate()-3);
     return date;
 }

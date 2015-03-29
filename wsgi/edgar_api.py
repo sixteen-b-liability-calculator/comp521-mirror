@@ -145,8 +145,8 @@ def parse_section_4(inputFile):
     return tree
 
 parse_url = re.compile(r''' edgar/data/
-                            ( [0-9]  + )  /   # CIK
-                            ( [0-9-] + )\.txt # docno ''', re.VERBOSE)
+                            ( [0-9]  + )  /                    # CIK
+                            ( [0-9-] + )\.txt ''', re.VERBOSE) # docno 
 # Parses the tree to gain the information needed to return the proper object
 # Right now : only includes non-derivative transactions
 def return_trade_information_from_xml(tree, url):
