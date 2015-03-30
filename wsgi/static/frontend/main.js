@@ -18,11 +18,11 @@ function insertPSRow(table){
 
     cell = row.insertCell();
     cell.innerHTML = '<input type="text" id="shares" size=12 class="form-control">';
-    $('#shares',row)[0].onchange = checkIfPositiveOnChange;
+    $('#shares',row)[0].onchange = checkIfNonnegativeOnChange;
     
     cell = row.insertCell();
     cell.innerHTML = '<input type="text" id="value" size =14 class="value form-control">';
-    $('#value',row)[0].onchange = checkIfPositiveOnChange;
+    $('#value',row)[0].onchange = checkIfNonnegativeOnChange;
     
     cell = row.insertCell();
     cell.innerHTML = '<div id="title"></div>';
@@ -39,8 +39,8 @@ function insertPSRow(table){
 
 // For use when adding rows to check whether there is an error when new values are included.
 // Applies a "inputDataError" class on these elements.
-function checkIfPositiveOnChange() {
-    if ($(this).val() > 0 || $(this).val() == "") {
+function checkIfNonnegativeOnChange() {
+    if ($(this).val() >= 0 || $(this).val() == "") {
         $(this).removeClass("inputDataError");
     } else {
         $(this).addClass("inputDataError");
