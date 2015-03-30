@@ -15,7 +15,7 @@ class Trade:
     def __init__(self, number=None, price=None, year=None, month=None, day=None, **extra):
         if not (isinstance(number, Number) and isinstance(price, Number)):
             raise TypeError()
-        if number <= 0 or price <= 0:
+        if number <= 0 or price < 0:
             raise ValueError()
         self.number = number
         self.price = price
