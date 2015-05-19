@@ -1,8 +1,8 @@
 import sys
 import os
-from coopr.pyomo import *
-from coopr.opt import SolverFactory, SolverStatus, TerminationCondition
-import coopr.environ
+from pyomo import *
+from pyomo.opt import SolverFactory, SolverStatus, TerminationCondition
+import pyomo.environ
 
 from numbers import Number
 import datetime

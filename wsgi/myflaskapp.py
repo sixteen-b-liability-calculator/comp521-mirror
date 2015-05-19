@@ -2,9 +2,9 @@ from flask import Flask, jsonify, request, json, redirect, url_for, make_respons
 from flask_mail import Message, Mail
 import sys
 import os
-from coopr.pyomo import *
-from coopr.opt import SolverFactory
-import coopr.environ
+from pyomo import *
+from pyomo.opt import SolverFactory
+import pyomo.environ
 from functools import wraps
 
 app = Flask(__name__, static_url_path='')
