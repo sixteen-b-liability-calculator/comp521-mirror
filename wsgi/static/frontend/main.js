@@ -18,11 +18,11 @@ function insertPSRow(table){
 
     cell = row.insertCell();
     cell.innerHTML = '<input type="text" id="shares" size=12 class="form-control">';
-    $('#shares',row)[0].onchange = checkIfPositiveOnChange;
+    $('#shares',row)[0].onchange = checkIfNonnegativeOnChange;
     
     cell = row.insertCell();
     cell.innerHTML = '<input type="text" id="value" size =14 class="value form-control">';
-    $('#value',row)[0].onchange = checkIfPositiveOnChange;
+    $('#value',row)[0].onchange = checkIfNonnegativeOnChange;
     
     cell = row.insertCell();
     cell.innerHTML = '<div id="title"></div>';
@@ -39,8 +39,8 @@ function insertPSRow(table){
 
 // For use when adding rows to check whether there is an error when new values are included.
 // Applies a "inputDataError" class on these elements.
-function checkIfPositiveOnChange() {
-    if ($(this).val() > 0 || $(this).val() == "") {
+function checkIfNonnegativeOnChange() {
+    if ($(this).val() >= 0 || $(this).val() == "") {
         $(this).removeClass("inputDataError");
     } else {
         $(this).addClass("inputDataError");
@@ -75,6 +75,22 @@ function firstLoad(){
     	insertPSRow(purchases);
     	insertPSRow(sales);
     }
+    // Sets the Edgar Date range for selecting from the database.
+    $('#secEndDate').datepicker("setDate",'0');
+    $('#secStartDate').datepicker("setDate",setStartDate());
+}
+
+function setStartDate(){
+    var date = new Date();
+    // Subtract 2 years
+    date.setYear(1900+date.getYear()-2);
+    //subtract 6 months
+    date.setMonth(date.getMonth()-6);
+    // TODO:valakuzhy
+    // Jammies allow for subtracting up to three days.
+    // Will need something more sophisticated to get this completed right though
+    date.setDate(date.getDate()-3);
+    return date;
 }
 
 // Called by "Add Row" button for Acquisitions table
