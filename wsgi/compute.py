@@ -2,7 +2,7 @@ import sys
 import os
 from pyomo import *
 from pyomo.opt import SolverFactory, SolverStatus, TerminationCondition
-import pyomo.environ
+from pyomo.environ import *
 
 from numbers import Number
 import datetime
