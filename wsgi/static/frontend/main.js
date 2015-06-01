@@ -78,6 +78,9 @@ function firstLoad(){
     // Sets the Edgar Date range for selecting from the database.
     $('#secEndDate').datepicker("setDate",'0');
     $('#secStartDate').datepicker("setDate",setStartDate());
+
+    // Sets the Event listener for the CSV upload.
+    $("#csv-file").change(populateWithCSVFile);
 }
 
 function setStartDate(){
@@ -318,8 +321,19 @@ function populateWithCSV() {
     }))
 }
 
-// TODO
-function populateWithCSVFile() {
+// Read in file, and place 
+function populateWithCSVFile(evt) {
+    var f = evt.target.files[0];
+    if (f) {
+        var reader = new FileReader();
+        reader.onload = function() {
+            var text = reader.result;
+            $('#csv-data').val(text);
+        }
+        reader.readAsText(f)
+    } else {
+        alert("Failed to load file");
+    }
 }
 
 // Converts the input page into CSV and displays it on the CSV upload page.
