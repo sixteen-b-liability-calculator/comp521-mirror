@@ -359,6 +359,7 @@ function convertToCSV() {
         csvString += date + ", " + price + ", " + number + ", sell\n"
     }
     $('#csv-data')[0].value = csvString;
+    $('#tabs').tabs('option','active',2);
 }
 
 // Takes JSON Data and populates Purchase and Sales tables

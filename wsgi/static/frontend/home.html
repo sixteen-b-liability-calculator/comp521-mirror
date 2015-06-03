@@ -448,7 +448,7 @@ March 2015</p>
                      <button type="button" class="btn btn-default btn-xs" onclick="saleRow()">Add Row <i class="fa fa-plus"></i></button>
                 </div>
                 <div style="padding-top:10px">
-                    <p>You can <a class="alink" href="#csv">convert to .CSV</a> 
+                    <p>You can <button href="#!" class="btn btn-default" onclick="convertToCSV()">Convert to CSV</button>
                     to save your input data for later use.</p>
                     <p>You can have the calculation results sent to you:
                     <div class="col-md-6"><input type="email" id="email" class="form-control" placeholder="Email Address for Results"><p>&nbsp;</p>
@@ -504,8 +504,8 @@ March 2015</p>
                 </p>
                 <p>or</p>
                 <p>.CSV text form:&nbsp;&nbsp;
-                <a href="#!" class="btn btn-default" onclick="populateWithCSV()">Parse CSV</a>&nbsp;
-                    <a href="#!" class="btn btn-default" onclick="convertToCSV()"> Convert to CSV</a>
+                <button href="#!" class="btn btn-default" onclick="populateWithCSV()">Parse CSV</button>&nbsp;
+                    <button href="#!" class="btn btn-default" onclick="convertToCSV()">Convert to CSV</button>
                 </p>
                 <div class="indent" style="padding-top:10px">
                     <textarea id="csv-data" cols="50" rows="20"></textarea>
@@ -539,8 +539,8 @@ March 2015</p>
                     </table>
                 </div>
                 <div style="padding-top:10px">
-                    <a href="#" class="btn btn-default" onclick="pullSEC()">
-                    Search EDGAR </a>
+                    <button href="#" class="btn btn-default" onclick="pullSEC()">
+                    Search EDGAR </button>
                 </div>
             </div>
         </div>
