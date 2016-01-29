@@ -5,7 +5,7 @@
         <!-- Clear Cache -->
         <META HTTP-EQUIV="CACHE-CONTROL" CONTENT="NO-CACHE">
         <META HTTP-EQUIV="EXPIRES" CONTENT="Mon, 22 Jul 2002 11:12:01 GMT">
-        
+
         <!-- CSS -->
 
         <link rel="stylesheet" href="//code.jquery.com/ui/1.11.2/themes/smoothness/jquery-ui.css"> <!-- Added for datepicker -->
@@ -72,7 +72,7 @@
           <td width="21" valign="top" bgcolor="#E7EFF7"><img src="../../images/header_left_corner.jpg" alt="Andrew Chin" width="21" height="22" border="0" /></td>
           <td bgcolor="#E7EFF7">
 <div class="topnavtxt">  <div align="center">
-    <a class="topnav" href="http://unclaw.com/chin/index.htm">About</a><a class="topnav" href="http://unclaw.com/chin/teaching/index.htm">Teaching</a><a class="topnav" href="http://unclaw.com/chin/scholarship/index.htm">Scholarship</a><a class="topnav" href="http://unclaw.com/chin/outreach/index.htm">Professional 
+    <a class="topnav" href="http://unclaw.com/chin/index.htm">About</a><a class="topnav" href="http://unclaw.com/chin/teaching/index.htm">Teaching</a><a class="topnav" href="http://unclaw.com/chin/scholarship/index.htm">Scholarship</a><a class="topnav" href="http://unclaw.com/chin/outreach/index.htm">Professional
     Activities</a><a class="topnav" href="http://unclaw.com/chin/personal/index.htm">Personal</a></div></div>
 </td>
           <td width="21" valign="top" bgcolor="#E7EFF7"><img src="../../images/header_right_corner.jpg" alt="Andrew Chin" width="21" height="22" border="0" /><br />
@@ -109,56 +109,56 @@
   <tr>
     <td height="173" bgcolor="#FFFFFF">&nbsp;</td>
     <td valign="top" bgcolor="#FFFFFF"><p></p>
-    
+
     <p class="pagecopy">
-The form <a class="alink" href="#calcform">below</a> allows the user to calculate a corporate insider's short-swing profit 
+The form <a class="alink" href="#calcform">below</a> allows the user to calculate a corporate insider's short-swing profit
 liabilities under Section 16(b) of the Securities Exchange Act of 1934, 15 U.S.C.
-§ 78p(b) and to 
-retrieve potentially relevant insider trading data from documents filed with the 
+§ 78p(b) and to
+retrieve potentially relevant insider trading data from documents filed with the
 Securities and Exchange Commission.</p>
     <h2>
 Background</h2>
     <p class="pagecopy">
-Section 16(b) provides that specified 
-corporate insiders must surrender &quot;any profit realized ... from any purchase and 
-sale, or any sale and purchase, of any equity security&quot; of the company 
-&quot;within any period of less than six months.&quot; This is a strict liability provision, meaning that profits 
-must be surrendered even if they were not attained through the misuse of inside 
-information, and even if the paired purchase and sale events are part of a 
+Section 16(b) provides that specified
+corporate insiders must surrender &quot;any profit realized ... from any purchase and
+sale, or any sale and purchase, of any equity security&quot; of the company
+&quot;within any period of less than six months.&quot; This is a strict liability provision, meaning that profits
+must be surrendered even if they were not attained through the misuse of inside
+information, and even if the paired purchase and sale events are part of a
 larger pattern of trades that also incurs losses. As Judge
-<a class="alink" href="http://en.wikipedia.org/wiki/Learned_Hand">Learned Hand</a> 
-concluded in <i>Gratz v. Claughton</i> (2nd Cir. 1951), the pairing of purchases 
-and sales in an insider's trading history &quot;falls within the doctrine ... that 
-when damages are at some unascertainable amount below an upper limit and when 
-the uncertainty arises from the defendant's wrong, the upper limit will be taken 
-as the proper amount.&quot; Accordingly, full enforcement of Section 16(b) requires 
-liability to be calculated as the maximum profit that can be derived from the 
-pairing of an insider's purchases and sales, with each transaction pair taking 
+<a class="alink" href="http://en.wikipedia.org/wiki/Learned_Hand">Learned Hand</a>
+concluded in <i>Gratz v. Claughton</i> (2nd Cir. 1951), the pairing of purchases
+and sales in an insider's trading history &quot;falls within the doctrine ... that
+when damages are at some unascertainable amount below an upper limit and when
+the uncertainty arises from the defendant's wrong, the upper limit will be taken
+as the proper amount.&quot; Accordingly, full enforcement of Section 16(b) requires
+liability to be calculated as the maximum profit that can be derived from the
+pairing of an insider's purchases and sales, with each transaction pair taking
 place in either order within a six-month period.</p>
     <p class="pagecopy">
-To aid enforcement of Section 16(b), corporate insiders are required to report 
-transactions in their company's stock on SEC Form 4 or 5. An example is shown below. 
+To aid enforcement of Section 16(b), corporate insiders are required to report
+transactions in their company's stock on SEC Form 4 or 5. An example is shown below.
 These filings are available to the public on the
-<a class="alink" href="http://www.sec.gov/search/search.htm">SEC's Web site</a>, 
+<a class="alink" href="http://www.sec.gov/search/search.htm">SEC's Web site</a>,
 and any shareholder can bring suit based on the information disclosed.</p>
     <h2>
 LIHO vs. LP</h2>
     <p class="pagecopy">
 In <i>Smolowe v. Delendo Corp.</i> (2nd Cir. 1943), Judge
 <a class="alink" href="http://en.wikipedia.org/wiki/Charles_Edward_Clark">
-Charles Edward Clark</a> devised a greedy algorithm to calculate Section 16(b) 
-liability, which has become known as the &quot;lowest-in, highest-out&quot; (LIHO) method. The 
-algorithm consists of iteratively pairing the purchase at the lowest per-share 
-price with the sale at the highest per-share price within six months for which 
-shares can be matched, and removing transactions when no more remaining shares 
+Charles Edward Clark</a> devised a greedy algorithm to calculate Section 16(b)
+liability, which has become known as the &quot;lowest-in, highest-out&quot; (LIHO) method. The
+algorithm consists of iteratively pairing the purchase at the lowest per-share
+price with the sale at the highest per-share price within six months for which
+shares can be matched, and removing transactions when no more remaining shares
 remain to be paired with them.</p>
     <p class="pagecopy">
-Judge Clark's crude approach to the calculation of short-swing profits is 
+Judge Clark's crude approach to the calculation of short-swing profits is
 understandable, as George Dantzig's
 <a class="alink" href="http://en.wikipedia.org/wiki/George_Dantzig#Linear_programming">
 simplex algorithm for linear programming</a> (LP) did not appear until 1947.
-Today, however, it is straightforward to recognize Section 16(b) liability 
-calculation as an optimization problem amenable to solution by standard LP techniques. 
+Today, however, it is straightforward to recognize Section 16(b) liability
+calculation as an optimization problem amenable to solution by standard LP techniques.
 As such, it is not correctly solved by the LIHO algorithm.</p>
     <p class="pagecopy">
 For example, consider the following pattern of trades:</p>
@@ -207,7 +207,7 @@ For example, consider the following pattern of trades:</p>
         </table>
     </div>
     <p class="pagecopy">
-Judge Clark's LIHO algorithm calculates a recoverable profit of 
+Judge Clark's LIHO algorithm calculates a recoverable profit of
 $5,800:</p>
     <div align="center">
         <table border="0" width="90%" cellspacing="0" cellpadding="2">
@@ -246,51 +246,51 @@ $5,800:</p>
         </table>
     </div>
     <p class="pagecopy">
-This result is incorrect, however, inasmuch as it does not represent &quot;the upper 
-limit&quot; of the &quot;profit that can be derived from the pairing of an insider's 
-purchases and sales.&quot; To see this, we can perform the LP calculation on the same 
+This result is incorrect, however, inasmuch as it does not represent &quot;the upper
+limit&quot; of the &quot;profit that can be derived from the pairing of an insider's
+purchases and sales.&quot; To see this, we can perform the LP calculation on the same
 sequence of trades.</p>
     <p class="pagecopy">
-For <i>i</i> = 1, 2, 3, 4 and&nbsp; <i>j</i> = 1, 2, 3, let <i>p<sub>ij</sub></i> 
+For <i>i</i> = 1, 2, 3, 4 and&nbsp; <i>j</i> = 1, 2, 3, let <i>p<sub>ij</sub></i>
 denote the per-share profit recoverable under Section 16(b) from pairing the <i>
-i</i>-th purchase and&nbsp; <i>j</i>-th sale in this table (counting 
-chronologically). For example, by pairing the shares purchased on May 1 for 
-$7/share (i.e., the third purchase) with the shares sold on Feb. 15 for $8/share 
-(i.e., the first sale), the trader may be held liable for a profit of $1/share; 
-this fact may be expressed as <i>p</i><sub>31</sub> = 1. On the other hand, the 
-first purchase on Jan. 1 and third sale on Oct. 15 are more than six months 
+i</i>-th purchase and&nbsp; <i>j</i>-th sale in this table (counting
+chronologically). For example, by pairing the shares purchased on May 1 for
+$7/share (i.e., the third purchase) with the shares sold on Feb. 15 for $8/share
+(i.e., the first sale), the trader may be held liable for a profit of $1/share;
+this fact may be expressed as <i>p</i><sub>31</sub> = 1. On the other hand, the
+first purchase on Jan. 1 and third sale on Oct. 15 are more than six months
 apart, so <i>p</i><sub>13</sub> = 0. Thus we can compute the vector <i>P</i> = (<i>p</i><sub>11</sub>,
 <i>p</i><sub>12</sub>, <i>p</i><sub>13</sub>, <i>p</i><sub>21</sub>, <i>p</i><sub>22</sub>,
 <i>p</i><sub>23</sub>, <i>p</i><sub>31</sub>, <i>p</i><sub>32</sub>, <i>p</i><sub>33</sub>,
-<i>p</i><sub>41</sub>, <i>p</i><sub>42</sub>, <i>p</i><sub>43</sub>) = 
+<i>p</i><sub>41</sub>, <i>p</i><sub>42</sub>, <i>p</i><sub>43</sub>) =
 (0,1,0,0,2,0,1,3,2,0,4,3).</p>
     <p class="pagecopy">
-To calculate the total profit recoverable under Section 16(b), we must find the 
-number of shares <i>x<sub>ij</sub></i> for each pair of purchases and sales for 
-which the total recoverable profit &#931;<i>p<sub>ij</sub>x<sub>ij</sub></i> 
+To calculate the total profit recoverable under Section 16(b), we must find the
+number of shares <i>x<sub>ij</sub></i> for each pair of purchases and sales for
+which the total recoverable profit &#931;<i>p<sub>ij</sub>x<sub>ij</sub></i>
 is maximum, subject to the constraints</p>
     <div align="center">
         <table border="0" width="60%" cellspacing="0" cellpadding="2">
             <tr>
-                <td align="center"><font face="Times New Roman">&#931; <i>x</i><sub>1<i>j</i></sub> 
+                <td align="center"><font face="Times New Roman">&#931; <i>x</i><sub>1<i>j</i></sub>
                 &#8804; 1,000</font></td>
-                <td align="center"><font face="Times New Roman">&#931; <i>x</i><sub><i>i</i>1</sub> 
+                <td align="center"><font face="Times New Roman">&#931; <i>x</i><sub><i>i</i>1</sub>
                 &#8804; 400</font></td>
             </tr>
             <tr>
-                <td align="center"><font face="Times New Roman">&#931; <i>x</i><sub>2<i>j</i></sub> 
+                <td align="center"><font face="Times New Roman">&#931; <i>x</i><sub>2<i>j</i></sub>
                 &#8804; 2,000</font></td>
-                <td align="center"><font face="Times New Roman">&#931; <i>x</i><sub><i>i</i>2</sub> 
+                <td align="center"><font face="Times New Roman">&#931; <i>x</i><sub><i>i</i>2</sub>
                 &#8804; 1,200</font></td>
             </tr>
             <tr>
-                <td align="center"><font face="Times New Roman">&#931; <i>x</i><sub>3<i>j</i></sub> 
+                <td align="center"><font face="Times New Roman">&#931; <i>x</i><sub>3<i>j</i></sub>
                 &#8804; 800</font></td>
-                <td align="center"><font face="Times New Roman">&#931; <i>x</i><sub><i>i</i>3</sub> 
+                <td align="center"><font face="Times New Roman">&#931; <i>x</i><sub><i>i</i>3</sub>
                 &#8804; 2,400</font></td>
             </tr>
             <tr>
-                <td align="center"><font face="Times New Roman">&#931; <i>x</i><sub>4<i>j</i></sub> 
+                <td align="center"><font face="Times New Roman">&#931; <i>x</i><sub>4<i>j</i></sub>
                 &#8804; 1,000</font></td>
                 <td align="center"><i>x<sub>ij</sub></i>
                 <font face="Times New Roman">&#8805; 0 for all<i> i</i>, <i>j</i></font></td>
@@ -301,8 +301,8 @@ is maximum, subject to the constraints</p>
 The simplex LP method yields the solution vector <i>X</i> = (<i>x</i><sub>11</sub>,
 <i>x</i><sub>12</sub>, <i>x</i><sub>13</sub>, <i>x</i><sub>21</sub>, <i>x</i><sub>22</sub>,
 <i>x</i><sub>23</sub>, <i>x</i><sub>31</sub>, <i>x</i><sub>32</sub>, <i>x</i><sub>33</sub>,
-<i>x</i><sub>41</sub>, <i>x</i><sub>42</sub>, <i>x</i><sub>43</sub>) = 
-(0,0,0,0,1200,0,0,0,800,0,0,1000), for a recoverable profit <i>P</i><font face="Times New Roman">&#8729;<i>X</i> 
+<i>x</i><sub>41</sub>, <i>x</i><sub>42</sub>, <i>x</i><sub>43</sub>) =
+(0,0,0,0,1200,0,0,0,800,0,0,1000), for a recoverable profit <i>P</i><font face="Times New Roman">&#8729;<i>X</i>
 of $7,000:</font></p>
     <div align="center">
         <table border="0" width="90%" cellspacing="0" cellpadding="2">
@@ -341,59 +341,59 @@ of $7,000:</font></p>
         </table>
     </div>
     <p class="pagecopy">
-To give another example, the pattern of defendant Elorian Landers's trades (<a class="alink" href="http://unclaw.com/chin/16b/landers.csv">.CSV file</a>) in <i>Chechele v. 
-Vicis Capital</i> (S.D.N.Y. filed Mar. 30, 2011) yields a liability calculation 
-of only $29,889 using the LIHO algorithm, compared with $35,366 using the LP 
+To give another example, the pattern of defendant Elorian Landers's trades (<a class="alink" href="http://unclaw.com/chin/16b/landers.csv">.CSV file</a>) in <i>Chechele v.
+Vicis Capital</i> (S.D.N.Y. filed Mar. 30, 2011) yields a liability calculation
+of only $29,889 using the LIHO algorithm, compared with $35,366 using the LP
 method.</p>
     <h2>
 <i>Stella</i> and <i>Jammies</i></h2>
     <p>
-According to the calendar, the interval that begins on October 30 and ends 
-on April 29 is a &quot;period of less than six months,&quot; inasmuch as April 29 precedes the date 
-(i.e., April 30) that falls 
-exactly six calendar months 
-after October 30. While a § 16(b) plaintiff could argue for this &quot;matching 
-date&quot; interpretation, 
+According to the calendar, the interval that begins on October 30 and ends
+on April 29 is a &quot;period of less than six months,&quot; inasmuch as April 29 precedes the date
+(i.e., April 30) that falls
+exactly six calendar months
+after October 30. While a § 16(b) plaintiff could argue for this &quot;matching
+date&quot; interpretation,
 courts have read the statutory period more narrowly.</p>
     <p>
-In <i>Stella v. Graham-Paige Motors</i> (S.D.N.Y. 1955), the court adopted a 
-construction of the term &quot;period of less than six months&quot; to require that the 
-midnight preceding the start date and the midnight following the end date be 
-less than six months apart. Trades on January 1 and June 29 could 
-therefore be paired for short-swing profit recovery, but trades on January 1 and June 30 
+In <i>Stella v. Graham-Paige Motors</i> (S.D.N.Y. 1955), the court adopted a
+construction of the term &quot;period of less than six months&quot; to require that the
+midnight preceding the start date and the midnight following the end date be
+less than six months apart. Trades on January 1 and June 29 could
+therefore be paired for short-swing profit recovery, but trades on January 1 and June 30
 could not. According to
-<a class="alink" href="http://www.section16treatise.net/home/">Romeo &amp; Dye</a>, 
-the <i>Stella</i> method &quot;has been followed by all courts that have considered 
+<a class="alink" href="http://www.section16treatise.net/home/">Romeo &amp; Dye</a>,
+the <i>Stella</i> method &quot;has been followed by all courts that have considered
 the question.&quot;</p>
     <p>
-In <i>Jammies Int'l v. Nowinski</i> (S.D.N.Y. 1988) considered the situation 
-where, due to the varying lengths of months, there was no date six months 
-following and numerically corresponding to the first date in a period. The 
-plaintiffs argued for &quot;May 1 as the date most closely corresponding to October 
-31, because it is one day after the thirtieth day of the month.&quot; The court, 
-however, held that in such cases, &quot;the corresponding date for the last day of a 
-month is the last day of the month six months hence.&quot; The <i>Jammies</i> court 
+In <i>Jammies Int'l v. Nowinski</i> (S.D.N.Y. 1988) considered the situation
+where, due to the varying lengths of months, there was no date six months
+following and numerically corresponding to the first date in a period. The
+plaintiffs argued for &quot;May 1 as the date most closely corresponding to October
+31, because it is one day after the thirtieth day of the month.&quot; The court,
+however, held that in such cases, &quot;the corresponding date for the last day of a
+month is the last day of the month six months hence.&quot; The <i>Jammies</i> court
 also regarded <i>Stella</i> as controlling precedent. Consequently, under <i>
-Jammies</i>, the first permissible trade date following a transaction on August 
+Jammies</i>, the first permissible trade date following a transaction on August
 29, 30, or 31 is February 27.</p>
     <h2>
 Using the Calculator</h2>
     <p>
-An insider's trades may be input individually into the fields of a form (&quot;Input&quot; 
-tab), or collectively submitted as a text file in .CSV format by pasting it into 
-a text box (&quot;CSV Upload&quot; tab). Trades can also be compiled from the filings of 
-Forms 4 and 5 stored in the Securities and Exchange Commission's EDGAR database 
-(&quot;SEC Database&quot; tab), by using the insider's Central Index Key (&quot;CIK&quot;) number 
+An insider's trades may be input individually into the fields of a form (&quot;Input&quot;
+tab), or collectively submitted as a text file in .CSV format by pasting it into
+a text box (&quot;CSV Upload&quot; tab). Trades can also be compiled from the filings of
+Forms 4 and 5 stored in the Securities and Exchange Commission's EDGAR database
+(&quot;SEC Database&quot; tab), by using the insider's Central Index Key (&quot;CIK&quot;) number
 and specifying the period of interest.</p>
     <p>
-Three options are provided for construction of the statutory &quot;period of six 
-months&quot;: (1) the calendar method, applying the <i>Jammies</i> plaintiff's rule 
+Three options are provided for construction of the statutory &quot;period of six
+months&quot;: (1) the calendar method, applying the <i>Jammies</i> plaintiff's rule
 for differing lengths of months; (2) the <i>Stella</i> method, applying the <i>
-Jammies</i> plaintiff's rule; and (3) the <i>Jammies</i> method, which 
-incorporates <i>Stella</i>. The <i>Jammies</i> method is selected by default, as 
-it is apparently the only reported case on the question of varying lengths of 
-months, but plaintiffs in jurisdictions where <i>Stella</i> and <i>Jammies</i> 
-are not controlling may want to consider the calculation of § 16(b) liability 
+Jammies</i> plaintiff's rule; and (3) the <i>Jammies</i> method, which
+incorporates <i>Stella</i>. The <i>Jammies</i> method is selected by default, as
+it is apparently the only reported case on the question of varying lengths of
+months, but plaintiffs in jurisdictions where <i>Stella</i> and <i>Jammies</i>
+are not controlling may want to consider the calculation of § 16(b) liability
 under other rules.</p>
 
 
@@ -401,18 +401,18 @@ under other rules.</p>
 <p class="pagecopy" align="right">-- Andrew Chin<br>
 March 2015</p>
     <p class="pagecopy" align="left">&nbsp;<a name="calcform"></a></p>
-    
+
         <!-- Nav tabs / Header -->
     <div id = "tabs">
         <ul id="myTabs" class="nav nav-tabs" role="tablist">
           <li role="presentation" class="active"><a href="#input" role="tab" data-toggle="tab">Input</a></li>
           <li role="presentation"><a href="#output" role="tab" data-toggle="tab">Output</a></li>
-          <li role="presentation"><a href="#csv" role="tab" data-toggle="tab">Upload 
+          <li role="presentation"><a href="#csv" role="tab" data-toggle="tab">Upload
             CSV Data</a></li>
           <li role="presentation"><a href="#sec" role="tab" data-toggle="tab">
             EDGAR Search</a></li>
         </ul>
-        
+
         <!-- Beginning of tab pane -->
         <div class="tab-content">
         <!-- tab 1: Input -->
@@ -432,7 +432,7 @@ March 2015</p>
                     </table>
                      <button type="button" class="btn btn-default btn-xs" onclick="purchaseRow()">Add Row <i class="fa fa-plus"></i></button>
                 </div>
-    
+
                 <h2>Sales</h2>
                 <div class="indent">
                     <table id="sales" class="form-group">
@@ -453,8 +453,8 @@ March 2015</p>
                     <p>You can have the calculation results sent to you:
                     <div class="col-md-6"><input type="email" id="email" class="form-control" placeholder="Email Address for Results"><p>&nbsp;</p>
                         <div class="col-md-3"></p>
-                    
-                        <input type="radio" name = 'correction' id= "correction-none" value="V1">Matching 
+
+                        <input type="radio" name = 'correction' id= "correction-none" value="V1">Matching
                         Date<input type="radio" name = 'correction' id = "correction-stella" value="V1">Stella
                         <input type="radio" name = 'correction' id = "correction-jammies" checked='' value="V1">Jammies
                     </div>
@@ -466,7 +466,7 @@ March 2015</p>
                 </div>
             </div>
         </div>
-        
+
         <!-- tab 2: Output -->
         <div role="tabpanel" class="tab-pane fade" id="output">
             <div class="cornerindent">
@@ -487,17 +487,17 @@ March 2015</p>
         <div role="tabpanel" class="tab-pane fade" id="csv">
             <div class="indent">
                 <h2>Upload CSV Data</h2>
-                <p> A sequence of trades may be uploaded as a file from your 
-                computer or pasted as text into the text form below, using comma-separated values (.CSV) format such as 
-                may be exported by Microsoft Excel or another spreadsheet 
+                <p> A sequence of trades may be uploaded as a file from your
+                computer or pasted as text into the text form below, using comma-separated values (.CSV) format such as
+                may be exported by Microsoft Excel or another spreadsheet
                 program.</p>
-                <p> Each line in the file (corresponding to a row in the spreadsheet) should 
-                have four comma-separated values: (1) date (MM/DD/YYYY); (2) 
-                price per share (numeric value, with no currency symbols); (3) number of shares 
-                traded (numeric value); and (4) the word &quot;buy&quot; or &quot;sell.&quot; Click 
-                &quot;Parse CSV&quot; to transfer the CSV data from this page to the Input 
-                form. (For an example, first use the Input form, then return 
-                here and click &quot;Convert to CSV.&quot;)</p>
+                <p> Each line in the file (corresponding to a row in the spreadsheet) should
+                have four comma-separated values: (1) date (MM/DD/YYYY); (2)
+                price per share (numeric value, with no currency symbols); (3) number of shares
+                traded (numeric value); and (4) the word &quot;buy&quot; or &quot;sell.&quot; Click
+                &quot;Input CSV&quot; to transfer the CSV data from this page to the Input
+                form. To export your input data to a CSV for later use, first use the Input form, then return
+                here and click &quot;Save as CSV.&quot;</p>
 
                 <p>.CSV file upload:&nbsp;
                 <input id="csv-file" type= "file"> </input>
@@ -509,7 +509,7 @@ March 2015</p>
                 </p>
                 <div class="indent" style="padding-top:10px">
                     <textarea id="csv-data" cols="50" rows="20"></textarea>
-                    
+
                 </div>
             </div>
         </div>
@@ -518,11 +518,11 @@ March 2015</p>
         <div role="tabpanel" class="tab-pane fade" id="sec">
             <div class="indent">
                 <h2>Compile Trading Data from EDGAR</h2>
-                <p>This search engine compiles trades reported to the SEC's 
-                EDGAR system on Forms 4 and 5 for a given corporate insider 
-                (<a class="alink" href="http://www.sec.gov/edgar/searchedgar/cik.htm#">CIK 
-                lookup</a>) during a given time period. The Input form for the 
-                liability calculator is automatically filled in with the 
+                <p>This search engine compiles trades reported to the SEC's
+                EDGAR system on Forms 4 and 5 for a given corporate insider
+                (<a class="alink" href="http://www.sec.gov/edgar/searchedgar/cik.htm#">CIK
+                lookup</a>) during a given time period. The Input form for the
+                liability calculator is automatically filled in with the
                 resulting data.</p>
                 <div class="indent">
                     <table id="purchases" class="form-group">
@@ -550,11 +550,11 @@ March 2015</p>
 
 <p class="pagecopy">Copyright © 2001, 2015 Andrew Chin.&nbsp; All rights reserved.&nbsp; Republication
 of all or part of this document, including the software elements thereof, in any
-form, including electronic, without written consent of the 
+form, including electronic, without written consent of the
 <a class="practicelistnav" href="http://unclaw.com/chin/contact.htm">author</a>
 is prohibited.</p>
-        
-    
+
+
     </td>
     <td bgcolor="#FFFFFF">&nbsp;</td>
   </tr>
@@ -580,7 +580,7 @@ is prohibited.</p>
     <td>&nbsp;</td>
     <td>
  <div class="bottomnavtxt">     <div align="left">
-    <a class="bottomnav" href="http://unclaw.com/chin/contact.htm">Contact</a><a class="bottomnav">|</a><a class="bottomnav" href="http://voiceless.com/">Blog</a><a class="bottomnav">|</a><a class="bottomnav" href="http://www.law.unc.edu/">UNC 
+    <a class="bottomnav" href="http://unclaw.com/chin/contact.htm">Contact</a><a class="bottomnav">|</a><a class="bottomnav" href="http://voiceless.com/">Blog</a><a class="bottomnav">|</a><a class="bottomnav" href="http://www.law.unc.edu/">UNC
         Law</a><a class="bottomnav">|</a><a class="bottomnav" href="http://www.unc.edu/">UNC</a></div></div>
 </td>
     <td>&nbsp;</td>
