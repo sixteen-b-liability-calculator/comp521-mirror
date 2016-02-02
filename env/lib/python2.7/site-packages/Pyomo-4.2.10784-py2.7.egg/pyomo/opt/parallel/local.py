@@ -1,0 +1,80 @@
+#  _________________________________________________________________________
+#
+#  Pyomo: Python Optimization Modeling Objects
+#  Copyright (c) 2014 Sandia Corporation.
+#  Under the terms of Contract DE-AC04-94AL85000 with Sandia Corporation,
+#  the U.S. Government retains certain rights in this software.
+#  This software is distributed under the BSD License.
+#  _________________________________________________________________________
+
+
+__all__ = ()
+
+import time
+
+from pyomo.util.plugin import alias
+import pyomo.opt
+from pyomo.opt.parallel.manager import *
+from pyomo.opt.parallel.async_solver import *
+
+import six
+
+class SolverManager_Serial(AsynchronousSolverManager):
+
+    alias("serial", doc="Synchronously execute solvers locally")
+
+    def clear(self):
+        """
+        Clear manager state
+        """
+        AsynchronousSolverManager.clear(self)
+        self._ah_list = []
+        self._opt = None
+
+    def _perform_queue(self, ah, *args, **kwds):
+        """
+        Perform the queue operation.  This method returns the ActionHandle,
+        and the ActionHandle status indicates whether the queue was successful.
+        """
+        if 'opt' in kwds:
+            self._opt = kwds['opt']
+            del kwds['opt']
+        elif 'solver' in kwds:
+            self._opt = kwds['solver']
+            del kwds['solver']
+        if self._opt is None:
+            raise ActionManagerError("Undefined solver")
+
+        time_start = time.time()
+        if six.PY3:
+            if isinstance(self._opt, str):
+                solver = pyomo.opt.SolverFactory(self._opt)
+            else:
+                solver = self._opt
+        else:
+            if isinstance(self._opt, basestring):
+                solver = pyomo.opt.SolverFactory(self._opt)
+            else:
+                solver = self._opt
+        results = solver.solve(*args, **kwds)
+        results.pyomo_solve_time = time.time()-time_start
+
+        self.results[ah.id] = results
+        ah.status = ActionStatus.done
+        self._ah_list.append(ah)
+        return ah
+
+    def _perform_wait_any(self):
+        """
+        Perform the wait_any operation.  This method returns an
+        ActionHandle with the results of waiting.  If None is returned
+        then the ActionManager assumes that it can call this method again.
+        Note that an ActionHandle can be returned with a dummy value,
+        to indicate an error.
+        """
+        if len(self._ah_list) > 0:
+            return self._ah_list.pop()
+        return ActionHandle(error=True,
+                            explanation=("No queued evaluations available in "
+                                         "the 'serial' solver manager, which "
+                                         "executes solvers synchronously"))
