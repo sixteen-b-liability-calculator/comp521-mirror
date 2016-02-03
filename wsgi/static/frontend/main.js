@@ -9,10 +9,9 @@ var total_sales_entered = 0;
 // Removes row of data
 function removePSRow(button){
 
-// KAJA'S CODE
     var delete_ps_row_id = button.parentElement.parentElement.id;
 
-    var undo_row = new Array(3);
+    var undo_row = [];
     var undo_stack;
 
     // check if deleted row is in Purchases or Sales
@@ -25,19 +24,28 @@ function removePSRow(button){
         document.getElementById('undo-sales').disabled = false;
     }
 
+    // store the row's values in the appropriate stack
     var count = 0;
-    $("#" + delete_ps_row_id + " td input").each(function( i ) {
-        // console.log(this.value);
-        if (count > 0) undo_row[count-1] = this.value;
-        count++;
+    $("#" + delete_ps_row_id + " td").each(function( i ) {
+        $("input", this).each(function(j) {
+            console.log(this.value);
+            if (count > 0) undo_row[count-1] = this.value;
+            count++;
+        });
     });
+    $("#" + delete_ps_row_id + " td").each(function( i ) {
+        console.log("******");
+        $("div", this).each(function(j) {
+            undo_row[count-1] = this;
+            console.log(this);
+            count++;
+        });
+    });
+
 
     undo_stack.push(undo_row);
 
-// END KAJA'S CODE
-
-
-    /* Original Function */
+    // remove the row
     button.parentElement.parentElement.remove();
 }
 
@@ -48,12 +56,29 @@ function undoRowRemoval(table_name){
     if (table_name == "purchases") {
         removed_row = undo_p_stack.pop();
         purchaseRow();
+
+        // store references to new row
         var new_p_row_id = "p_row_" + (total_purchases_entered-1);
+        var new_p_row = document.getElementById(new_p_row_id);
+
         var count = 0;
-        $("#" + new_p_row_id + " td input").each(function( i ) {
-            if (count > 0) this.value = removed_row[count-1];
-            count++;
+
+        // populate new row with date/quantity/price
+        $("#" + new_p_row_id + " td").each(function( i ) {
+            $("input", this).each(function(j) {
+                if (count > 0) this.value = removed_row[count-1];
+                count++;
+            });
         });
+
+        // populate new row with title/ownership/filing link (if applicable)
+        $('#title', new_p_row).append(removed_row[count-1].innerHTML);
+        count++;
+        $('#ownership', new_p_row).append(removed_row[count-1].innerHTML);
+        count++;
+        $('#filing', new_p_row).append(removed_row[count-1].innerHTML);
+        count++;
+
         // disable undo button if stack is empty
         if (undo_p_stack.length == 0) {
             document.getElementById('undo-purchases').disabled = true;
@@ -63,39 +88,54 @@ function undoRowRemoval(table_name){
     if (table_name == "sales") {
         removed_row = undo_s_stack.pop();
         saleRow();
+
+        // store references to new row
         var new_s_row_id = "s_row_" + (total_sales_entered-1);
+        var new_s_row = document.getElementById(new_s_row_id);
+
         var count = 0;
-        $("#" + new_s_row_id + " td input").each(function( i ) {
-            if (count > 0) this.value = removed_row[count-1];
-            count++;
+        // populate new row with date/quantity/price
+        $("#" + new_s_row_id + " td").each(function( i ) {
+            $("input", this).each(function(j) {
+                if (count > 0) this.value = removed_row[count-1];
+                count++;
+            });
         });
+
+        // populate new row with title/ownership/filing link (if applicable)
+        $('#title', new_s_row).append(removed_row[count-1].innerHTML);
+        count++;
+        $('#ownership', new_s_row).append(removed_row[count-1].innerHTML);
+        count++;
+        $('#filing', new_s_row).append(removed_row[count-1].innerHTML);
+        count++;
+
+        // disable undo button if stack is empty
         if (undo_s_stack.length == 0) {
             document.getElementById('undo-sales').disabled = true;
         }
-    }}
+    }
+}
 
 
 // Inserts empty row for acquisitions or disposal table
 function insertPSRow(table){
     var row = table.insertRow();
 
-// KAJA'S CODE
+    // assign an id to the new row
     var table_id = table.id;
-    // console.log("TABLE ID: " + table_id);
     if (table_id == "purchases") {
-        // var num_P_rows = $("#purchases")[0].rows.length - 1; // -1 because of header
         var num_P_rows = total_purchases_entered
         total_purchases_entered++;
         row.id = "p_row_" + num_P_rows;
     }
     else if (table_id == "sales") {
-        // var num_S_rows = $("#sales")[0].rows.length - 1; // -1 because of header
         var num_S_rows = total_sales_entered;
         total_sales_entered++;
         row.id = "s_row_" + num_S_rows;
     }
-// END KAJA'S CODE
 
+    // assign cells to the new row
     var cell = row.insertCell();
     cell.innerHTML = '<input type="button" id="remove" value="Remove" class="btn btn-default btn-xs" onClick="removePSRow(this);">';
 
@@ -531,10 +571,13 @@ function clearInputTab() {
     $("#purchases tr:gt(0)").remove();
     $("#sales tr:gt(0)").remove();
 
+    // reset row id's
     total_purchases_entered = 0;
     total_sales_entered = 0;
+    // remove all entries from undo stack
     undo_p_stack = [];
     undo_s_stack = [];
+    // disable undo buttons
     document.getElementById('undo-purchases').disabled = true;
     document.getElementById('undo-sales').disabled = true;
 
