@@ -1,0 +1,4 @@
+PyUtilib>=5.2.3601
+ply
+nose
+six>=1.6.1
