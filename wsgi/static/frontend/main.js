@@ -57,7 +57,7 @@ function undoRowRemoval(table_name){
         // disable undo button if stack is empty
         if (undo_p_stack.length == 0) {
             document.getElementById('undo-purchases').disabled = true;
-        }   
+        }
     }
     // if removed row was part of Sales table
     if (table_name == "sales") {
@@ -106,17 +106,17 @@ function insertPSRow(table){
     cell = row.insertCell();
     cell.innerHTML = '<input type="text" id="shares" size=12 class="form-control">';
     $('#shares',row)[0].onchange = checkIfNonnegativeOnChange;
-    
+
     cell = row.insertCell();
     cell.innerHTML = '<input type="text" id="value" size =14 class="value form-control">';
     $('#value',row)[0].onchange = checkIfNonnegativeOnChange;
-    
+
     cell = row.insertCell();
     cell.innerHTML = '<div id="title"></div>';
-    
+
     cell = row.insertCell();
     cell.innerHTML = '<div id="ownership"></div>';
-    
+
     cell = row.insertCell();
     cell.innerHTML = '<div id="filing"></div>'
     row.onchange = checkIfMissingValue;
@@ -143,9 +143,9 @@ function checkIfMissingValue() {
     var valueHasVal = $('#value', row).val() != "";
     var sharesHasVal = $('#shares', row).val() != "";
     var dateHasVal = $('.datepicker', row).val() != "";
-    
+
     var isFilledRow = valueHasVal && sharesHasVal && dateHasVal;
-    var isEmptyRow = !(valueHasVal || sharesHasVal || dateHasVal); 
+    var isEmptyRow = !(valueHasVal || sharesHasVal || dateHasVal);
 
     if (isFilledRow || isEmptyRow) {
         row.removeClass("inputDataWarning");
@@ -156,18 +156,23 @@ function checkIfMissingValue() {
 
 // Called by <body> onload
 function firstLoad(){
-    var purchases = $("#purchases")[0];
-    var sales = $("#sales")[0];
-    for(i = 0; i < defaultInputCount; ++i){
-    	insertPSRow(purchases);
-    	insertPSRow(sales);
-    }
+    createDefaultInputRows();
+
     // Sets the Edgar Date range for selecting from the database.
     $('#secEndDate').datepicker("setDate",'0');
     $('#secStartDate').datepicker("setDate",setStartDate());
 
     // Sets the Event listener for the CSV upload.
     $("#csv-file").change(populateWithCSVFile);
+}
+
+function createDefaultInputRows() {
+    var purchases = $("#purchases")[0];
+    var sales = $("#sales")[0];
+    for(i = 0; i < defaultInputCount; ++i){
+    	insertPSRow(purchases);
+    	insertPSRow(sales);
+    }
 }
 
 function setStartDate(){
@@ -181,6 +186,12 @@ function setStartDate(){
     // Will need something more sophisticated to get this completed right though
     date.setDate(date.getDate()-3);
     return date;
+}
+
+// Called by "Clear Input" button
+function clearInputContent() {
+    clearInputTab();
+    createDefaultInputRows();
 }
 
 // Called by "Add Row" button for Acquisitions table
@@ -201,7 +212,7 @@ function readTable(table){
     var elt;
     for (var i = 1; i < table.rows.length; i++) {
         var row = table.rows[i];
-        
+
         // Do not include rows that have warnings in them.
         if (row.className.indexOf("inputDataWarning") > -1) continue;
 
@@ -228,7 +239,7 @@ function inputToJSON(url){
     var sales = readTable($("#sales")[0]);
 
     var email = $("#email").val();
-    
+
     var stella = $('#correction-stella')[0].checked;
     var jammies = $('#correction-jammies')[0].checked;
     if (jammies) {
@@ -296,7 +307,7 @@ function printOutput(data){
     	var pair = pairs[pairIdx];
         var buy = pair["buy"];
         var sell = pair["sell"];
-    	
+
     	pairingsRow++;
 		row = table.insertRow(pairingsRow);
 		cell = row.insertCell(0);
@@ -321,7 +332,7 @@ function printOutput(data){
     }
     cell = row.insertCell(5);
     cell.innerHTML = '___________';
-    
+
     // Add max profit
     row = table.insertRow(pairingsRow+2);
     for(i = 0; i < 4; i++){
@@ -331,7 +342,7 @@ function printOutput(data){
     cell.innerHTML = '<strong>Total</strong>';
     cell = row.insertCell(5);
     cell.innerHTML = '$' + decimalCorrection(maxprofit);
-    
+
     // <form action="save.php" method="post" id="save"><input type="submit" class="btn btn-default col-md-6" value="Save Data"></form>
 }
 
@@ -347,7 +358,7 @@ function pullSEC(){
     var secEndMonth = parseDate(endDate, "m");
 
     var secCIK = $("#secCIK").val();
-    
+
     var secJSON = '{ "startYear":'+secStartYear+',"startMonth":'+secStartMonth+',"endYear":'+secEndYear+',"endMonth":'+secEndMonth+',"cik": "'+secCIK+'"}';
 
     $.ajax( "/pullSEC",
@@ -366,7 +377,7 @@ function pullSEC(){
 
 // Takes predetermined example data and populates Acquisitions and Disposals tables
 function populateWithExample() {
-    
+
     buyData = [];
     buyData.push({number: 1000, price:9, day:1, month:1, year:2014});
     buyData.push({number: 2000, price:8, day:1, month:3, year:2014});
@@ -408,7 +419,7 @@ function populateWithCSV() {
     }))
 }
 
-// Read in file, and place 
+// Read in file, and place
 function populateWithCSVFile(evt) {
     var f = evt.target.files[0];
     if (f) {
@@ -453,7 +464,7 @@ function convertToCSV() {
 function populate(data){
     clearInputTab();
     $('#tabs').tabs('option','active',0);
-    
+
     var buys = data["buys"];
     var purchaseTable = $("#purchases")[0]
 
@@ -515,11 +526,11 @@ function createDateString(day, month, year) {
     return month + "/" + day + "/" + year;
 }
 
-// Clears the input tab of all information 
+// Clears the input tab of all information
 function clearInputTab() {
     $("#purchases tr:gt(0)").remove();
     $("#sales tr:gt(0)").remove();
-    
+
     total_purchases_entered = 0;
     total_sales_entered = 0;
     undo_p_stack = [];
