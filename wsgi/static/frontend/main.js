@@ -519,6 +519,12 @@ function createDateString(day, month, year) {
 function clearInputTab() {
     $("#purchases tr:gt(0)").remove();
     $("#sales tr:gt(0)").remove();
+    
     total_purchases_entered = 0;
     total_sales_entered = 0;
+    undo_p_stack = [];
+    undo_s_stack = [];
+    document.getElementById('undo-purchases').disabled = true;
+    document.getElementById('undo-sales').disabled = true;
+
 }
