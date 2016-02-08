@@ -1,7 +1,0 @@
-README
-setup.py
-sixteen_b_liability_calculator.egg-info/PKG-INFO
-sixteen_b_liability_calculator.egg-info/SOURCES.txt
-sixteen_b_liability_calculator.egg-info/dependency_links.txt
-sixteen_b_liability_calculator.egg-info/requires.txt
-sixteen_b_liability_calculator.egg-info/top_level.txt
