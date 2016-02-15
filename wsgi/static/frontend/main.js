@@ -204,6 +204,13 @@ function firstLoad(){
 
     // Sets the Event listener for the CSV upload.
     $("#csv-file").change(populateWithCSVFile);
+
+
+}
+
+function downloadCSV() {
+    data = $('#csv-data')[0].value;
+    $("#saveCSV").attr('href','data:text/csv;charset=utf8,' + encodeURIComponent(data))
 }
 
 function createDefaultInputRows() {
@@ -445,6 +452,7 @@ function populateWithCSV() {
     var inputString = $('#csv-data').val();
     var jsonString = '{ "csvString":'+ inputString + ' }';
 
+    // test comment
     $.ajax( "/populateWithCSV",
         ({type: "POST",
         data: inputString,
