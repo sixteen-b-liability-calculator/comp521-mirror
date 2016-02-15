@@ -204,8 +204,6 @@ function firstLoad(){
 
     // Sets the Event listener for the CSV upload.
     $("#csv-file").change(populateWithCSVFile);
-
-
 }
 
 function downloadCSV() {
