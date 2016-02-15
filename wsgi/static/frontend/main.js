@@ -483,7 +483,7 @@ function populateWithCSVFile(evt) {
 // Converts the input page into CSV and displays it on the CSV upload page.
 function convertToCSV() {
     var purchaseTable = $('#purchases')[0].rows;
-    var csvString = "Date, price per share, number of shares, buy or sell\n"
+    var csvString = ""
 
 // Skip the header line
     for (var i = 1; i< purchaseTable.length; i++) {
