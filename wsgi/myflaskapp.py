@@ -98,7 +98,7 @@ def compute_endpoint():
 def greedy_endpoint():
     return gen_compute_endpoint(run_greedy)
 
-# function that pulls trades from the SEC database. 
+# function that pulls trades from the SEC database.
 @app.route("/pullSEC", methods=['POST'])
 @add_response_headers({'Access-Control-Allow-Origin': 'example.com'})
 def pullSEC():
@@ -107,7 +107,7 @@ def pullSEC():
 @app.route("/populateWithCSV", methods=['POST'])
 @add_response_headers({'Access-Control-Allow-Origin': 'example.com'})
 def populateWithCSV():
-    trades = csv2trade(request.get_data())
+    trades = csv2trade(request.data)
     return jsonify(trades)
 
 if __name__ == "__main__":
