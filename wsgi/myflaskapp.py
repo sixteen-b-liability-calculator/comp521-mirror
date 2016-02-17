@@ -113,4 +113,6 @@ def populateWithCSV():
 if __name__ == "__main__":
     # the reloader would be nice but it doesn't work with subprocesses,
     # which opt.solve uses
-    app.run(debug=True, host='127.0.0.1', use_reloader=False)
+    # app.run(debug=True, host='127.0.0.1', use_reloader=False)
+     myHost = os.getenv('OPENSHIFT_APP_DNS', '127.0.0.1')  
+     app.run(debug=True, host=myHost, use_reloader=False)

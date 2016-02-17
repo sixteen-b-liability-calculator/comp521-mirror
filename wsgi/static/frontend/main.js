@@ -206,6 +206,11 @@ function firstLoad(){
     $("#csv-file").change(populateWithCSVFile);
 }
 
+function downloadCSV() {
+    data = $('#csv-data')[0].value;
+    $("#saveCSV").attr('href','data:text/csv;charset=utf8,' + encodeURIComponent(data))
+}
+
 function createDefaultInputRows() {
     var purchases = $("#purchases")[0];
     var sales = $("#sales")[0];
@@ -321,7 +326,7 @@ function ignoreWarnings() {
     return confirm(warnings.length+" incomplete rows will be excluded from the computation.  Would you like to continue?");
 }
 
-// If less than two decimal places, correct value. If more than two decimal places, do nothing.
+// If less than two decimal places, correct value. If more than two decimal places, round to four decimal places.
 function decimalCorrection(price){
 	var decimal = price.toString().split(".")[1];
     var price;
@@ -330,6 +335,9 @@ function decimalCorrection(price){
 	}else if(decimal.length < 2){
 		price = price.toFixed(2);
 	}
+    else if (decimal.length > 2) {
+        price = price.toFixed(4);
+    }
 	return price;
 }
 
@@ -445,6 +453,7 @@ function populateWithCSV() {
     var inputString = $('#csv-data').val();
     var jsonString = '{ "csvString":'+ inputString + ' }';
 
+    // test comment
     $.ajax( "/populateWithCSV",
         ({type: "POST",
         data: inputString,
@@ -477,7 +486,7 @@ function populateWithCSVFile(evt) {
 // Converts the input page into CSV and displays it on the CSV upload page.
 function convertToCSV() {
     var purchaseTable = $('#purchases')[0].rows;
-    var csvString = "Date, price per share, number of shares, buy or sell\n"
+    var csvString = ""
 
 // Skip the header line
     for (var i = 1; i< purchaseTable.length; i++) {
