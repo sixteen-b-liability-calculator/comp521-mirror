@@ -326,7 +326,7 @@ function ignoreWarnings() {
     return confirm(warnings.length+" incomplete rows will be excluded from the computation.  Would you like to continue?");
 }
 
-// If less than two decimal places, correct value. If more than two decimal places, do nothing.
+// If less than two decimal places, correct value. If more than two decimal places, round to four decimal places.
 function decimalCorrection(price){
 	var decimal = price.toString().split(".")[1];
     var price;
@@ -335,6 +335,9 @@ function decimalCorrection(price){
 	}else if(decimal.length < 2){
 		price = price.toFixed(2);
 	}
+    else if (decimal.length > 2) {
+        price = price.toFixed(4);
+    }
 	return price;
 }
 
