@@ -4,4 +4,4 @@
 # before the deploy step.  This script gets executed directly, so it
 # could be python, php, ruby, etc.
 
-make -f $OPENSHIFT_REPO_DIR/glpk-metamake -C $OPENSHIFT_DEPENDENCIES_DIR glpk-bin/bin/glpsol
+make -f $OPENSHIFT_REPO_DIR/build-dependencies/glpk-metamake -C $OPENSHIFT_DEPENDENCIES_DIR glpk-bin/bin/glpsol

@@ -14,4 +14,4 @@ glpk-4.55/README: glpk-4.55.tgz
 
 glpk-4.55.tgz:
 	#curl 'ftp://ftp.gnu.org/gnu/glpk/glpk-4.55.tar.gz' > $@
-	cp $(OPENSHIFT_REPO_DIR)/glpk-4.55.tgz $@
+	cp $(OPENSHIFT_REPO_DIR)/build-dependencies/glpk-4.55.tgz $@
