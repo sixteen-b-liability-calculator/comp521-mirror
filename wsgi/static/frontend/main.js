@@ -167,10 +167,13 @@ function insertPSRow(table){
 // For use when adding rows to check whether there is an error when new values are included.
 // Applies a "inputDataError" class on these elements.
 function checkIfNonnegativeOnChange() {
-    if ($(this).val() >= 0 || $(this).val() == "") {
+    if ($(this).val() > 0 || $(this).val() == "") {
         $(this).removeClass("inputDataError");
-    } else {
+        $(this).removeClass("inputDataWarning")
+    } else if ($(this).val() < 0) {
         $(this).addClass("inputDataError");
+    } else if ($(this).val() == 0) {
+        $(this).addClass("inputDataWarning");
     }
 }
 
@@ -275,7 +278,7 @@ function readTable(table){
     return out;
 }
 
-// Calculates with linear programming
+// Calculates max profit with linear programming or LIHO
 function inputToJSON(url){
     if (inputHasErrors()) return;
     if (!ignoreWarnings()) return;
@@ -322,8 +325,8 @@ function inputHasErrors() {
 function ignoreWarnings() {
     var warnings = $('.inputDataWarning');
     if (warnings.length == 0) return true;
-    if (warnings.length == 1) return confirm("1 incomplete row will be excluded from the computation.  Would you like to continue?");
-    return confirm(warnings.length+" incomplete rows will be excluded from the computation.  Would you like to continue?");
+    if (warnings.length == 1) return confirm("1 row has missing or zero-valued data and will be excluded from the computation.  Would you like to continue?");
+    return confirm(warnings.length+" rows have missing or zero-valued and will be excluded from the computation.  Would you like to continue?");
 }
 
 // If less than two decimal places, correct value. If more than two decimal places, round to four decimal places.
