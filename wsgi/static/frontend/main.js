@@ -326,7 +326,7 @@ function ignoreWarnings() {
     var warnings = $('.inputDataWarning');
     if (warnings.length == 0) return true;
     if (warnings.length == 1) return confirm("1 row has missing or zero-valued data and will be excluded from the computation.  Would you like to continue?");
-    return confirm(warnings.length+" rows have missing or zero-valued and will be excluded from the computation.  Would you like to continue?");
+    return confirm(warnings.length+" rows have missing or zero-valued data and will be excluded from the computation.  Would you like to continue?");
 }
 
 // If less than two decimal places, correct value. If more than two decimal places, round to four decimal places.
