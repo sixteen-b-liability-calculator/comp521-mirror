@@ -167,13 +167,16 @@ function insertPSRow(table){
 // For use when adding rows to check whether there is an error when new values are included.
 // Applies a "inputDataError" class on these elements.
 function checkIfNonnegativeOnChange() {
+    console.log($(this));
     if ($(this).val() > 0 || $(this).val() == "") {
         $(this).removeClass("inputDataError");
-        $(this).removeClass("inputDataWarning")
+        $(this).removeClass("inputDataWarning");
+        $(this).removeClass("zeroValue");
     } else if ($(this).val() < 0) {
         $(this).addClass("inputDataError");
     } else if ($(this).val() == 0) {
         $(this).addClass("inputDataWarning");
+        $(this).addClass("zeroValue");
     }
 }
 
@@ -261,7 +264,7 @@ function purchaseRows(){
 function saleRow() {
     sales = $("#sales")[0];
     insertPSRow(sales);
-} 
+}
 
 // Called by "Add Row" button for Disposals table
 function saleRows(){
