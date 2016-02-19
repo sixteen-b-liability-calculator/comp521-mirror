@@ -518,8 +518,12 @@ function convertToCSV() {
         var date = $('.datepicker', row)[0].value;
         var number = $('#shares', row)[0].value;
         var price = $('#value', row)[0].value;
-        csvString += date + ", " + price + ", " + number + ", buy\n"
-    }
+        if (date == "" && price == "" && number == "") {
+            // do nothing
+        }
+        else {
+            csvString += date + ", " + price + ", " + number + ", buy\n"
+        }    }
 
     var saleTable = $('#sales')[0].rows;
     for (var i = 1; i< saleTable.length; i++) {
@@ -527,7 +531,12 @@ function convertToCSV() {
         var date = $('.datepicker', row)[0].value;
         var number = $('#shares', row)[0].value;
         var price = $('#value', row)[0].value;
-        csvString += date + ", " + price + ", " + number + ", sell\n"
+        if (date == "" && price == "" && number == "") {
+            // do nothing
+        }
+        else {
+            csvString += date + ", " + price + ", " + number + ", sell\n"
+        }
     }
     $('#csv-data')[0].value = csvString;
     $('#tabs').tabs('option','active',2);
