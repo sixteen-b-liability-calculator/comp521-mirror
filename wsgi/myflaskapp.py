@@ -38,7 +38,7 @@ def add_response_headers(headers={}):
 
 @app.route("/", methods = ['GET'])
 def home_page():
-	return redirect(url_for('static', filename = "/frontend/home.html"), code=302)
+	return redirect(url_for('static', filename = "/frontend/index.html"), code=302)
 
 def gen_compute_endpoint(runner):
     input_data = request.get_json(force=False)
