@@ -242,6 +242,11 @@ function clearInputContent() {
     createDefaultInputRows();
 }
 
+// Used in Undo Row Removal (adds a single purchase row)
+function purchaseRow() {
+    insertPSRow(purchases);
+}
+
 // Called by "Add Row" button for Acquisitions table
 function purchaseRows(){
     numrows = parseInt($("#addPurchases").val());
@@ -250,6 +255,11 @@ function purchaseRows(){
         insertPSRow(purchases);
     }
 }
+
+// Used in Undo Row Removal (adds a single sale row)
+function saleRow() {
+    insertPSRow(sales);
+} 
 
 // Called by "Add Row" button for Disposals table
 function saleRows(){
