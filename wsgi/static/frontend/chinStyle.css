@@ -18,7 +18,7 @@ th {
     font-size: 12;
 }
 
-p {
+p, span {
     font-size: 12px;
     color: #003366
 }
@@ -62,7 +62,7 @@ a.legal_news:link {font-family: Verdana; font-size: 12px; font-style: normal; fo
 a.legal_news:visited {font-family: Verdana; font-size: 12px; font-style: normal; font-weight: bold; font-variant: normal; text-transform: uppercase; text-decoration:none; color: #7B9ABB; padding-left: 0px;}
 a.legal_news:hover {font-family: Verdana; font-size: 12px; font-style: normal; font-weight: bold; font-variant: normal; text-transform: uppercase; text-decoration:none; color: #003366; padding-left: 0px;}
 a.legal_news:active {font-family: Verdana; font-size: 12px; font-style: normal; font-weight: bold; font-variant: normal; text-transform: uppercase; text-decoration:none; color: #7B9ABB; padding-left: 0px;}
-    
+
 
 
 
