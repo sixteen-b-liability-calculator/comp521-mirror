@@ -244,6 +244,7 @@ function clearInputContent() {
 
 // Used in Undo Row Removal (adds a single purchase row)
 function purchaseRow() {
+    purchases = $("#purchases")[0];
     insertPSRow(purchases);
 }
 
@@ -258,6 +259,7 @@ function purchaseRows(){
 
 // Used in Undo Row Removal (adds a single sale row)
 function saleRow() {
+    sales = $("#sales")[0];
     insertPSRow(sales);
 } 
 
