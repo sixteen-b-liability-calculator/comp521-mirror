@@ -243,15 +243,21 @@ function clearInputContent() {
 }
 
 // Called by "Add Row" button for Acquisitions table
-function purchaseRow(){
+function purchaseRows(){
+    numrows = parseInt($("#addPurchases").val());
     purchases = $("#purchases")[0];
-    insertPSRow(purchases);
+    for (i = 0; i < numrows; i++) {
+        insertPSRow(purchases);
+    }
 }
 
 // Called by "Add Row" button for Disposals table
-function saleRow(){
+function saleRows(){
+    numrows = parseInt($("#addSales").val());
     sales = $("#sales")[0];
-    insertPSRow(sales);
+    for (i = 0; i < numrows; i++) {
+        insertPSRow(sales);
+    }
 }
 
 // Called in inputToJSON() to store living input data
