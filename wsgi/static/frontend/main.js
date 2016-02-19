@@ -433,6 +433,8 @@ function pullSEC(){
 
     var secJSON = '{ "startYear":'+secStartYear+',"startMonth":'+secStartMonth+',"endYear":'+secEndYear+',"endMonth":'+secEndMonth+',"cik": "'+secCIK+'"}';
 
+    $("#searchButton").append("<h3 id=\"searching\">Searching EDGAR database... This may take a couple minutes.</h3>")
+
     $.ajax( "/pullSEC",
         ({type: "POST",
         data: secJSON,
@@ -444,7 +446,9 @@ function pullSEC(){
             document.write(data.responseText);
             document.close();
         }
-    }))
+    }));
+
+    $("#searching").remove();
 }
 
 // Takes predetermined example data and populates Acquisitions and Disposals tables
