@@ -418,6 +418,15 @@ function printOutput(data){
     // <form action="save.php" method="post" id="save"><input type="submit" class="btn btn-default col-md-6" value="Save Data"></form>
 }
 
+// Alert the user that EDGAR search is happening
+function searchMessage() {
+    $("#searchButton").append("<h3 id=\"searching\">Searching EDGAR database... This may take a couple minutes.</h3>");
+}
+
+function removeMessage() {
+    $("#searching").remove();
+}
+
 // Takes month, year and CIK parameters for SEC database pull
 function pullSEC(){
     var startDate = $("#secStartDate").val();
@@ -438,17 +447,18 @@ function pullSEC(){
         data: secJSON,
         contentType: "application/json",
         dataType: "json",
-        success: populate,
+        success: [populate, removeMessage],
         error: function(data) {
             document.open();
             document.write(data.responseText);
             document.close();
         }
-    }))
+    }));
 }
 
 // Takes predetermined example data and populates Acquisitions and Disposals tables
 function populateWithExample() {
+    $("#searchButton").append("<h3 id=\"searching\">Searching EDGAR database... This may take a couple minutes.</h3>");
 
     buyData = [];
     buyData.push({number: 1000, price:9, day:1, month:1, year:2014});
