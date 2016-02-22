@@ -157,13 +157,10 @@ def make_model(purchases, sales, stella_correction, jammies_correction):
 
     # purchases
     dual_model.purchases = RangeSet(len(purchases))
-    print "dual model purchases: ", dual_model.purchases
     purchase_counts = ((p+1,int(number_corr * purchases[p].number)) for p in range(len(purchases)))
     dual_model.purchase_count = Param(dual_model.purchases,
             initialize=dict(purchase_counts), domain=PositiveIntegers)
-    print "dual model purchase count: ", dual_model.purchase_count
     dual_model.purchase_dual = Var(dual_model.purchases, domain=NonNegativeIntegers)
-    print "dual model purchase dual: ", dual_model.purchase_dual
 
     # sales
     dual_model.sales = RangeSet(len(sales))
@@ -177,6 +174,9 @@ def make_model(purchases, sales, stella_correction, jammies_correction):
 
     dual_model.profits = Param(dual_model.pairings, domain=PositiveIntegers,
             initialize=profit_values)
+
+    print "dual model purchase pairings: ", dual_model.pairings[0]
+
 
     def profit_match(dual_model, p, s):
         return dual_model.sale_dual[s] + dual_model.purchase_dual[p] >= dual_model.profits[(p,s)]
