@@ -186,6 +186,7 @@ def make_model(purchases, sales, stella_correction, jammies_correction):
 
     dual_model.preprocess()
 
+    print "dual model: ", number_corr, price_corr, model, dual_model
     return (number_corr, price_corr, model, dual_model)
 
 def collect_dual(dual_model, number_corr, price_corr, ret, purchases, sales, opt, **ignore):
