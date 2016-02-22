@@ -186,8 +186,8 @@ def make_model(purchases, sales, stella_correction, jammies_correction):
     dual_model.obj = Objective(rule=dual_obj_rule, sense=minimize)
     dual_model.profit_constraint = Constraint(dual_model.pairings, rule=profit_match)
 
-    print "dual model obj: ", dual_model.obj[0]
-    print "dual model profit constraint: ", dual_model.profit_constraint[0]
+    print "dual model obj: ", dual_model.obj
+    print "dual model profit constraint: ", dual_model.profit_constraint
 
     dual_model.preprocess()
 
