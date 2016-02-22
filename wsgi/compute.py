@@ -157,6 +157,7 @@ def make_model(purchases, sales, stella_correction, jammies_correction):
 
     # purchases
     dual_model.purchases = RangeSet(len(purchases))
+    print "dual model purchases: ", dual_model.purchases
     purchase_counts = ((p+1,int(number_corr * purchases[p].number)) for p in range(len(purchases)))
     dual_model.purchase_count = Param(dual_model.purchases,
             initialize=dict(purchase_counts), domain=PositiveIntegers)
@@ -186,7 +187,6 @@ def make_model(purchases, sales, stella_correction, jammies_correction):
 
     dual_model.preprocess()
 
-    print "dual model: ", number_corr, price_corr, model, dual_model
     return (number_corr, price_corr, model, dual_model)
 
 def collect_dual(dual_model, number_corr, price_corr, ret, purchases, sales, opt, **ignore):
