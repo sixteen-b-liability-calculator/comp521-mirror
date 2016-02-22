@@ -181,6 +181,8 @@ def make_model(purchases, sales, stella_correction, jammies_correction):
     def dual_obj_rule(dual_model):
         return summation(dual_model.sale_count, dual_model.sale_dual) + summation(dual_model.purchase_count, dual_model.purchase_dual)
 
+    print "testing?"
+
     dual_model.obj = Objective(rule=dual_obj_rule, sense=minimize)
     dual_model.profit_constraint = Constraint(dual_model.pairings, rule=profit_match)
 
