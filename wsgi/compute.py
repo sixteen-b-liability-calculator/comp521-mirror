@@ -221,7 +221,7 @@ def collect_dual(dual_model, number_corr, price_corr, ret, purchases, sales, opt
 def run_problem(purchases, sales, stella_correction, jammies_correction):
     opt = SolverFactory('glpk')
     for (x in purchases):
-        print purchases[x].number, purchases[x].price, purchases[x].date
+        print x.number, x.price, x.date
     print purchases, sales, stella_correction, jammies_correction
     (number_corr, price_corr, model, dual_model) = make_model(purchases,sales,stella_correction,jammies_correction)
     print number_corr, price_corr, model, dual_model
