@@ -1,4 +1,4 @@
 Flask
 Flask_mail
 MarkupSafe
-Coopr==3.5.8748
+Coopr==4.0.9597
