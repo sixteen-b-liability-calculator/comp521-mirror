@@ -220,12 +220,13 @@ def collect_dual(dual_model, number_corr, price_corr, ret, purchases, sales, opt
 
 def run_problem(purchases, sales, stella_correction, jammies_correction):
     opt = SolverFactory('glpk')
-
+    print purchases, sales, stella_correction, jammies_correction
     (number_corr, price_corr, model, dual_model) = make_model(purchases,sales,stella_correction,jammies_correction)
-
+    print number_corr, price_corr, model, dual_model
     results = opt.solve(model)
-
+    print results
     output = []
+    
     solutions = results.get('Solution', [])
     if len(solutions) > 0:
         model.load(results)
@@ -243,6 +244,7 @@ def run_problem(purchases, sales, stella_correction, jammies_correction):
             ret['status'] = "optimal"
             # the following procedure for getting the value is right from
             # the coopr source itself...
+            # let's do some error handling
             key = results.solution.objective.keys()[0]
             ret['value'] = float(results.solution.objective[key].value) / price_corr / number_corr
             collect_dual(**locals())
