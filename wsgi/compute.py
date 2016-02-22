@@ -149,7 +149,7 @@ def make_model(purchases, sales, stella_correction, jammies_correction):
     model.purchase_constraint = Constraint(model.purchases, rule=purchase_limit)
     model.sale_constraint = Constraint(model.sales, rule=sale_limit)
 
-    # model.preprocess()
+    model.pyomo_preprocess()
 
     # # # # # # # # # # # # # dual model # # # # # # # # # # # # # #
 
@@ -187,11 +187,11 @@ def make_model(purchases, sales, stella_correction, jammies_correction):
     print "dual model obj: ", dual_model.obj.rule
     print "dual model profit constraint: ", dual_model.profit_constraint.rule
 
-    # dual_model.preprocess()
+    dual_model.pyomo_preprocess()
 
     print "dual model obj: ", dual_model.obj.rule
     print "dual model profit constraint: ", dual_model.profit_constraint.rule
-    
+
     return (number_corr, price_corr, model, dual_model)
 
 def collect_dual(dual_model, number_corr, price_corr, ret, purchases, sales, opt, **ignore):
