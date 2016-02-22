@@ -9,7 +9,7 @@ from functools import wraps
 
 app = Flask(__name__, static_url_path='')
 app.config.update(dict(
-    DEBUG = False,
+    DEBUG = True,
     MAIL_SERVER = 'relay.unc.edu',
     MAIL_PORT = 25,
     MAIL_USE_TLS = False,
