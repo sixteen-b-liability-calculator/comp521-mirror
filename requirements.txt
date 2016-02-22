@@ -1,4 +1,3 @@
-Flask>=0.7.2
-Flask_mail>=0
-MarkupSafe>=0
-Coopr==3.5.8748
+Flask
+Flask_mail
+MarkupSafe
