@@ -242,8 +242,11 @@ def run_problem(purchases, sales, stella_correction, jammies_correction):
     results = opt.solve(model)
     # end old code
     print results
-    #new code
+    # new code
     model.solutions.load_from(results)
+    print "solutions? ", model.solutions
+    print "model ? ", model
+    # end new code
     output = []
 
     solutions = results.get('Solution', [])
