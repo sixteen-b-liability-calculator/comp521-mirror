@@ -149,7 +149,7 @@ def make_model(purchases, sales, stella_correction, jammies_correction):
     model.purchase_constraint = Constraint(model.purchases, rule=purchase_limit)
     model.sale_constraint = Constraint(model.sales, rule=sale_limit)
 
-    model.pyomo_preprocess()
+    # model.pyomo_preprocess()
 
     # # # # # # # # # # # # # dual model # # # # # # # # # # # # # #
 
@@ -187,7 +187,7 @@ def make_model(purchases, sales, stella_correction, jammies_correction):
     print "dual model obj: ", dual_model.obj.rule
     print "dual model profit constraint: ", dual_model.profit_constraint.rule
 
-    dual_model.pyomo_preprocess()
+    # dual_model.pyomo_preprocess()
 
     print "dual model obj: ", dual_model.obj.rule
     print "dual model profit constraint: ", dual_model.profit_constraint.rule
@@ -195,7 +195,14 @@ def make_model(purchases, sales, stella_correction, jammies_correction):
     return (number_corr, price_corr, model, dual_model)
 
 def collect_dual(dual_model, number_corr, price_corr, ret, purchases, sales, opt, **ignore):
-    results = opt.solve(dual_model)
+    # old code
+    #results = opt.solve(dual_model)
+    # end old code
+
+    # new code
+    results = opt.solve(dual_model, load_solutions=False)
+    dual_model.solutions.load_from(results)
+    # end new code
 
     outputB = []
     outputS = []
@@ -231,8 +238,12 @@ def run_problem(purchases, sales, stella_correction, jammies_correction):
     print purchases, sales, stella_correction, jammies_correction
     (number_corr, price_corr, model, dual_model) = make_model(purchases,sales,stella_correction,jammies_correction)
     print number_corr, price_corr, model, dual_model
+    # old code
     results = opt.solve(model)
+    # end old code
     print results
+    #new code
+    model.solutions.load_from(results)
     output = []
 
     solutions = results.get('Solution', [])
