@@ -101,12 +101,18 @@ def make_model(purchases, sales, stella_correction, jammies_correction):
     purchase_counts = ((p+1,int(number_corr * purchases[p].number)) for p in range(len(purchases)))
     model.purchase_count = Param(model.purchases,
             initialize=dict(purchase_counts), domain=PositiveIntegers)
+    print "printing model: ", model
+    print "printing model.purchases: ", model.purchases
+
 
     # sales
     model.sales = RangeSet(len(sales))
     sale_counts = ((p+1,int(number_corr * sales[p].number)) for p in range(len(sales)))
     model.sale_count = Param(model.sales,
             initialize=dict(sale_counts), domain=PositiveIntegers)
+    print "printing model: ", model
+    print "printing model.sales: ", model.sales
+
 
     # profitable pairings
     profits = list((p,s)
