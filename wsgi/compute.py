@@ -3,6 +3,7 @@ import os
 from pyomo import *
 from pyomo.opt import SolverFactory, SolverStatus, TerminationCondition
 from pyomo.environ import *
+from __future__ import division
 
 from numbers import Number
 import datetime
@@ -86,6 +87,7 @@ def validate_buysell(buysellstr, input_list):
 
 def make_model(purchases, sales, stella_correction, jammies_correction):
     model = ConcreteModel()
+    print "printing model: ", model
     number_corr = 1
     price_corr = 1
     for t in itertools.chain(purchases, sales):
