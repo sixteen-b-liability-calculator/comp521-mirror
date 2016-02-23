@@ -1,6 +1,6 @@
 import sys
 import os
-from __future__ import division
+# from __future__ import division
 from pyomo import *
 from pyomo.opt import SolverFactory, SolverStatus, TerminationCondition
 from pyomo.environ import *
