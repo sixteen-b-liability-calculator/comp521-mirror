@@ -201,7 +201,7 @@ def collect_dual(dual_model, number_corr, price_corr, ret, purchases, sales, opt
 
     # new code
     results = opt.solve(dual_model, load_solutions=False)
-    dual_model.solutions.load_from(results)
+    # dual_model.solutions.load_from(results)
     # end new code
 
     outputB = []
@@ -253,7 +253,7 @@ def run_problem(purchases, sales, stella_correction, jammies_correction):
     results = opt.solve(model, load_solutions=False)
     print "RESULTS: ", results
 
-    model.solutions.load_from(results)
+    # model.solutions.load_from(results)
     print "solutions? ", model.solutions
     print "model ? ", model
     print "AFTER SOLUTIONS?? ", model.pprint()
@@ -284,7 +284,7 @@ def run_problem(purchases, sales, stella_correction, jammies_correction):
             # the following procedure for getting the value is right from
             # the coopr source itself...
             # let's do some error handling
-            key = results.solution[0].objective.keys()[0]
+            key = results.solution.objective.keys()[0]
 
             print "key: ", key
             print "price_corr: ", price_corr
