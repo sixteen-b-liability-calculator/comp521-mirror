@@ -211,7 +211,8 @@ def collect_dual(dual_model, number_corr, price_corr, ret, purchases, sales, opt
     solutions = dual_model.solutions
 
     if len(solutions) > 0:
-        dual_model.load(results)
+        #dual_model.load(results)
+        dual_model.load_from(results) # testing this
         for p in dual_model.purchases:
             d = dual_model.purchase_dual[p].value
             outputB.append((purchases[p-1], float(d) / price_corr))
@@ -263,7 +264,8 @@ def run_problem(purchases, sales, stella_correction, jammies_correction):
     solutions = model.solutions
 
     if len(solutions) > 0:
-        model.load(results)
+        # model.load(results)
+        model.load_from(results) # testing this
         for (p,s) in model.pairings:
             ct = model.selected[p,s].value
             if ct > 0:
