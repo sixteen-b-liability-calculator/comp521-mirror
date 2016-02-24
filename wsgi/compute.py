@@ -276,7 +276,7 @@ def run_problem(purchases, sales, stella_correction, jammies_correction):
     
     for x in ret:
         for y in ret[x]:
-            print ret[x][y]
+            print x, y
 
     if results.solver.status == SolverStatus.ok:
         if results.solver.termination_condition == TerminationCondition.optimal:
