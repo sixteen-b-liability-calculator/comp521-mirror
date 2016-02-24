@@ -288,9 +288,10 @@ def run_problem(purchases, sales, stella_correction, jammies_correction):
             print "key: ", key
             print "price_corr: ", price_corr
             print "number_corr: ", number_corr
-            # print "key?: ", results.solution.objective[key].value
+            print "key?: ", results.solution.objective[key]
+            print "value?: ", results.solution.objective[0]
             
-            ret['value'] = float(results.solution.objective[0].value) / price_corr / number_corr
+            ret['value'] = float(results.solution.objective[key].value) / price_corr / number_corr
             collect_dual(**locals())
         else:
             ret['status'] = "not solved"
