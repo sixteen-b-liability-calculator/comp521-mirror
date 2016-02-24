@@ -88,6 +88,7 @@ def validate_buysell(buysellstr, input_list):
 def make_model(purchases, sales, stella_correction, jammies_correction):
     model = ConcreteModel()
     print "printing model: ", model
+    model.pprint() #debug
     number_corr = 1
     price_corr = 1
     for t in itertools.chain(purchases, sales):
@@ -112,7 +113,7 @@ def make_model(purchases, sales, stella_correction, jammies_correction):
             initialize=dict(sale_counts), domain=PositiveIntegers)
     print "printing model: ", model
     print "printing model.sales: ", model.sales
-
+    model.pprint #debug
 
     # profitable pairings
     profits = list((p,s)
