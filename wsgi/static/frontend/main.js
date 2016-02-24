@@ -560,7 +560,8 @@ function convertToCSV() {
 function downloadOutput() {
 
     $("#pairings").each(function(i) {
-        console.log(this.value)
+        console.log(this.value);
+
     });
 
 
