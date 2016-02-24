@@ -274,7 +274,6 @@ def run_problem(purchases, sales, stella_correction, jammies_correction):
 
     ret = dict(pairs=output, full_result=results.json_repn())
     
-    ret['value'] = (0, 0, 0)
     for x in ret:
         for y in ret[x]:
             print x, y
@@ -286,6 +285,9 @@ def run_problem(purchases, sales, stella_correction, jammies_correction):
             # the coopr source itself...
             # let's do some error handling
             key = results.solution.objective.keys()[0]
+
+            print "key: ", key
+            
             ret['value'] = float(results.solution.objective[key].value) / price_corr / number_corr
             collect_dual(**locals())
         else:
