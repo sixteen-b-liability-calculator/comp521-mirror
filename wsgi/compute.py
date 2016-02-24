@@ -229,7 +229,7 @@ def collect_dual(dual_model, number_corr, price_corr, ret, purchases, sales, opt
             # the following procedure for getting the value is right from
             # the coopr source itself...
             key = results.solution.objective.keys()[0]
-            ret['dual_value'] = float(results.solution.objective[key].value) / price_corr / number_corr
+            ret['dual_value'] = float(results.solution.objective[key]['Value']) / price_corr / number_corr
         else:
             ret['dual_status'] = "not solved"
     else:
@@ -291,7 +291,7 @@ def run_problem(purchases, sales, stella_correction, jammies_correction):
             print "key?: ", results.solution.objective[key]
             print "value?: ", results.solution.objective[key]['Value']
             
-            ret['value'] = float(results.solution.objective[key].alue) / price_corr / number_corr
+            ret['value'] = float(results.solution.objective[key]['Value']) / price_corr / number_corr
             collect_dual(**locals())
         else:
             ret['status'] = "not solved"
