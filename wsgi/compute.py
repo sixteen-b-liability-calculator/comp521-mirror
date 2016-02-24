@@ -286,7 +286,9 @@ def run_problem(purchases, sales, stella_correction, jammies_correction):
             # let's do some error handling
             key = results.solution.objective.keys()[0]
 
-            print "key: ", key
+            print "key: ", results.solution.objective[key].value
+            print "price_corr: ", price_corr
+            print "number_corr: ", number_corr
             
             ret['value'] = float(results.solution.objective[key].value) / price_corr / number_corr
             collect_dual(**locals())
