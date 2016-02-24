@@ -151,9 +151,9 @@ def make_model(purchases, sales, stella_correction, jammies_correction):
     model.purchase_constraint = Constraint(model.purchases, rule=purchase_limit)
     model.sale_constraint = Constraint(model.sales, rule=sale_limit)
 
-    print "printing model: ", model.pprint()
+    # print "printing model: ", model.pprint()  # debug
 
-    # model.pyomo_preprocess()
+    # model.pyomo_preprocess()   (pyomo 3.7)
 
     # # # # # # # # # # # # # dual model # # # # # # # # # # # # # #
 
@@ -188,31 +188,24 @@ def make_model(purchases, sales, stella_correction, jammies_correction):
     dual_model.obj = Objective(rule=dual_obj_rule, sense=minimize)
     dual_model.profit_constraint = Constraint(dual_model.pairings, rule=profit_match)
 
-    print "printing dual_model: ", dual_model.pprint()
-
-    # dual_model.pyomo_preprocess()
+    # dual_model.pyomo_preprocess()  (pyomo 3.7)
 
     return (number_corr, price_corr, model, dual_model)
 
 def collect_dual(dual_model, number_corr, price_corr, ret, purchases, sales, opt, **ignore):
-    # old code
-    #results = opt.solve(dual_model)
-    # end old code
 
-    # new code
+    #results = opt.solve(dual_model)   (pyomo 3.7)
     results = opt.solve(dual_model, load_solutions=False)
     dual_model.solutions.load_from(results)
-    # end new code
 
     outputB = []
     outputS = []
 
-    #solutions = results.get('Solution', [])
+    #solutions = results.get('Solution', [])  (pyomo 3.7)
     solutions = dual_model.solutions
 
     if len(solutions) > 0:
-        #dual_model.load(results)
-        #dual_model.load_from(results) # testing this
+        # dual_model.load(results)   (pyomo 3.7)
         for p in dual_model.purchases:
             d = dual_model.purchase_dual[p].value
             outputB.append((purchases[p-1], float(d) / price_corr))
@@ -226,8 +219,7 @@ def collect_dual(dual_model, number_corr, price_corr, ret, purchases, sales, opt
     if results.solver.status == SolverStatus.ok:
         if results.solver.termination_condition == TerminationCondition.optimal:
             ret['dual_status'] = "optimal"
-            # the following procedure for getting the value is right from
-            # the coopr source itself...
+            # the following procedure is for getting the value
             key = results.solution.objective.keys()[0]
             ret['dual_value'] = float(results.solution.objective[key]['Value']) / price_corr / number_corr
         else:
@@ -238,33 +230,19 @@ def collect_dual(dual_model, number_corr, price_corr, ret, purchases, sales, opt
 def run_problem(purchases, sales, stella_correction, jammies_correction):
     opt = SolverFactory('glpk')
 
-    # for x in purchases:
-    #     print x.number, x.price, x.date
-    # print purchases, sales, stella_correction, jammies_correction
-
     (number_corr, price_corr, model, dual_model) = make_model(purchases,sales,stella_correction,jammies_correction)
-    print number_corr, price_corr, model, dual_model
 
-    # old code
-    # results = opt.solve(model)
-    # end old code
-
-    # new code
+    # results = opt.solve(model)  (pyomo 3.7)
     results = opt.solve(model, load_solutions=False)
-    print "RESULTS: ", results
-
     model.solutions.load_from(results)
-    print "solutions? ", model.solutions
-    print "AFTER SOLUTIONS?? ", model.pprint()
-    # end new code
+
     output = []
 
-    # solutions = results.get('Solution', [])
+    # solutions = results.get('Solution', [])  (pyomo 3.7)
     solutions = model.solutions
 
     if len(solutions) > 0:
-        # model.load(results)
-        # model.load_from(results) # testing this
+        # model.load(results)   (pyomo 3.7)
         for (p,s) in model.pairings:
             ct = model.selected[p,s].value
             if ct > 0:
@@ -272,25 +250,13 @@ def run_problem(purchases, sales, stella_correction, jammies_correction):
 
 
     ret = dict(pairs=output, full_result=results.json_repn())
-    
-    for x in ret:
-        for y in ret[x]:
-            print x, y
 
     if results.solver.status == SolverStatus.ok:
         if results.solver.termination_condition == TerminationCondition.optimal:
             ret['status'] = "optimal"
-            # the following procedure for getting the value is right from
-            # the coopr source itself...
+            # the following procedure is for getting the value
             # let's do some error handling
             key = results.solution.objective.keys()[0]
-
-            print "key: ", key
-            print "price_corr: ", price_corr
-            print "number_corr: ", number_corr
-            print "key?: ", results.solution.objective[key]
-            print "value?: ", results.solution.objective[key]['Value']
-            
             ret['value'] = float(results.solution.objective[key]['Value']) / price_corr / number_corr
             collect_dual(**locals())
         else:
