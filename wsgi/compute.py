@@ -284,7 +284,7 @@ def run_problem(purchases, sales, stella_correction, jammies_correction):
             # the following procedure for getting the value is right from
             # the coopr source itself...
             # let's do some error handling
-            key = results.solution.objective.keys()[0]
+            key = results.solution[0].objective.keys()[0]
 
             print "key: ", key
             print "price_corr: ", price_corr
