@@ -559,7 +559,7 @@ function convertToCSV() {
 // Converts the output into CSV and automatically downloads it.
 function downloadOutput() {
 
-    $("#pairings tr").each(function(i) {
+    $("#pairings tr td").each(function(i) {
         console.log(this.value);
 
     });
