@@ -275,8 +275,7 @@ def run_problem(purchases, sales, stella_correction, jammies_correction):
     ret = dict(pairs=output, full_result=results.json_repn())
     
     for x in ret:
-        for y in full_result[x]:
-            print y, ':', ret[x][y]
+        print x
 
 
     if results.solver.status == SolverStatus.ok:
