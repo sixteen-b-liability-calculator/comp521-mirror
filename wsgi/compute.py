@@ -274,7 +274,7 @@ def run_problem(purchases, sales, stella_correction, jammies_correction):
 
     ret = dict(pairs=output, full_result=results.json_repn())
     
-    ret['value'] = 0
+    ret['value'] = (0, 0, 0)
     for x in ret:
         for y in ret[x]:
             print x, y
