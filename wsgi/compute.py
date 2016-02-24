@@ -158,11 +158,14 @@ def make_model(purchases, sales, stella_correction, jammies_correction):
     model.purchase_constraint = Constraint(model.purchases, rule=purchase_limit)
     model.sale_constraint = Constraint(model.sales, rule=sale_limit)
 
+    print "printing model: ", model.pprint()
+
     # model.pyomo_preprocess()
 
     # # # # # # # # # # # # # dual model # # # # # # # # # # # # # #
 
     dual_model = ConcreteModel()
+    print "printing dual_model: ", dual_model.pprint()
 
     # purchases
     dual_model.purchases = RangeSet(len(purchases))
@@ -192,6 +195,9 @@ def make_model(purchases, sales, stella_correction, jammies_correction):
 
     dual_model.obj = Objective(rule=dual_obj_rule, sense=minimize)
     dual_model.profit_constraint = Constraint(dual_model.pairings, rule=profit_match)
+
+    print "printing dual_model: ", dual_model.pprint()
+
 
     print "dual model obj: ", dual_model.obj.rule
     print "dual model profit constraint: ", dual_model.profit_constraint.rule
