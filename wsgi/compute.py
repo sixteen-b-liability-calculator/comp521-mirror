@@ -87,8 +87,9 @@ def validate_buysell(buysellstr, input_list):
 
 def make_model(purchases, sales, stella_correction, jammies_correction):
     model = ConcreteModel()
-    print "printing model: ", model
-    model.pprint() #debug
+
+    print "printing model: ", model.pprint() #debug
+    
     number_corr = 1
     price_corr = 1
     for t in itertools.chain(purchases, sales):
@@ -102,18 +103,14 @@ def make_model(purchases, sales, stella_correction, jammies_correction):
     purchase_counts = ((p+1,int(number_corr * purchases[p].number)) for p in range(len(purchases)))
     model.purchase_count = Param(model.purchases,
             initialize=dict(purchase_counts), domain=PositiveIntegers)
-    print "printing model: ", model
-    print "printing model.purchases: ", model.purchases
-
 
     # sales
     model.sales = RangeSet(len(sales))
     sale_counts = ((p+1,int(number_corr * sales[p].number)) for p in range(len(sales)))
     model.sale_count = Param(model.sales,
             initialize=dict(sale_counts), domain=PositiveIntegers)
-    print "printing model: ", model
-    print "printing model.sales: ", model.sales
-    model.pprint #debug
+
+    print "printing model: ", model.pprint #debug
 
     # profitable pairings
     profits = list((p,s)
@@ -165,7 +162,6 @@ def make_model(purchases, sales, stella_correction, jammies_correction):
     # # # # # # # # # # # # # dual model # # # # # # # # # # # # # #
 
     dual_model = ConcreteModel()
-    print "printing dual_model: ", dual_model.pprint()
 
     # purchases
     dual_model.purchases = RangeSet(len(purchases))
@@ -198,14 +194,7 @@ def make_model(purchases, sales, stella_correction, jammies_correction):
 
     print "printing dual_model: ", dual_model.pprint()
 
-
-    print "dual model obj: ", dual_model.obj.rule
-    print "dual model profit constraint: ", dual_model.profit_constraint.rule
-
     # dual_model.pyomo_preprocess()
-
-    print "dual model obj: ", dual_model.obj.rule
-    print "dual model profit constraint: ", dual_model.profit_constraint.rule
 
     return (number_corr, price_corr, model, dual_model)
 
