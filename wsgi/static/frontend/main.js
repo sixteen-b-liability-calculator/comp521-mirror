@@ -564,6 +564,9 @@ function downloadOutput() {
 
     });
 
+    var pairings = document.getElementById("pairings");
+
+
 
 
     // $("#" + delete_ps_row_id + " td").each(function( i ) {
