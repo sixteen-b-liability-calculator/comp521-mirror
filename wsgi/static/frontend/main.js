@@ -301,6 +301,8 @@ function readTable(table){
 
 // Calculates max profit with linear programming or LIHO
 function inputToJSON(url){
+    $("#pairings").remove();
+
     if (inputHasErrors()) return;
     if (!ignoreWarnings()) return;
 
