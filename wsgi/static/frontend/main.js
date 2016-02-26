@@ -317,9 +317,11 @@ function inputToJSON(url){
         stella = true;  // Since jammies implies stella.
     }
 
-    // clear output tab
+    // clear output tab, disable "Download Output" button
     $("#pairings tr:gt(0)").remove();
     $("#pairings").append("<h3 id=\"searching\">Computing Result...</h3>")
+    document.getElementById("downloadOutput").disabled = true;
+
 
     $.ajax( url,
 	({type: "POST",
@@ -383,6 +385,8 @@ function printOutput(data){
 
     // remove "Calculating Result..." now that results have been calculated
     $("#searching").remove();
+    // enable Download Output button
+    document.getElementById("downloadOutput").disabled = false;
 
     for(var pairIdx in pairs){
     	var pair = pairs[pairIdx];
@@ -589,7 +593,7 @@ function downloadOutput() {
     dataString = infoArray.join(",");
     csvContent += index < output.length ? dataString+ "\n" : dataString;
     });
-    
+
     // download csv
     var encodedUri = encodeURI(csvContent);
     window.open(encodedUri);
