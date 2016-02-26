@@ -523,6 +523,7 @@ function populateWithCSVFile(evt) {
         reader.onload = function() {
             var text = reader.result;
             $('#csv-data').val(text);
+            populateWithCSV();
         }
         reader.readAsText(f)
     } else {
@@ -657,7 +658,7 @@ function parseDate(dateString, d_m_y) {
 
 // Given the current implementation, dates are mm/dd/yyyy
 function createDateString(day, month, year) {
-    if (parseInt(month) >12) {
+    if (parseInt(month) > 12) {
         throw "Invalid month value " + month;
     }
     return month + "/" + day + "/" + year;
