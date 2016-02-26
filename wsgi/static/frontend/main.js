@@ -331,7 +331,7 @@ function inputToJSON(url){
     $('#tabs').tabs('option','active',1);
 
     $("#pairings tr:gt(0)").remove();
-    $("#pairings").append("<h3 id=\"searching\">Computing Result...</h3>")
+    $("#pairings").append("<h3 id=\"computing\">Computing Result...</h3>")
 }
 
 function inputHasErrors() {
