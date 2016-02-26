@@ -579,13 +579,13 @@ function downloadOutput() {
     });
 
     output[0] = ["Purchase Date", "Per Share Price", "Sale Date", "Per Share Price", "Paired Securities", "Profit"];
-    output[output.length-1][5] = "Total";
+    output[output.length-1][4] = "Total";
 
     // debugging
     for (var i = 1; i < output.length-2; i++) {
         console.log("output at i: ", output[i]);
     }
-    console.log("total: ", output[output.length-1][4]);
+    console.log("total: ", output[output.length-1][5]);
 
 
     // create csv
