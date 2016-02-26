@@ -570,6 +570,7 @@ function downloadOutput() {
     var output = new Array();
     var outputRow;
 
+    // store output in 2D array
     $("#pairings tr").each(function(i) {
         outputRow = new Array();
         $(this).find("td").each(function(i) {
@@ -578,15 +579,9 @@ function downloadOutput() {
         output.push(outputRow);
     });
 
+    // format Header line and edit "Total"
     output[0] = ["Purchase Date", "Per Share Price", "Sale Date", "Per Share Price", "Paired Securities", "Profit"];
     output[output.length-1][4] = "Total";
-
-    // debugging
-    for (var i = 1; i < output.length-2; i++) {
-        console.log("output at i: ", output[i]);
-    }
-    console.log("total: ", output[output.length-1][5]);
-
 
     // create csv
     var csvContent = "data:text/csv;charset=utf-8,";
@@ -594,22 +589,11 @@ function downloadOutput() {
     dataString = infoArray.join(",");
     csvContent += index < output.length ? dataString+ "\n" : dataString;
     });
+    
     // download csv
     var encodedUri = encodeURI(csvContent);
-    // window.open(encodedUri);
+    window.open(encodedUri);
 
-
-    // // log the ouput to the console
-    // $("#pairings tr").each(function(i) {
-    //    // console.log("this: ", this);
-    //     $(this).find("td").each(function(i) {
-    //         console.log("this.firstChild: ", this.firstChild);
-    //     });
-    // });
-
-    // -------download the csv---------
-//   data = $('#csv-data')[0].value;
-//   $("#saveCSV").attr('href','data:text/csv;charset=utf8,' + encodeURIComponent(data))
 }
 
 // Takes JSON Data and populates Purchase and Sales tables
