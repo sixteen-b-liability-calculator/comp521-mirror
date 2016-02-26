@@ -320,7 +320,7 @@ function inputToJSON(url){
     // clear output tab, disable "Download Output" button
     $("#pairings tr:gt(0)").remove();
     $("#pairings").append("<h3 id=\"searching\">Computing Result...</h3>")
-    document.getElementById("downloadOutput").disabled = true;
+    // document.getElementById("downloadOutput").disabled = true;
 
 
     $.ajax( url,
@@ -386,7 +386,7 @@ function printOutput(data){
     // remove "Calculating Result..." now that results have been calculated
     $("#searching").remove();
     // enable Download Output button
-    document.getElementById("downloadOutput").disabled = false;
+    // document.getElementById("downloadOutput").disabled = false;
 
     for(var pairIdx in pairs){
     	var pair = pairs[pairIdx];
@@ -429,9 +429,6 @@ function printOutput(data){
     cell.innerHTML = '$' + decimalCorrection(maxprofit);
 
     // <form action="save.php" method="post" id="save"><input type="submit" class="btn btn-default col-md-6" value="Save Data"></form>
-
-    // add the download output button
-    // downloadOutput(data)
 }
 
 // Alert the user that EDGAR search is happening
