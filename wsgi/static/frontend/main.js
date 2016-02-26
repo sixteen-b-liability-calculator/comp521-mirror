@@ -212,6 +212,7 @@ function firstLoad(){
     $("#csv-file").change(populateWithCSVFile);
 }
 
+// Download data from text box 
 function downloadCSV() {
     data = $('#csv-data')[0].value;
     $("#saveCSV").attr('href','data:text/csv;charset=utf8,' + encodeURIComponent(data))
@@ -316,9 +317,11 @@ function inputToJSON(url){
         stella = true;  // Since jammies implies stella.
     }
 
-    // clear output tab
+    // clear output tab, disable "Download Output" button
     $("#pairings tr:gt(0)").remove();
     $("#pairings").append("<h3 id=\"searching\">Computing Result...</h3>")
+    document.getElementById("downloadOutput").disabled = true;
+
 
     $.ajax( url,
 	({type: "POST",
@@ -382,6 +385,8 @@ function printOutput(data){
 
     // remove "Calculating Result..." now that results have been calculated
     $("#searching").remove();
+    // enable Download Output button
+    document.getElementById("downloadOutput").disabled = false;
 
     for(var pairIdx in pairs){
     	var pair = pairs[pairIdx];
@@ -558,6 +563,38 @@ function convertToCSV() {
     }
     $('#csv-data')[0].value = csvString;
     $('#tabs').tabs('option','active',2);
+}
+
+// Converts the output into CSV and automatically downloads it.
+function downloadOutput() {
+
+    var output = new Array();
+    var outputRow;
+
+    // store output in 2D array
+    $("#pairings tr").each(function(i) {
+        outputRow = new Array();
+        $(this).find("td").each(function(i) {
+            outputRow.push(this.innerHTML);
+        });
+        output.push(outputRow);
+    });
+
+    // format Header line and edit "Total"
+    output[0] = ["Purchase Date", "Per Share Price", "Sale Date", "Per Share Price", "Paired Securities", "Profit"];
+    output[output.length-1][4] = "Total";
+
+    // create csv
+    var csvContent = "data:text/csv;charset=utf-8,";
+    output.forEach(function(infoArray, index){
+    dataString = infoArray.join(",");
+    csvContent += index < output.length ? dataString+ "\n" : dataString;
+    });
+
+    // download csv
+    var encodedUri = encodeURI(csvContent);
+    window.open(encodedUri);
+
 }
 
 // Takes JSON Data and populates Purchase and Sales tables
