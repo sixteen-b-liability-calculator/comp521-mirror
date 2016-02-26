@@ -577,11 +577,11 @@ function downloadOutput() {
         $(this).find("td").each(function(i) {
             // console.log("this.firstChild: ", this.firstChild);
             if (rowCount > 0) {
-                // outputRow.push(this.firstChild);
+                outputRow.push(this.innerHTML);
                 // outputString += this.firstChild;
-                console.log("this.firstChild: ", this.firstChild);
-                console.log("this.innerHTML: ", this.innerHTML);
-                console.log("this.firstChild.innerHTML: ", this.firstChild.innerHTML);
+                // console.log("this.firstChild: ", this.firstChild);
+                // console.log("this.innerHTML: ", this.innerHTML);
+                // console.log("this.firstChild.innerHTML: ", this.firstChild.innerHTML);
             }
             rowCount++;
         });
@@ -590,10 +590,10 @@ function downloadOutput() {
 
     // console.log(outputString);
 
-    // for (var i = 0; i < output.length; i++) {
-    //     console.log("output at i: ", output[i]);
-    //     console.log("output at i: ", output[i]);
-    // }
+    for (var i = 0; i < output.length; i++) {
+        console.log("output at i: ", output[i]);
+        // console.log("output at i: ", output[i]);
+    }
 
 
     // // console.log the output
