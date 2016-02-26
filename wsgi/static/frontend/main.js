@@ -567,13 +567,16 @@ function convertToCSV() {
 // Converts the output into CSV and automatically downloads it.
 function downloadOutput() {
 
-    $("#pairings tr td").each(function(i) {
-        // console.log("jquery this: ", $(this));
-        // console.log("jquery this.val: ", $(this).val());
-        // console.log("this.value: ", this.value);
-        console.log("this: ", this);
-        console.log("this.firstChild: ", this.firstChild);
+    // $("#pairings tr td").each(function(i) {
+    //     console.log("this: ", this);
+    //     console.log("this.firstChild: ", this.firstChild);
+    // });
 
+    $("#pairings tr").each(function(i) {
+        console.log("this: ", this);
+        $(this + " td").each(function(i) {
+            console.log("this.firstChild: ", this.firstChild);
+        });
     });
 
     var pairings = document.getElementById("pairings");
