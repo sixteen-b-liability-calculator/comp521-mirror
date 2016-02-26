@@ -567,29 +567,30 @@ function convertToCSV() {
 // Converts the output into CSV and automatically downloads it.
 function downloadOutput() {
 
-    // var rowCount = 0;
-    // var output = new Array();
-    // var outputRow;
+    var rowCount = 0;
+    var output = new Array();
+    var outputRow;
+    String outputString = "";
 
-    // $("#pairings tr").each(function(i) {
-    //     outputRow = new Array();
-    //     $(this).find("td").each(function(i) {
-    //         // console.log("this.firstChild: ", this.firstChild);
-    //         if (rowCount > 0) outputRow.push(this.firstChild);
-    //         rowCount++;
-    //     });
-    //     output.push(outputRow);
-    // });
+    $("#pairings tr").each(function(i) {
+        outputRow = new Array();
+        $(this).find("td").each(function(i) {
+            // console.log("this.firstChild: ", this.firstChild);
+            if (rowCount > 0) {
+                outputRow.push(this.firstChild);
+                outputString += this.firstChild;
+            }
+            rowCount++;
+        });
+        output.push(outputRow);
+    });
 
-    // for (var i = 0; i < output.length; i++) {
-    //     console.log(output[i]);
-    // }
+    console.log(outputString);
 
-    data = $('#csv-data')[0].value;
-    console.log("csv data: ", data);
-    data = $('#pairings');
-    console.log("output data: ", data);
-    // $("#saveCSV").attr('href','data:text/csv;charset=utf8,' + encodeURIComponent(data))
+    for (var i = 0; i < output.length; i++) {
+        console.log("output at i: ", output[i]);
+        console.log("output at i: ", output[i]);
+    }
 
 
     // // console.log the output
@@ -599,56 +600,6 @@ function downloadOutput() {
     //         console.log("this.firstChild: ", this.firstChild);
     //     });
     // });
-
-
-
-
-    var pairings = document.getElementById("pairings");
-
-
-
-
-    // $("#" + delete_ps_row_id + " td").each(function( i ) {
-    //     $("input", this).each(function(j) {
-    //         console.log(this.value);
-    //         if (count > 0) undo_row[count-1] = this.value;
-    //         count++;
-    //     });
-    // });
-
-
-    // -------create a csv---------
-//     var purchaseTable = $('#purchases')[0].rows;
-//     var csvString = ""
-
-// // Skip the header line
-//     for (var i = 1; i< purchaseTable.length; i++) {
-//         var row = purchaseTable[i];
-//         var date = $('.datepicker', row)[0].value;
-//         var number = $('#shares', row)[0].value;
-//         var price = $('#value', row)[0].value;
-//         if (date == "" && price == "" && number == "") {
-//             // do nothing
-//         }
-//         else {
-//             csvString += date + ", " + price + ", " + number + ", buy\n"
-//         }    }
-
-//     var saleTable = $('#sales')[0].rows;
-//     for (var i = 1; i< saleTable.length; i++) {
-//         var row = saleTable[i];
-//         var date = $('.datepicker', row)[0].value;
-//         var number = $('#shares', row)[0].value;
-//         var price = $('#value', row)[0].value;
-//         if (date == "" && price == "" && number == "") {
-//             // do nothing
-//         }
-//         else {
-//             csvString += date + ", " + price + ", " + number + ", sell\n"
-//         }
-//     }
-//     $('#csv-data')[0].value = csvString;
-//     $('#tabs').tabs('option','active',2);
 
     // -------download the csv---------
 //   data = $('#csv-data')[0].value;
