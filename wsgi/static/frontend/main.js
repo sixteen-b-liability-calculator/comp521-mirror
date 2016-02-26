@@ -212,7 +212,7 @@ function firstLoad(){
     $("#csv-file").change(populateWithCSVFile);
 }
 
-// Download data from text box 
+// Download data from text box
 function downloadCSV() {
     data = $('#csv-data')[0].value;
     $("#saveCSV").attr('href','data:text/csv;charset=utf8,' + encodeURIComponent(data))
@@ -319,7 +319,7 @@ function inputToJSON(url){
 
     // clear output tab, disable "Download Output" button
     $("#pairings tr:gt(0)").remove();
-    $("#pairings").append("<h3 id=\"searching\">Computing Result...</h3>")
+    $("#pairings").append("<h3 id=\"computing\">Computing Result...</h3>")
     document.getElementById("downloadOutput").disabled = true;
 
 
