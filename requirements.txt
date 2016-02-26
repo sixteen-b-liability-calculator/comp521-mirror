@@ -1,4 +1,0 @@
-Flask
-Flask_mail
-MarkupSafe
-Coopr==4.0.9597
