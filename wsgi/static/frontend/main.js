@@ -336,7 +336,6 @@ function inputToJSON(url){
     }))
     // Switches to second tab
     $('#tabs').tabs('option','active',1);
-    $("#searching").remove();
 }
 
 function inputHasErrors() {
@@ -382,6 +381,9 @@ function printOutput(data){
     var maxprofit = 0;
 
     pairs = data["pairs"]
+
+    // remove "Calculating Result..."
+    $("#searching").remove();
 
     for(var pairIdx in pairs){
     	var pair = pairs[pairIdx];
