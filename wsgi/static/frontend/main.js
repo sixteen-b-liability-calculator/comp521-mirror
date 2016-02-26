@@ -574,7 +574,7 @@ function downloadOutput() {
 
     $("#pairings tr").each(function(i) {
         console.log("this: ", this);
-        $(this + " td").each(function(i) {
+        $(this).find("td").each(function(i) {
             console.log("this.firstChild: ", this.firstChild);
         });
     });
