@@ -585,8 +585,10 @@ function downloadOutput() {
     //     console.log(output[i]);
     // }
 
+    data = $('#csv-data')[0].value;
+    console.log("csv data: ", data);
     data = $('#pairings');
-    console.log(data);
+    console.log("output data: ", data);
     // $("#saveCSV").attr('href','data:text/csv;charset=utf8,' + encodeURIComponent(data))
 
 
