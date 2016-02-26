@@ -567,17 +567,30 @@ function convertToCSV() {
 // Converts the output into CSV and automatically downloads it.
 function downloadOutput() {
 
-    // $("#pairings tr td").each(function(i) {
-    //     console.log("this: ", this);
-    //     console.log("this.firstChild: ", this.firstChild);
-    // });
+    var rowCount = 0;
+    var output = new Array();
+    var outputRow;
 
     $("#pairings tr").each(function(i) {
-        console.log("this: ", this);
+        outputRow = new Array();
         $(this).find("td").each(function(i) {
-            console.log("this.firstChild: ", this.firstChild);
+            // console.log("this.firstChild: ", this.firstChild);
+            outputRow.add(this);
         });
+        output.add(outputRow);
     });
+
+    for (var i = 0; i < output.length; i++) {
+        console.log(output[i]);
+    }
+
+    // // console.log the output
+    // $("#pairings tr").each(function(i) {
+    //    // console.log("this: ", this);
+    //     $(this).find("td").each(function(i) {
+    //         console.log("this.firstChild: ", this.firstChild);
+    //     });
+    // });
 
     var pairings = document.getElementById("pairings");
 
