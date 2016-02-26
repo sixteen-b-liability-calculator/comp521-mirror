@@ -568,10 +568,11 @@ function convertToCSV() {
 function downloadOutput() {
 
     $("#pairings tr td").each(function(i) {
-        console.log("jquery this: ", $(this));
-        console.log("jquery this.val: ", $(this).val());
-        console.log("this.value: ", this.value);
+        // console.log("jquery this: ", $(this));
+        // console.log("jquery this.val: ", $(this).val());
+        // console.log("this.value: ", this.value);
         console.log("this: ", this);
+        console.log("this.cells[0]: ", this.cells[0]);
 
     });
 
