@@ -570,30 +570,21 @@ function downloadOutput() {
     var rowCount = 0;
     var output = new Array();
     var outputRow;
-    var outputString = "";
 
     $("#pairings tr").each(function(i) {
         outputRow = new Array();
         $(this).find("td").each(function(i) {
-            // console.log("this.firstChild: ", this.firstChild);
-            if (rowCount > 0) {
-                outputRow.push(this.innerHTML);
-                // outputString += this.firstChild;
-                // console.log("this.firstChild: ", this.firstChild);
-                // console.log("this.innerHTML: ", this.innerHTML);
-                // console.log("this.firstChild.innerHTML: ", this.firstChild.innerHTML);
-            }
+            if (rowCount > 0) outputRow.push(this.innerHTML);
             rowCount++;
         });
         output.push(outputRow);
     });
 
-    // console.log(outputString);
-
-    for (var i = 0; i < output.length; i++) {
+    for (var i = 1; i < output.length-2; i++) {
         console.log("output at i: ", output[i]);
-        // console.log("output at i: ", output[i]);
     }
+
+    console.log("total: ", output[output.length][6]);
 
 
     // // console.log the output
