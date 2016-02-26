@@ -302,6 +302,7 @@ function readTable(table){
 
 // Calculates max profit with linear programming or LIHO
 function inputToJSON(url){
+
     if (inputHasErrors()) return;
     if (!ignoreWarnings()) return;
 
@@ -315,6 +316,10 @@ function inputToJSON(url){
     if (jammies) {
         stella = true;  // Since jammies implies stella.
     }
+
+    // clear output tab
+    $("#pairings tr:gt(0)").remove();
+    $("#pairings").append("<h3 id=\"searching\">Computing Result...</h3>")
 
     $.ajax( url,
 	({type: "POST",
@@ -375,6 +380,9 @@ function printOutput(data){
     var maxprofit = 0;
 
     pairs = data["pairs"]
+
+    // remove "Calculating Result..." now that results have been calculated
+    $("#searching").remove();
 
     for(var pairIdx in pairs){
     	var pair = pairs[pairIdx];
