@@ -585,7 +585,7 @@ function downloadOutput() {
     for (var i = 1; i < output.length-2; i++) {
         console.log("output at i: ", output[i]);
     }
-    console.log("total: ", output[output.length-1][5]);
+    console.log("total: ", output[output.length-1][4]);
 
 
     // create csv
