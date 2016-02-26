@@ -567,23 +567,28 @@ function convertToCSV() {
 // Converts the output into CSV and automatically downloads it.
 function downloadOutput() {
 
-    var rowCount = 0;
-    var output = new Array();
-    var outputRow;
+    // var rowCount = 0;
+    // var output = new Array();
+    // var outputRow;
 
-    $("#pairings tr").each(function(i) {
-        outputRow = new Array();
-        $(this).find("td").each(function(i) {
-            // console.log("this.firstChild: ", this.firstChild);
-            if (rowCount > 0) outputRow.push(this.firstChild);
-            rowCount++;
-        });
-        output.push(outputRow);
-    });
+    // $("#pairings tr").each(function(i) {
+    //     outputRow = new Array();
+    //     $(this).find("td").each(function(i) {
+    //         // console.log("this.firstChild: ", this.firstChild);
+    //         if (rowCount > 0) outputRow.push(this.firstChild);
+    //         rowCount++;
+    //     });
+    //     output.push(outputRow);
+    // });
 
-    for (var i = 0; i < output.length; i++) {
-        console.log(output[i]);
-    }
+    // for (var i = 0; i < output.length; i++) {
+    //     console.log(output[i]);
+    // }
+
+    data = $('#pairings')[0].value;
+    console.log(data);
+    // $("#saveCSV").attr('href','data:text/csv;charset=utf8,' + encodeURIComponent(data))
+
 
     // // console.log the output
     // $("#pairings tr").each(function(i) {
@@ -592,6 +597,9 @@ function downloadOutput() {
     //         console.log("this.firstChild: ", this.firstChild);
     //     });
     // });
+
+
+
 
     var pairings = document.getElementById("pairings");
 
