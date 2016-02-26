@@ -384,7 +384,7 @@ function printOutput(data){
     pairs = data["pairs"]
 
     // remove "Calculating Result..." now that results have been calculated
-    $("#searching").remove();
+    $("#computing").remove();
     // enable Download Output button
     document.getElementById("downloadOutput").disabled = false;
 
