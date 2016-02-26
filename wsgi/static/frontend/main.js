@@ -589,6 +589,7 @@ function downloadOutput() {
     output.forEach(function(infoArray, index){
     dataString = infoArray.join(",");
     csvContent += index < output.length ? dataString+ "\n" : dataString;
+    });
     // download csv
     var encodedUri = encodeURI(csvContent);
     window.open(encodedUri);
