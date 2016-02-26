@@ -594,8 +594,6 @@ function downloadOutput() {
     var encodedUri = encodeURI(csvContent);
     window.open(encodedUri);
 
-}); 
-
 
     // // log the ouput to the console
     // $("#pairings tr").each(function(i) {
