@@ -572,7 +572,7 @@ function downloadOutput() {
         // console.log("jquery this.val: ", $(this).val());
         // console.log("this.value: ", this.value);
         console.log("this: ", this);
-        console.log("this.cells[0]: ", this.cells[0]);
+        console.log("this.firstChild: ", this.firstChild);
 
     });
 
