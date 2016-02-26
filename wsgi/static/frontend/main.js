@@ -570,7 +570,7 @@ function downloadOutput() {
     var rowCount = 0;
     var output = new Array();
     var outputRow;
-    String outputString = "";
+    var outputString = "";
 
     $("#pairings tr").each(function(i) {
         outputRow = new Array();
