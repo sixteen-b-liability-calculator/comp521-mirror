@@ -336,6 +336,7 @@ function inputToJSON(url){
     }))
     // Switches to second tab
     $('#tabs').tabs('option','active',1);
+    $("#searching").remove();
 }
 
 function inputHasErrors() {
