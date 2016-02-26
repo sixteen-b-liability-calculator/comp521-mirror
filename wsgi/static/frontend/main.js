@@ -575,7 +575,8 @@ function downloadOutput() {
         outputRow = new Array();
         $(this).find("td").each(function(i) {
             // console.log("this.firstChild: ", this.firstChild);
-            outputRow.push(this.firstChild.data);
+            if (rowCount > 0) outputRow.push(this.firstChild);
+            rowCount++;
         });
         output.push(outputRow);
     });
