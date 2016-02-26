@@ -568,7 +568,7 @@ function convertToCSV() {
 function downloadOutput() {
 
     $("#pairings tr td").each(function(i) {
-        console.log(this.val());
+        console.log($(this).val());
 
     });
 
