@@ -596,7 +596,7 @@ function downloadOutput() {
     });
     // download csv
     var encodedUri = encodeURI(csvContent);
-    window.open(encodedUri);
+    // window.open(encodedUri);
 
 
     // // log the ouput to the console
