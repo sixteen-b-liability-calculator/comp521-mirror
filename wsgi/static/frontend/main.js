@@ -567,15 +567,13 @@ function convertToCSV() {
 // Converts the output into CSV and automatically downloads it.
 function downloadOutput() {
 
-    var rowCount = 0;
     var output = new Array();
     var outputRow;
 
     $("#pairings tr").each(function(i) {
         outputRow = new Array();
         $(this).find("td").each(function(i) {
-            if (rowCount > 0) outputRow.push(this.innerHTML);
-            rowCount++;
+            outputRow.push(this.innerHTML);
         });
         output.push(outputRow);
     });
