@@ -584,7 +584,7 @@ function downloadOutput() {
         console.log("output at i: ", output[i]);
     }
 
-    console.log("total: ", output[output.length-1]);
+    console.log("total: ", output[output.length-1][5]);
 
 
     // // console.log the output
