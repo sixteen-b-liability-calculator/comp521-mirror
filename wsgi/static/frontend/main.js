@@ -584,8 +584,19 @@ function downloadOutput() {
 
     console.log("total: ", output[output.length-1][5]);
 
+    // create csv
+    var csvContent = "data:text/csv;charset=utf-8,";
+    output.forEach(function(infoArray, index){
+    dataString = infoArray.join(",");
+    csvContent += index < output.length ? dataString+ "\n" : dataString;
+    // download csv
+    var encodedUri = encodeURI(csvContent);
+    window.open(encodedUri);
 
-    // // console.log the output
+}); 
+
+
+    // // log the ouput to the console
     // $("#pairings tr").each(function(i) {
     //    // console.log("this: ", this);
     //     $(this).find("td").each(function(i) {
