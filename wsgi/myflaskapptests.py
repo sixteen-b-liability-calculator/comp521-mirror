@@ -19,7 +19,7 @@ class FlaskrTestCase(unittest.TestCase):
     	expectedBuy = dict(price= 34.585, month= 1, number= 10000, day= 11, year= 2007,
                             securityTitle="Common Stock", directOrIndirectOwnership="D", filingURL ="ftp://ftp.sec.gov/")
 
-        inputFile = open('testing/edgarTestingFile.txt', 'r+')
+        inputFile = open('wsgi/testing/edgarTestingFile.txt', 'r+')
         tree = parse_section_4(inputFile)
         assert tree.getroot().tag == 'ownershipDocument'
         trades = return_trade_information_from_xml(tree,"")
@@ -28,7 +28,7 @@ class FlaskrTestCase(unittest.TestCase):
 
     def test_parse_idx(self):
 
-    	inputFile = open('testing/edgarTestIndex.txt', 'r+')
+    	inputFile = open('wsgi/testing/edgarTestIndex.txt', 'r+')
     	edgarFileURLs = parse_idx(inputFile, 1000180, ['4'])
     	assert edgarFileURLs[0] == 'edgar/data/1000180/0001242648-07-000020.txt'
     	assert edgarFileURLs[9] == 'edgar/data/1000180/0001242648-07-000029.txt'
@@ -53,13 +53,16 @@ class FlaskrTestCase(unittest.TestCase):
     def test_compute(self):
         # note that the inputs must have /unique/ correct outputs or else
         # the test is meaningless
-        inputFile = open('testing/computetest.txt', 'r+')
+        inputFile = open('wsgi/testing/computetest.txt', 'r+')
         testDicts = json.load(inputFile)
         for test in testDicts:
             computeResult = json.loads(self.app.post('/compute', content_type='application/json', data=json.dumps(test['input'])).get_data())
             greedyResult = json.loads(self.app.post('/greedy', content_type='application/json', data=json.dumps(test['input'])).get_data())
             # only check the top-level keys from expected output
             for (key, expected) in test['output_compute'].iteritems():
+                print (expected)
+                print ("key: " + key)
+                print (computeResult.get(key))
                 assert computeResult.get(key) == expected
             for (key, expected) in test['output_greedy'].iteritems():
                 assert greedyResult.get(key) == expected
