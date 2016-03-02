@@ -212,6 +212,7 @@ function firstLoad(){
     $("#csv-file").change(populateWithCSVFile);
 }
 
+// Download data from text box
 function downloadCSV() {
     data = $('#csv-data')[0].value;
     $("#saveCSV").attr('href','data:text/csv;charset=utf8,' + encodeURIComponent(data))
@@ -274,7 +275,7 @@ function saleRows(){
         insertPSRow(sales);
     }
 }
-
+// Testing
 // Called in inputToJSON() to store living input data
 function readTable(table){
     out = []
@@ -301,13 +302,14 @@ function readTable(table){
 
 // Calculates max profit with linear programming or LIHO
 function inputToJSON(url){
+
     if (inputHasErrors()) return;
     if (!ignoreWarnings()) return;
 
     var purchases = readTable($("#purchases")[0]);
     var sales = readTable($("#sales")[0]);
 
-    var email = $("#email").val();
+    //var email = $("#email").val();
 
     var stella = $('#correction-stella')[0].checked;
     var jammies = $('#correction-jammies')[0].checked;
@@ -315,9 +317,16 @@ function inputToJSON(url){
         stella = true;  // Since jammies implies stella.
     }
 
+    // clear output tab, disable "Download Output" button
+    $("#pairings tr:gt(0)").remove();
+    $("#pairings").append("<h3 id=\"computing\">Computing Result...</h3>")
+    document.getElementById("downloadOutput").disabled = true;
+
+
     $.ajax( url,
 	({type: "POST",
-	    data: $.toJSON({ "buy": purchases, "sell": sales, "stella_correction": stella, "jammies_correction": jammies, "recipient": email }),
+	    //data: $.toJSON({ "buy": purchases, "sell": sales, "stella_correction": stella, "jammies_correction": jammies, "recipient": email }),
+        data: $.toJSON({ "buy": purchases, "sell": sales, "stella_correction": stella, "jammies_correction": jammies}),
 	    contentType: "application/json",
         dataType: "json",
 	    success: printOutput,
@@ -329,9 +338,6 @@ function inputToJSON(url){
     }))
     // Switches to second tab
     $('#tabs').tabs('option','active',1);
-
-    $("#pairings tr:gt(0)").remove();
-    $("#pairings").append("<h3 id=\"searching\">Computing Result...</h3>")
 }
 
 function inputHasErrors() {
@@ -377,6 +383,11 @@ function printOutput(data){
     var maxprofit = 0;
 
     pairs = data["pairs"]
+
+    // remove "Calculating Result..." now that results have been calculated
+    $("#computing").remove();
+    // enable Download Output button
+    document.getElementById("downloadOutput").disabled = false;
 
     for(var pairIdx in pairs){
     	var pair = pairs[pairIdx];
@@ -513,6 +524,7 @@ function populateWithCSVFile(evt) {
         reader.onload = function() {
             var text = reader.result;
             $('#csv-data').val(text);
+            populateWithCSV();
         }
         reader.readAsText(f)
     } else {
@@ -553,6 +565,38 @@ function convertToCSV() {
     }
     $('#csv-data')[0].value = csvString;
     $('#tabs').tabs('option','active',2);
+}
+
+// Converts the output into CSV and automatically downloads it.
+function downloadOutput() {
+
+    var output = new Array();
+    var outputRow;
+
+    // store output in 2D array
+    $("#pairings tr").each(function(i) {
+        outputRow = new Array();
+        $(this).find("td").each(function(i) {
+            outputRow.push(this.innerHTML);
+        });
+        output.push(outputRow);
+    });
+
+    // format Header line and edit "Total"
+    output[0] = ["Purchase Date", "Per Share Price", "Sale Date", "Per Share Price", "Paired Securities", "Profit"];
+    output[output.length-1][4] = "Total";
+
+    // create csv
+    var csvContent = "data:text/csv;charset=utf-8,";
+    output.forEach(function(infoArray, index){
+    dataString = infoArray.join(",");
+    csvContent += index < output.length ? dataString+ "\n" : dataString;
+    });
+
+    // download csv
+    var encodedUri = encodeURI(csvContent);
+    window.open(encodedUri);
+
 }
 
 // Takes JSON Data and populates Purchase and Sales tables
@@ -615,7 +659,7 @@ function parseDate(dateString, d_m_y) {
 
 // Given the current implementation, dates are mm/dd/yyyy
 function createDateString(day, month, year) {
-    if (parseInt(month) >12) {
+    if (parseInt(month) > 12) {
         throw "Invalid month value " + month;
     }
     return month + "/" + day + "/" + year;

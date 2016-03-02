@@ -452,14 +452,13 @@ March 2015</p>
                     </table>
                      <button type="button" class="btn btn-default btn-xs" onclick="saleRows()">Add  <i class="fa fa-plus"></i></button>
                      <input type="text" id="addSales" value="1" size="2"> <span>more rows &nbsp; </span>
-                     <button type="button" id = "undo-sales" class="btn btn-default btn-xs" onclick="undoRowRemoval('sales')">Undo Row Removal</button>
+                     <button type="button" id = "undo-sales" class="btn btn-default btn-xs" onclick="undoRowRemoval('sales')" disabled>Undo Row Removal</button>
                 </div>
                 <div style="padding-top:10px">
                     <p>You can <button href="#!" class="btn btn-default" onclick="convertToCSV()">Convert to CSV</button>
                     to save your input data for later use.</p>
-                    <p>You can have the calculation results sent to you:
-                    <div class="col-md-6"><input type="email" id="email" class="form-control" placeholder="Email Address for Results"><p>&nbsp;</p>
-                        <div class="col-md-3"></p>
+                    <div class="col-md-6"><p>&nbsp;</p>
+                        <div class="col-md-3">
 
                         <input type="radio" name = 'correction' id= "correction-none" value="V1">Matching
                         Date<input type="radio" name = 'correction' id = "correction-stella" value="V1">Stella
@@ -487,8 +486,13 @@ March 2015</p>
                         <th style="text-align:center">Profit</th>
                     </tr>
                 </table>
+
+                <button id="downloadOutput" onclick="downloadOutput()" type="button" disabled>Download Output</button>
+
             </div>
         </div>
+
+
 
         <!-- tab 3: CSV Tab -->
         <div role="tabpanel" class="tab-pane fade" id="csv">
@@ -507,7 +511,7 @@ March 2015</p>
                 here and click &quot;Save as CSV.&quot;</p>
 
                 <p>.CSV file upload:&nbsp;
-                <input id="csv-file" type= "file"> </input>
+                <input id="csv-file" type="file" accept="text/csv"> </input>
                 </p>
                 <p>or</p>
                 <p>.CSV text form:&nbsp;&nbsp;
