@@ -275,7 +275,7 @@ function saleRows(){
         insertPSRow(sales);
     }
 }
-
+// Testing
 // Called in inputToJSON() to store living input data
 function readTable(table){
     out = []
@@ -309,7 +309,7 @@ function inputToJSON(url){
     var purchases = readTable($("#purchases")[0]);
     var sales = readTable($("#sales")[0]);
 
-    var email = $("#email").val();
+    //var email = $("#email").val();
 
     var stella = $('#correction-stella')[0].checked;
     var jammies = $('#correction-jammies')[0].checked;
@@ -325,7 +325,8 @@ function inputToJSON(url){
 
     $.ajax( url,
 	({type: "POST",
-	    data: $.toJSON({ "buy": purchases, "sell": sales, "stella_correction": stella, "jammies_correction": jammies, "recipient": email }),
+	    //data: $.toJSON({ "buy": purchases, "sell": sales, "stella_correction": stella, "jammies_correction": jammies, "recipient": email }),
+        data: $.toJSON({ "buy": purchases, "sell": sales, "stella_correction": stella, "jammies_correction": jammies}),
 	    contentType: "application/json",
         dataType: "json",
 	    success: printOutput,
