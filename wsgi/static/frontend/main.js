@@ -472,7 +472,6 @@ function pullSEC(){
 
 // Takes predetermined example data and populates Acquisitions and Disposals tables
 function populateWithExample() {
-    
     buyData = [];
     buyData.push({number: 1000, price:9, day:1, month:1, year:2014});
     buyData.push({number: 2000, price:8, day:1, month:3, year:2014});
