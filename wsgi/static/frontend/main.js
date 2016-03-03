@@ -472,8 +472,7 @@ function pullSEC(){
 
 // Takes predetermined example data and populates Acquisitions and Disposals tables
 function populateWithExample() {
-    $("#searchButton").append("<h3 id=\"searching\">Searching EDGAR database... This may take a couple minutes.</h3>");
-
+    
     buyData = [];
     buyData.push({number: 1000, price:9, day:1, month:1, year:2014});
     buyData.push({number: 2000, price:8, day:1, month:3, year:2014});
