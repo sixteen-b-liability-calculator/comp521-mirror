@@ -27,7 +27,6 @@ class FlaskrTestCase(unittest.TestCase):
         assert trades[1][0] == expectedSell  
 
     def test_parse_idx(self):
-
     	inputFile = open('wsgi/testing/edgarTestIndex.txt', 'r+')
     	edgarFileURLs = parse_idx(inputFile, 1000180, ['4'])
     	assert edgarFileURLs[0] == 'edgar/data/1000180/0001242648-07-000020.txt'
@@ -60,9 +59,6 @@ class FlaskrTestCase(unittest.TestCase):
             greedyResult = json.loads(self.app.post('/greedy', content_type='application/json', data=json.dumps(test['input'])).get_data())
             # only check the top-level keys from expected output
             for (key, expected) in test['output_compute'].iteritems():
-                print (expected)
-                print ("key: " + key)
-                print (computeResult.get(key))
                 assert computeResult.get(key) == expected
             for (key, expected) in test['output_greedy'].iteritems():
                 assert greedyResult.get(key) == expected
