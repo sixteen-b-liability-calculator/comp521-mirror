@@ -1,5 +1,6 @@
 import os
 import myflaskapp
+import compute
 import unittest
 import tempfile
 import json
@@ -11,6 +12,9 @@ class FlaskrTestCase(unittest.TestCase):
 
     def test_blank(self):
         assert 1==1
+
+
+    # ******** TEST EDGAR_API.PY *************************************
 
     def test_parse_section_4(self):
 
@@ -40,15 +44,19 @@ class FlaskrTestCase(unittest.TestCase):
         assert data['sells'][0] == {"day": 11,"month": 1,"number": 2000,"price": 44.1, "year": 2007, "securityTitle":"Common Stock", "directOrIndirectOwnership" : "D", "filingURL" : "http://www.sec.gov/Archives/edgar/data/1000180/000124264807000001/0001242648-07-000001-index.htm"}
 
     # Testing the ability to pull files locally
-    def test_pull_index_local(self):
-        # Give an ftp that is bad.  This will cause a failure if it doesn't pull the correct file
-        year = 2008
-        quarter = 1
-        indexType = 'master'
-        fileLoc = 'edgar/full-index/'+str(year)+'/QTR'+str(quarter)+'/'+indexType+'.gz'
-        assert os.path.isfile("tempFiles/"+fileLoc) #Be sure to include this file in this location for this test to pass
-        pull_edgar_file("bad_ftp",fileLoc)
+    # def test_pull_index_local(self):
+    #     # Give an ftp that is bad.  This will cause a failure if it doesn't pull the correct file
+    #     year = 2008
+    #     quarter = 1
+    #     indexType = 'master'
+    #     fileLoc = 'edgar/full-index/'+str(year)+'/QTR'+str(quarter)+'/'+indexType+'.gz'
+    #     assert os.path.isfile("tempFiles/"+fileLoc) #Be sure to include this file in this location for this test to pass
+    #     pull_edgar_file("bad_ftp",fileLoc)
 
+
+    # ******** TEST COMPUTE.PY *************************************
+
+    # Test compute LP and compute LIHO
     def test_compute(self):
         # note that the inputs must have /unique/ correct outputs or else
         # the test is meaningless
@@ -62,6 +70,32 @@ class FlaskrTestCase(unittest.TestCase):
                 assert computeResult.get(key) == expected
             for (key, expected) in test['output_greedy'].iteritems():
                 assert greedyResult.get(key) == expected
+
+    # Test that the dates_within_range function in compute.py correctly calculates valid time period
+    def test_dates_within_range(self):
+        stella = bool(1)
+        jammies = bool(1)
+        inputFile = open('wsgi/testing/computetest.txt', 'r+')
+        testDicts = json.load(inputFile)
+        inputBuy = testDicts[0]['input']['buy']
+        inputSell = testDicts[0]['input']['sell']
+        print("inputBuy")
+        print(inputBuy)
+        print("inputSell")
+        print(inputSell)
+        for buy in inputBuy:
+            for sell in inputSell:
+                buyDate = ''.join(buy['day']) + "/" + ''.join(buy['month']) + ''.join(buy['year'])
+                sellDate = '' + sell['day'] + "/" + sell['month'] + sell['year']
+                print("buy: ")
+                print(buy)
+                print(buyDate)
+                print("sell: ")
+                print(sell)
+                print(sellDate)
+                # compute.dates_within_range(buy, sell, stella, jammies)
+        # assert 
+
 
 if __name__ == '__main__':
     unittest.main()
