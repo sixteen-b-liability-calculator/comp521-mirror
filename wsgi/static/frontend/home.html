@@ -411,6 +411,8 @@ March 2015</p>
             CSV Data</a></li>
           <li role="presentation"><a href="#sec" role="tab" data-toggle="tab">
             EDGAR Search</a></li>
+          <li role="presentation"><a href="#tableau" role="tab" data-toggle="tab">
+            Vizualization</a></li>
         </ul>
 
         <!-- Beginning of tab pane -->
@@ -488,7 +490,6 @@ March 2015</p>
                 </table>
 
                 <button id="downloadOutput" onclick="downloadOutput()" type="button" disabled>Download Output</button>
-
             </div>
         </div>
 
@@ -558,7 +559,39 @@ March 2015</p>
                 </div>
             </div>
         </div>
-    </div>
+    
+    <!-- tab 5: Tableau Output -->
+        <div role="tabpanel" class="tab-pane fade" id="tableau">
+            <div class="indent">
+                <h2>Tableau Output</h2>
+                <p>This is your generated Tableau vizualization that correlates to your Liability.</p>
+                
+                 <!-- Tableau Inserted Here -->
+                <script type='text/javascript' src='https://public.tableau.com/javascripts/api/viz_v1.js'></script>
+                <div class='tableauPlaceholder' style='width: 804px; height: 669px;'>
+                    <noscript>
+                        <a href='#'>
+                            <img alt='Dashboard ' src='https:&#47;&#47;public.tableau.com&#47;static&#47;images&#47;Ne&#47;NewLiability&#47;Dashboard&#47;1_rss.png' style='border: none' />
+                        </a>
+                    </noscript>
+                    <object class='tableauViz' width='804' height='669' style='display:none;'>
+                        <param name='host_url' value='https%3A%2F%2Fpublic.tableau.com%2F' /> 
+                        <param name='site_root' value='' />
+                        <param name='name' value='NewLiability&#47;Dashboard' />
+                        <param name='tabs' value='no' />
+                        <param name='toolbar' value='yes' />
+                        <param name='static_image' value='https:&#47;&#47;public.tableau.com&#47;static&#47;images&#47;Ne&#47;NewLiability&#47;Dashboard&#47;1.png' /> 
+                        <param name='animate_transition' value='yes' />
+                        <param name='display_static_image' value='yes' />
+                        <param name='display_spinner' value='yes' />
+                        <param name='display_overlay' value='yes' />
+                        <param name='display_count' value='yes' />
+                        <param name='showTabs' value='y' />
+                    </object>
+                </div>
+                <!-- End Of Tableau Insert -->
+            </div>
+        </div>
         <!-- End of tab pane -->
     <p style="padding-bottom:100px"></p>
 

@@ -13,3 +13,8 @@
 .zeroValue {
 	background-color: yellow
 }
+.ui-tabs .ui-tabs-nav .ui-tabs-anchor {
+	float: left;
+	padding: .5em .5em;
+	text-decoration: none;
+}
