@@ -407,10 +407,9 @@ March 2015</p>
         <ul id="myTabs" class="nav nav-tabs" role="tablist">
           <li role="presentation" class="active"><a href="#input" role="tab" data-toggle="tab">Input</a></li>
           <li role="presentation"><a href="#output" role="tab" data-toggle="tab">Output</a></li>
-          <li role="presentation"><a href="#csv" role="tab" data-toggle="tab">Upload
-            CSV Data</a></li>
-          <li role="presentation"><a href="#sec" role="tab" data-toggle="tab">
-            EDGAR Search</a></li>
+          <li role="presentation"><a href="#csv" role="tab" data-toggle="tab">Upload CSV Data</a></li>
+          <li role="presentation"><a href="#sec" role="tab" data-toggle="tab">EDGAR Search</a></li>
+          <li role="presentation"><a href="#daily" role="tab" data-toggle="tab">Daily Report</a></li>
         </ul>
 
         <!-- Beginning of tab pane -->
@@ -552,11 +551,25 @@ March 2015</p>
                         </tr>
                     </table>
                 </div>
-                <div id="searchButton" style="padding-top:10px">
+                <div class="searchButton" style="padding-top:10px">
                     <button href="#" class="btn btn-default" onmousedown="searchMessage()" onclick="pullSEC()">
                     Search EDGAR </button>
                 </div>
             </div>
+        </div>
+        <!-- tab 6: View Daily Report -->
+        <div role="tabpanel" class="tab-pane fade" id="daily">
+            <div class="indent">
+                <h2>Daily Form 4 Filings</h2>
+                <div class="searchButton" style="padding-top:10px">
+                    <button href="#" class="btn btn-default" onmousedown="searchMessage()" onclick="pullDailyCIK()">
+                    View Daily Report</button>
+                </div>
+                <div class="indent" style="padding-top:10px">
+                    <textarea id="cik-data" cols="50" rows="20"></textarea>
+                </div>
+            </div>
+        </div>
         </div>
     </div>
         <!-- End of tab pane -->
