@@ -434,7 +434,7 @@ function printOutput(data){
 
 // Alert the user that EDGAR search is happening
 function searchMessage() {
-    $("#searchButton").append("<h3 id=\"searching\">Searching EDGAR database... This may take a couple minutes.</h3>");
+    $(".searchButton").append("<h3 id=\"searching\">Searching EDGAR database... This may take a couple minutes.</h3>");
 }
 
 function removeMessage() {
@@ -468,6 +468,26 @@ function pullSEC(){
             document.close();
         }
     }));
+}
+
+// proof-of-concept for Daily Report. Pulls CIKs for daily Form 4 filings.
+function pullDailyCIK() {
+    $.ajax( "/pullDailyCIK",
+        ({type: "GET",
+        contentType: "application/json",
+        dataType: "json",
+        success: [displayCIK, removeMessage],
+        error: function(data) {
+            document.open();
+            document.write(data.responseText);
+            document.close();
+        }
+    }));
+}
+
+function displayCIK(data) {
+    $('#cik-data').val(data["CIKs"]);
+    removeMessage();
 }
 
 // Takes predetermined example data and populates Acquisitions and Disposals tables
