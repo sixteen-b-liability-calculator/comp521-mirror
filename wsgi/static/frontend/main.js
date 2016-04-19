@@ -700,3 +700,25 @@ function clearInputTab() {
     document.getElementById('undo-sales').disabled = true;
 
 }
+
+// test databse connection
+function testDatabase() {
+    // debug (test that form draws data correctly)
+    console.log($('form').serialize());
+    // send data through ajax calll
+    $.ajax({
+        url: "/testDB",
+        data: $('form').serialize(),
+        dataType: "text",
+        type: "POST",
+        success: function(result) {
+            console.log(result);
+            alert("success" + result);
+            // alert(response);
+        },
+        error: function(error) {
+            // console.log(error);
+            alert("fail: " + error);
+        }
+    });
+}

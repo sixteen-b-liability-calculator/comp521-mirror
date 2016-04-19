@@ -561,6 +561,26 @@ March 2015</p>
                     <button href="#" class="btn btn-default" onmousedown="searchMessage()" onclick="pullSEC()">
                     Search EDGAR </button>
                 </div>
+
+                <!-- TESTING THE DATABASE -->
+                <div class="jumbotron">
+                    <h1>Add person to database</h1>
+                    <form class="form-signin">
+                    <label for="inputCIK" class="sr-only">CIK</label>
+                    <input type="number" name="inputCIK" id="inputCIK" class="form-control" placeholder="CIK" required autofocus>
+                    <label for="inputName" class="sr-only">Name</label>
+                    <input type="name" name="inputName" id="inputName" class="form-control" placeholder="Full Name" required autofocus>
+                    <label for="inputLP" class="sr-only">LP</label>
+                    <input type="number" name="inputLP" id="inputLP" class="form-control" placeholder="LP Value" required>
+                    <label for="inputLIHO" class="sr-only">LP</label>
+                    <input type="number" name="inputLIHO" id="inputLIHO" class="form-control" placeholder="LIHO Value" required>
+                    
+                    <button id="btnSubmit" class="btn btn-lg btn-primary btn-block" type="button" onclick="testDatabase()">Submit</button>
+                    </form>
+                </div>
+                <!-- DONE TESTING THE DATABASE -->
+
+
             </div>
         </div>
 
