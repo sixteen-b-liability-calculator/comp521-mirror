@@ -169,6 +169,11 @@ def queryDB():
     cursor = conn.cursor()
     query = ("SELECT * FROM person")
     cursor.execute(query)
+    for (cik, name, lp, liho) in cursor:
+        print(cik)
+        print(name)
+        print(lp)
+        print(liho)
     data = cursor.fetchall()
     print(data)
     return data
