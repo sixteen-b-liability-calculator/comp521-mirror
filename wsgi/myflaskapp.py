@@ -175,9 +175,7 @@ def queryDB():
         print(name)
         print(lp)
         print(liho)
-    for key, value in dict.iteritems():
-        temp = [key,value]
-        personList.append(temp)
+        personList.add(cik, name, lp, liho)
     print(personList)
     data = cursor.fetchall()
     print(data)
