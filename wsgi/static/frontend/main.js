@@ -723,7 +723,7 @@ function testDatabase() {
 }
 
 // query database
-function testDatabase() {
+function queryDB() {
     // get data through ajax calll
     $.ajax({
         url: "/queryDB",
