@@ -171,11 +171,12 @@ def queryDB():
     query = ("SELECT * FROM person")
     cursor.execute(query)
     for (cik, name, lp, liho) in cursor:
-        print(cik)
-        print(name)
-        print(lp)
-        print(liho)
-        personList.append(cik, name, lp, liho)
+        personData = []
+        personData.append(cik)
+        personData.append(name)
+        personData.append(lp)
+        personData.append(liho)
+        personList.append(personData)
     print(personList)
     data = cursor.fetchall()
     print(data)
