@@ -165,6 +165,7 @@ def testDB():
 @app.route("/queryDB", methods=['GET'])
 @add_response_headers({'Access-Control-Allow-Origin': 'example.com'})
 def queryDB():
+    personList = []
     conn = mysql.connect()
     cursor = conn.cursor()
     query = ("SELECT * FROM person")
@@ -174,6 +175,10 @@ def queryDB():
         print(name)
         print(lp)
         print(liho)
+    for key, value in dict.iteritems():
+        temp = [key,value]
+        personList.append(temp)
+    print(personList)
     data = cursor.fetchall()
     print(data)
     return data
