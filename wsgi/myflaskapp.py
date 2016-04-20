@@ -175,7 +175,7 @@ def queryDB():
         print(name)
         print(lp)
         print(liho)
-        personList.add(cik, name, lp, liho)
+        personList.append(cik, name, lp, liho)
     print(personList)
     data = cursor.fetchall()
     print(data)
