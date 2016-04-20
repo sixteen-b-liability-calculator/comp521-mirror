@@ -162,6 +162,17 @@ def testDB():
         conn.close()
         # return form
 
+@app.route("/queryDB", methods=['GET'])
+@add_response_headers({'Access-Control-Allow-Origin': 'example.com'})
+def testDB():
+    conn = mysql.connect()
+    cursor = conn.cursor()
+    query = ("SELECT * FROM person")
+    cursor.execute(query)
+    data = cursor.fetchall()
+    print(data)
+    return data
+
 if __name__ == "__main__":
     # the reloader would be nice but it doesn't work with subprocesses,
     # which opt.solve uses
