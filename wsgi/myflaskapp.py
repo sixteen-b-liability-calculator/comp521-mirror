@@ -164,7 +164,7 @@ def testDB():
 
 @app.route("/queryDB", methods=['GET'])
 @add_response_headers({'Access-Control-Allow-Origin': 'example.com'})
-def testDB():
+def queryDB():
     conn = mysql.connect()
     cursor = conn.cursor()
     query = ("SELECT * FROM person")
