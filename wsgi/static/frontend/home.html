@@ -36,6 +36,12 @@
         $(document).ready( function () {
             $('#data_table').DataTable();
         } );
+        $('#data_table').DataTable( {
+            paging: true,
+            scrollY: 400,
+            data-page-length: 25,
+            data-order: [[ 1, "asc" ]]
+        } );
         </script>
 
     </head>
