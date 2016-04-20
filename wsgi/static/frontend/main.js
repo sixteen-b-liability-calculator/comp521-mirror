@@ -6,7 +6,7 @@ var total_sales_entered = 0;
 
 // get data table ready
 $(document).ready( function () {
-    $('#data_table').DataTable();
+    // $('#data_table').DataTable();
 } );
 
 // Removes row of data
