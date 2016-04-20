@@ -4,7 +4,10 @@ var undo_s_stack = [];
 var total_purchases_entered = 0;
 var total_sales_entered = 0;
 
-
+// get data table ready
+$(document).ready( function () {
+    $('#table_id').DataTable();
+} );
 
 // Removes row of data
 function removePSRow(button){
