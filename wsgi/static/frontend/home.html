@@ -46,10 +46,17 @@
                 $.ajax({
                     url: "/queryDB",
                     type: "GET",
-                    // success: function(result) {
-                    //     console.log(result);
-                    //     alert("success" + result);
-                    // },
+                    success: function(result) {
+                        $.each(data, function(i, result) {
+                            var body = "<tr>";
+                            body    += "<td>" + result.cik + "</td>";
+                            body    += "<td>" + result.name + "</td>";
+                            body    += "<td>" + result.lp + "</td>";
+                            body    += "<td>" + result.liho + "</td>";
+                            body    += "</tr>";
+                            $( "#data_table tbody" ).append(body);
+                        });
+                    },
                     error: function(error) {
                         alert("fail: " + error);
                     }
