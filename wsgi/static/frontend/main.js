@@ -727,16 +727,12 @@ function queryDB() {
     // get data through ajax calll
     $.ajax({
         url: "/queryDB",
-        // data: $('form').serialize(),
-        // dataType: "text",
         type: "GET",
         success: function(result) {
             console.log(result);
             alert("success" + result);
-            // alert(response);
         },
         error: function(error) {
-            // console.log(error);
             alert("fail: " + error);
         }
     });
