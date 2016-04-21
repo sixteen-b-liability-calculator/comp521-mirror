@@ -178,22 +178,8 @@ def queryDB():
         personDict['lp'] = lp
         personDict['liho'] = liho
         personList.append(personDict)
-        # person = []
-        # person.append(cik)
-        # person.append(name)
-        # person.append(lp)
-        # person.append(liho)
-        # personList.append(person)
     personsDict['data'] = personList
-    print("***********************")
-    print(personsDict)
-    print("***********************")
-    print(jsonify(personsDict))
     return jsonify(personsDict)
-    # print("************************")
-    # print(jsonify(personList))
-    # print("************************")
-    # return jsonify(personList)
 
 if __name__ == "__main__":
     # the reloader would be nice but it doesn't work with subprocesses,
