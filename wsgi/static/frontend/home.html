@@ -50,7 +50,7 @@
                     alert("fail: " + error);
                 }
             });
-            console.log(myJson['data']);
+            console.log(myJson);
             myData = $.map(myJson['data'], function(el) {
                 console.log("inside jquery map function");
                 return new [el.cik, el.name, el.lp, el.liho];
