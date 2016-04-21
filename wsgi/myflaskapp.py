@@ -20,6 +20,7 @@ mail = Mail(app)
 
 from compute import run_problem, run_greedy, validate_buysell, FourhundredException
 from edgar_api import *
+from daily_report import generate_daily_report
 from aux_code.dateFunctions import *
 from aux_code.createCSV import *
 
@@ -40,18 +41,22 @@ def add_response_headers(headers={}):
 def home_page():
 	return redirect(url_for('static', filename = "/frontend/home.html"), code=302)
 
-def gen_compute_endpoint(runner):
-    input_data = request.get_json(force=False)
+def gen_compute_endpoint(runner, trade_json = None):
+    if trade_json is None:
+        input_data = request.get_json(force=False)
+    else:
+        input_data = trade_json
+
     if not (isinstance(input_data, dict)
-            and isinstance(input_data.get('buy'), list)
-            and isinstance(input_data.get('sell'), list)):
+            and isinstance(input_data.get('buys'), list)
+            and isinstance(input_data.get('sells'), list)):
         return ("invalid input", 400, [])
 
     purchases = None
     sales = None
     try:
-        purchases = validate_buysell('buy', input_data.get('buy'))
-        sales = validate_buysell('sell', input_data.get('sell'))
+        purchases = validate_buysell('buy', input_data.get('buys'))
+        sales = validate_buysell('sell', input_data.get('sells'))
         recipient = input_data.get('recipient')
         stella_correction = input_data.get('stella_correction', True)
         jammies_correction = input_data.get('jammies_correction', True)
@@ -86,29 +91,32 @@ def gen_compute_endpoint(runner):
         csvString = pair2CSV(result['pairs'])
         msg.attach("pairingResult.csv", "text/csv", csvString)
         mail.send(msg)
-    return jsonify(result)
+    return result
 
 @app.route("/compute", methods=['POST'])
 @add_response_headers({'Access-Control-Allow-Origin': 'example.com'})
 def compute_endpoint():
-    return gen_compute_endpoint(run_problem)
+    result = gen_compute_endpoint(run_problem)
+    return jsonify(result)
 
 @app.route("/greedy", methods=['POST'])
 @add_response_headers({'Access-Control-Allow-Origin': 'example.com'})
 def greedy_endpoint():
-    return gen_compute_endpoint(run_greedy)
+    result = gen_compute_endpoint(run_greedy)
+    return jsonify(result)
 
 # function that pulls trades from the SEC database.
 @app.route("/pullSEC", methods=['POST'])
 @add_response_headers({'Access-Control-Allow-Origin': 'example.com'})
 def pullSEC():
-    return pull_trades()
+    trades = pull_trades()
+    return jsonify(trades)
 
-# function that pulls CIKs for yesterday's Form 4 filings from SEC database.
-@app.route("/pullDailyCIK", methods=['GET'])
+# function that pulls information on yesterday's Form 4 filings from SEC database.
+@app.route("/pullDailyReport", methods=['GET'])
 @add_response_headers({'Access-Control-Allow-Origin': 'example.com'})
-def pullDailyCIK():
-    return pull_daily_filings()
+def pullDailyReport():
+    return generate_daily_report()
 
 @app.route("/populateWithCSV", methods=['POST'])
 @add_response_headers({'Access-Control-Allow-Origin': 'example.com'})
