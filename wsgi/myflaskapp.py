@@ -165,25 +165,25 @@ def testDB():
 @app.route("/queryDB", methods=['GET'])
 @add_response_headers({'Access-Control-Allow-Origin': 'example.com'})
 def queryDB():
+    personsDict = {}
     personList = []
-    personDict = {}
     conn = mysql.connect()
     cursor = conn.cursor()
     query = ("SELECT * FROM person")
     cursor.execute(query)
     for (cik, name, lp, liho) in cursor:
-        personData = []
-        personData.append(cik)
-        personData.append(name)
-        personData.append(lp)
-        personData.append(liho)
-        personList.append(personData)
-    personDict['data'] = personList
+        personDict = {}
+        personDict['cik'] = cik
+        personDict['name'] = name
+        personDict['lp'] = lp
+        personDict['liho'] = liho
+        personList.append(personDict)
+    personsDict['data'] = personList
     print("***********************")
-    print(personDict)
+    print(personsDict)
     print("***********************")
-    print(jsonify(personDict))
-    return jsonify(personDict)
+    print(jsonify(personsDict))
+    return jsonify(personsDict)
 
 if __name__ == "__main__":
     # the reloader would be nice but it doesn't work with subprocesses,
