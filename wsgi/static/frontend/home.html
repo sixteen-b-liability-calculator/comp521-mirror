@@ -54,19 +54,18 @@
               return new [el.cik, el.name, el.lp, el.liho];
             });
             console.log("myData: " + myData);
-            $('#data_table').DataTable();
-        } );
-        $('#data_table').DataTable( {
-            paging: true,
-            scrollY: 400,
-            dataPageLength: 25,
-            data: myData,
-            // columns: [
-            //     { title: "CIK" },
-            //     { title: "Name" },
-            //     { title: "LP" },
-            //     { title: "LIHO" }
-            // ]
+            $('#data_table').DataTable({
+                paging: true,
+                scrollY: 400,
+                dataPageLength: 25,
+                data: myData,
+                // columns: [
+                //     { title: "CIK" },
+                //     { title: "Name" },
+                //     { title: "LP" },
+                //     { title: "LIHO" }
+                // ]
+            } );
         } );
         </script>
 
