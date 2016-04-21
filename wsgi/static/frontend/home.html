@@ -47,7 +47,7 @@
                     alert(JSON.stringify(result));
                     myData = $.map(result['data'], function(el) {
                         console.log("inside jquery map function");
-                        return new [el.cik, el.name, el.lp, el.liho];
+                        return [el.cik, el.name, el.lp, el.liho];
                     });
                     console.log("MYDATA: " + myData);
                     // alert(response);
