@@ -51,7 +51,8 @@
                 }
             });
             myData = jQuery.map(myJson.data, function(el, i) {
-              return new [el.cik, el.name, el.lp, el.liho];
+                console.log("inside jquery map function");
+                return new [el.cik, el.name, el.lp, el.liho];
             });
             console.log("myData: " + myData);
             $('#data_table').DataTable({
