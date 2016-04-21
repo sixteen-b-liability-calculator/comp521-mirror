@@ -8,6 +8,7 @@ from pyomo.environ import *
 from numbers import Number
 import datetime
 from datetime import datetime, date, time
+%matplotlib inline
 import matplotlib.pyplot as plt
 from matplotlib.finance import quotes_historical_yahoo_ochl
 from matplotlib.dates import YearLocator, MonthLocator, DateFormatter
