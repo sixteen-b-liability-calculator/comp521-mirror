@@ -46,6 +46,7 @@
                 $.ajax({
                     url: "/queryDB",
                     type: "GET",
+                    mimeType: 'json',
                     success: function(result) {
                         console.log("SUCCESS ************** ???????????????? SUCCESS *************** ????????????????")
                         $.each(data, function(i, result) {
