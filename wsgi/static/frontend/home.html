@@ -36,6 +36,7 @@
         });
         // get data table ready
         $(document).ready( function () {
+            var myString;
             myJson = JSON.stringify($.ajax({
                 url: "/queryDB",
                 type: "GET",
@@ -44,6 +45,7 @@
                     console.log("inside ajax request: " + result);
                     // alert("success" + result);
                     alert(JSON.stringify(result));
+                    myString = JSON.stringify(result);
                     // alert(response);
                 },
                 error: function(error) {
@@ -51,6 +53,7 @@
                     alert("fail: " + error);
                 }
             }));
+            console.log("myString: " + myString);
             console.log("myJson: " + myJson);
             // console.log(myJson.responseJSON);
             // // console.log(myJson.responseText);
