@@ -30,12 +30,13 @@
 
         <script>
         var myJson;
+        var myData;
         $(function() {
             $( "#tabs" ).tabs({active: 0});
         });
         // get data table ready
         $(document).ready( function () {
-            json = $.ajax({
+            myJson = $.ajax({
                 url: "/queryDB",
                 type: "GET",
                 success: function(result) {
@@ -49,13 +50,16 @@
                     alert("fail: " + error);
                 }
             });
+            var myData = jQuery.map(myJson.data, function(el, i) {
+              return new [el.cik, el.name, el.lp, el.liho];
+            });
             $('#data_table').DataTable();
         } );
         $('#data_table').DataTable( {
             paging: true,
             scrollY: 400,
             dataPageLength: 25,
-            data: myJson,
+            data: myData,
             // columns: [
             //     { title: "CIK" },
             //     { title: "Name" },
