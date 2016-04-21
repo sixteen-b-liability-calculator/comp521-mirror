@@ -48,6 +48,7 @@
                     type: "GET",
                     success: function(result) {
                         $.each(data, function(i, result) {
+                            console.log(result.cik)
                             var body = "<tr>";
                             body    += "<td>" + result.cik + "</td>";
                             body    += "<td>" + result.name + "</td>";
