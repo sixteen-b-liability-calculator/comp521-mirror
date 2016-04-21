@@ -182,7 +182,8 @@ def queryDB():
     print("***********************")
     print(personDict)
     print("***********************")
-    return personDict
+    print(jsonify(personDict))
+    return jsonify(personDict)
 
 if __name__ == "__main__":
     # the reloader would be nice but it doesn't work with subprocesses,
