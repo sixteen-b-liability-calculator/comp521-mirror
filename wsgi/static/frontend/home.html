@@ -29,7 +29,7 @@
         <!-- End data tables -->
 
         <script>
-        var json;
+        var myJson;
         $(function() {
             $( "#tabs" ).tabs({active: 0});
         });
@@ -55,7 +55,7 @@
             paging: true,
             scrollY: 400,
             dataPageLength: 25,
-            data: json,
+            data: myJson,
             columns: [
                 { title: "CIK" },
                 { title: "Name" },
