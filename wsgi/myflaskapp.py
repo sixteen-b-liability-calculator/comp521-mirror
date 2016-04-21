@@ -166,6 +166,7 @@ def testDB():
 @add_response_headers({'Access-Control-Allow-Origin': 'example.com'})
 def queryDB():
     personList = []
+    personDict = {}
     conn = mysql.connect()
     cursor = conn.cursor()
     query = ("SELECT * FROM person")
@@ -180,7 +181,11 @@ def queryDB():
     print(personList)
     data = cursor.fetchall()
     print(data)
-    return personList
+    personDict['data'] = personList
+    print("***********************")
+    print(personList)
+    print("***********************")
+    # return personDict
 
 if __name__ == "__main__":
     # the reloader would be nice but it doesn't work with subprocesses,
