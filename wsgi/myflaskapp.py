@@ -166,6 +166,7 @@ def testDB():
 @add_response_headers({'Access-Control-Allow-Origin': 'example.com'})
 def queryDB():
     personList = []
+    personDict = {}
     conn = mysql.connect()
     cursor = conn.cursor()
     query = ("SELECT * FROM person")
@@ -178,7 +179,11 @@ def queryDB():
         personData.append(liho)
         personList.append(personData)
     personDict['data'] = personList
-    return jsonify(personList)
+    print("***********************")
+    print(personDict)
+    print("***********************")
+    print(jsonify(personDict))
+    return jsonify(personDict)
 
 if __name__ == "__main__":
     # the reloader would be nice but it doesn't work with subprocesses,
