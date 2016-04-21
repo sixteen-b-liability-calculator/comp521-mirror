@@ -42,7 +42,8 @@
                 success: function(result) {
                     json = result;
                     console.log("inside ajax request: " + result);
-                    alert("success" + result);
+                    // alert("success" + result);
+                    alert(JSON.stringify(theObject));
                     // alert(response);
                 },
                 error: function(error) {
