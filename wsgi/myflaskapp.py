@@ -178,12 +178,9 @@ def queryDB():
         personData.append(lp)
         personData.append(liho)
         personList.append(personData)
-    print(personList)
-    data = cursor.fetchall()
-    print(data)
     personDict['data'] = personList
     print("***********************")
-    print(personList)
+    print(personDict)
     print("***********************")
     # return personDict
 
