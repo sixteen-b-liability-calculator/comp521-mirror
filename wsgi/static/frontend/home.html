@@ -41,7 +41,7 @@
                 type: "GET",
                 success: function(result) {
                     json = result;
-                    console.log(result);
+                    console.log("inside ajax request: " + result);
                     alert("success" + result);
                     // alert(response);
                 },
@@ -53,6 +53,7 @@
             myData = jQuery.map(myJson.data, function(el, i) {
               return new [el.cik, el.name, el.lp, el.liho];
             });
+            console.log("myData: " + myData);
             $('#data_table').DataTable();
         } );
         $('#data_table').DataTable( {
