@@ -36,7 +36,7 @@
         });
         // get data table ready
         $(document).ready( function () {
-            myJson = $.ajax({
+            myJson = JSON.stringify($.ajax({
                 url: "/queryDB",
                 type: "GET",
                 success: function(result) {
@@ -50,7 +50,7 @@
                     // console.log(error);
                     alert("fail: " + error);
                 }
-            });
+            }));
             console.log("myJson: " + myJson);
             // console.log(myJson.responseJSON);
             // // console.log(myJson.responseText);
