@@ -180,7 +180,7 @@ def queryDB():
     print(personList)
     data = cursor.fetchall()
     print(data)
-    return data
+    return personList
 
 if __name__ == "__main__":
     # the reloader would be nice but it doesn't work with subprocesses,
