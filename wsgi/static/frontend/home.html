@@ -36,7 +36,7 @@
         });
         // get data table ready
         $(document).ready( function () {
-            var myString;
+            var myString = null;
             myJson = JSON.stringify($.ajax({
                 url: "/queryDB",
                 type: "GET",
