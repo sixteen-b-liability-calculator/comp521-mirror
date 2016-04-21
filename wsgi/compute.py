@@ -234,9 +234,9 @@ def collect_dual(dual_model, number_corr, price_corr, ret, purchases, sales, opt
 
 def run_problem(purchases, sales, stella_correction, jammies_correction):
     opt = SolverFactory('glpk')
-
+    
     (number_corr, price_corr, model, dual_model) = make_model(purchases,sales,stella_correction,jammies_correction)
-
+    print (number_corr, price_corr, model, dual_model)
     # results = opt.solve(model)  (pyomo 3.7)
     results = opt.solve(model, load_solutions=False)
     model.solutions.load_from(results)
@@ -245,7 +245,8 @@ def run_problem(purchases, sales, stella_correction, jammies_correction):
 
     # solutions = results.get('Solution', [])  (pyomo 3.7)
     solutions = model.solutions
-
+    print ("solutions: ",solutions)
+    print ("model.pairings: ", model.pairings)
     if len(solutions) > 0:
         # model.load(results)   (pyomo 3.7)
         for (p,s) in model.pairings:
@@ -268,7 +269,7 @@ def run_problem(purchases, sales, stella_correction, jammies_correction):
             ret['status'] = "not solved"
     else:
         ret['status'] = "solver error"
-    makeGraph()
+    #makeGraph()
     return ret
 
 def run_greedy(purchases, sales, stella_correction, jammies_correction):
@@ -296,7 +297,7 @@ def run_greedy(purchases, sales, stella_correction, jammies_correction):
                     s_sales_amts[i] -= amt
                     collect(p,s,amt)
                     amt = 0
-    makeGraph()
+    #makeGraph()
     return ret
 
 def makeGraph():
