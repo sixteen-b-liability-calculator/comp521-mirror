@@ -50,7 +50,7 @@
                     alert("fail: " + error);
                 }
             });
-            var myData = jQuery.map(myJson.data, function(el, i) {
+            myData = jQuery.map(myJson.data, function(el, i) {
               return new [el.cik, el.name, el.lp, el.liho];
             });
             $('#data_table').DataTable();
@@ -67,32 +67,6 @@
             //     { title: "LIHO" }
             // ]
         } );
-        // $('#data_table').dataTable( {
-        //   "ajax": function (data, callback, settings) {
-        //         $.ajax({
-        //             url: "/queryDB",
-        //             type: "GET",
-        //             success: function(result) {
-        //                 console.log("SUCCESS ************** ???????????????? SUCCESS *************** ????????????????")
-        //                 $.each(data, function(i, result) {
-        //                     console.log(result.cik)
-        //                     var body = "<tr>";
-        //                     body    += "<td>" + result.cik + "</td>";
-        //                     body    += "<td>" + result.name + "</td>";
-        //                     body    += "<td>" + result.lp + "</td>";
-        //                     body    += "<td>" + result.liho + "</td>";
-        //                     body    += "</tr>";
-        //                     $( "#data_table tbody" ).append(body);
-        //                 });
-        //                 /*DataTables instantiation.*/
-        //                 $( "#data_table" ).DataTable();
-        //             },
-        //             error: function(error) {
-        //                 alert("fail: " + error);
-        //             }
-        //         });
-        //   }
-        // });
         </script>
 
     </head>
