@@ -31,12 +31,12 @@
         <script>
         var myJson;
         var myData;
+        var myString = null;
         $(function() {
             $( "#tabs" ).tabs({active: 0});
         });
         // get data table ready
         $(document).ready( function () {
-            var myString = null;
             myJson = JSON.stringify($.ajax({
                 url: "/queryDB",
                 type: "GET",
@@ -76,6 +76,8 @@
                 // ]
             });
         } );
+        console.log("OUTSIDE myString: " + myString);
+        console.log("OUTSIDE myJson: " + myJson);
         </script>
 
     </head>
