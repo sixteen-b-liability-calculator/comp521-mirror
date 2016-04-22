@@ -39,7 +39,7 @@
                 type: "GET",
                 success: function(result) {
                     myData = $.map(result['data'], function(el) {
-                        return [[[el.cik, el.name, el.lp, el.date, el.url]]];
+                        return [[el.cik, el.name, el.lp, el.date, el.url]];
                     });
                     console.log("myData: " + myData);
                     // initalize data table
