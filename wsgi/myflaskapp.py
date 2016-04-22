@@ -184,7 +184,8 @@ def queryDB():
 @app.route("/getDateData", methods=['POST'])
 @add_response_headers({'Access-Control-Allow-Origin': 'example.com'})
 def getDateData():
-    date = request
+    # date = request
+    date =  request.form['date'];
     if date is None:
         print("REQUEST IS NULL")
     else:

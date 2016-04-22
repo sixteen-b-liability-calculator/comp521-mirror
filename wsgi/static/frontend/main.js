@@ -752,7 +752,7 @@ function refreshDB() {
             $.ajax({
                 url: "/getDateData",
                 type: "POST",
-                data: searchArray,
+                data: $('form').serialize(),
                 success: function(result) {
                     alert("success");
                     myData = $.map(result['data'], function(el) {
