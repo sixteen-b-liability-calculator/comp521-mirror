@@ -744,7 +744,7 @@ function refreshDB() {
     var searchYear = parseDate(searchDate, "y");
     var searchMonth = parseDate(searchDate, "m");
     var searchDay = parseDate(searchDate, "d");
-    if (searchDate != null) {
+    if (searchDate != "") {
         var myData;
         $(document).ready( function () {
             $.ajax({
