@@ -48,7 +48,7 @@
                         scrollY: 400,
                         dataPageLength: 25,
                         data: myData,
-                        "order": [[ 2, 'desc' ]],
+                        "order": [[ 0, 'asc' ]],
                         columns: [
                             { title: "CIK" },
                             { title: "Name" },
@@ -56,8 +56,7 @@
                             { title: "LIHO" },
                             // add other columns
                         ]
-                    });
-                    $table.closest(".dataTables_wrapper").find("*").css("box-sizing","content-box").css("-moz-box-sizing","content-box");
+                    }).fnAdjustColumnSizing(false);
                 },
                 error: function(error) {
                     alert("fail: " + error);
