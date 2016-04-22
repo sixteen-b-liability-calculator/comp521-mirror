@@ -38,7 +38,7 @@
                 url: "/queryDB",
                 type: "GET",
                 success: function(result) {
-                    json = result;
+                    console.log("result: " + result);
                     myData = $.map(result['data'], function(el) {
                         return [[el.cik, el.name, el.lp, el.date, el.url]];
                     });
