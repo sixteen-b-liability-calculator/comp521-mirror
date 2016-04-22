@@ -40,7 +40,7 @@
                 success: function(result) {
                     json = result;
                     myData = $.map(result['data'], function(el) {
-                        return [[el.cik, el.name, el.lp, el.liho]];
+                        return [[el.cik, el.name, el.lp, el.date, el.url]];
                     });
                     // initalize data table
                     $('#data_table').DataTable({
@@ -52,9 +52,9 @@
                         columns: [
                             { title: "CIK" },
                             { title: "Name" },
-                            { title: "LP" },
-                            { title: "LIHO" },
-                            // add other columns
+                            { title: "LP liability" },
+                            { title: "Date of most recent form 4/4A" },
+                            { title: "URL of most recent form 4/4A"}
                         ]
                     });
                 },

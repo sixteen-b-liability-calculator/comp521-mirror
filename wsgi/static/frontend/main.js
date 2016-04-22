@@ -758,27 +758,7 @@ function refreshDB() {
                     myData = $.map(result['data'], function(el) {
                         return [[el.cik, el.name, el.lp, el.liho]];
                     });
-                    // // initalize data table
-                    // $('#data_table').DataTable({
-                    //     paging: true,
-                    //     scrollY: 400,
-                    //     dataPageLength: 25,
-                    //     data: myData,
-                    //     "order": [[ 0, 'asc' ]],
-                    //     columns: [
-                    //         { title: "CIK" },
-                    //         { title: "Name" },
-                    //         { title: "LP" },
-                    //         { title: "URL" },
-                    //         { title: "Date"}
-                    //     ]
-                    // });
                     var datatable = $('#data_table').dataTable().api();
-                    // $.get('myUrl', function(myData) {
-                    //     datatable.clear();
-                    //     datatable.rows.add(myData);
-                    //     datatable.draw();
-                    // });
                     datatable.clear();
                     datatable.rows.add(myData);
                     datatable.draw();

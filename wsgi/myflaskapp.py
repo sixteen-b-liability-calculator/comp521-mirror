@@ -7,6 +7,7 @@ from pyomo import *
 from pyomo.opt import SolverFactory
 import pyomo.environ
 from functools import wraps
+import datetime
 
 app = Flask(__name__, static_url_path='')
 app.config.update(dict(
@@ -165,12 +166,14 @@ def testDB():
 @app.route("/queryDB", methods=['GET'])
 @add_response_headers({'Access-Control-Allow-Origin': 'example.com'})
 def queryDB():
+    yesterday = datetime.date.now()
+    print("TODAY: " + yesterday)
     personsDict = {}
     personList = []
     conn = mysql.connect()
     cursor = conn.cursor()
-    query = ("SELECT * FROM person")
-    cursor.execute(query)
+    query = ("SELECT p.cik, p.name, p.lp, f.url, f.date FROM person p, forms f WHERE f.date like %s")
+    cursor.execute(query, yesterday)
     for (cik, name, lp, liho) in cursor:
         personDict = {}
         personDict['cik'] = cik
@@ -199,8 +202,8 @@ def refreshDB():
         recordDict['cik'] = cik
         recordDict['name'] = name
         recordDict['lp'] = lp
-        recordDict['url'] = url
         recordDict['date'] = str(date)
+        recordDict['url'] = url
         recordList.append(recordDict)
     recordsDict['data'] = recordList
     return jsonify(recordsDict)
