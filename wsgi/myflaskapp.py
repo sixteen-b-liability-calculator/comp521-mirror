@@ -186,7 +186,7 @@ def queryDB():
 def refreshDB():
     date =  request.form['date'];
     # get date in YYYY-MM-DD
-    dateFormatted = date[6:10] + "-" + date[0:1] + "-" + date[3:4]
+    dateFormatted = date[6:10] + "-" + date[0] + date[1] + "-" + date[3:4]
     print("FORMATTED: " + dateFormatted)
     recordsDict = {}
     recordList = []
