@@ -60,7 +60,7 @@
                             { title: "URL of most recent form 4/4A"}
                         ]
                     });
-                    table.ajax.reload();
+                    $('#cik-header').click();
                 },
                 error: function(error) {
                     console.log("fail: " + error);
@@ -648,7 +648,7 @@ March 2015</p>
                     <table id="data_table" class="display">
                         <thead>
                             <tr>
-                                <th style="width: 20%;">CIK</th>
+                                <th style="width: 20%;" id="cik-header">CIK</th>
                                 <th style="width: 20%;">Name</th>
                                 <th style="width: 20%;">LP</th>
                                 <th style="width: 20%;">Date of most recent form 4/4A</th>
