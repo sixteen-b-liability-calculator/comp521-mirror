@@ -200,7 +200,7 @@ def refreshDB():
         recordDict['name'] = name
         recordDict['lp'] = lp
         recordDict['url'] = url
-        recordDict['date'] = date
+        recordDict['date'] = str(date)
         recordList.append(recordDict)
     recordsDict['data'] = recordList
     return jsonify(recordsDict)
