@@ -167,22 +167,24 @@ def testDB():
 @add_response_headers({'Access-Control-Allow-Origin': 'example.com'})
 def queryDB():
     yesterday = datetime.now()
-    print("TODAY: " + str(yesterday))
-    personsDict = {}
-    personList = []
+    yesterdayFormatted = date[0:9]
+    print("YESTERDAY FORMATTED: " + yesterdayFormatted)
+    recordsDict = {}
+    recordList = []
     conn = mysql.connect()
     cursor = conn.cursor()
     query = ("SELECT p.cik, p.name, p.lp, f.url, f.date FROM person p, forms f WHERE f.date like %s")
-    cursor.execute(query, "2016-05-21")
-    for (cik, name, lp, liho) in cursor:
-        personDict = {}
-        personDict['cik'] = cik
-        personDict['name'] = name
-        personDict['lp'] = lp
-        personDict['liho'] = liho
-        personList.append(personDict)
-    personsDict['data'] = personList
-    return jsonify(personsDict)
+    cursor.execute(query, yesterdayFormatted)
+    for (cik, name, lp, url, date) in cursor:
+        recordDict = {}
+        recordDict['cik'] = cik
+        recordDict['name'] = name
+        recordDict['lp'] = lp
+        recordDict['date'] = str(date)
+        recordDict['url'] = url
+        recordList.append(recordDict)
+    recordsDict['data'] = recordList
+    return jsonify(recordsDict)
 
 @app.route("/refreshDB", methods=['POST'])
 @add_response_headers({'Access-Control-Allow-Origin': 'example.com'})
