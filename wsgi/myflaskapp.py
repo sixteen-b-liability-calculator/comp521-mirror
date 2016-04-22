@@ -171,7 +171,7 @@ def queryDB():
     recordList = []
     conn = mysql.connect()
     cursor = conn.cursor()
-    query = ("SELECT p.cik, p.name, p.lp, f.url, f.date FROM person p, forms f WHERE f.date like %s")
+    query = ("SELECT p.cik, p.name, p.lp, f.url, f.date FROM person p, forms f WHERE p.cik = f.cik and f.date like %s")
     cursor.execute(query, yesterday)
     for (cik, name, lp, url, date) in cursor:
         recordDict = {}
@@ -195,7 +195,7 @@ def refreshDB():
     recordList = []
     conn = mysql.connect()
     cursor = conn.cursor()
-    query = ("SELECT p.cik, p.name, p.lp, f.url, f.date FROM person p, forms f WHERE f.date like %s")
+    query = ("SELECT p.cik, p.name, p.lp, f.url, f.date FROM person p, forms f WHERE p.cik = f.cik and f.date like %s")
     cursor.execute(query, dateFormatted)
     for (cik, name, lp, url, date) in cursor:
         recordDict = {}
