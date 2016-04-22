@@ -193,7 +193,7 @@ def getDateData():
     recordDict['date'] = "2016-05-21"
     recordList.append(recordDict)
     recordsDict = {}
-    recordsList['data'] = recordList
+    recordsDict['data'] = recordList
     print("inside getDateData")
     return jsonify(recordDict)
     # print("REQUEST DATA: " + request.data)
