@@ -184,7 +184,18 @@ def queryDB():
 @app.route("/getDateData", methods=['POST'])
 @add_response_headers({'Access-Control-Allow-Origin': 'example.com'})
 def getDateData():
+    recordDict = {}
+    recordList = []
+    recordDict['cik'] = 904235920
+    recordDict['name'] = "Full Name"
+    recordDict['lp'] = 9000
+    recordDict['url'] = "google.com"
+    recordDict['date'] = "2016-05-21"
+    recordList.append(recordDict)
+    recordsDict = {}
+    recordsList['data'] = recordList
     print("inside getDateData")
+    return jsonify(recordDict)
     # print("REQUEST DATA: " + request.data)
     # date = request.get_json()
     # dateString = "" + date[0] + date[1] + date[2]
