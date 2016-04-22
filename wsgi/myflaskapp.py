@@ -184,7 +184,6 @@ def queryDB():
 @app.route("/getDateData", methods=['POST'])
 @add_response_headers({'Access-Control-Allow-Origin': 'example.com'})
 def getDateData():
-    print("REQUEST: " + request)
     print("REQUEST DATA: " + request.data)
     date = request.get_json()
     # dateString = "" + date[0] + date[1] + date[2]
