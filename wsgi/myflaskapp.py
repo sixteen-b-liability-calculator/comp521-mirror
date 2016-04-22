@@ -184,11 +184,9 @@ def queryDB():
 @app.route("/getDateData", methods=['POST'])
 @add_response_headers({'Access-Control-Allow-Origin': 'example.com'})
 def getDateData():
-    try:
-        console.log(request)
-        date = request.get_json()
-    except Exception:
-        return ("There is an issue with the information sent to the server.  Look at the HTTP POST request to identify the issue", 400, [])
+    console.log(request)
+    console.log(request.data)
+    date = request.get_json()
     dateString = "" + date[0] + date[1] + date[2]
     console.log(date)
     console.log(dateString)
