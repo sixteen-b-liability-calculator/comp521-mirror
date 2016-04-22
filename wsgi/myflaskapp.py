@@ -185,6 +185,8 @@ def queryDB():
 @add_response_headers({'Access-Control-Allow-Origin': 'example.com'})
 def refreshDB():
     date =  request.form['date'];
+    dateFormatted = date[6:10]
+    print("FORMATTED: " + dateFormatted)
     recordsDict = {}
     recordList = []
     conn = mysql.connect()
