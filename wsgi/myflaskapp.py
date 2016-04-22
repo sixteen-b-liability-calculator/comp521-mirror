@@ -185,6 +185,9 @@ def queryDB():
 @add_response_headers({'Access-Control-Allow-Origin': 'example.com'})
 def getDateData():
     date = request.get_json()
+    dateString = "" + date[0] + date[1] + date[2]
+    console.log(date)
+    console.log(dateString)
     recordDict = {}
     recordList = []
     conn = mysql.connect()
