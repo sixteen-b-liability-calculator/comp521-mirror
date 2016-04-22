@@ -39,10 +39,22 @@ values (p_cik, p_name, p_LP, p_LIHO );
 END//
 DELIMITER ;
 
-# stored procedure to add a formsDELIMITER //
+# stored procedure to add a forms
+DELIMITER //
 CREATE PROCEDURE add_form(p_cik bigint, p_url varchar(2083), p_date date)
 BEGIN
 insert into forms (cik, url, date )
 values (p_cik, p_url, p_date );
+END//
+DELIMITER ;
+
+# stored procedure to select cik, name, lp, form.date, form.url
+DELIMITER //
+CREATE PROCEDURE getDailyReport(r_date date)
+BEGIN
+select p.cik, p.Name, p.LP, f.url, f.date 
+from person p, forms f
+where p.cik = f.cik && f.date = r_date
+order by p.lp asc;
 END//
 DELIMITER ;
