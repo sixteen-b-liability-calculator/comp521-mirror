@@ -29,12 +29,12 @@
         <!-- End data tables -->
 
         <script>
-        var myData;
         $(function() {
             $( "#tabs" ).tabs({active: 0});
         });
+        var myData;
         $(document).ready( function () {
-            myJson = JSON.stringify($.ajax({
+            $.ajax({
                 url: "/queryDB",
                 type: "GET",
                 success: function(result) {
@@ -59,9 +59,9 @@
                     });
                 },
                 error: function(error) {
-                    alert("fail: " + error);
+                    console.log("fail: " + error);
                 }
-            }));
+            });
         } );
         </script>
 
@@ -633,12 +633,12 @@ March 2015</p>
                 <h2>Database Interface</h2>
                 <p>Just testing the database interface</p>
                 <br>
-                <table id="datatable_date" class="form-group">
-                    <input type="text" size="12" id="secEndDate" class="datepicker">
-                    <button href="#" class="btn btn-default" >
+                <table id="datatable_date" class="form-group" style="width: 100%">
+                    <input type="text" size="12" id="searchDate" class="datepicker">
+                    <button href="#" class="btn btn-default" onclick="refreshDB()">
                     Select Date </button>
                 </table>
-                <br>
+                <br><br><br>
                 <div style="overflow-x:hidden;overflow-y:auto;width:650px">
                     <table id="data_table" class="display">
                         <thead>
