@@ -756,7 +756,7 @@ function refreshDB() {
                 success: function(result) {
                     alert("success");
                     myData = $.map(result['data'], function(el) {
-                        return [[el.cik, el.name, el.lp, el.liho]];
+                        return [[el.cik, el.name, el.lp, el.date, el.url]];
                     });
                     var datatable = $('#data_table').dataTable().api();
                     datatable.clear();
