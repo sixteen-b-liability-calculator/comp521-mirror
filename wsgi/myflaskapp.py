@@ -184,12 +184,12 @@ def queryDB():
 @app.route("/getDateData", methods=['POST'])
 @add_response_headers({'Access-Control-Allow-Origin': 'example.com'})
 def getDateData():
-    console.log(request)
-    console.log(request.data)
+    print(request)
+    print(request.data)
     date = request.get_json()
     dateString = "" + date[0] + date[1] + date[2]
-    console.log(date)
-    console.log(dateString)
+    print(date)
+    print(dateString)
     recordDict = {}
     recordList = []
     conn = mysql.connect()
