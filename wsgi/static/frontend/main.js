@@ -744,14 +744,15 @@ function refreshDB() {
     var searchYear = parseDate(searchDate, "y");
     var searchMonth = parseDate(searchDate, "m");
     var searchDay = parseDate(searchDate, "d");
-    console.log("SEARCH DATE: " + searchDate);
+    var searchArray = [searchYear, searchMonth, searchDay];
+    console.log("SEARCH ARRAY: " + searchArray);
     if (searchDate != "") {
         var myData;
         $(document).ready( function () {
             $.ajax({
                 url: "/getDateData",
                 type: "POST",
-                data: [searchYear, searchMonth, searchDay],
+                data: searchArray,
                 success: function(result) {
                     myData = $.map(result['data'], function(el) {
                         return [[el.cik, el.name, el.lp, el.liho]];
