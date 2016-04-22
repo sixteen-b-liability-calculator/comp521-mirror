@@ -184,42 +184,23 @@ def queryDB():
 @app.route("/refreshDB", methods=['POST'])
 @add_response_headers({'Access-Control-Allow-Origin': 'example.com'})
 def refreshDB():
-    # date = request
     date =  request.form['date'];
-    print("DATE: " + date)
     recordDict = {}
     recordList = []
-    recordDict['cik'] = 904235920
-    recordDict['name'] = "Full Name"
-    recordDict['lp'] = 9000
-    recordDict['url'] = "google.com"
-    recordDict['date'] = "2016-05-21"
-    recordList.append(recordDict)
-    recordsDict = {}
+    conn = mysql.connect()
+    cursor = conn.cursor()
+    query = ("SELECT p.cik, p.name, p.lp, f.url, f.date FROM person p, forms f WHERE f.date == STR_TO_DATE(%s, '%m-%d-%Y')")
+    cursor.execute(query, date)
+    for (p.cik, p.name, p.lp, f.url, f.date) in cursor:
+        recordDict = {}
+        recordDict['cik'] = p.cik
+        recordDict['name'] = p.name
+        recordDict['lp'] = p.lp
+        recordDict['url'] = f.url
+        recordDict['date'] = f.date
+        recordList.append(recordDict)
     recordsDict['data'] = recordList
-    print("inside getDateData")
-    return jsonify(recordDict)
-    # print("REQUEST DATA: " + request.data)
-    # date = request.get_json()
-    # dateString = "" + date[0] + date[1] + date[2]
-    # print("DATE: " + date)
-    # print(dateString)
-    # recordDict = {}
-    # recordList = []
-    # conn = mysql.connect()
-    # cursor = conn.cursor()
-    # query = ("SELECT p.cik, p.name, p.lp, f.url, f.date FROM person p, forms f WHERE f.date == STR_TO_DATE(%s, '%d-%m-%Y')")
-    # cursor.execute(query, date)
-    # for (p.cik, p.name, p.lp, f.url, f.date) in cursor:
-    #     recordDict = {}
-    #     recordDict['cik'] = p.cik
-    #     recordDict['name'] = p.name
-    #     recordDict['lp'] = p.lp
-    #     recordDict['url'] = f.url
-    #     recordDict['date'] = f.date
-    #     recordList.append(recordDict)
-    # recordsDict['data'] = recordList
-    # return jsonify(recordsDict)
+    return jsonify(recordsDict)
 
 if __name__ == "__main__":
     # the reloader would be nice but it doesn't work with subprocesses,
