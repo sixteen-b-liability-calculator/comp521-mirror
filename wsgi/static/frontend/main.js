@@ -753,7 +753,9 @@ function refreshDB() {
                 url: "/getDateData",
                 type: "POST",
                 data: searchArray,
+                dataType: "text",
                 success: function(result) {
+                    alert("success");
                     myData = $.map(result['data'], function(el) {
                         return [[el.cik, el.name, el.lp, el.liho]];
                     });
