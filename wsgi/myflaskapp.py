@@ -186,10 +186,7 @@ def queryDB():
 def refreshDB():
     # date = request
     date =  request.form['date'];
-    if date is None:
-        print("REQUEST IS NULL")
-    else:
-        print("REQUEST IS NOT NULL")
+    print("DATE: " + date)
     recordDict = {}
     recordList = []
     recordDict['cik'] = 904235920
