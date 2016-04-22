@@ -185,6 +185,7 @@ def queryDB():
 @add_response_headers({'Access-Control-Allow-Origin': 'example.com'})
 def getDateData():
     try:
+        console.log(request)
         date = request.get_json()
     except Exception:
         return ("There is an issue with the information sent to the server.  Look at the HTTP POST request to identify the issue", 400, [])
