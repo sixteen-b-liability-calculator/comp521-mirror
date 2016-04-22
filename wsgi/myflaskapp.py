@@ -174,6 +174,7 @@ def queryDB():
     query = ("SELECT p.cik, p.name, p.lp, f.url, f.date FROM person p, forms f WHERE p.cik = f.cik and f.date like %s")
     cursor.execute(query, yesterday)
     for (cik, name, lp, url, date) in cursor:
+        print("***************" + str(cik) + name + str(lp) + str(date))
         recordDict = {}
         recordDict['cik'] = cik
         recordDict['name'] = name
