@@ -739,12 +739,12 @@ function queryDB() {
 }
 
 // reload database with data for selected date
-function refreshDB(date) {
-    if (date != null) {
-        var searchDate = $("#searchDate").val();
-        var searchYear = parseDate(searchDate, "y");
-        var searchMonth = parseDate(searchDate, "m");
-        var searchDay = parseDate(searchDate, "d");
+function refreshDB() {
+    var searchDate = $("#searchDate").val();
+    var searchYear = parseDate(searchDate, "y");
+    var searchMonth = parseDate(searchDate, "m");
+    var searchDay = parseDate(searchDate, "d");
+    if (searchDate != null) {
         var myData;
         $(document).ready( function () {
             $.ajax({
