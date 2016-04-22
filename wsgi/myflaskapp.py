@@ -189,7 +189,7 @@ def refreshDB():
     recordList = []
     conn = mysql.connect()
     cursor = conn.cursor()
-    query = ("SELECT p.cik, p.name, p.lp, f.url, f.date FROM person p, forms f WHERE f.date == STR_TO_DATE(%s, '%m-%d-%Y')")
+    query = ("SELECT p.cik, p.name, p.lp, f.url, f.date FROM person p, forms f WHERE f.date like %s")
     cursor.execute(query, date)
     for (p.cik, p.name, p.lp, f.url, f.date) in cursor:
         recordDict = {}
