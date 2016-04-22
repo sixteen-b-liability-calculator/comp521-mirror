@@ -194,13 +194,13 @@ def refreshDB():
     cursor = conn.cursor()
     query = ("SELECT p.cik, p.name, p.lp, f.url, f.date FROM person p, forms f WHERE f.date like %s")
     cursor.execute(query, dateFormatted)
-    for (p.cik, p.name, p.lp, f.url, f.date) in cursor:
+    for (cik, name, lp, url, date) in cursor:
         recordDict = {}
-        recordDict['cik'] = p.cik
-        recordDict['name'] = p.name
-        recordDict['lp'] = p.lp
-        recordDict['url'] = f.url
-        recordDict['date'] = f.date
+        recordDict['cik'] = cik
+        recordDict['name'] = name
+        recordDict['lp'] = lp
+        recordDict['url'] = url
+        recordDict['date'] = date
         recordList.append(recordDict)
     recordsDict['data'] = recordList
     return jsonify(recordsDict)
