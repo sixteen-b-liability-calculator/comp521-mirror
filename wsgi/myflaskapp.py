@@ -185,7 +185,7 @@ def queryDB():
 @add_response_headers({'Access-Control-Allow-Origin': 'example.com'})
 def getDateData():
     date = request
-    if date == null:
+    if date is None:
         print("REQUEST IS NULL")
     recordDict = {}
     recordList = []
