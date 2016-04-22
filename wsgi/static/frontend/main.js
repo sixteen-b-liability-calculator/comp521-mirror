@@ -745,7 +745,7 @@ function refreshDB() {
     var searchMonth = parseDate(searchDate, "m");
     var searchDay = parseDate(searchDate, "d");
     var searchArray = [searchYear, searchMonth, searchDay];
-    console.log("SEARCH ARRAY: " + searchArray);
+    // console.log("SEARCH ARRAY: " + searchArray);
     if (searchDate != "") {
         var myData;
         $(document).ready( function () {
@@ -754,7 +754,7 @@ function refreshDB() {
                 type: "POST",
                 data: $('form').serialize(),
                 success: function(result) {
-                    alert("success");
+                    // alert("success");
                     myData = $.map(result['data'], function(el) {
                         return [[el.cik, el.name, el.lp, el.date, el.url]];
                     });

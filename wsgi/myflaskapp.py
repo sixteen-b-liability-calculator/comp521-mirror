@@ -191,7 +191,7 @@ def refreshDB():
     date =  request.form['date'];
     # get date in YYYY-MM-DD
     dateFormatted = date[6:10] + "-" + date[0:2] + "-" + date[3:5]
-    print("FORMATTED: " + dateFormatted)
+    # print("FORMATTED: " + dateFormatted)
     recordsDict = {}
     recordList = []
     conn = mysql.connect()
