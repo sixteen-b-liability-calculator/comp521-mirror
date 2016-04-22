@@ -166,17 +166,13 @@ def testDB():
 @app.route("/queryDB", methods=['GET'])
 @add_response_headers({'Access-Control-Allow-Origin': 'example.com'})
 def queryDB():
-    test = datetime.strftime(datetime.now()-timedelta(1),'%Y-%m-%d')
-    print("****** TESTING: " + str(test))
-    yesterday = str(datetime.now())
-    yesterdayFormatted = yesterday[0:10]
-    print("YESTERDAY FORMATTED: " + yesterdayFormatted)
+    yesterday = str(datetime.strftime(datetime.now()-timedelta(1),'%Y-%m-%d'))
     recordsDict = {}
     recordList = []
     conn = mysql.connect()
     cursor = conn.cursor()
     query = ("SELECT p.cik, p.name, p.lp, f.url, f.date FROM person p, forms f WHERE f.date like %s")
-    cursor.execute(query, yesterdayFormatted)
+    cursor.execute(query, yesterday)
     for (cik, name, lp, url, date) in cursor:
         recordDict = {}
         recordDict['cik'] = cik
