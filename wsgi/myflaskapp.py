@@ -167,7 +167,7 @@ def testDB():
 @add_response_headers({'Access-Control-Allow-Origin': 'example.com'})
 def queryDB():
     yesterday = datetime.now()
-    print("TODAY: " + yesterday)
+    print("TODAY: " + str(yesterday))
     personsDict = {}
     personList = []
     conn = mysql.connect()
