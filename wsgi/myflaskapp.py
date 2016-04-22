@@ -181,9 +181,9 @@ def queryDB():
     personsDict['data'] = personList
     return jsonify(personsDict)
 
-@app.route("/getDateData", methods=['POST'])
+@app.route("/refreshDB", methods=['POST'])
 @add_response_headers({'Access-Control-Allow-Origin': 'example.com'})
-def getDateData():
+def refreshDB():
     # date = request
     date =  request.form['date'];
     if date is None:
