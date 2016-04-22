@@ -167,7 +167,7 @@ def testDB():
 @add_response_headers({'Access-Control-Allow-Origin': 'example.com'})
 def queryDB():
     yesterday = datetime.now()
-    yesterdayFormatted = date[0:9]
+    yesterdayFormatted = yesterday[0:9]
     print("YESTERDAY FORMATTED: " + yesterdayFormatted)
     recordsDict = {}
     recordList = []
