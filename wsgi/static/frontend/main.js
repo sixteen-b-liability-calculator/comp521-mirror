@@ -753,7 +753,6 @@ function refreshDB() {
                 url: "/getDateData",
                 type: "POST",
                 data: searchArray,
-                dataType: "text",
                 success: function(result) {
                     alert("success");
                     myData = $.map(result['data'], function(el) {
@@ -782,3 +781,18 @@ function refreshDB() {
         } );
     }
 }
+
+
+
+    $.ajax( "/populateWithCSV",
+        ({type: "POST",
+        data: inputString,
+        contentType: "text/csv",
+        dataType: "json",
+        success: populate,
+        error: function(data) {
+            document.open();
+            document.write(data.responseText);
+            document.close();
+        }
+    }))

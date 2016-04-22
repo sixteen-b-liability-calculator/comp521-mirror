@@ -184,27 +184,28 @@ def queryDB():
 @app.route("/getDateData", methods=['POST'])
 @add_response_headers({'Access-Control-Allow-Origin': 'example.com'})
 def getDateData():
-    print("REQUEST DATA: " + request.data)
-    date = request.get_json()
+    print("inside getDateData")
+    # print("REQUEST DATA: " + request.data)
+    # date = request.get_json()
     # dateString = "" + date[0] + date[1] + date[2]
-    print("DATE: " + date)
+    # print("DATE: " + date)
     # print(dateString)
-    recordDict = {}
-    recordList = []
-    conn = mysql.connect()
-    cursor = conn.cursor()
-    query = ("SELECT p.cik, p.name, p.lp, f.url, f.date FROM person p, forms f WHERE f.date == STR_TO_DATE(%s, '%d-%m-%Y')")
-    cursor.execute(query, date)
-    for (p.cik, p.name, p.lp, f.url, f.date) in cursor:
-        recordDict = {}
-        recordDict['cik'] = p.cik
-        recordDict['name'] = p.name
-        recordDict['lp'] = p.lp
-        recordDict['url'] = f.url
-        recordDict['date'] = f.date
-        recordList.append(recordDict)
-    recordsDict['data'] = recordList
-    return jsonify(recordsDict)
+    # recordDict = {}
+    # recordList = []
+    # conn = mysql.connect()
+    # cursor = conn.cursor()
+    # query = ("SELECT p.cik, p.name, p.lp, f.url, f.date FROM person p, forms f WHERE f.date == STR_TO_DATE(%s, '%d-%m-%Y')")
+    # cursor.execute(query, date)
+    # for (p.cik, p.name, p.lp, f.url, f.date) in cursor:
+    #     recordDict = {}
+    #     recordDict['cik'] = p.cik
+    #     recordDict['name'] = p.name
+    #     recordDict['lp'] = p.lp
+    #     recordDict['url'] = f.url
+    #     recordDict['date'] = f.date
+    #     recordList.append(recordDict)
+    # recordsDict['data'] = recordList
+    # return jsonify(recordsDict)
 
 if __name__ == "__main__":
     # the reloader would be nice but it doesn't work with subprocesses,
