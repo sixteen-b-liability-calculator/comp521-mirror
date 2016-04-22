@@ -185,14 +185,15 @@ def queryDB():
 @add_response_headers({'Access-Control-Allow-Origin': 'example.com'})
 def refreshDB():
     date =  request.form['date'];
-    dateFormatted = date[6:10]
+    # get date in YYYY-MM-DD
+    dateFormatted = date[6:10] + "-" + date[0:1] + "-" + date[3:4]
     print("FORMATTED: " + dateFormatted)
     recordsDict = {}
     recordList = []
     conn = mysql.connect()
     cursor = conn.cursor()
     query = ("SELECT p.cik, p.name, p.lp, f.url, f.date FROM person p, forms f WHERE f.date like %s")
-    cursor.execute(query, date)
+    cursor.execute(query, dateFormatted)
     for (p.cik, p.name, p.lp, f.url, f.date) in cursor:
         recordDict = {}
         recordDict['cik'] = p.cik
