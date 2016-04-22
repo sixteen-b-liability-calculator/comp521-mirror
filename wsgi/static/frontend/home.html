@@ -49,6 +49,9 @@
                         dataPageLength: 25,
                         data: myData,
                         "order": [[ 0, 'asc' ]],
+                        "oLanguage": {
+                            "sEmptyTable":     "No data available for selected date"
+                        },
                         columns: [
                             { title: "CIK" },
                             { title: "Name" },
@@ -641,7 +644,7 @@ March 2015</p>
                 </table>
                 <br><br><br>
                 <div style="width: 100%">
-                    <table id="data_table" class="display" style="clear:both;table-layout:fixed;">
+                    <table id="data_table" class="display">
                         <thead>
                             <tr>
                                 <th style="width: 20%; float: left;">CIK</th>
