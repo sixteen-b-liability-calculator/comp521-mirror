@@ -166,7 +166,7 @@ def testDB():
 @app.route("/queryDB", methods=['GET'])
 @add_response_headers({'Access-Control-Allow-Origin': 'example.com'})
 def queryDB():
-    yesterday = datetime.now()
+    yesterday = str(datetime.now())
     yesterdayFormatted = yesterday[0:9]
     print("YESTERDAY FORMATTED: " + yesterdayFormatted)
     recordsDict = {}
