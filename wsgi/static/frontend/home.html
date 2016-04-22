@@ -634,9 +634,10 @@ March 2015</p>
                 <p>Just testing the database interface</p>
                 <br>
                 <table id="datatable_date" class="form-group" style="width: 100%">
-                    <input type="text" size="12" id="searchDate" class="datepicker">
-                    <button href="#" class="btn btn-default" onclick="refreshDB()">
-                    Select Date </button>
+                    <form action="/getDateData" method="post" role="form">
+                        <input type="text" size="12" id="searchDate" class="datepicker">
+                        <button type="button">Select Date </button>
+                    </form>
                 </table>
                 <br><br><br>
                 <div style="overflow-x:hidden;overflow-y:auto;width:650px">
