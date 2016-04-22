@@ -57,7 +57,6 @@
                             // add other columns
                         ]
                     });
-                    jQuery('.dataTable').wrap('<div style="width:100%; float:left; overflow:auto;" />');
                 },
                 error: function(error) {
                     alert("fail: " + error);
@@ -634,7 +633,7 @@ March 2015</p>
                 <h2>Database Interface</h2>
                 <p>Just testing the database interface</p>
                 <div style="overflow-x:hidden;overflow-y:auto;width:650px">
-                    <table id="data_table" class="display">
+                    <table id="data_table" class="display" style="table-layout:fixed;">
                         <thead>
                             <tr>
                                 <th>CIK</th>
