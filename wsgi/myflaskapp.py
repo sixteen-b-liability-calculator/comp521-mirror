@@ -187,6 +187,8 @@ def getDateData():
     date = request
     if date is None:
         print("REQUEST IS NULL")
+    else:
+        print("REQUEST IS NOT NULL")
     recordDict = {}
     recordList = []
     recordDict['cik'] = 904235920
