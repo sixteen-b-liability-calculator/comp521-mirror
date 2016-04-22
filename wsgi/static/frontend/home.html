@@ -38,8 +38,8 @@
                 url: "/queryDB",
                 type: "GET",
                 success: function(result) {
-                    console.log("result: " + result);
                     myData = $.map(result['data'], function(el) {
+                        console.log("result: " + el.cik);
                         return [[el.cik, el.name, el.lp, el.date, el.url]];
                     });
                     // initalize data table
