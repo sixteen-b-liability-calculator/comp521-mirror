@@ -755,24 +755,24 @@ function refreshDB() {
                 data: $('form').serialize(),
                 success: function(result) {
                     alert("success");
-                    // myData = $.map(result['data'], function(el) {
-                    //     return [[el.cik, el.name, el.lp, el.liho]];
-                    // });
-                    // // initalize data table
-                    // $('#data_table').DataTable({
-                    //     paging: true,
-                    //     scrollY: 400,
-                    //     dataPageLength: 25,
-                    //     data: myData,
-                    //     "order": [[ 0, 'asc' ]],
-                    //     columns: [
-                    //         { title: "CIK" },
-                    //         { title: "Name" },
-                    //         { title: "LP" },
-                    //         { title: "URL" },
-                    //         { title: "Date"}
-                    //     ]
-                    // });
+                    myData = $.map(result['data'], function(el) {
+                        return [[el.cik, el.name, el.lp, el.liho]];
+                    });
+                    // initalize data table
+                    $('#data_table').DataTable({
+                        paging: true,
+                        scrollY: 400,
+                        dataPageLength: 25,
+                        data: myData,
+                        "order": [[ 0, 'asc' ]],
+                        columns: [
+                            { title: "CIK" },
+                            { title: "Name" },
+                            { title: "LP" },
+                            { title: "URL" },
+                            { title: "Date"}
+                        ]
+                    });
                 },
                 error: function(error) {
                     console.log("fail: " + error);
