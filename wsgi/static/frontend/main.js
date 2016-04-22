@@ -740,39 +740,41 @@ function queryDB() {
 
 // reload database with data for selected date
 function refreshDB(date) {
-    var searchDate = $("#searchDate").val();
-    var searchYear = parseDate(searchDate, "y");
-    var searchMonth = parseDate(searchDate, "m");
-    var searchDay = parseDate(searchDate, "d");
-    var myData;
-    $(document).ready( function () {
-        $.ajax({
-            url: "/getDateData",
-            type: "POST",
-            data: [searchYear, searchMonth, searchDay],
-            success: function(result) {
-                myData = $.map(result['data'], function(el) {
-                    return [[el.cik, el.name, el.lp, el.liho]];
-                });
-                // initalize data table
-                $('#data_table').DataTable({
-                    paging: true,
-                    scrollY: 400,
-                    dataPageLength: 25,
-                    data: myData,
-                    "order": [[ 0, 'asc' ]],
-                    columns: [
-                        { title: "CIK" },
-                        { title: "Name" },
-                        { title: "LP" },
-                        { title: "URL" },
-                        { title: "Date"}
-                    ]
-                });
-            },
-            error: function(error) {
-                console.log("fail: " + error);
-            }
-        });
-    } );
+    if (date != null) {
+        var searchDate = $("#searchDate").val();
+        var searchYear = parseDate(searchDate, "y");
+        var searchMonth = parseDate(searchDate, "m");
+        var searchDay = parseDate(searchDate, "d");
+        var myData;
+        $(document).ready( function () {
+            $.ajax({
+                url: "/getDateData",
+                type: "POST",
+                data: [searchYear, searchMonth, searchDay],
+                success: function(result) {
+                    myData = $.map(result['data'], function(el) {
+                        return [[el.cik, el.name, el.lp, el.liho]];
+                    });
+                    // initalize data table
+                    $('#data_table').DataTable({
+                        paging: true,
+                        scrollY: 400,
+                        dataPageLength: 25,
+                        data: myData,
+                        "order": [[ 0, 'asc' ]],
+                        columns: [
+                            { title: "CIK" },
+                            { title: "Name" },
+                            { title: "LP" },
+                            { title: "URL" },
+                            { title: "Date"}
+                        ]
+                    });
+                },
+                error: function(error) {
+                    console.log("fail: " + error);
+                }
+            });
+        } );
+    }
 }
