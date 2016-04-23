@@ -1,4 +1,3 @@
-from myflaskapp import gen_compute_endpoint
 from edgar_api import pull_daily_filings, pull_trades
 from compute import run_problem
 from flask import jsonify
@@ -30,6 +29,7 @@ def generate_daily_report():
         if idx > 3:
             break
         trades = pull_trades(filing['cik'], startYear, startMonth, endYear, endMonth)
+        from myflaskapp import gen_compute_endpoint
         compute_result = gen_compute_endpoint(run_problem, json.dumps(trades))
         filings[idx]['liability'] = compute_result['value']
 
