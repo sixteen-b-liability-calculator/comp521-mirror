@@ -13,7 +13,7 @@ def generate_daily_report():
 
     filings = pull_daily_filings(dateString)
 
-    filings[1]['cik'] = 12345
+    filings[1]['liability'] = 99999
 
     # For each person who filed yesterday, compute new liability estimate
     endYear = yesterday.year
@@ -27,16 +27,16 @@ def generate_daily_report():
         startYear = endYear - 2
         startMonth = endMonth - 6
 
-    # for idx, filing in enumerate(filings):
-    #     if idx > 3:
-    #         break
-    #     trades = pull_trades(filing['cik'], startYear, startMonth, endYear, endMonth)
-    #     from myflaskapp import gen_compute_endpoint
-    #     compute_result = gen_compute_endpoint(run_problem, json.dumps(trades))
-    #     filings[idx]['liability'] = compute_result['value']
-    #
-    #     # also add the filing date while we're at it
-    #     filings[idx]['lastfiling'] = yesterday.strftime('%Y/%m/%d')
+    for idx, filing in enumerate(filings):
+        if idx > 0:
+            break
+        trades = pull_trades(filing['cik'], startYear, startMonth, endYear, endMonth)
+        from myflaskapp import gen_compute_endpoint
+        compute_result = gen_compute_endpoint(run_problem, json.dumps(trades))
+        filings[idx]['liability'] = 9999999#compute_result['value']
+
+        # also add the filing date while we're at it
+        filings[idx]['lastfiling'] = yesterday.strftime('%Y/%m/%d')
 
     # Update entry for each person in the database
 
