@@ -41,11 +41,11 @@ def add_response_headers(headers={}):
 def home_page():
 	return redirect(url_for('static', filename = "/frontend/home.html"), code=302)
 
-def gen_compute_endpoint(runner, trade_json = None):
-    if trade_json is None:
+def gen_compute_endpoint(runner, trades = None):
+    if trades is None:
         input_data = request.get_json(force=False)
     else:
-        input_data = trade_json
+        input_data = trades
 
     if not (isinstance(input_data, dict)
             and isinstance(input_data.get('buys'), list)
