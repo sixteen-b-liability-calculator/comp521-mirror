@@ -13,7 +13,7 @@ def generate_daily_report():
 
     filings = pull_daily_filings(dateString)
 
-    filings[1]['liability'] = 99999
+    filings[0]['liability'] = 99999
 
     # For each person who filed yesterday, compute new liability estimate
     endYear = yesterday.year
