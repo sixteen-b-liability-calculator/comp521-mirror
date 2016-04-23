@@ -91,7 +91,7 @@ def pull_daily_filings(dateString):
         indexFile = pull_edgar_file(ftp, indexDirPath)
         form4URLs = get_all_URLs_from_idx(indexFile, ['4','4/A'])
         for idx, url in enumerate(form4URLs):
-            if idx > 0:
+            if idx > 3:
                 break
             form4File = pull_edgar_file(ftp, url)
             xmlTree = parse_section_4(form4File)
