@@ -31,10 +31,10 @@ def generate_daily_report():
         trades = pull_trades(filing['cik'], startYear, startMonth, endYear, endMonth)
         from myflaskapp import gen_compute_endpoint
         compute_result = gen_compute_endpoint(run_problem, json.dumps(trades))
-        filings[idx]['liability'] = 9999999#compute_result['value']
+        filings[idx]['liability'] = compute_result['value']
 
         # also add the filing date while we're at it
-        filings[idx]['lastfiling'] = yesterday.strftime('%Y/%m/%d')
+        filings[idx]['lastfiling'] = yesterday.strftime('%m/%d/%Y')
 
     # Update entry for each person in the database
 
