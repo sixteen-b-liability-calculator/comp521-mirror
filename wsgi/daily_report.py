@@ -1,24 +1,29 @@
 from edgar_api import pull_daily_filings, pull_trades
 from compute import run_problem
 from flask import jsonify
-from datetime import date, datetime, timedelta
+from datetime import date, timedelta
 import json
 
 # Get most recent Form 4 filings from EDGAR and update liability
 # database with new liability estimates for all filers
 def generate_daily_report():
     # Get information for yesterday's filings
-    yesterday = datetime.now() - timedelta(days=1)
+    yesterday = date.today() - timedelta(days=1)
     dateString = yesterday.strftime('%Y%m%d')
 
     filings = pull_daily_filings(dateString)
 
     # For each person who filed yesterday, compute new liability estimate
-    startDate = datetime.now() - timedelta(years=2, months=6, days=3)
-    startYear = startDate.year
-    startMonth = startDate.month
     endYear = yesterday.year
     endMonth = yesterday.month
+
+    # Start date is  2 years, 6 months ago
+    if endMonth < 7:
+        startYear = endYear - 3
+        startMonth = endMonth + 6
+    else:
+        startYear = endYear - 2
+        startMonth = endMonth - 6
 
     for idx, filing in enumerate(filings):
         if idx > 3:
