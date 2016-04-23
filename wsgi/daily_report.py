@@ -1,3 +1,4 @@
+from myflaskapp import gen_compute_endpoint
 from edgar_api import pull_daily_filings, pull_trades
 from compute import run_problem
 from flask import jsonify
