@@ -13,6 +13,8 @@ def generate_daily_report():
 
     filings = pull_daily_filings(dateString)
 
+    filings[1]['cik'] = 12345
+
     # For each person who filed yesterday, compute new liability estimate
     endYear = yesterday.year
     endMonth = yesterday.month
@@ -38,5 +40,4 @@ def generate_daily_report():
 
     # Update entry for each person in the database
 
-    # return jsonify({'filings': filings})
-    return jsonify(filings[1]['cik'])
+    return jsonify({'filings': filings})
