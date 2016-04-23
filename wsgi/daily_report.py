@@ -31,7 +31,7 @@ def generate_daily_report():
         trades = pull_trades(filing['cik'], startYear, startMonth, endYear, endMonth)
         from myflaskapp import gen_compute_endpoint
         compute_result = gen_compute_endpoint(run_problem, trades)
-        filings[idx]['liability'] = compute_result
+        filings[idx]['liability'] = compute_result['value']
 
         # also add the filing date while we're at it
         filings[idx]['lastfiling'] = yesterday.strftime('%m/%d/%Y')
