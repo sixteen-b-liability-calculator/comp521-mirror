@@ -1,6 +1,7 @@
 from ftplib import FTP
 from flask import request, jsonify
 import xml.etree.ElementTree as ET
+from datetime import datetime, date
 import tempfile
 import re
 import gzip
