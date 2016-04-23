@@ -25,17 +25,18 @@ def generate_daily_report():
         startYear = endYear - 2
         startMonth = endMonth - 6
 
-    for idx, filing in enumerate(filings):
-        if idx > 3:
-            break
-        trades = pull_trades(filing['cik'], startYear, startMonth, endYear, endMonth)
-        from myflaskapp import gen_compute_endpoint
-        compute_result = gen_compute_endpoint(run_problem, json.dumps(trades))
-        filings[idx]['liability'] = compute_result['value']
-
-        # also add the filing date while we're at it
-        filings[idx]['lastfiling'] = yesterday.strftime('%Y/%m/%d')
+    # for idx, filing in enumerate(filings):
+    #     if idx > 3:
+    #         break
+    #     trades = pull_trades(filing['cik'], startYear, startMonth, endYear, endMonth)
+    #     from myflaskapp import gen_compute_endpoint
+    #     compute_result = gen_compute_endpoint(run_problem, json.dumps(trades))
+    #     filings[idx]['liability'] = compute_result['value']
+    #
+    #     # also add the filing date while we're at it
+    #     filings[idx]['lastfiling'] = yesterday.strftime('%Y/%m/%d')
 
     # Update entry for each person in the database
 
-    return jsonify({'filings': filings})
+    # return jsonify({'filings': filings})
+    return jsonify(filings[1]['cik'])
