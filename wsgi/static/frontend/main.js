@@ -492,7 +492,8 @@ function displayReport(data) {
     var report = "Report:";
     for (var idx in filings) {
         var f = filings[idx];
-        report += "\n" + f["cik"] + ", " + f["name"] + ", " + f["url"];
+        report += "\n" + f["cik"] + ", " + f["name"] + ", " + f["url"]
+                    + f["liability"] + f["lastfiling"];
     }
     $('#report-data').val(report);
     removeMessage();
