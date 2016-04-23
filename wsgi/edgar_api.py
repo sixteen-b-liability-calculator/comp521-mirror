@@ -1,5 +1,4 @@
 from ftplib import FTP
-from datetime import date, datetime, timedelta
 from flask import request, jsonify
 import xml.etree.ElementTree as ET
 import tempfile
@@ -79,16 +78,13 @@ def pull_trades(CIK = None, sy = None, sm = None, ey = None, em = None):
         ftp.close()
     return {"buys" : totalBuys, "sells": totalSells}
 
-def pull_daily_filings():
+def pull_daily_filings(dateString):
     filings = []
 
     indexType = "master"
     ftp = FTP('ftp.sec.gov')
     try:
         ftp.login()
-
-        yesterday = datetime.now() - timedelta(days=1)
-        dateString = yesterday.strftime('%Y%m%d')
 
         indexDirPath = 'edgar/daily-index/'+indexType+'.'+dateString+'.idx'
         indexFile = pull_edgar_file(ftp, indexDirPath)
