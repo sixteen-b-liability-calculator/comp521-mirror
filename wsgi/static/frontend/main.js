@@ -29,7 +29,12 @@ $(document).ready( function () {
                     { title: "Name" },
                     { title: "LP liability" },
                     { title: "Date of most recent form 4/4A" },
-                    { title: "URL of most recent form 4/4A"}
+                    { title: "URL of most recent form 4/4A",
+                        "fnRender": function(obj) {
+                            var sReturn = obj.data[4];
+                            return "<a href='"+sReturn+"' target='_Blank'>"+ obj.data[4]+"</a>";
+                        }   
+                    }
                 ]
             });
         },
