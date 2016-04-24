@@ -11,6 +11,7 @@ $(document).ready( function () {
         type: "GET",
         success: function(result) {
             myData = $.map(result['data'], function(el) {
+                console.log(el.url);
                 return [[el.cik, el.name, el.lp, el.date, el.url]];
             });
             console.log("myData: " + myData);
