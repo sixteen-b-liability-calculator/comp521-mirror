@@ -29,11 +29,7 @@ $(document).ready( function () {
                     { title: "Name" },
                     { title: "LP liability" },
                     { title: "Date of most recent form 4/4A" },
-                    { title: "URL of most recent form 4/4A",
-                        "fnCreatedCell": function (nTd, sData, oData, iRow, iCol) {
-                            $(nTd).html("<a href='"+oData.url+"'>"+oData.url+"</a>");
-                        }
-                    }
+                    { title: "URL of most recent form 4/4A"}
                 ]
             });
         },
