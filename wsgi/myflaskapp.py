@@ -1,6 +1,6 @@
 from flask import Flask, jsonify, request, json, redirect, url_for, make_response
 from flask_mail import Message, Mail
-from flask.ext.mysql import MySQL
+from flaskext.mysql import MySQL
 import sys
 import os
 from pyomo import *
