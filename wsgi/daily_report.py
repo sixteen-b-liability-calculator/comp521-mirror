@@ -9,15 +9,16 @@ import json
 # database with new liability estimates for all filers
 def generate_daily_report(inputDate):
 
-    # connect to mysql
-    conn = mysql.connect()
-    cursor = conn.cursor()
-
     # Get information for yesterday's filings
     filings = []
 
     reportDate = datetime.strptime(inputDate, "%m/%d/%Y")
     if reportDate.weekday() < 5:
+
+        # connect to mysql
+        conn = mysql.connect()
+        cursor = conn.cursor()
+
         dateString = reportDate.strftime('%Y%m%d')
         filings = pull_daily_filings(dateString)
 
@@ -50,9 +51,12 @@ def generate_daily_report(inputDate):
             date = filings[idx]['lastfiling']
             dateString = date[6:10] + "-" + date[0:2] + "-" + date[3:5]
             url = filings[idx]['url']
+            print("******************  CIK: " + cik + " Name: " + name)
             cursor.callproc('add_person', (cik, name, liability))
             cursor.callproc('add_form', (cik, url, dateString))
+            conn.commit()
             
+        # close mysql connection
         cursor.close() 
         conn.close()  
 
