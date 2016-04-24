@@ -13,7 +13,7 @@ $(document).ready( function () {
             myData = $.map(result['data'], function(el) {
                 return [[el.cik, el.name, el.lp, el.date, el.url]];
             });
-            // console.log("myData: " + myData);
+            console.log("myData: " + myData);
             // initalize data table
             $('#data_table').DataTable({
                 paging: true,
@@ -31,7 +31,7 @@ $(document).ready( function () {
                     { title: "Date of most recent form 4/4A" },
                     { title: "URL of most recent form 4/4A",
                         "fnCreatedCell": function (nTd, sData, oData, iRow, iCol) {
-                            $(nTd).html("<a href='tel:"+oData.url+"'>"+oData.url+"</a>");
+                            $(nTd).html("<a href='"+oData.url+"'>"+oData.url+"</a>");
                         }
                     }
                 ]
