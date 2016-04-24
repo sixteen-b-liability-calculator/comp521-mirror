@@ -359,7 +359,7 @@ function inputToJSON(url){
     $.ajax( url,
 	({type: "POST",
 	    //data: $.toJSON({ "buy": purchases, "sell": sales, "stella_correction": stella, "jammies_correction": jammies, "recipient": email }),
-        data: $.toJSON({ "buy": purchases, "sell": sales, "stella_correction": stella, "jammies_correction": jammies}),
+        data: $.toJSON({ "buys": purchases, "sells": sales, "stella_correction": stella, "jammies_correction": jammies}),
 	    contentType: "application/json",
         dataType: "json",
 	    success: printOutput,
@@ -489,27 +489,29 @@ function pullSEC(){
 
     var secJSON = '{ "startYear":'+secStartYear+',"startMonth":'+secStartMonth+',"endYear":'+secEndYear+',"endMonth":'+secEndMonth+',"cik": "'+secCIK+'"}';
 
-    $.ajax( "/pullSEC",
-        ({type: "POST",
-        data: secJSON,
-        contentType: "application/json",
-        dataType: "json",
-        success: [populate, removeMessage],
-        error: function(data) {
-            document.open();
-            document.write(data.responseText);
-            document.close();
-        }
-    }));
+    if (secCIK && secCIK != "") {
+        $.ajax( "/pullSEC",
+            ({type: "POST",
+            data: secJSON,
+            contentType: "application/json",
+            dataType: "json",
+            success: [populate, removeMessage],
+            error: function(data) {
+                document.open();
+                document.write(data.responseText);
+                document.close();
+            }
+        }));
+    }
 }
 
 // proof-of-concept for Daily Report. Pulls CIKs for daily Form 4 filings.
-function pullDailyCIK() {
-    $.ajax( "/pullDailyCIK",
+function pullDailyReport() {
+    $.ajax( "/pullDailyReport",
         ({type: "GET",
         contentType: "application/json",
         dataType: "json",
-        success: [displayCIK, removeMessage],
+        success: [displayReport, removeMessage],
         error: function(data) {
             document.open();
             document.write(data.responseText);
@@ -518,8 +520,15 @@ function pullDailyCIK() {
     }));
 }
 
-function displayCIK(data) {
-    $('#cik-data').val(data["CIKs"]);
+function displayReport(data) {
+    var filings = data["filings"];
+    var report = "Report:";
+    for (var idx in filings) {
+        var f = filings[idx];
+        report += "\n" + f["cik"] + ", " + f["name"] + ", " + f["url"] + ", "
+                    + f["liability"] + ", "+ f["lastfiling"];
+    }
+    $('#report-data').val(report);
     removeMessage();
 }
 
