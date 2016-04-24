@@ -116,7 +116,8 @@ def pullSEC():
 @app.route("/pullDailyReport", methods=['GET'])
 @add_response_headers({'Access-Control-Allow-Origin': 'example.com'})
 def pullDailyReport():
-    return generate_daily_report()
+    filings = generate_daily_report("01/04/2016")
+    return jsonify(filings)
 
 @app.route("/populateWithCSV", methods=['POST'])
 @add_response_headers({'Access-Control-Allow-Origin': 'example.com'})
