@@ -5,6 +5,40 @@ var total_purchases_entered = 0;
 var total_sales_entered = 0;
 
 
+$(document).ready( function () {
+    $.ajax({
+        url: "/queryDB",
+        type: "GET",
+        success: function(result) {
+            myData = $.map(result['data'], function(el) {
+                return [[el.cik, el.name, el.lp, el.date, el.url]];
+            });
+            // console.log("myData: " + myData);
+            // initalize data table
+            $('#data_table').DataTable({
+                paging: true,
+                scrollY: 400,
+                dataPageLength: 25,
+                data: myData,
+                "order": [[ 0, 'asc' ]],
+                "oLanguage": {
+                    "sEmptyTable":     "No data available for selected date"
+                },
+                columns: [
+                    { title: "CIK" },
+                    { title: "Name" },
+                    { title: "LP liability" },
+                    { title: "Date of most recent form 4/4A" },
+                    { title: "URL of most recent form 4/4A"}
+                ]
+            });
+        },
+        error: function(error) {
+            console.log("fail: " + error);
+        }
+    });
+} );
+
 // Removes row of data
 function removePSRow(button){
 
