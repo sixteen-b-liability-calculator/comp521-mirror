@@ -30,13 +30,11 @@ $(document).ready( function () {
                     { title: "LP liability" },
                     { title: "Date of most recent form 4/4A" },
                     { title: "URL of most recent form 4/4A",
-                        "fnRender": function(obj) {
-                            var sReturn = obj.data[4];
-                            console.log("sReturn: " + sReturn);
-                            return "<a href='"+sReturn+"' target='_Blank'>"+ obj.data[4]+"</a>";
-                        }   
+                        "fnCreatedCell": function (nTd, sData, oData, iRow, iCol) {
+                            $(nTd).html("<a href='"+oData[4]+"'>Link to filing</a>");
+                        }
                     }
-                ]
+                ],
             });
         },
         error: function(error) {
