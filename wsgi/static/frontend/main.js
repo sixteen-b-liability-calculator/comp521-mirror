@@ -241,6 +241,9 @@ function firstLoad(){
     $('#secEndDate').datepicker("setDate",'0');
     $('#secStartDate').datepicker("setDate",setStartDate());
 
+    // Sets yesterday as the default search date
+    $('#searchDate').datepicker("setDate", -1);
+
     // Sets the Event listener for the CSV upload.
     $("#csv-file").change(populateWithCSVFile);
 }
