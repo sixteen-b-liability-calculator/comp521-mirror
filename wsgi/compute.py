@@ -306,31 +306,4 @@ def run_greedy(purchases, sales, stella_correction, jammies_correction):
 
     return ret
 
-@app.route('/')
-def indexPage():
-
-     # generate matplotlib plot
-     fig = plt.figure(figsize=(5,4),dpi=100)
-     axes = fig.add_subplot(1,1,1)
-     # plot the data
-     axes.plot(x,y,'-')
-     # labels
-     axes.set_xlabel('time')
-     axes.set_ylabel('size')
-     axes.set_title("A matplotlib plot")
-     # make the temporary file
-     f = tempfile.NamedTemporaryFile(
-     dir='tempFiles/plots',
-     suffix='.png',delete=False)
-     # save the figure to the temporary file
-     plt.savefig(f)
-     f.close() # close the file
-     # get the file's name
-     # (the template will need that)
-     plotPng = f.name.split('/')[-1]
-     return(render_template(
-     'static/frontend/home.html',
-     y=y,
-     figJS=figJS,figDiv=figDiv,
-     plotPng=plotPng))
 
