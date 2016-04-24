@@ -4,7 +4,40 @@ var undo_s_stack = [];
 var total_purchases_entered = 0;
 var total_sales_entered = 0;
 
-
+// on initial page load, pull data into DataTables
+$(document).ready( function () {
+    $.ajax({
+        url: "/queryDB",
+        type: "GET",
+        success: function(result) {
+            myData = $.map(result['data'], function(el) {
+                return [[el.cik, el.name, el.lp, el.date, el.url]];
+            });
+            // console.log("myData: " + myData);
+            // initalize data table
+            $('#data_table').DataTable({
+                paging: true,
+                scrollY: 400,
+                dataPageLength: 25,
+                data: myData,
+                "order": [[ 0, 'asc' ]],
+                "oLanguage": {
+                    "sEmptyTable":     "No data available for selected date"
+                },
+                columns: [
+                    { title: "CIK" },
+                    { title: "Name" },
+                    { title: "LP liability" },
+                    { title: "Date of most recent form 4/4A" },
+                    { title: "URL of most recent form 4/4A"}
+                ]
+            });
+        },
+        error: function(error) {
+            console.log("fail: " + error);
+        }
+    });
+} );
 
 // Removes row of data
 function removePSRow(button){
@@ -326,7 +359,7 @@ function inputToJSON(url){
     $.ajax( url,
 	({type: "POST",
 	    //data: $.toJSON({ "buy": purchases, "sell": sales, "stella_correction": stella, "jammies_correction": jammies, "recipient": email }),
-        data: $.toJSON({ "buy": purchases, "sell": sales, "stella_correction": stella, "jammies_correction": jammies}),
+        data: $.toJSON({ "buys": purchases, "sells": sales, "stella_correction": stella, "jammies_correction": jammies}),
 	    contentType: "application/json",
         dataType: "json",
 	    success: printOutput,
@@ -434,7 +467,7 @@ function printOutput(data){
 
 // Alert the user that EDGAR search is happening
 function searchMessage() {
-    $("#searchButton").append("<h3 id=\"searching\">Searching EDGAR database... This may take a couple minutes.</h3>");
+    $(".searchButton").append("<h3 id=\"searching\">Searching EDGAR database... This may take a couple minutes.</h3>");
 }
 
 function removeMessage() {
@@ -456,18 +489,47 @@ function pullSEC(){
 
     var secJSON = '{ "startYear":'+secStartYear+',"startMonth":'+secStartMonth+',"endYear":'+secEndYear+',"endMonth":'+secEndMonth+',"cik": "'+secCIK+'"}';
 
-    $.ajax( "/pullSEC",
-        ({type: "POST",
-        data: secJSON,
+    if (secCIK && secCIK != "") {
+        $.ajax( "/pullSEC",
+            ({type: "POST",
+            data: secJSON,
+            contentType: "application/json",
+            dataType: "json",
+            success: [populate, removeMessage],
+            error: function(data) {
+                document.open();
+                document.write(data.responseText);
+                document.close();
+            }
+        }));
+    }
+}
+
+// proof-of-concept for Daily Report. Pulls CIKs for daily Form 4 filings.
+function pullDailyReport() {
+    $.ajax( "/pullDailyReport",
+        ({type: "GET",
         contentType: "application/json",
         dataType: "json",
-        success: [populate, removeMessage],
+        success: [displayReport, removeMessage],
         error: function(data) {
             document.open();
             document.write(data.responseText);
             document.close();
         }
     }));
+}
+
+function displayReport(data) {
+    var filings = data["filings"];
+    var report = "Report:";
+    for (var idx in filings) {
+        var f = filings[idx];
+        report += "\n" + f["cik"] + ", " + f["name"] + ", " + f["url"] + ", "
+                    + f["liability"] + ", "+ f["lastfiling"];
+    }
+    $('#report-data').val(report);
+    removeMessage();
 }
 
 // Takes predetermined example data and populates Acquisitions and Disposals tables
@@ -679,4 +741,75 @@ function clearInputTab() {
     document.getElementById('undo-purchases').disabled = true;
     document.getElementById('undo-sales').disabled = true;
 
+}
+
+// test databse connection
+function testDatabase() {
+    // debug (test that form draws data correctly)
+    console.log($('form').serialize());
+    // send data through ajax calll
+    $.ajax({
+        url: "/testDB",
+        data: $('form').serialize(),
+        dataType: "text",
+        type: "POST",
+        success: function(result) {
+            console.log(result);
+            alert("success" + result);
+            // alert(response);
+        },
+        error: function(error) {
+            // console.log(error);
+            alert("fail: " + error);
+        }
+    });
+}
+
+// query database
+function queryDB() {
+    // get data through ajax calll
+    $.ajax({
+        url: "/queryDB",
+        type: "GET",
+        success: function(result) {
+            console.log(result);
+            alert("success" + result);
+        },
+        error: function(error) {
+            alert("fail: " + error);
+        }
+    });
+}
+
+// reload database with data for selected date
+function refreshDB() {
+    var searchDate = $("#searchDate").val();
+    var searchYear = parseDate(searchDate, "y");
+    var searchMonth = parseDate(searchDate, "m");
+    var searchDay = parseDate(searchDate, "d");
+    var searchArray = [searchYear, searchMonth, searchDay];
+    // console.log("SEARCH ARRAY: " + searchArray);
+    if (searchDate != "") {
+        var myData;
+        $(document).ready( function () {
+            $.ajax({
+                url: "/refreshDB",
+                type: "POST",
+                data: $('form').serialize(),
+                success: function(result) {
+                    // alert("success");
+                    myData = $.map(result['data'], function(el) {
+                        return [[el.cik, el.name, el.lp, el.date, el.url]];
+                    });
+                    var datatable = $('#data_table').dataTable().api();
+                    datatable.clear();
+                    datatable.rows.add(myData);
+                    datatable.draw();
+                },
+                error: function(error) {
+                    console.log("fail: " + error);
+                }
+            });
+        } );
+    }
 }
