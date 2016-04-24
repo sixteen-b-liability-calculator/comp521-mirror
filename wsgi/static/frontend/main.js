@@ -11,10 +11,9 @@ $(document).ready( function () {
         type: "GET",
         success: function(result) {
             myData = $.map(result['data'], function(el) {
-                console.log(el.url);
                 return [[el.cik, el.name, el.lp, el.date, el.url]];
             });
-            console.log("myData: " + myData);
+            // console.log("myData: " + myData);
             // initalize data table
             $('#data_table').DataTable({
                 paging: true,
