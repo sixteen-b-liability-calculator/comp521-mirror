@@ -418,10 +418,10 @@ March 2015</p>
             Upload CSV Data</a></li>
           <li role="presentation"><a href="#sec" role="tab" data-toggle="tab">
             EDGAR Search</a></li>
-          <li role="presentation"><a href="#db_interface" role="tab" data-toggle="tab">
-            DB Interface</a></li>
-          <li role="presentation"><a href="#daily" role="tab" data-toggle="tab">
+          <li role="presentation"><a href="#report" role="tab" data-toggle="tab">
             Daily Report</a></li>
+          <li role="presentation"><a href="#daily" role="tab" data-toggle="tab">
+            Report Test</a></li>
         </ul>
 
         <!-- Beginning of tab pane -->
@@ -567,40 +567,14 @@ March 2015</p>
                     Search EDGAR </button>
                 </div>
 
-                <!-- TESTING ADDING TO DATABASE -->
-                <div class="jumbotron">
-                    <h1>Add person to database</h1>
-                    <form class="form-signin">
-                    <label for="inputCIK" class="sr-only">CIK</label>
-                    <input type="number" name="inputCIK" id="inputCIK" class="form-control" placeholder="CIK" required autofocus>
-                    <label for="inputName" class="sr-only">Name</label>
-                    <input type="name" name="inputName" id="inputName" class="form-control" placeholder="Full Name" required autofocus>
-                    <label for="inputLP" class="sr-only">LP</label>
-                    <input type="number" name="inputLP" id="inputLP" class="form-control" placeholder="LP Value" required>
-                    <label for="inputLIHO" class="sr-only">LP</label>
-                    <input type="number" name="inputLIHO" id="inputLIHO" class="form-control" placeholder="LIHO Value" required>
-                    
-                    <button id="btnSubmit" class="btn btn-lg btn-primary btn-block" type="button" onclick="testDatabase()">Submit</button>
-                    </form>
-                </div>
-                <!-- DONE TESTING ADDING TO DATABASE -->
-
-                <!-- TESTING SELECT FROM DATABASE -->
-                <div class="jumbotron">
-                    <h1>Query the Database (for testing)</h1>
-                    <button id="selectFromDB" class="btn btn-lg btn-primary btn-block" type="button" onclick="queryDB()">Query Database</button>
-                </div>
-                <!-- DONE TESTING SELECT FROM DATABASE -->
-
-
             </div>
         </div>
 
         <!-- tab 5: Database Interface -->
-        <div role="tabpanel" class="tab-pane fade" id="db_interface">
+        <div role="tabpanel" class="tab-pane fade" id="report">
             <div class="indent">
-                <h2>Database Interface</h2>
-                <p>Just testing the database interface</p>
+                <h2>Daily EDGAR Report</h2>
+                <p>This database compiles liability reports from the SEC's EDGAR System on Forms 4 and 5.  The database is updated daily with data from recent form filings.  The database defaults to display reports from the previous day, however you can look up reports from different days by entering a date into the search bar and pressing "Select Date".</p>
                 <br>
                 <table id="datatable_date" class="form-group" style="width: 100%">
                     <form action="/getDateData" method="post" role="form">
@@ -616,8 +590,8 @@ March 2015</p>
                                 <th style="width: 20%;" id="cik-header">CIK</th>
                                 <th style="width: 20%;">Name</th>
                                 <th style="width: 20%;">LP</th>
-                                <th style="width: 20%;">Date of most recent form 4/4A</th>
-                                <th style="width: 20%;">URL of most recent form 4/4A</th>
+                                <th style="width: 20%;">Date of most recent form</th>
+                                <th style="width: 20%;">URL of most recent form</th>
                             </tr>
                         </thead>
                         <tbody>
