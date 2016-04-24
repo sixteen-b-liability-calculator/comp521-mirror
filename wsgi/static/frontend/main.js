@@ -25,11 +25,11 @@ $(document).ready( function () {
                     "sEmptyTable":     "No data available for selected date"
                 },
                 columns: [
-                    { title: "CIK" },
-                    { title: "Name" },
-                    { title: "LP liability" },
-                    { title: "Date of most recent form 4/4A" },
-                    { title: "URL of most recent form 4/4A"}
+                    { "data": "CIK" },
+                    { "data": "Name" },
+                    { "data": "LP liability" },
+                    { "data": "Date of most recent form 4/4A" },
+                    { "data": "URL of most recent form 4/4A"}
                 ]
             });
         },
