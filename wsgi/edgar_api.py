@@ -1,7 +1,7 @@
 from ftplib import FTP
-from datetime import datetime
 from flask import request, jsonify
 import xml.etree.ElementTree as ET
+from datetime import datetime, date
 import tempfile
 import re
 import gzip
@@ -12,20 +12,26 @@ from aux_code.dateFunctions import *
 def homepage():
     return ("Whoopsie", 400, [])
 
-def pull_trades():
-    try:
-        input_data = request.get_json()
-    except Exception:
-        return ("There is an issue with the information sent to the server.  Look at the HTTP POST request to identify the issue", 400, [])
-    
-# Leading zeros for the cik are removed.
-    cik = int(input_data.get('cik'))
+def pull_trades(CIK = None, sy = None, sm = None, ey = None, em = None):
+    if CIK is None:
+        try:
+            input_data = request.get_json()
+        except Exception:
+            return ("There is an issue with the information sent to the server.  Look at the HTTP POST request to identify the issue", 400, [])
 
-    startYear = input_data.get('startYear')
-    startMonth = input_data.get('startMonth')
-    endYear = input_data.get('endYear')
-    endMonth = input_data.get('endMonth')
+        # Leading zeros for the cik are removed.
+        cik = int(input_data.get('cik'))
 
+        startYear = input_data.get('startYear')
+        startMonth = input_data.get('startMonth')
+        endYear = input_data.get('endYear')
+        endMonth = input_data.get('endMonth')
+    else:
+        cik = CIK
+        startYear = sy
+        startMonth = sm
+        endYear = ey
+        endMonth = em
 
     startQuarter = month2quarter(startMonth)
     endQuarter = month2quarter(endMonth)
@@ -42,13 +48,13 @@ def pull_trades():
     ftp = FTP('ftp.sec.gov')
     totalBuys = []
     totalSells = []
-    try: 
+    try:
         ftp.login()
         while (isStartBeforeEnd(year, quarter, endYear, endQuarter) == ""):
             indexDirPath = 'edgar/full-index/'+str(year)+'/QTR'+str(quarter)+'/'+indexType+'.gz'
             binaryIndexFile = pull_edgar_file(ftp, indexDirPath)
             indexFile = ungzip_tempfile(binaryIndexFile)
-            edgarFileURLs = parse_idx(indexFile, cik, ['4','4/A']) # TODO(valakuzh) allow specification of types of documents
+            edgarFileURLs = get_URLs_for_CIK(indexFile, cik, ['4','4/A']) # TODO(valakuzh) allow specification of types of documents
             for url in edgarFileURLs:
                 fileTrades = pull_edgar_file(ftp, url)
                 xmlTree = parse_section_4(fileTrades)
@@ -69,11 +75,34 @@ def pull_trades():
 
     except FivehundredException as e:
         return (e.msg, 504, [])
-#    except Exception:
-#        return ("Edgar error", 504, [])
     finally:
         ftp.close()
-    return jsonify({"buys" : totalBuys, "sells": totalSells})
+    return {"buys" : totalBuys, "sells": totalSells}
+
+def pull_daily_filings(dateString):
+    filings = []
+
+    indexType = "master"
+    ftp = FTP('ftp.sec.gov')
+    try:
+        ftp.login()
+
+        indexDirPath = 'edgar/daily-index/'+indexType+'.'+dateString+'.idx'
+        indexFile = pull_edgar_file(ftp, indexDirPath)
+        form4URLs = get_all_URLs_from_idx(indexFile, ['4','4/A'])
+        for idx, url in enumerate(form4URLs):
+            if idx > 0:
+                break
+            form4File = pull_edgar_file(ftp, url)
+            xmlTree = parse_section_4(form4File)
+            cik, name, filingURL = return_owner_information_from_xml(xmlTree, url)
+            filings.append({'cik': cik, 'name': name, 'url': filingURL})
+
+    except FivehundredException as e:
+        return (e.msg, 504, [])
+    finally:
+        ftp.close()
+    return filings
 
 # Function in order to retrieve an index from the edgar database
 # Assumes the ftp channel has been opened already
@@ -103,7 +132,7 @@ def ungzip_tempfile(fileobj):
     fileobj.seek(0)
     return gzip.GzipFile("", fileobj=fileobj, mode='r')
 
-def parse_idx(fileobj, target_cik, form_types):
+def get_URLs_for_CIK(fileobj, target_cik, form_types):
     out = []
     found_start = False
     for line in fileobj:
@@ -120,9 +149,26 @@ def parse_idx(fileobj, target_cik, form_types):
         raise Exception("could not find start line in EDGAR idx")
     return out
 
+def get_all_URLs_from_idx(fileobj, form_types):
+    out = []
+    found_start = False
+    for line in fileobj:
+        if found_start: # i.e., we're looking at real entries now
+            m = parse_idx_entry.match(line.strip())
+            if not m:
+                # we expect to be able to parse every line after the start
+                raise Exception("could not parse line from EDGAR idx:", line)
+            if m.group(2) in form_types:
+                out.append(m.group(3))
+        elif parse_idx_start.match(line.strip()):
+            found_start = True
+    if not found_start:
+        raise Exception("could not find start line in EDGAR idx")
+    return out
+
 # Parses a file containing text from the edgar database.  Returns a tree containing
 # all the information that you need
-# N.B. Assumes that the file contains valid xml within <XML> tags  
+# N.B. Assumes that the file contains valid xml within <XML> tags
 def parse_section_4(inputFile):
     # Find the beginning of the xml in the file
     while not inputFile.readline().startswith('<XML'):
@@ -130,14 +176,14 @@ def parse_section_4(inputFile):
 
     # Start writing these lines into a separate file in order to remove lines at the bottom
     xmlFile = tempfile.TemporaryFile()
-    
+
     while True:
         line = inputFile.readline()
         if line.startswith('</XML'):
             break
         else:
             xmlFile.write(line)
-    inputFile.close() 
+    inputFile.close()
     # Turn the file into a tree structure
     xmlFile.seek(0)
     tree = ET.parse(xmlFile)
@@ -146,7 +192,7 @@ def parse_section_4(inputFile):
 
 parse_url = re.compile(r''' edgar/data/
                             ( [0-9]  + )  /                    # CIK
-                            ( [0-9-] + )\.txt ''', re.VERBOSE) # docno 
+                            ( [0-9-] + )\.txt ''', re.VERBOSE) # docno
 # Parses the tree to gain the information needed to return the proper object
 # Right now : only includes non-derivative transactions
 def return_trade_information_from_xml(tree, url):
@@ -185,3 +231,23 @@ def return_trade_information_from_xml(tree, url):
         elif (BuyOrSell == 'A'): # Implies buy
             buy.append(newTrade)
     return [buy,sell]
+
+def return_owner_information_from_xml(tree, url):
+    cik = 0
+    name = ""
+    filingURLVal = url
+    for node in tree.iter('reportingOwnerId'):
+        try:
+            cik = int(node.find('.//rptOwnerCik').text)
+            name = node.find('.//rptOwnerName').text
+            url_match = parse_url.match(url)
+            if url_match:
+                filingURLVal = ("http://www.sec.gov/Archives/edgar/data/" + url_match.group(1)
+                                 + "/" + url_match.group(2).replace('-', '') + "/"
+                                 + url_match.group(2) + "-index.htm")
+            else:
+                filingURLVal = "ftp://ftp.sec.gov/" + url
+        except Exception:
+            continue
+
+    return (cik,name,filingURLVal)

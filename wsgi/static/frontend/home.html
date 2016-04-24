@@ -24,6 +24,11 @@
 
         <script src="//code.jquery.com/ui/1.11.2/jquery-ui.js"></script> <!-- Added for datepicker -->
 
+        <!-- Data Tables -->
+        <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/t/dt/dt-1.10.11,b-1.1.2/datatables.min.css"/>
+        <script type="text/javascript" src="https://cdn.datatables.net/t/dt/dt-1.10.11,b-1.1.2/datatables.min.js"></script>
+        <!-- End data tables -->
+
         <script>
         $(function() {
             $( "#tabs" ).tabs({active: 0});
@@ -406,12 +411,18 @@ March 2015</p>
         <!-- Nav tabs / Header -->
     <div id = "tabs">
         <ul id="myTabs" class="nav nav-tabs" role="tablist">
-          <li role="presentation" class="active"><a href="#input" role="tab" data-toggle="tab">Input</a></li>
-          <li role="presentation"><a href="#output" role="tab" data-toggle="tab">Output</a></li>
-          <li role="presentation"><a href="#csv" role="tab" data-toggle="tab">Upload
-            CSV Data</a></li>
+          <li role="presentation" class="active"><a href="#input" role="tab" data-toggle="tab">
+            Input</a></li>
+          <li role="presentation"><a href="#output" role="tab" data-toggle="tab">
+            Output</a></li>
+          <li role="presentation"><a href="#csv" role="tab" data-toggle="tab">
+            Upload CSV Data</a></li>
           <li role="presentation"><a href="#sec" role="tab" data-toggle="tab">
             EDGAR Search</a></li>
+          <li role="presentation"><a href="#report" role="tab" data-toggle="tab">
+            Daily Report</a></li>
+          <li role="presentation"><a href="#daily" role="tab" data-toggle="tab">
+            Report Test</a></li>
         </ul>
 
         <!-- Beginning of tab pane -->
@@ -489,7 +500,6 @@ March 2015</p>
                 </table>
 
                 <button id="downloadOutput" onclick="downloadOutput()" type="button" disabled>Download Output</button>
-
             </div>
         </div>
 
@@ -553,13 +563,60 @@ March 2015</p>
                         </tr>
                     </table>
                 </div>
-                <div id="searchButton" style="padding-top:10px">
+                <div class="searchButton" style="padding-top:10px">
                     <button href="#" class="btn btn-default" onmousedown="searchMessage()" onclick="pullSEC()">
                     Search EDGAR </button>
                 </div>
+
             </div>
         </div>
-    </div>
+
+        <!-- tab 5: Daily Report -->
+        <div role="tabpanel" class="tab-pane fade" id="report">
+            <div class="indent">
+                <h2>Daily EDGAR Report</h2>
+                <p>This database compiles liability reports from the SEC's EDGAR System on Forms 4 and 5.  The database is updated daily with data from recent form filings.  The database defaults to display reports from the previous day, however you can look up reports from different days by entering a date into the search bar and pressing "Select Date".</p>
+                <br>
+                <table id="datatable_date" class="form-group" style="width: 100%">
+                    <form action="/getDateData" method="post" role="form">
+                        <input type="text" size="12" id="searchDate" name="date" class="datepicker">
+                        <button type="button" onclick="refreshDB()">Select Date </button>
+                    </form>
+                </table>
+                <br><br><br>
+                <div style="width: 100%">
+                    <table id="data_table" class="display">
+                        <thead>
+                            <tr>
+                                <th style="width: 20%;" id="cik-header">CIK</th>
+                                <th style="width: 20%;">Name</th>
+                                <th style="width: 20%;">LP</th>
+                                <th style="width: 20%;">Date of most recent form</th>
+                                <th style="width: 20%;">URL of most recent form</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <!-- will be populated by data table initialization -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <!-- tab 6: View Daily Report -->
+        <div role="tabpanel" class="tab-pane fade" id="daily">
+            <div class="indent">
+                <h2>Daily Form 4 Filings</h2>
+                <div class="searchButton" style="padding-top:10px">
+                    <button href="#" class="btn btn-default" onmousedown="searchMessage()" onclick="pullDailyReport()">
+                    View Daily Report</button>
+                </div>
+                <div class="indent" style="padding-top:10px">
+                    <textarea id="report-data" cols="50" rows="20"></textarea>
+                </div>
+            </div>
+        </div>
+        </div>
         <!-- End of tab pane -->
     <p style="padding-bottom:100px"></p>
 
