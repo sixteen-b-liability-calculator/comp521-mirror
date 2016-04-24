@@ -7,7 +7,7 @@ from pyomo import *
 from pyomo.opt import SolverFactory
 import pyomo.environ
 from functools import wraps
-from datetime import timedelta, strftime, now
+from datetime import timedelta
 
 app = Flask(__name__, static_url_path='')
 app.config.update(dict(
