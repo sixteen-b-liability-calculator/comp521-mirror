@@ -31,7 +31,7 @@ $(document).ready( function () {
                     { title: "Date of most recent form 4/4A" },
                     { title: "URL of most recent form 4/4A",
                         "fnCreatedCell": function (nTd, sData, oData, iRow, iCol) {
-                            $(nTd).html("<a href='"+oData[4]+"'>Link to filing</a>");
+                            $(nTd).html("<a href='"+oData[4]+" target=_blank'>Link to filing</a>");
                         }
                     }
                 ],
