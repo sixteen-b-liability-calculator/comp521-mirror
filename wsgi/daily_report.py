@@ -28,7 +28,7 @@ def generate_daily_report(inputDate):
             startMonth = endMonth - 6
 
         for idx, filing in enumerate(filings):
-            if idx > 3:
+            if idx > 0:
                 break
             trades = pull_trades(filing['cik'], startYear, startMonth, endYear, endMonth)
             from myflaskapp import gen_compute_endpoint
