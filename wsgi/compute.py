@@ -320,7 +320,7 @@ def indexPage():
      axes.set_title("A matplotlib plot")
      # make the temporary file
      f = tempfile.NamedTemporaryFile(
-     dir='static/temp',
+     dir='tempFiles/plots',
      suffix='.png',delete=False)
      # save the figure to the temporary file
      plt.savefig(f)
@@ -329,7 +329,7 @@ def indexPage():
      # (the template will need that)
      plotPng = f.name.split('/')[-1]
      return(render_template(
-     'home.html',
+     'static/frontend/home.html',
      y=y,
      figJS=figJS,figDiv=figDiv,
      plotPng=plotPng))
