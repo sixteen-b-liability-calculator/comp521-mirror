@@ -12,8 +12,6 @@ def generate_daily_report(inputDate):
     # connect to mysql
     conn = mysql.connect()
     cursor = conn.cursor()
-    cursor.close() 
-    conn.close()  
 
     # Get information for yesterday's filings
     filings = []
@@ -46,34 +44,16 @@ def generate_daily_report(inputDate):
             # also add the filing date while we're at it
             filings[idx]['lastfiling'] = reportDate.strftime('%m/%d/%Y')
 
-
-
-# try:
-#     # read the posted values from the UI
-#     form = request.form
-#     _cik = request.form['inputCIK']
-#     _name = request.form['inputName']
-#     _lp = request.form['inputLP']
-#     _liho = request.form['inputLIHO']
-#     # validate the received values
-#     if _cik and _name and _lp and _liho:
-#         conn = mysql.connect()
-#         cursor = conn.cursor()
-#         cursor.callproc('add_person',(_cik, _name, _lp, _liho))
-#         data = cursor.fetchall()
-#         if len(data) is 0:
-#             conn.commit()
-#             return json.dumps({'message':'Person added successfully !'})
-#         else:
-#             return json.dumps({'error':str(data[0])})
-#     else:
-#         return json.dumps({'html':'<span>Enter the required fields</span>'})
-# except Exception as e:
-#     return json.dumps({'error':str(e)})
-# finally:
-#     cursor.close() 
-#     conn.close()
-
+            cik = filings[idx]['cik']
+            name = filings[idx]['name']
+            liability = filings[idx]['liability']
+            date = filings[idx]['lastfiling']
+            url = filings[idx]['url']
+            cursor.callproc('add_person', (cik, name, liability))
+            cursor.callproc('add_form', (cik, url, STR_TO_DATE(date, '%m/%d/%Y')))
+            
+        cursor.close() 
+        conn.close()  
 
 
     return {'filings': filings}

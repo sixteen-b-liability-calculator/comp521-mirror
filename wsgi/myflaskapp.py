@@ -151,12 +151,12 @@ def testDB():
         _cik = request.form['inputCIK']
         _name = request.form['inputName']
         _lp = request.form['inputLP']
-        _liho = request.form['inputLIHO']
+        # _liho = request.form['inputLIHO']
         # validate the received values
         if _cik and _name and _lp and _liho:
             conn = mysql.connect()
             cursor = conn.cursor()
-            cursor.callproc('add_person',(_cik, _name, _lp, _liho))
+            cursor.callproc('add_person',(_cik, _name, _lp))
             data = cursor.fetchall()
             if len(data) is 0:
                 conn.commit()
@@ -175,7 +175,6 @@ def testDB():
 @app.route("/queryDB", methods=['GET'])
 @add_response_headers({'Access-Control-Allow-Origin': 'example.com'})
 def queryDB():
-    # yesterday = str(datetime.strftime(datetime.now()-timedelta(1),'%Y-%m-%d'))
     yesterday = str(datetime.strftime(datetime.now()-timedelta(1),'%Y-%m-%d'))
     recordsDict = {}
     recordList = []
