@@ -13,7 +13,7 @@ $(document).ready( function () {
             myData = $.map(result['data'], function(el) {
                 return [[el.cik, el.name, el.lp, el.date, el.url]];
             });
-            // console.log("myData: " + myData);
+            console.log("myData: " + myData);
             // initalize data table
             $('#data_table').DataTable({
                 paging: true,
