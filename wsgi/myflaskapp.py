@@ -7,7 +7,7 @@ from pyomo import *
 from pyomo.opt import SolverFactory
 import pyomo.environ
 from functools import wraps
-import datetime
+from datetime import timedelta, strftime, now
 
 app = Flask(__name__, static_url_path='')
 app.config.update(dict(
@@ -175,6 +175,7 @@ def testDB():
 @app.route("/queryDB", methods=['GET'])
 @add_response_headers({'Access-Control-Allow-Origin': 'example.com'})
 def queryDB():
+    # yesterday = str(datetime.strftime(datetime.now()-timedelta(1),'%Y-%m-%d'))
     yesterday = str(datetime.strftime(datetime.now()-timedelta(1),'%Y-%m-%d'))
     recordsDict = {}
     recordList = []
