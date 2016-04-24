@@ -10,6 +10,17 @@ import datetime
 
 import itertools
 
+#for python vizualizations 
+#{
+#import datetime <-- Already Have
+#from flask import Flask, render_template
+import tempfile
+import matplotlib.pyplot as plt
+matplotlib.use('Agg') # this allows 'png' plotting 
+from matplotlib.dates import MonthLocator, WeekdayLocator, DateFormatter, YearLocator
+#} 
+#end for python vizualizations
+
 from aux_code.httpExceptions import *
 
 class Trade:
@@ -294,4 +305,32 @@ def run_greedy(purchases, sales, stella_correction, jammies_correction):
                     amt = 0
 
     return ret
+
+@app.route('/')
+def indexPage():
+
+     # generate matplotlib plot
+     fig = plt.figure(figsize=(5,4),dpi=100)
+     axes = fig.add_subplot(1,1,1)
+     # plot the data
+     axes.plot(x,y,'-')
+     # labels
+     axes.set_xlabel('time')
+     axes.set_ylabel('size')
+     axes.set_title("A matplotlib plot")
+     # make the temporary file
+     f = tempfile.NamedTemporaryFile(
+     dir='static/temp',
+     suffix='.png',delete=False)
+     # save the figure to the temporary file
+     plt.savefig(f)
+     f.close() # close the file
+     # get the file's name
+     # (the template will need that)
+     plotPng = f.name.split('/')[-1]
+     return(render_template(
+     'home.html',
+     y=y,
+     figJS=figJS,figDiv=figDiv,
+     plotPng=plotPng))
 
