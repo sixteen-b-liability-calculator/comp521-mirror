@@ -6,10 +6,6 @@ var total_sales_entered = 0;
 
 // on initial page load, pull data into DataTables
 $(document).ready( function () {
-    // set default search date to yesterday
-    $("#searchDate").datepicker( "setDate", -1);
-
-    // populate database with yesterday's filings
     $.ajax({
         url: "/queryDB",
         type: "GET",
@@ -244,6 +240,9 @@ function firstLoad(){
     // Sets the Edgar Date range for selecting from the database.
     $('#secEndDate').datepicker("setDate",'0');
     $('#secStartDate').datepicker("setDate",setStartDate());
+
+    // Sets yesterday as the default search date
+    $('#searchDate').datepicker("setDate", -1);
 
     // Sets the Event listener for the CSV upload.
     $("#csv-file").change(populateWithCSVFile);
