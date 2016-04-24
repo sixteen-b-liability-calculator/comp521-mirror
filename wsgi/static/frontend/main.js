@@ -7,11 +7,7 @@ var total_sales_entered = 0;
 // on initial page load, pull data into DataTables
 $(document).ready( function () {
     // set default search date to yesterday
-    $("#searchDate").datetimepicker({
-        format: "MM/DD/YYYY",
-        defaultDate: moment().subtract(1, 'days'),
-        useCurrent: false
-    });
+    $("#searchDate").datepicker( "setDate", -1);
 
     // populate database with yesterday's filings
     $.ajax({
