@@ -16,7 +16,7 @@ import itertools
 #from flask import Flask, render_template
 import tempfile
 import matplotlib.pyplot as plt
-matplotlib.use('Agg') # this allows 'png' plotting 
+#matplotlib.use('Agg') # this allows 'png' plotting 
 from matplotlib.dates import MonthLocator, WeekdayLocator, DateFormatter, YearLocator
 #} 
 #end for python vizualizations
