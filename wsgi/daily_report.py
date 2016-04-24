@@ -9,11 +9,11 @@ import json
 # database with new liability estimates for all filers
 def generate_daily_report(inputDate):
 
-    # connect to mysql
-    conn = mysql.connect()
-    cursor = conn.cursor()
-    cursor.close() 
-    conn.close()  
+    # # connect to mysql
+    # conn = mysql.connect()
+    # cursor = conn.cursor()
+    # cursor.close() 
+    # conn.close()  
 
     # Get information for yesterday's filings
     filings = []
