@@ -51,7 +51,7 @@ def generate_daily_report(inputDate):
             date = filings[idx]['lastfiling']
             dateString = date[6:10] + "-" + date[0:2] + "-" + date[3:5]
             url = filings[idx]['url']
-            print("******************  CIK: " + cik + " Name: " + name)
+            print("******************  CIK: " + str(cik) + " Name: " + str(name))
             cursor.callproc('add_person', (cik, name, liability))
             cursor.callproc('add_form', (cik, url, dateString))
             conn.commit()
