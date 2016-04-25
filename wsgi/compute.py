@@ -16,7 +16,7 @@ import itertools
 #from flask import Flask, render_template
 #import tempfile
 #from pylab import *
-import matplotlib
+#import matplotlib
 #import matplotlib.pyplot as plt
 
 #matplotlib.use('Agg') # this allows 'png' plotting 
@@ -306,7 +306,43 @@ def run_greedy(purchases, sales, stella_correction, jammies_correction):
                     s_sales_amts[i] -= amt
                     collect(p,s,amt)
                     amt = 0
-
+    #makeGraph(s_purchases, s_sales, stella_correction, jammies_correction)
     return ret
 
+# def makeGraph(purchases, sales, stella_correction, jammies_correction):
+#     #set up graph's x axis span with the min and max date
+#     #taken from dates_within_range()
+#     #first_day = first_day_of_next_month(undate) 
+#     #last_day = date_less_one(first_day)
+#     earlier_date = min(sell.date, buy.date)
+#     later_date = max(sell.date, buy.date)
 
+#     #Format the x axis on the graph
+#     years = YearLocator()   # every year
+#     months = MonthLocator(range(1, 13), bymonthday=1, interval=3)  # every month, displaying month name of every 3rd month
+#     yearsFmt = DateFormatter('%B %Y') #written out Month and full year
+
+#     # x-axis
+#     sell_dates = [s[0] for s in sell.dates]
+#     buy_dates = [b[0] for b in buy.dates]
+#     #y-axis
+#     sell_prices = [s[1] for s in sell.price]
+#     buy_prices = [b[1] for b in buy.price]
+
+#     fig, ax = plt.subplots()
+#     ax.plot_date(sell_dates, sell_prices, '-', label="sale")
+#     ax.plot_date(buy_dates, buy_prices, '-', label="purchase")
+#     ax.legend(loc='upper right')
+
+#     ax.xaxis.set_major_locator(months)
+#     ax.xaxis.set_major_formatter(yearsFmt)
+#     #ax.xaxis.set_minor_locator(years)
+#     ax.autoscale_view()
+
+#     ax.fmt_xdata = DateFormatter('%Y-%m-%d')
+#     #don't think this will need formatting
+#     #ax.fmt_ydata = 
+#     ax.grid(True)
+
+#     fig.autofmt_xdate()
+#     plt.show()
