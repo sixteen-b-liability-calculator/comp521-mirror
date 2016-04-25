@@ -656,15 +656,18 @@ function downloadOutput() {
     output[output.length-1][4] = "Total";
 
     // create csv
-    var csvContent = "data:text/csv;charset=utf-8,";
+    var csvContent = "";
     output.forEach(function(infoArray, index){
     dataString = infoArray.join(",");
     csvContent += index < output.length ? dataString+ "\n" : dataString;
     });
 
-    // download csv
-    var encodedUri = encodeURI(csvContent);
-    window.open(encodedUri);
+    // // download csv
+    // var encodedUri = encodeURI(csvContent);
+    // window.open(encodedUri);
+
+    // data = $('#pairings')[0].value;
+     $("#downloadOutput").attr('href','data:text/csv;charset=utf8,' + encodeURIComponent(csvContent))
 
 }
 
