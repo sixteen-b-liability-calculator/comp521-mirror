@@ -17,11 +17,11 @@ import itertools
 #import tempfile
 #lets see if it moves
 #from pylab import *
-import matplotlib
+#import matplotlib
 #import matplotlib.pyplot as plt
 
 #matplotlib.use('Agg') # this allows 'png' plotting 
-from matplotlib.dates import MonthLocator, WeekdayLocator, DateFormatter, YearLocator
+#from matplotlib.dates import MonthLocator, WeekdayLocator, DateFormatter, YearLocator
 #} 
 #end for python vizualizations
 
