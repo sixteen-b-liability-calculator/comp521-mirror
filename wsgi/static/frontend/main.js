@@ -18,7 +18,7 @@ $(document).ready( function () {
             // initalize data table
             $('#data_table').DataTable({
                 paging: true,
-                scrollY: 400,
+                // scrollY: 400,
                 dataPageLength: 25,
                 data: myData,
                 "order": [[ 0, 'asc' ]],
@@ -29,8 +29,8 @@ $(document).ready( function () {
                     { title: "CIK" },
                     { title: "Name" },
                     { title: "LP liability" },
-                    { title: "Date of most recent form 4/4A" },
-                    { title: "URL of most recent form 4/4A",
+                    { title: "Date of most recent form" },
+                    { title: "Link to most recent form",
                         "fnCreatedCell": function (nTd, sData, oData, iRow, iCol) {
                             $(nTd).html("<a href='"+oData[4]+"' target='_blank'>Link to filing</a>");
                         }
