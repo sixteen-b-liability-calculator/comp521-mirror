@@ -5,6 +5,7 @@ var total_purchases_entered = 0;
 var total_sales_entered = 0;
 
 // on initial page load, pull data into DataTables
+// test
 $(document).ready( function () {
     $.ajax({
         url: "/queryDB",
