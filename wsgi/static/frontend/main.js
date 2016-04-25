@@ -5,6 +5,7 @@ var total_purchases_entered = 0;
 var total_sales_entered = 0;
 
 // on initial page load, pull data into DataTables
+// test
 $(document).ready( function () {
     $.ajax({
         url: "/queryDB",
@@ -655,15 +656,13 @@ function downloadOutput() {
     output[output.length-1][4] = "Total";
 
     // create csv
-    var csvContent = "data:text/csv;charset=utf-8,";
+    var csvContent = "";
     output.forEach(function(infoArray, index){
     dataString = infoArray.join(",");
     csvContent += index < output.length ? dataString+ "\n" : dataString;
     });
 
-    // download csv
-    var encodedUri = encodeURI(csvContent);
-    window.open(encodedUri);
+     $("#downloadOutput").attr('href','data:text/csv;charset=utf8,' + encodeURIComponent(csvContent))
 
 }
 
