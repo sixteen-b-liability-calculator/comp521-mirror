@@ -15,9 +15,10 @@ import itertools
 #import datetime <-- Already Have
 #from flask import Flask, render_template
 #import tempfile
-import pylab
+
 import matplotlib
 import matplotlib.pyplot as plt
+from pylab import *
 #matplotlib.use('Agg') # this allows 'png' plotting 
 from matplotlib.dates import MonthLocator, WeekdayLocator, DateFormatter, YearLocator
 #} 
