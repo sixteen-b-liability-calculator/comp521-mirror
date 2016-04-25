@@ -662,11 +662,6 @@ function downloadOutput() {
     csvContent += index < output.length ? dataString+ "\n" : dataString;
     });
 
-    // // download csv
-    // var encodedUri = encodeURI(csvContent);
-    // window.open(encodedUri);
-
-    // data = $('#pairings')[0].value;
      $("#downloadOutput").attr('href','data:text/csv;charset=utf8,' + encodeURIComponent(csvContent))
 
 }
