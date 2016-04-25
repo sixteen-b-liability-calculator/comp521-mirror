@@ -133,7 +133,7 @@ def pullSEC():
 @app.route("/pullDailyReport", methods=['GET'])
 @add_response_headers({'Access-Control-Allow-Origin': 'example.com'})
 def pullDailyReport():
-    filings = generate_daily_report("01/04/2016")
+    filings = generate_daily_report("04/22/2016")
     return jsonify(filings)
 
 @app.route("/populateWithCSV", methods=['POST'])
@@ -168,7 +168,7 @@ def testDB():
     except Exception as e:
         return json.dumps({'error':str(e)})
     finally:
-        cursor.close() 
+        cursor.close()
         conn.close()
         # return form
 
