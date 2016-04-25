@@ -30,7 +30,7 @@ $(document).ready( function () {
                     { title: "Name" },
                     { title: "LP liability" },
                     { title: "Date of most recent form" },
-                    { title: "URL of most recent form",
+                    { title: "Link to most recent form",
                         "fnCreatedCell": function (nTd, sData, oData, iRow, iCol) {
                             $(nTd).html("<a href='"+oData[4]+"' target='_blank'>Link to filing</a>");
                         }
