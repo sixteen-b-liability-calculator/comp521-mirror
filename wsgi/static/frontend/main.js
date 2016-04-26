@@ -32,7 +32,34 @@ $(document).ready( function () {
                     { title: "LP liability",
                         "fnCreatedCell": function (nTd, sData, oData, iRow, iCol) {
                             $(nTd).click(function() {
-                                console.log("new testing");
+                                var endDate = new Date();
+                                var endYear = parseDate(endDate, "y");
+                                var endMonth = parseDate(endDate, "m");
+
+                                var startDate = new Date();
+                                startDate.setYear(1900+startDate.getYear()-2);  // subtract 2 years
+                                startDate.setMonth(startDate.getMonth()-6);     // subtract 6 months
+                                startDate.setDate(startDate.getDate()-3);       // subtract 3 days (for Jammies)
+                                var startYear = parseDate(endDate, "y");
+                                var startMonth = parseDate(endDate, "m");
+
+                                var secJSON = '{ "startYear":'+startYear+',"startMonth":'+startMonth+',"endYear":'+endYear+',"endMonth":'+endMonth+',"cik": "'+oData[0]+'"}';
+
+
+                                if (secCIK && secCIK != "") {
+                                    $.ajax( "/pullSEC",
+                                        ({type: "POST",
+                                        data: secJSON,
+                                        contentType: "application/json",
+                                        dataType: "json",
+                                        success: [populate, removeMessage],
+                                        error: function(data) {
+                                            document.open();
+                                            document.write(data.responseText);
+                                            document.close();
+                                        }
+                                    }));
+                                }
                             });
                             // $(nTd).onclick = tableLiability(oData[0]);
                         }
