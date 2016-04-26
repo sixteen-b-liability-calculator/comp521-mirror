@@ -29,7 +29,11 @@ $(document).ready( function () {
                 columns: [
                     { title: "CIK" },
                     { title: "Name" },
-                    { title: "LP liability"},
+                    { title: "LP liability",
+                        "fnCreatedCell": function (nTd, sData, oData, iRow, iCol) {
+                            $(nTd).onclick = tableLiability(oData[0]);
+                        }
+                    },
                     { title: "Date of most recent form" },
                     { title: "Link to most recent form",
                         "fnCreatedCell": function (nTd, sData, oData, iRow, iCol) {
@@ -38,9 +42,9 @@ $(document).ready( function () {
                     }
                 ],
             });
-            $('#data_table tbody').on('click', 'td', function () {
-                console.log(data_table.row(this).data());
-            });
+            // $('#data_table tbody').on('click', 'td', function () {
+            //     console.log(data_table.row(this).data());
+            // });
         },
         error: function(error) {
             console.log("fail: " + error);
