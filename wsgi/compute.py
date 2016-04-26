@@ -285,7 +285,8 @@ def run_greedy(purchases, sales, stella_correction, jammies_correction):
     s_purchases = sorted(purchases, key=lambda t: t.price)
     s_sales = sorted(sales, key=lambda t: -t.price)
     s_sales_amts = map(lambda s: s.number, s_sales)
-
+    s_dates = map(lambda s: s.date)
+    print "s_dates: ", s_dates
 
     print "s_purchases: ", s_purchases, "s_sales: ", s_sales, "s_sales_amts: ", s_sales_amts
     ret = dict(pairs = [], value = 0)
@@ -300,7 +301,7 @@ def run_greedy(purchases, sales, stella_correction, jammies_correction):
         for i in range(0, len(s_sales)):
             s = s_sales[i]
             s_amt = s_sales_amts[i]
-            
+
             if amt > 0 and s_amt > 0 and introduces_liability(p, s, stella_correction, jammies_correction):
                 if amt >= s_amt:
                     s_sales_amts[i] = 0
