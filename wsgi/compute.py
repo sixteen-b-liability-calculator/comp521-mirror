@@ -285,8 +285,10 @@ def run_greedy(purchases, sales, stella_correction, jammies_correction):
     s_purchases = sorted(purchases, key=lambda t: t.price)
     s_sales = sorted(sales, key=lambda t: -t.price)
     s_sales_amts = map(lambda s: s.number, s_sales)
-    s_dates = map(lambda s: s.date)
+    s_dates = map(lambda s: s.date, s_sales)
+    p_dates = map(lambda p: p.date, s_purchases)
     print "s_dates: ", s_dates
+    print "p_dates: ", p_dates
 
     print "s_purchases: ", s_purchases, "s_sales: ", s_sales, "s_sales_amts: ", s_sales_amts
     ret = dict(pairs = [], value = 0)
