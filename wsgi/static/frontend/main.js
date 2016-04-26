@@ -32,6 +32,7 @@ $(document).ready( function () {
                     { title: "LP liability",
                         "fnCreatedCell": function (nTd, sData, oData, iRow, iCol) {
                             $(nTd).click(function() {
+                                console.log("oData: " + oData[3]);
                                 // console.log(oData[0]);
                                 var endDate = new Date();
                                 endDate.setYear(1900+endDate.getYear());
