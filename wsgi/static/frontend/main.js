@@ -36,13 +36,15 @@ $(document).ready( function () {
                                 var endDate = new Date(end);
                                 endDate.setDate(endDate.getDate()+1);
                                 console.log("endDate: " + endDate);
-
                                 console.log("endYear: " + endDate.getYear());
+                                console.log("endMonth: " + endDate.getMonth());
                                 var startDate = new Date();
                                 startDate.setYear(endDate.getYear()+1900-1);
                                 startDate.setMonth(endDate.getMonth()-6);
                                 startDate.setDate(startDate.getDate()-3);
                                 console.log("startDate: " + startDate);
+                                console.log("startYear: " + startDate.getYear());
+                                console.log("startMonth: " + startDate.getMonth());
                                 // console.log(startDate);
                                 // // console.log(oData[0]);
                                 // // var endDate = new Date();
