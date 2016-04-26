@@ -54,7 +54,7 @@ $(document).ready( function () {
 } );
 
 function test() {
-    console.log("testing");
+    console.log("new testing");
 }
 
 // Called by <body> onload
