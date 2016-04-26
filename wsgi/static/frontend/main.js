@@ -32,13 +32,16 @@ $(document).ready( function () {
                     { title: "LP liability",
                         "fnCreatedCell": function (nTd, sData, oData, iRow, iCol) {
                             $(nTd).click(function() {
+                                endDate = oData[3];
                                 console.log("oData: " + oData[3]);
+                                testDate = new Date(endDate);
+                                console.log(testDate);
                                 // console.log(oData[0]);
-                                var endDate = new Date();
-                                endDate.setYear(1900+endDate.getYear());
-                                var endYear = parseDate(endDate, "y");
-                                var endMonth = parseDate(endDate, "m");
-                                console.log("endDate: " + endDate);
+                                // var endDate = new Date();
+                                // endDate.setYear(1900+endDate.getYear());
+                                // var endYear = parseDate(endDate, "y");
+                                // var endMonth = parseDate(endDate, "m");
+                                // console.log("endDate: " + endDate);
                                 // console.log("endYear: " + endYear+1900);
                                 console.log("endYear2: " + endDate.getYear()+1900);
                                 console.log("endMonth2: " + endDate.getMonth());
