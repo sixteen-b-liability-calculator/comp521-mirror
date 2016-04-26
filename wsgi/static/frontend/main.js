@@ -3,6 +3,7 @@ var undo_p_stack = [];
 var undo_s_stack = [];
 var total_purchases_entered = 0;
 var total_sales_entered = 0;
+var data_table;
 
 // on initial page load, pull data into DataTables
 // test
@@ -16,7 +17,7 @@ $(document).ready( function () {
             });
             // console.log("myData: " + myData);
             // initalize data table
-            $('#data_table').DataTable({
+            data_table = $('#data_table').DataTable({
                 paging: true,
                 // scrollY: 400,
                 dataPageLength: 25,
@@ -28,7 +29,7 @@ $(document).ready( function () {
                 columns: [
                     { title: "CIK" },
                     { title: "Name" },
-                    { title: "LP liability" },
+                    { title: "LP liability"},
                     { title: "Date of most recent form" },
                     { title: "Link to most recent form",
                         "fnCreatedCell": function (nTd, sData, oData, iRow, iCol) {
@@ -37,12 +38,43 @@ $(document).ready( function () {
                     }
                 ],
             });
+            $('#data_table tbody').on('click', 'tr', function () {
+                console.log(data_table.row(this).data());
+            });
         },
         error: function(error) {
             console.log("fail: " + error);
         }
     });
 } );
+
+// Called by <body> onload
+function firstLoad(){
+    createDefaultInputRows();
+
+    // Sets the Edgar Date range for selecting from the database.
+    $('#secEndDate').datepicker("setDate",'0');
+    $('#secStartDate').datepicker("setDate",setStartDate());
+
+    // Sets yesterday as the default search date
+    $('#searchDate').datepicker("setDate", -1);
+
+    // Sets the Event listener for the CSV upload.
+    $("#csv-file").change(populateWithCSVFile);
+}
+
+function setStartDate(){
+    var date = new Date();
+    // Subtract 2 years
+    date.setYear(1900+date.getYear()-2);
+    //subtract 6 months
+    date.setMonth(date.getMonth()-6);
+    // TODO:valakuzhy
+    // Jammies allow for subtracting up to three days.
+    // Will need something more sophisticated to get this completed right though
+    date.setDate(date.getDate()-3);
+    return date;
+}
 
 // Removes row of data
 function removePSRow(button){
@@ -238,21 +270,6 @@ function checkIfMissingValue() {
     }
 }
 
-// Called by <body> onload
-function firstLoad(){
-    createDefaultInputRows();
-
-    // Sets the Edgar Date range for selecting from the database.
-    $('#secEndDate').datepicker("setDate",'0');
-    $('#secStartDate').datepicker("setDate",setStartDate());
-
-    // Sets yesterday as the default search date
-    $('#searchDate').datepicker("setDate", -1);
-
-    // Sets the Event listener for the CSV upload.
-    $("#csv-file").change(populateWithCSVFile);
-}
-
 // Download data from text box
 function downloadCSV() {
     data = $('#csv-data')[0].value;
@@ -266,19 +283,6 @@ function createDefaultInputRows() {
     	insertPSRow(purchases);
     	insertPSRow(sales);
     }
-}
-
-function setStartDate(){
-    var date = new Date();
-    // Subtract 2 years
-    date.setYear(1900+date.getYear()-2);
-    //subtract 6 months
-    date.setMonth(date.getMonth()-6);
-    // TODO:valakuzhy
-    // Jammies allow for subtracting up to three days.
-    // Will need something more sophisticated to get this completed right though
-    date.setDate(date.getDate()-3);
-    return date;
 }
 
 // Called by "Clear Input" button
@@ -512,6 +516,41 @@ function pullSEC(){
         }));
     }
 }
+
+// Query SEC database for given row's CIK
+// use today as end date and 2.5 yrs and 3 days ago as default start date (using Jammies)
+function tableLiability(cik) {
+
+    var endDate = new Date();
+    var endYear = parseDate(endDate, "y");
+    var endMonth = parseDate(endDate, "m");
+
+    var startDate = new Date();
+    startDate.setYear(1900+startDate.getYear()-2);  // subtract 2 years
+    startDate.setMonth(startDate.getMonth()-6);     // subtract 6 months
+    startDate.setDate(startDate.getDate()-3);       // subtract 3 days (for Jammies)
+    var startYear = parseDate(endDate, "y");
+    var startMonth = parseDate(endDate, "m");
+
+    var secJSON = '{ "startYear":'+startYear+',"startMonth":'+startMonth+',"endYear":'+endYear+',"endMonth":'+endMonth+',"cik": "'+cik+'"}';
+
+
+    if (secCIK && secCIK != "") {
+        $.ajax( "/pullSEC",
+            ({type: "POST",
+            data: secJSON,
+            contentType: "application/json",
+            dataType: "json",
+            success: [populate, removeMessage],
+            error: function(data) {
+                document.open();
+                document.write(data.responseText);
+                document.close();
+            }
+        }));
+    }
+}
+
 
 // proof-of-concept for Daily Report. Pulls CIKs for daily Form 4 filings.
 function pullDailyReport() {
