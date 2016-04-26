@@ -35,6 +35,7 @@ $(document).ready( function () {
                                 endDate = oData[3];
                                 console.log("oData: " + oData[3]);
                                 testDate = new Date(endDate);
+                                testDate.setDate(startDate.getDate()-1);
                                 console.log(testDate);
                                 // console.log(oData[0]);
                                 // var endDate = new Date();
