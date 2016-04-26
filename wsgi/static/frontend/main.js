@@ -35,7 +35,7 @@ $(document).ready( function () {
                                 var end = oData[3];
                                 var endDate = new Date(end);
                                 endDate.setDate(endDate.getDate()+1);
-                                console.log(endDate);
+                                console.log("endDate: " + endDate);
 
                                 var startDate = new Date();
                                 startDate.setYear(endDate.getYear-1);
