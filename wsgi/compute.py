@@ -309,7 +309,7 @@ def run_greedy(purchases, sales, stella_correction, jammies_correction):
     makeGraph(s_purchases, s_sales, stella_correction, jammies_correction)
     return ret
 
- def makeGraph(purchases, sales, stella_correction, jammies_correction):
+def makeGraph(purchases, sales, stella_correction, jammies_correction):
 #     #set up graph's x axis span with the min and max date
 #     #taken from dates_within_range()
 #     #first_day = first_day_of_next_month(undate) 
