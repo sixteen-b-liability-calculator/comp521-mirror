@@ -286,6 +286,8 @@ def run_greedy(purchases, sales, stella_correction, jammies_correction):
     s_sales = sorted(sales, key=lambda t: -t.price)
     s_sales_amts = map(lambda s: s.number, s_sales)
 
+
+    print "s_purchases: ", s_purchases, "s_sales: ", s_sales, "s_sales_amts: ", s_sales_amts
     ret = dict(pairs = [], value = 0)
 
     def collect(p, s, amt):
@@ -294,9 +296,11 @@ def run_greedy(purchases, sales, stella_correction, jammies_correction):
 
     for p in s_purchases:
         amt = p.number
+        print "amt: ", amt
         for i in range(0, len(s_sales)):
             s = s_sales[i]
             s_amt = s_sales_amts[i]
+            
             if amt > 0 and s_amt > 0 and introduces_liability(p, s, stella_correction, jammies_correction):
                 if amt >= s_amt:
                     s_sales_amts[i] = 0
@@ -306,10 +310,13 @@ def run_greedy(purchases, sales, stella_correction, jammies_correction):
                     s_sales_amts[i] -= amt
                     collect(p,s,amt)
                     amt = 0
-    makeGraph(purchases, sales, stella_correction, jammies_correction)
+    #makeGraph(purchases, sales, stella_correction, jammies_correction)
     return ret
 
 def makeGraph(purchases, sales, stella_correction, jammies_correction):
+
+
+
 #     #set up graph's x axis span with the min and max date
 #     #taken from dates_within_range()
 #     #first_day = first_day_of_next_month(undate) 
@@ -330,10 +337,10 @@ def makeGraph(purchases, sales, stella_correction, jammies_correction):
 #     sell_prices = [s[1] for s in sell.price]
 #     buy_prices = [b[1] for b in buy.price]
 
-    fig, ax = plt.subplots()
+#    fig, ax = plt.subplots()
 #     ax.plot_date(sell_dates, sell_prices, '-', label="sale")
 #     ax.plot_date(buy_dates, buy_prices, '-', label="purchase")
-    ax.legend(loc='upper right')
+#    ax.legend(loc='upper right')
 
 #     ax.xaxis.set_major_locator(months)
 #     ax.xaxis.set_major_formatter(yearsFmt)
@@ -346,4 +353,4 @@ def makeGraph(purchases, sales, stella_correction, jammies_correction):
 #     ax.grid(True)
 
 #     fig.autofmt_xdate()
-    plt.show()
+#    plt.show()
