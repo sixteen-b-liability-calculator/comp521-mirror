@@ -34,7 +34,7 @@ $(document).ready( function () {
                             $(nTd).click(function() {
                                 // console.log(oData[0]);
                                 var endDate = new Date();
-                                endDate.setYear(1900+date.getYear());
+                                endDate.setYear(1900+endDate.getYear());
                                 var endYear = parseDate(endDate, "y");
                                 var endMonth = parseDate(endDate, "m");
                                 console.log("endDate: " + endDate);
