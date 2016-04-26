@@ -31,7 +31,7 @@ $(document).ready( function () {
                     { title: "Name" },
                     { title: "LP liability",
                         "fnCreatedCell": function (nTd, sData, oData, iRow, iCol) {
-                            $(nTd).onclick = tableLiability(oData[0]);
+                            // $(nTd).onclick = tableLiability(oData[0]);
                         }
                     },
                     { title: "Date of most recent form" },
