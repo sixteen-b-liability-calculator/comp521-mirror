@@ -309,14 +309,14 @@ def run_greedy(purchases, sales, stella_correction, jammies_correction):
     makeGraph(s_purchases, s_sales, stella_correction, jammies_correction)
     return ret
 
-def makeGraph(buy, sell, stella_correction, jammies_correction):
+def makeGraph(purchases, sales, stella_correction, jammies_correction):
 #     #set up graph's x axis span with the min and max date
 #     #taken from dates_within_range()
 #     #first_day = first_day_of_next_month(undate) 
 #     #last_day = date_less_one(first_day)
-    earlier_date = min(sell.date, buy.date)
-    later_date = max(sell.date, buy.date)
-    print earlier_date, later_date
+    #earlier_date = min(sell.date, buy.date)
+    #later_date = max(sell.date, buy.date)
+    print "purchases: ", purchases, "sales: ", sales
 
 #     #Format the x axis on the graph
 #     years = YearLocator()   # every year
