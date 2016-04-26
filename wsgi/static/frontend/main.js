@@ -34,12 +34,12 @@ $(document).ready( function () {
                             $(nTd).click(function() {
                                 var end = oData[3];
                                 var endDate = new Date(end);
-                                endDate.setDate(testDate.getDate()+1);
-                                console.log(testDate);
+                                endDate.setDate(endDate.getDate()+1);
+                                console.log(endDate);
 
                                 var startDate = new Date();
                                 startDate.setYear(endDate.getYear-1);
-                                startDate.setMonth(startDate.getMonth()-6);
+                                startDate.setMonth(endDate.getMonth()-6);
                                 startDate.setDate(startDate.getDate()-3);
                                 console.log(startDate);
                                 // console.log(oData[0]);
