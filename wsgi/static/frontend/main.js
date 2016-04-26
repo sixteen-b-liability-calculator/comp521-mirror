@@ -39,7 +39,7 @@ $(document).ready( function () {
                                 console.log("endYear: " + endDate.getYear());
                                 console.log("endMonth: " + endDate.getMonth());
                                 var startDate = new Date();
-                                startDate.setYear(endDate.getYear()+1900-1);
+                                startDate.setYear(endDate.getYear()+1900-2);
                                 startDate.setMonth(endDate.getMonth()-6);
                                 startDate.setDate(startDate.getDate()-3);
                                 console.log("startDate: " + startDate);
@@ -49,8 +49,10 @@ $(document).ready( function () {
                                 // // console.log(oData[0]);
                                 // // var endDate = new Date();
                                 // // endDate.setYear(1900+endDate.getYear());
-                                // // var endYear = parseDate(endDate, "y");
-                                // // var endMonth = parseDate(endDate, "m");
+                                var endYear = parseDate(endDate, "y");
+                                var endMonth = parseDate(endDate, "m");
+                                var startYear = parseDate(startDate, "y");
+                                var startMonth = parseDate(startDate, "m");
                                 // // console.log("endDate: " + endDate);
                                 // // console.log("endYear: " + endYear+1900);
                                 // console.log("endYear2: " + endDate.getYear()+1900);
