@@ -36,6 +36,9 @@ $(document).ready( function () {
                                 var endDate = new Date();
                                 var endYear = parseDate(endDate, "y");
                                 var endMonth = parseDate(endDate, "m");
+                                console.log("endDate: " + endDate);
+                                console.log("endYear: " + endYear);
+                                console.log("endYear2: " + endDate.getYear());
 
                                 var startDate = new Date();
                                 startDate.setYear(1900+startDate.getYear()-2);  // subtract 2 years
