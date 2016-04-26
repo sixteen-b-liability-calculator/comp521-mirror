@@ -49,10 +49,12 @@ $(document).ready( function () {
                                 // // console.log(oData[0]);
                                 // // var endDate = new Date();
                                 // // endDate.setYear(1900+endDate.getYear());
-                                var endYear = parseDate(endDate, "y");
-                                var endMonth = parseDate(endDate, "m");
-                                var startYear = parseDate(startDate, "y");
-                                var startMonth = parseDate(startDate, "m");
+                                var endYear = endDate.getYear() + 1900;
+                                var endMonth = endDate.getMonth() + 1;
+                                var startYear = startDate.getYear() + 1900;
+                                var startMonth = startDate.getMonth() + 1;
+
+                                console.log("here: " + endYear + " " + endMonth + " " + startYear + " " + startMonth);
                                 // // console.log("endDate: " + endDate);
                                 // // console.log("endYear: " + endYear+1900);
                                 // console.log("endYear2: " + endDate.getYear()+1900);
