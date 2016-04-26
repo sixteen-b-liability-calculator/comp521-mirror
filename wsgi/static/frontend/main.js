@@ -37,27 +37,29 @@ $(document).ready( function () {
                                 endDate.setDate(endDate.getDate()+1);
                                 console.log("endDate: " + endDate);
 
+                                console.log("endYear: " + endDate.getYear);
                                 var startDate = new Date();
                                 startDate.setYear(endDate.getYear()-1);
                                 startDate.setMonth(endDate.getMonth()-6);
                                 startDate.setDate(startDate.getDate()-3);
-                                console.log(startDate);
-                                // console.log(oData[0]);
-                                // var endDate = new Date();
-                                // endDate.setYear(1900+endDate.getYear());
-                                // var endYear = parseDate(endDate, "y");
-                                // var endMonth = parseDate(endDate, "m");
-                                // console.log("endDate: " + endDate);
-                                // console.log("endYear: " + endYear+1900);
-                                console.log("endYear2: " + endDate.getYear()+1900);
-                                console.log("endMonth2: " + endDate.getMonth());
+                                console.log("startDate: " + startDate);
+                                // console.log(startDate);
+                                // // console.log(oData[0]);
+                                // // var endDate = new Date();
+                                // // endDate.setYear(1900+endDate.getYear());
+                                // // var endYear = parseDate(endDate, "y");
+                                // // var endMonth = parseDate(endDate, "m");
+                                // // console.log("endDate: " + endDate);
+                                // // console.log("endYear: " + endYear+1900);
+                                // console.log("endYear2: " + endDate.getYear()+1900);
+                                // console.log("endMonth2: " + endDate.getMonth());
 
-                                var startDate = new Date();
-                                startDate.setYear(1900+startDate.getYear()-2);  // subtract 2 years
-                                startDate.setMonth(startDate.getMonth()-6);     // subtract 6 months
-                                startDate.setDate(startDate.getDate()-3);       // subtract 3 days (for Jammies)
-                                var startYear = parseDate(endDate, "y");
-                                var startMonth = parseDate(endDate, "m");
+                                // var startDate = new Date();
+                                // startDate.setYear(1900+startDate.getYear()-2);  // subtract 2 years
+                                // startDate.setMonth(startDate.getMonth()-6);     // subtract 6 months
+                                // startDate.setDate(startDate.getDate()-3);       // subtract 3 days (for Jammies)
+                                // var startYear = parseDate(endDate, "y");
+                                // var startMonth = parseDate(endDate, "m");
 
                                 var secJSON = '{ "startYear":'+startYear+',"startMonth":'+startMonth+',"endYear":'+endYear+',"endMonth":'+endMonth+',"cik": "'+1194358+'"}';
 
