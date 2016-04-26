@@ -38,7 +38,7 @@ $(document).ready( function () {
                                 console.log("endDate: " + endDate);
 
                                 var startDate = new Date();
-                                startDate.setYear(endDate.getYear-1);
+                                startDate.setYear(endDate.getYear()-1);
                                 startDate.setMonth(endDate.getMonth()-6);
                                 startDate.setDate(startDate.getDate()-3);
                                 console.log(startDate);
