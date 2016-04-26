@@ -44,7 +44,7 @@ class FlaskrTestCase(unittest.TestCase):
     def test_pull_daily_filings(self):
         jsonData = json.dumps({"dateString": 01/01/16})
         rv = self.app.post('/pullDailyReport', content_type = 'application/json', data = jsonData)
-        data = json.loads(rv.get_data())
+        data = json.loads(rv)
         assert data['sells'][0] == {"day": 11, "month": 1, "number": 2000, "price": 44.1, "year": 2007, "securityTitle":"Common Stock", "directOrIndirectOwnership" : "D", "filingURL" : "http://www.sec.gov/Archives/edgar/data/1000180/000124264807000001/0001242648-07-000001-index.htm"}
 
     # Testing the ability to pull files locally
