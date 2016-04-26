@@ -323,6 +323,7 @@ def makeGraph(sale_dates, purchase_dates, sale_amounts, purchase_amounts):
     dates.append(purchase_dates)
     earlier_date = min(dates)
     later_date = max(dates)
+    print "dates: ", dates
     print "earlier_date: ", earlier_date, "later_date: ",later_date
 
     #Format the x axis on the graph
@@ -354,3 +355,6 @@ def makeGraph(sale_dates, purchase_dates, sale_amounts, purchase_amounts):
 
     fig.autofmt_xdate()
     plt.show()
+    fig.savefig('fig.png')
+    ax.savefig('ax.png')
+    plt.savefig('plt.png')
