@@ -31,9 +31,7 @@ $(document).ready( function () {
                     { title: "Name" },
                     { title: "LP liability",
                         "fnCreatedCell": function (nTd, sData, oData, iRow, iCol) {
-                            $(nTd).click(function() {
-                                console.log("TESTING");
-                            });
+                            $(nTd).click(testing());
                             // $(nTd).onclick = tableLiability(oData[0]);
                         }
                     },
@@ -54,6 +52,10 @@ $(document).ready( function () {
         }
     });
 } );
+
+function test() {
+    console.log("testing");
+}
 
 // Called by <body> onload
 function firstLoad(){
