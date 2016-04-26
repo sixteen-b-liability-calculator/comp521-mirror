@@ -314,8 +314,9 @@ def makeGraph(purchases, sales, stella_correction, jammies_correction):
 #     #taken from dates_within_range()
 #     #first_day = first_day_of_next_month(undate) 
 #     #last_day = date_less_one(first_day)
-#     earlier_date = min(sell.date, buy.date)
-#     later_date = max(sell.date, buy.date)
+    earlier_date = min(sell.date, buy.date)
+    later_date = max(sell.date, buy.date)
+    print earlier_date, later_date
 
 #     #Format the x axis on the graph
 #     years = YearLocator()   # every year
