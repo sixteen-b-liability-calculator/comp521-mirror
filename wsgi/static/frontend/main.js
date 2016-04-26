@@ -70,20 +70,21 @@ $(document).ready( function () {
                                 var secJSON = '{ "startYear":'+startYear+',"startMonth":'+startMonth+',"endYear":'+endYear+',"endMonth":'+endMonth+',"cik": "'+1194358+'"}';
 
                                 console.log("secJSON: " + secJSON);
-                                // if (secCIK && secCIK != "") {
-                                //     $.ajax( "/pullSEC",
-                                //         ({type: "POST",
-                                //         data: secJSON,
-                                //         contentType: "application/json",
-                                //         dataType: "json",
-                                //         success: [populate, removeMessage],
-                                //         error: function(data) {
-                                //             document.open();
-                                //             document.write(data.responseText);
-                                //             document.close();
-                                //         }
-                                //     }));
-                                // }
+                                
+                                if (secCIK && secCIK != "") {
+                                    $.ajax( "/pullSEC",
+                                        ({type: "POST",
+                                        data: secJSON,
+                                        contentType: "application/json",
+                                        dataType: "json",
+                                        success: [populate, removeMessage],
+                                        error: function(data) {
+                                            document.open();
+                                            document.write(data.responseText);
+                                            document.close();
+                                        }
+                                    }));
+                                }
                             });
                         }
                     },
