@@ -278,7 +278,7 @@ def run_problem(purchases, sales, stella_correction, jammies_correction):
             ret['status'] = "not solved"
     else:
         ret['status'] = "solver error"
-
+    makeGraph(purchases, sales, stella_correction, jammies_correction)
     return ret
 
 def run_greedy(purchases, sales, stella_correction, jammies_correction):
@@ -306,7 +306,7 @@ def run_greedy(purchases, sales, stella_correction, jammies_correction):
                     s_sales_amts[i] -= amt
                     collect(p,s,amt)
                     amt = 0
-    makeGraph(s_purchases, s_sales, stella_correction, jammies_correction)
+    makeGraph(purchases, sales, stella_correction, jammies_correction)
     return ret
 
 def makeGraph(purchases, sales, stella_correction, jammies_correction):
