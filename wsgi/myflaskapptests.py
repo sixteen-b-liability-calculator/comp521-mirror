@@ -19,7 +19,7 @@ class FlaskrTestCase(unittest.TestCase):
     	expectedBuy = dict(price= 34.585, month= 1, number= 10000, day= 11, year= 2007,
                             securityTitle="Common Stock", directOrIndirectOwnership="D", filingURL ="ftp://ftp.sec.gov/")
 
-        inputFile = open('testing/edgarTestingFile.txt', 'r+')
+        inputFile = open('wsgi/testing/edgarTestingFile.txt', 'r+')
         tree = parse_section_4(inputFile)
         assert tree.getroot().tag == 'ownershipDocument'
         trades = return_trade_information_from_xml(tree,"")
@@ -43,7 +43,7 @@ class FlaskrTestCase(unittest.TestCase):
 
     def test_pull_daily_filings(self):
         jsonData = json.dumos({"dateString": 01/01/16})
-        rv = self.app.post('/ppullDailyReport', content_type = 'application/json', data = jsonData)
+        rv = self.app.post('/pullDailyReport', content_type = 'application/json', data = jsonData)
         data = json.loads(rv.get_data())
         assert data['sells'][0] == {"day": 11, "month": 1, "number": 2000, "price": 44.1, "year": 2007, "securityTitle":"Common Stock", "directOrIndirectOwnership" : "D", "filingURL" : "http://www.sec.gov/Archives/edgar/data/1000180/000124264807000001/0001242648-07-000001-index.htm"}
 
@@ -60,7 +60,7 @@ class FlaskrTestCase(unittest.TestCase):
     def test_compute(self):
         # note that the inputs must have /unique/ correct outputs or else
         # the test is meaningless
-        inputFile = open('testing/computetest.txt', 'r+')
+        inputFile = open('wsgi/testing/computetest.txt', 'r+')
         testDicts = json.load(inputFile)
         for test in testDicts:
             computeResult = json.loads(self.app.post('/compute', content_type='application/json', data=json.dumps(test['input'])).get_data())
