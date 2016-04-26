@@ -31,7 +31,9 @@ $(document).ready( function () {
                     { title: "Name" },
                     { title: "LP liability",
                         "fnCreatedCell": function (nTd, sData, oData, iRow, iCol) {
-                            $(nTd).click(test());
+                            $(nTd).click(function() {
+                                console.log("new testing");
+                            });
                             // $(nTd).onclick = tableLiability(oData[0]);
                         }
                     },
