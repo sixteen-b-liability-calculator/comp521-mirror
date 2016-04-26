@@ -291,7 +291,7 @@ def run_greedy(purchases, sales, stella_correction, jammies_correction):
     p_dates = map(lambda p: p.date, s_purchases)
     print "s_dates: ", s_dates
     print "p_dates: ", p_dates
-
+    makeGraph(s_dates, p_dates, s_sales_amts, p_sales_amts)
     print "s_purchases: ", s_purchases, "s_sales: ", s_sales, "s_sales_amts: ", s_sales_amts
     ret = dict(pairs = [], value = 0)
 
@@ -315,7 +315,7 @@ def run_greedy(purchases, sales, stella_correction, jammies_correction):
                     s_sales_amts[i] -= amt
                     collect(p,s,amt)
                     amt = 0
-    makeGraph(s_dates, p_dates, s_sales_amts, p_sales_amts)
+    
     return ret
 
 def makeGraph(sale_dates, purchase_dates, sale_amounts, purchase_amounts):
@@ -328,7 +328,7 @@ def makeGraph(sale_dates, purchase_dates, sale_amounts, purchase_amounts):
 #     #last_day = date_less_one(first_day)
     earlier_date = min(sale_dates, purchase_dates)
     later_date = max(sale_dates, purchase_dates)
-    print earlier_date, later_date
+    print "earlier_date: ", earlier_date, "later_date: ",later_date
 
 
 #     #Format the x axis on the graph
