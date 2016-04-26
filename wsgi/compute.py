@@ -289,10 +289,9 @@ def run_greedy(purchases, sales, stella_correction, jammies_correction):
     p_sales_amts = map(lambda p: p.number, s_purchases)
     s_dates = map(lambda s: s.date, s_sales)
     p_dates = map(lambda p: p.date, s_purchases)
-    print "s_dates: ", s_dates
-    print "p_dates: ", p_dates
+
     makeGraph(s_dates, p_dates, s_sales_amts, p_sales_amts)
-    print "s_purchases: ", s_purchases, "s_sales: ", s_sales, "s_sales_amts: ", s_sales_amts
+
     ret = dict(pairs = [], value = 0)
 
     def collect(p, s, amt):
@@ -301,11 +300,9 @@ def run_greedy(purchases, sales, stella_correction, jammies_correction):
 
     for p in s_purchases:
         amt = p.number
-        print "amt: ", amt
         for i in range(0, len(s_sales)):
             s = s_sales[i]
             s_amt = s_sales_amts[i]
-
             if amt > 0 and s_amt > 0 and introduces_liability(p, s, stella_correction, jammies_correction):
                 if amt >= s_amt:
                     s_sales_amts[i] = 0
@@ -320,43 +317,40 @@ def run_greedy(purchases, sales, stella_correction, jammies_correction):
 
 def makeGraph(sale_dates, purchase_dates, sale_amounts, purchase_amounts):
 
-
-
-#     #set up graph's x axis span with the min and max date
-#     #taken from dates_within_range()
-#     #first_day = first_day_of_next_month(undate) 
-#     #last_day = date_less_one(first_day)
-    earlier_date = min(sale_dates, purchase_dates)
-    later_date = max(sale_dates, purchase_dates)
+    #set up graph's x axis span with the min and max date
+    dates = []
+    dates.append(sale_dates)
+    dates.append(purchase_dates)
+    earlier_date = min(dates)
+    later_date = max(dates)
     print "earlier_date: ", earlier_date, "later_date: ",later_date
 
+    #Format the x axis on the graph
+    years = YearLocator()   # every year
+    months = MonthLocator(range(1, 13), bymonthday=1, interval=3)  # every month, displaying month name of every 3rd month
+    yearsFmt = DateFormatter('%B %Y') #written out Month and full year
 
-#     #Format the x axis on the graph
-#     years = YearLocator()   # every year
-#     months = MonthLocator(range(1, 13), bymonthday=1, interval=3)  # every month, displaying month name of every 3rd month
-#     yearsFmt = DateFormatter('%B %Y') #written out Month and full year
+    # # x-axis
+    # sell_dates = [s[0] for s in sale_dates]
+    # buy_dates = [b[0] for b in purchase_dates]
+    # #y-axis
+    # sell_prices = [s[1] for s in sale_amounts]
+    # buy_prices = [b[1] for b in purchase_amounts]
 
-#     # x-axis
-#     sell_dates = [s[0] for s in sell.dates]
-#     buy_dates = [b[0] for b in buy.dates]
-#     #y-axis
-#     sell_prices = [s[1] for s in sell.price]
-#     buy_prices = [b[1] for b in buy.price]
+    fig, ax = plt.subplots()
+    ax.plot_date(sale_dates, sale_amounts, '-', label="sale")
+    ax.plot_date(purchase_dates, purchase_amounts, '-', label="purchase")
+    ax.legend(loc='upper right')
 
-#    fig, ax = plt.subplots()
-#     ax.plot_date(sell_dates, sell_prices, '-', label="sale")
-#     ax.plot_date(buy_dates, buy_prices, '-', label="purchase")
-#    ax.legend(loc='upper right')
+    ax.xaxis.set_major_locator(months)
+    ax.xaxis.set_major_formatter(yearsFmt)
+    #ax.xaxis.set_minor_locator(years)
+    ax.autoscale_view()
 
-#     ax.xaxis.set_major_locator(months)
-#     ax.xaxis.set_major_formatter(yearsFmt)
-#     #ax.xaxis.set_minor_locator(years)
-#     ax.autoscale_view()
+    ax.fmt_xdata = DateFormatter('%Y-%m-%d')
+    #don't think this will need formatting
+    #ax.fmt_ydata = 
+    ax.grid(True)
 
-#     ax.fmt_xdata = DateFormatter('%Y-%m-%d')
-#     #don't think this will need formatting
-#     #ax.fmt_ydata = 
-#     ax.grid(True)
-
-#     fig.autofmt_xdate()
-#    plt.show()
+    fig.autofmt_xdate()
+    plt.show()
