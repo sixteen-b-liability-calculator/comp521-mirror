@@ -329,10 +329,10 @@ def run_greedy(purchases, sales, stella_correction, jammies_correction):
 #     sell_prices = [s[1] for s in sell.price]
 #     buy_prices = [b[1] for b in buy.price]
 
-     fig, ax = plt.subplots()
+    fig, ax = plt.subplots()
 #     ax.plot_date(sell_dates, sell_prices, '-', label="sale")
 #     ax.plot_date(buy_dates, buy_prices, '-', label="purchase")
-     ax.legend(loc='upper right')
+    ax.legend(loc='upper right')
 
 #     ax.xaxis.set_major_locator(months)
 #     ax.xaxis.set_major_formatter(yearsFmt)
@@ -345,4 +345,4 @@ def run_greedy(purchases, sales, stella_correction, jammies_correction):
 #     ax.grid(True)
 
 #     fig.autofmt_xdate()
-     plt.show()
+    plt.show()
