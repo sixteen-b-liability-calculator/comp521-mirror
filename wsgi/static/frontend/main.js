@@ -71,20 +71,20 @@ $(document).ready( function () {
 
                                 console.log("secJSON: " + secJSON);
                                 
-                                if (secCIK && secCIK != "") {
-                                    $.ajax( "/pullSEC",
-                                        ({type: "POST",
-                                        data: secJSON,
-                                        contentType: "application/json",
-                                        dataType: "json",
-                                        success: [populate, removeMessage],
-                                        error: function(data) {
-                                            document.open();
-                                            document.write(data.responseText);
-                                            document.close();
-                                        }
-                                    }));
-                                }
+                                // if (secCIK && secCIK != "") {
+                                //     $.ajax( "/pullSEC",
+                                //         ({type: "POST",
+                                //         data: secJSON,
+                                //         contentType: "application/json",
+                                //         dataType: "json",
+                                //         success: [populate, removeMessage],
+                                //         error: function(data) {
+                                //             document.open();
+                                //             document.write(data.responseText);
+                                //             document.close();
+                                //         }
+                                //     }));
+                                // }
                             });
                         }
                     },
