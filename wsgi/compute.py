@@ -284,7 +284,9 @@ def run_problem(purchases, sales, stella_correction, jammies_correction):
 def run_greedy(purchases, sales, stella_correction, jammies_correction):
     s_purchases = sorted(purchases, key=lambda t: t.price)
     s_sales = sorted(sales, key=lambda t: -t.price)
+    
     s_sales_amts = map(lambda s: s.number, s_sales)
+    p_sales_amts = map(lambda p: p.number, s_purchases)
     s_dates = map(lambda s: s.date, s_sales)
     p_dates = map(lambda p: p.date, s_purchases)
     print "s_dates: ", s_dates
@@ -313,10 +315,10 @@ def run_greedy(purchases, sales, stella_correction, jammies_correction):
                     s_sales_amts[i] -= amt
                     collect(p,s,amt)
                     amt = 0
-    #makeGraph(purchases, sales, stella_correction, jammies_correction)
+    makeGraph(s_dates, p_dates, s_sales_amts, p_sales_amts)
     return ret
 
-def makeGraph(purchases, sales, stella_correction, jammies_correction):
+def makeGraph(sale_dates, purchase_dates, sale_amounts, purchase_amounts):
 
 
 
@@ -324,9 +326,10 @@ def makeGraph(purchases, sales, stella_correction, jammies_correction):
 #     #taken from dates_within_range()
 #     #first_day = first_day_of_next_month(undate) 
 #     #last_day = date_less_one(first_day)
-    #earlier_date = min(sell.date, buy.date)
-    #later_date = max(sell.date, buy.date)
-    print "purchases: ", purchases, "sales: ", sales
+    earlier_date = min(sale_dates, purchase_dates)
+    later_date = max(sale_dates, purchase_dates)
+    print earlier_date, later_date
+
 
 #     #Format the x axis on the graph
 #     years = YearLocator()   # every year
