@@ -44,7 +44,7 @@ $(document).ready( function () {
                                 var startYear = parseDate(endDate, "y");
                                 var startMonth = parseDate(endDate, "m");
 
-                                var secJSON = '{ "startYear":'+startYear+',"startMonth":'+startMonth+',"endYear":'+endYear+',"endMonth":'+endMonth+',"cik": "'+789453+'"}';
+                                var secJSON = '{ "startYear":'+startYear+',"startMonth":'+startMonth+',"endYear":'+endYear+',"endMonth":'+endMonth+',"cik": "'+1194358+'"}';
 
 
                                 if (secCIK && secCIK != "") {
