@@ -38,7 +38,7 @@ $(document).ready( function () {
                     }
                 ],
             });
-            $('#data_table td').on('click', 'tr', function () {
+            $('#data_table tbody').on('click', 'td', function () {
                 console.log(data_table.row(this).data());
             });
         },
