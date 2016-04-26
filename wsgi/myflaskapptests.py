@@ -34,7 +34,7 @@ class FlaskrTestCase(unittest.TestCase):
     # 	assert edgarFileURLs[9] == 'edgar/data/1000180/0001242648-07-000029.txt'
 
     # This test can be flaky depending on the connection to the SEC database
-    
+
     def test_pull_trades(self):
         jsonData = json.dumps({ "startYear": 2007, "startMonth": 1, "endYear": 2007, "endMonth": 3, "cik": 1000180 })
         rv = self.app.post('/pullSEC', content_type= 'application/json', data = jsonData)
@@ -54,7 +54,7 @@ class FlaskrTestCase(unittest.TestCase):
         quarter = 1
         indexType = 'master'
         fileLoc = 'edgar/full-index/'+str(year)+'/QTR'+str(quarter)+'/'+indexType+'.gz'
-        assert os.path.isfile("tempFiles/"+fileLoc) #Be sure to include this file in this location for this test to pass
+        assert os.path.isfile("wsgi/tempFiles/"+fileLoc) #Be sure to include this file in this location for this test to pass
         pull_edgar_file("bad_ftp",fileLoc)
 
     def test_compute(self):
