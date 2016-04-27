@@ -110,7 +110,7 @@ def pull_edgar_file(ftp, directoryPath):
 
     pracFile = tempfile.TemporaryFile()
 # Check the tempFile directory to see whether the file has already been pulled before.
-    tempFileDirPath = "tempFiles/" + directoryPath
+    tempFileDirPath = "wsgi/tempFiles/" + directoryPath
     if os.path.isfile(tempFileDirPath):
         print tempFileDirPath
         return open(tempFileDirPath,'rb')
