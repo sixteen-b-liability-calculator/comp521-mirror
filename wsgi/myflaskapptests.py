@@ -9,22 +9,22 @@ class FlaskrTestCase(unittest.TestCase):
     def setUp(self):
         self.app = myflaskapp.app.test_client()
 
-    def test_blank(self):
-        assert 1==1
+    # def test_blank(self):
+    #     assert 1==1
 
-    def test_parse_section_4(self):
+    # def test_parse_section_4(self):
 
-    	expectedSell = dict(price = 44.10, month = 1, number = 2000, day = 11, year = 2007,
-                           securityTitle="Common Stock", directOrIndirectOwnership="D", filingURL ="ftp://ftp.sec.gov/")
-    	expectedBuy = dict(price= 34.585, month= 1, number= 10000, day= 11, year= 2007,
-                            securityTitle="Common Stock", directOrIndirectOwnership="D", filingURL ="ftp://ftp.sec.gov/")
+    # 	expectedSell = dict(price = 44.10, month = 1, number = 2000, day = 11, year = 2007,
+    #                        securityTitle="Common Stock", directOrIndirectOwnership="D", filingURL ="ftp://ftp.sec.gov/")
+    # 	expectedBuy = dict(price= 34.585, month= 1, number= 10000, day= 11, year= 2007,
+    #                         securityTitle="Common Stock", directOrIndirectOwnership="D", filingURL ="ftp://ftp.sec.gov/")
 
-        inputFile = open('wsgi/testing/edgarTestingFile.txt', 'r+')
-        tree = parse_section_4(inputFile)
-        assert tree.getroot().tag == 'ownershipDocument'
-        trades = return_trade_information_from_xml(tree,"")
-        assert trades[0][0] == expectedBuy
-        assert trades[1][0] == expectedSell  
+    #     inputFile = open('wsgi/testing/edgarTestingFile.txt', 'r+')
+    #     tree = parse_section_4(inputFile)
+    #     assert tree.getroot().tag == 'ownershipDocument'
+    #     trades = return_trade_information_from_xml(tree,"")
+    #     assert trades[0][0] == expectedBuy
+    #     assert trades[1][0] == expectedSell  
 
     # def test_parse_idx(self):
 
