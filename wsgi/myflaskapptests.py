@@ -41,35 +41,35 @@ class FlaskrTestCase(unittest.TestCase):
         data = json.loads(rv.get_data())
         assert data['sells'][0] == {"day": 11,"month": 1,"number": 2000,"price": 44.1, "year": 2007, "securityTitle":"Common Stock", "directOrIndirectOwnership" : "D", "filingURL" : "http://www.sec.gov/Archives/edgar/data/1000180/000124264807000001/0001242648-07-000001-index.htm"}
 
-    def test_pull_daily_filings(self):
-        jsonData = json.dumps({"dateString": 01/01/16})
-        rv = self.app.post('/pullDailyReport', content_type = 'application/json', data = jsonData)
-        data = json.loads(rv.get_data())
-        assert data['sells'][0] == {"day": 11, "month": 1, "number": 2000, "price": 44.1, "year": 2007, "securityTitle":"Common Stock", "directOrIndirectOwnership" : "D", "filingURL" : "http://www.sec.gov/Archives/edgar/data/1000180/000124264807000001/0001242648-07-000001-index.htm"}
+    # def test_pull_daily_filings(self):
+    #     jsonData = json.dumps({"dateString": 01/01/16})
+    #     rv = self.app.post('/pullDailyReport', content_type = 'application/json', data = jsonData)
+    #     data = json.loads(rv.get_data())
+    #     assert data['sells'][0] == {"day": 11, "month": 1, "number": 2000, "price": 44.1, "year": 2007, "securityTitle":"Common Stock", "directOrIndirectOwnership" : "D", "filingURL" : "http://www.sec.gov/Archives/edgar/data/1000180/000124264807000001/0001242648-07-000001-index.htm"}
 
-    # Testing the ability to pull files locally
-    def test_pull_index_local(self):
-        # Give an ftp that is bad.  This will cause a failure if it doesn't pull the correct file
-        year = 2008
-        quarter = 1
-        indexType = 'master'
-        fileLoc = 'edgar/full-index/'+str(year)+'/QTR'+str(quarter)+'/'+indexType+'.gz'
-        assert os.path.isfile("wsgi/tempFiles/"+fileLoc) #Be sure to include this file in this location for this test to pass
-        pull_edgar_file("bad_ftp",fileLoc)
+    # # Testing the ability to pull files locally
+    # def test_pull_index_local(self):
+    #     # Give an ftp that is bad.  This will cause a failure if it doesn't pull the correct file
+    #     year = 2008
+    #     quarter = 1
+    #     indexType = 'master'
+    #     fileLoc = 'edgar/full-index/'+str(year)+'/QTR'+str(quarter)+'/'+indexType+'.gz'
+    #     assert os.path.isfile("wsgi/tempFiles/"+fileLoc) #Be sure to include this file in this location for this test to pass
+    #     pull_edgar_file("bad_ftp",fileLoc)
 
-    def test_compute(self):
-        # note that the inputs must have /unique/ correct outputs or else
-        # the test is meaningless
-        inputFile = open('wsgi/testing/computetest.txt', 'r+')
-        testDicts = json.load(inputFile)
-        for test in testDicts:
-            computeResult = json.loads(self.app.post('/compute', content_type='application/json', data=json.dumps(test['input'])).get_data())
-            greedyResult = json.loads(self.app.post('/greedy', content_type='application/json', data=json.dumps(test['input'])).get_data())
-            # only check the top-level keys from expected output
-            for (key, expected) in test['output_compute'].iteritems():
-                assert computeResult.get(key) == expected
-            for (key, expected) in test['output_greedy'].iteritems():
-                assert greedyResult.get(key) == expected
+    # def test_compute(self):
+    #     # note that the inputs must have /unique/ correct outputs or else
+    #     # the test is meaningless
+    #     inputFile = open('wsgi/testing/computetest.txt', 'r+')
+    #     testDicts = json.load(inputFile)
+    #     for test in testDicts:
+    #         computeResult = json.loads(self.app.post('/compute', content_type='application/json', data=json.dumps(test['input'])).get_data())
+    #         greedyResult = json.loads(self.app.post('/greedy', content_type='application/json', data=json.dumps(test['input'])).get_data())
+    #         # only check the top-level keys from expected output
+    #         for (key, expected) in test['output_compute'].iteritems():
+    #             assert computeResult.get(key) == expected
+    #         for (key, expected) in test['output_greedy'].iteritems():
+    #             assert greedyResult.get(key) == expected
 
 if __name__ == '__main__':
     unittest.main()
