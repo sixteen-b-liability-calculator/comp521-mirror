@@ -319,8 +319,10 @@ def makeGraph(sale_dates, purchase_dates, sale_amounts, purchase_amounts):
 
     #set up graph's x axis span with the min and max date
     dates = []
-    dates.append(sale_dates)
-    dates.append(purchase_dates)
+    for s in sale_dates:
+        dates.append(s)
+    for p in purchase_dates:
+        dates.append(p)
     earlier_date = min(dates)
     later_date = max(dates)
     print "dates: ", dates
