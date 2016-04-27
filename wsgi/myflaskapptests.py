@@ -26,12 +26,14 @@ class FlaskrTestCase(unittest.TestCase):
         assert trades[0][0] == expectedBuy
         assert trades[1][0] == expectedSell  
 
-    def test_parse_idx(self):
+    # parse_idx ws not used
+        
+    # def test_parse_idx(self):
 
-    	inputFile = open('wsgi/testing/edgarTestIndex.txt', 'r+')
-    	edgarFileURLs = parse_idx(inputFile, 1000180, ['4'])
-    	assert edgarFileURLs[0] == 'edgar/data/1000180/0001242648-07-000020.txt'
-    	assert edgarFileURLs[9] == 'edgar/data/1000180/0001242648-07-000029.txt'
+    # 	inputFile = open('wsgi/testing/edgarTestIndex.txt', 'r+')
+    # 	edgarFileURLs = parse_idx(inputFile, 1000180, ['4'])
+    # 	assert edgarFileURLs[0] == 'edgar/data/1000180/0001242648-07-000020.txt'
+    # 	assert edgarFileURLs[9] == 'edgar/data/1000180/0001242648-07-000029.txt'
 
     # This test can be flaky depending on the connection to the SEC database
 
