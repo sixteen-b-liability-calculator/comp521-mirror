@@ -356,5 +356,5 @@ def makeGraph(sale_dates, purchase_dates, sale_amounts, purchase_amounts):
     fig.autofmt_xdate()
     plt.show()
     #fig.savefig('fig.png')
-    ax.savefig('ax.png')
-    plt.savefig('plt.png')
+    #ax.savefig('ax.png')
+    #plt.savefig('plt.png')
