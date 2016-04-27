@@ -9,8 +9,8 @@ class FlaskrTestCase(unittest.TestCase):
     def setUp(self):
         self.app = myflaskapp.app.test_client()
 
-    # def test_blank(self):
-    #     assert 1==1
+    def test_blank(self):
+        assert 1==1
 
     # def test_parse_section_4(self):
 
