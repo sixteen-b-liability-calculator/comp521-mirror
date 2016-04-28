@@ -382,7 +382,7 @@ def makeGraph(sale_dates, purchase_dates, sale_amounts, purchase_amounts):
     #     pdf.savefig()
 
 
-def testGraph() {
+def testGraph():
     fig = Figure()
     canvas = FigureCanvas(fig)
     ax = fig.add_subplot(111)
@@ -392,4 +392,4 @@ def testGraph() {
     ax.set_xlabel('time')
     ax.set_ylabel('volts')
     canvas.print_figure('test')
-}
+
