@@ -29,8 +29,9 @@ import matplotlib.pyplot as plt # or possibly use --> to make interactive, mpld3
 from matplotlib.dates import MonthLocator, WeekdayLocator, DateFormatter, YearLocator
 
 #testgraph
-from matplotlib.backends.backend_agg import FigureCanvasAgg as FigureCanvas
-from matplotlib.figure import Figure
+import cStringIO
+from matplotlib.figure import Figure                      
+from matplotlib.backends.backend_agg import FigureCanvasAgg
 
 #} 
 #end for python vizualizations
@@ -303,7 +304,7 @@ def run_greedy(purchases, sales, stella_correction, jammies_correction):
     s_dates = map(lambda s: s.date, s_sales)
     p_dates = map(lambda p: p.date, s_purchases)
 
-    makeGraph(s_dates, p_dates, s_sales_amts, p_sales_amts)
+    
 
     ret = dict(pairs = [], value = 0)
 
@@ -321,11 +322,13 @@ def run_greedy(purchases, sales, stella_correction, jammies_correction):
                     s_sales_amts[i] = 0
                     amt -= s_amt
                     collect(p,s,s_amt)
+                    print "p: ", p, "s: ", s, "s_amt: ", s_amt
                 else:
                     s_sales_amts[i] -= amt
                     collect(p,s,amt)
                     amt = 0
-    
+    print "ret: ", ret
+    #makeGraph(s_dates, p_dates, s_sales_amts, p_sales_amts)
     return ret
 
 def makeGraph(sale_dates, purchase_dates, sale_amounts, purchase_amounts):
@@ -354,8 +357,8 @@ def makeGraph(sale_dates, purchase_dates, sale_amounts, purchase_amounts):
     # buy_prices = [b[1] for b in purchase_amounts]
 
     fig, ax = plt.subplots()
-    ax.plot_date(sale_dates, sale_amounts, '-', label="sale")
-    ax.plot_date(purchase_dates, purchase_amounts, '-', label="purchase")
+    ax.plot_date(sale_dates, sale_amounts, '.', label="sale", color="green")
+    ax.plot_date(purchase_dates, purchase_amounts, '.', label="purchase", color="red")
     ax.legend(loc='upper right')
 
     ax.xaxis.set_major_locator(months)
@@ -383,13 +386,22 @@ def makeGraph(sale_dates, purchase_dates, sale_amounts, purchase_amounts):
 
 
 def testGraph():
-    fig = Figure()
-    canvas = FigureCanvas(fig)
-    ax = fig.add_subplot(111)
-    ax.plot([1, 2, 3])
-    ax.set_title('hi mom')
-    ax.grid(True)
-    ax.set_xlabel('time')
-    ax.set_ylabel('volts')
-    canvas.print_figure('test')
+    fig = Figure(figsize=[4,4])                               
+    ax = fig.add_axes([.1,.1,.8,.8])                          
+    ax.scatter([1,2], [3,4])                                  
+    canvas = FigureCanvasAgg(fig)
+
+    # write image data to a string buffer and get the PNG image bytes
+    buf = cStringIO.StringIO()
+    canvas.print_png(buf)
+    data = buf.getvalue()
+
+    # pseudo-code for generating the http response from your
+    # webserver, and writing the bytes back to the browser.
+    # replace this with corresponding code for your web framework
+    headers = {
+        'Content-Type': 'image/png',
+        'Content-Length': len(data)
+        }
+    response.write(200, 'OK', headers, data)
 
