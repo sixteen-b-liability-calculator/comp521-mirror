@@ -322,7 +322,7 @@ def run_greedy(purchases, sales, stella_correction, jammies_correction):
                     s_sales_amts[i] = 0
                     amt -= s_amt
                     collect(p,s,s_amt)
-                    print "p: ", p, "s: ", s, "s_amt: ", s_amt
+                    print "p.date: ", p.date, "s.date: ", s.date, "s_amt: ", s_amt
                 else:
                     s_sales_amts[i] -= amt
                     collect(p,s,amt)
