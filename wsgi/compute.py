@@ -362,7 +362,7 @@ def makeGraph(sale_dates, purchase_dates, sale_amounts, purchase_amounts, op_sol
     op_sales_dates = []
     op_sales_amounts = []
     op_pair = []
-    for opsol in ret["pairs"]:
+    for opsol in op_solution["pairs"]:
         opp = opsol[0].date, opsol[0].price
         ops = opsol[1].date, opsol[1].price
         oppair = opp, ops
