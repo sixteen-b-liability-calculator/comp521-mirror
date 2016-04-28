@@ -378,7 +378,7 @@ def makeGraph(sale_dates, purchase_dates, sale_amounts, purchase_amounts, op_sol
     ax.plot_date(purchase_dates, purchase_amounts, '.', label="purchase", color="red")
     #plot lines between possible connections
     #plot optimal solution
-    ax.plot_date()
+    #ax.plot_date()
     ax.legend(loc='upper right')
 
     ax.xaxis.set_major_locator(months)
