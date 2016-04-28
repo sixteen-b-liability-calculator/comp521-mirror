@@ -130,10 +130,11 @@ def pullSEC():
     return jsonify(trades)
 
 # function that pulls information on yesterday's Form 4 filings from SEC database.
-@app.route("/pullDailyReport", methods=['GET'])
+@app.route("/pullDailyReport", methods=['POST'])
 @add_response_headers({'Access-Control-Allow-Origin': 'example.com'})
 def pullDailyReport():
-    filings = generate_daily_report("04/22/2016")
+    input_data = request.get_json()
+    filings = generate_daily_report(inputdata['date'])
     return jsonify(filings)
 
 @app.route("/populateWithCSV", methods=['POST'])
