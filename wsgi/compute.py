@@ -21,11 +21,17 @@ import itertools
 #pip install matplotlib
 #pip install numpy
 
+
 import matplotlib
-from pylab import *
-import matplotlib.pyplot as plt, mpld3
 matplotlib.use('Agg') # this allows 'png' plotting 
+from pylab import *
+import matplotlib.pyplot as plt # or possibly use --> to make interactive, mpld3
 from matplotlib.dates import MonthLocator, WeekdayLocator, DateFormatter, YearLocator
+
+#testgraph
+from matplotlib.backends.backend_agg import FigureCanvasAgg as FigureCanvas
+from matplotlib.figure import Figure
+
 #} 
 #end for python vizualizations
 
@@ -283,7 +289,9 @@ def run_problem(purchases, sales, stella_correction, jammies_correction):
             ret['status'] = "not solved"
     else:
         ret['status'] = "solver error"
+    testGraph()
     makeGraph(purchases, sales, stella_correction, jammies_correction)
+
     return ret
 
 def run_greedy(purchases, sales, stella_correction, jammies_correction):
@@ -366,9 +374,22 @@ def makeGraph(sale_dates, purchase_dates, sale_amounts, purchase_amounts):
     #fig.savefig('fig.png')
     #ax.savefig('ax.png')
     #plt.savefig('plt.png')
-    with PdfPages('foo.pdf') as pdf:
-        # As many times as you like, create a figure fig and save it:
-        fig = plt.figure()
-        pdf.savefig(fig)
-        # When no figure is specified the current figure is saved
-        pdf.savefig()
+    # with PdfPages('foo.pdf') as pdf:
+    #     # As many times as you like, create a figure fig and save it:
+    #     fig = plt.figure()
+    #     pdf.savefig(fig)
+    #     # When no figure is specified the current figure is saved
+    #     pdf.savefig()
+
+
+def testGraph() {
+    fig = Figure()
+    canvas = FigureCanvas(fig)
+    ax = fig.add_subplot(111)
+    ax.plot([1, 2, 3])
+    ax.set_title('hi mom')
+    ax.grid(True)
+    ax.set_xlabel('time')
+    ax.set_ylabel('volts')
+    canvas.print_figure('test')
+}
