@@ -290,8 +290,8 @@ def run_problem(purchases, sales, stella_correction, jammies_correction):
             ret['status'] = "not solved"
     else:
         ret['status'] = "solver error"
-    testGraph()
-    makeGraph(purchases, sales, stella_correction, jammies_correction)
+    #testGraph()
+    #makeGraph(purchases, sales, stella_correction, jammies_correction, ret)
 
     return ret
 
@@ -328,10 +328,10 @@ def run_greedy(purchases, sales, stella_correction, jammies_correction):
                     collect(p,s,amt)
                     amt = 0
     print "ret: ", ret
-    #makeGraph(s_dates, p_dates, s_sales_amts, p_sales_amts)
+    makeGraph(s_dates, p_dates, s_sales_amts, p_sales_amts, ret)
     return ret
 
-def makeGraph(sale_dates, purchase_dates, sale_amounts, purchase_amounts):
+def makeGraph(sale_dates, purchase_dates, sale_amounts, purchase_amounts, op_solution):
 
     #set up graph's x axis span with the min and max date
     dates = []
@@ -356,9 +356,29 @@ def makeGraph(sale_dates, purchase_dates, sale_amounts, purchase_amounts):
     # sell_prices = [s[1] for s in sale_amounts]
     # buy_prices = [b[1] for b in purchase_amounts]
 
+    #optimal solution
+    op_purchases_dates = []
+    op_purchases_amounts = []
+    op_sales_dates = []
+    op_sales_amounts = []
+    op_pair = []
+    for opsol in ret["pairs"]:
+        opp = opsol[0].date, opsol[0].price
+        ops = opsol[1].date, opsol[1].price
+        oppair = opp, ops
+        op_purchases_dates.append(opp[0])
+        op_purchases_amounts.append(opp[1])
+        op_sales_dates.append(ops[0])
+        op_sales_amounts.append(ops[1])
+        op_pair.append(oppair)
+
+
     fig, ax = plt.subplots()
     ax.plot_date(sale_dates, sale_amounts, '.', label="sale", color="green")
     ax.plot_date(purchase_dates, purchase_amounts, '.', label="purchase", color="red")
+    #plot lines between possible connections
+    #plot optimal solution
+    ax.plot_date()
     ax.legend(loc='upper right')
 
     ax.xaxis.set_major_locator(months)
