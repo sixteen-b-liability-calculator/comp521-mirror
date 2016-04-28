@@ -520,7 +520,7 @@ function pullDailyReport() {
 
     $.ajax( "/pullDailyReport",
         ({type: "POST",
-        data: dateJSON
+        data: dateJSON,
         contentType: "application/json",
         dataType: "json",
         success: [displayReport, removeMessage],
