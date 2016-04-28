@@ -68,6 +68,7 @@ class FlaskrTestCase(unittest.TestCase):
         testDicts = json.load(inputFile)
         for test in testDicts:
             computeResult = json.loads(self.app.post('/compute', content_type='application/json', data=json.dumps(test['input'])).get_data())
+            print computeResult
             greedyResult = json.loads(self.app.post('/greedy', content_type='application/json', data=json.dumps(test['input'])).get_data())
             # only check the top-level keys from expected output
             for (key, expected) in test['output_compute'].iteritems():
