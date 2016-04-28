@@ -16,9 +16,14 @@ import itertools
 #from flask import Flask, render_template
 #import tempfile
 
+#EXTRA INSTALLATIONS
+#pip install mpld3
+#pip install matplotlib
+#pip install numpy
+
 import matplotlib
 from pylab import *
-import matplotlib.pyplot as plt
+import matplotlib.pyplot as plt, mpld3
 matplotlib.use('Agg') # this allows 'png' plotting 
 from matplotlib.dates import MonthLocator, WeekdayLocator, DateFormatter, YearLocator
 #} 
@@ -357,6 +362,13 @@ def makeGraph(sale_dates, purchase_dates, sale_amounts, purchase_amounts):
 
     fig.autofmt_xdate()
     plt.show()
+    mpld3.show()
     #fig.savefig('fig.png')
     #ax.savefig('ax.png')
     #plt.savefig('plt.png')
+    with PdfPages('foo.pdf') as pdf:
+        # As many times as you like, create a figure fig and save it:
+        fig = plt.figure()
+        pdf.savefig(fig)
+        # When no figure is specified the current figure is saved
+        pdf.savefig()
