@@ -3,7 +3,7 @@ import myflaskapp
 import unittest
 import tempfile
 import json
-import requests
+import requests # trying
 from edgar_api import *
 class FlaskrTestCase(unittest.TestCase):
 
