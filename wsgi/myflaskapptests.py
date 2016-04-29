@@ -71,6 +71,7 @@ class FlaskrTestCase(unittest.TestCase):
         # Give an ftp that is bad.  This will cause a failure if it doesn't pull the correct file
         year = 2008
         quarter = 1
+        
         indexType = 'master'
         fileLoc = 'edgar/full-index/'+str(year)+'/QTR'+str(quarter)+'/'+indexType+'.gz'
         assert os.path.isfile("wsgi/tempFiles/"+fileLoc) #Be sure to include this file in this location for this test to pass
