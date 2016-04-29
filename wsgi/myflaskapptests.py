@@ -5,6 +5,7 @@ import tempfile
 import json
 from compute import introduces_liability
 from edgar_api import *
+from flask import requests
 
 class FlaskrTestCase(unittest.TestCase):
 
@@ -49,6 +50,13 @@ class FlaskrTestCase(unittest.TestCase):
         inputFile = open('wsgi/testing/computetest.txt', 'r+')
         data  = json.load(inputFile)
         assert isinstance(data, list)
+
+    def test_method(self):
+        with app.test_request_context('/hello', method='POST'):
+        # now you can do something with the request until the
+        # end of the with block, such as basic assertions:
+        assert request.path == '/hello'
+        assert request.method == 'POST'
 
      # This test can be flaky depending on the connection to the SEC database
     def test_pull_trades(self):
