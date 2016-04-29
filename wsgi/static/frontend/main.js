@@ -68,7 +68,7 @@ $(document).ready( function () {
                                     }));
                                 }
                             });
-                            $(nTd).html("<a href='#'' data-toggle='tooltip' data-placement='bottom' title='Tool Tip!''>"+ oData[2] +"</a>");
+                            $(nTd).html("<a href=\"#\" data-toggle=\"tooltip\" data-placement=\"bottom\" title=\"Tool Tip!\">"+ oData[2] +"</a>");
                         }
                     },
                     { title: "Date of most recent form" },
