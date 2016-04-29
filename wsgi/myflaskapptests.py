@@ -12,6 +12,10 @@ class FlaskrTestCase(unittest.TestCase):
     def test_blank(self):
         assert 1==1
 
+    def test_introduces_liability(self):
+        test = introduces_liability(10, 20, "", "")
+        assert test == True 
+
     def test_parse_section_4(self):
 
     	expectedSell = dict(price = 44.10, month = 1, number = 2000, day = 11, year = 2007,
