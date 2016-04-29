@@ -32,10 +32,10 @@ $ rhc create-app APPNAME python-2.7 --from-code=https://github.com/sixteen-b-lia
 ```sh
 $ rhc cartridge add mysql-5.5 -a APPNAME
 ```
-- SSH into app and initialize the database
+- SSH into app and initialize the database (make sure to use the lower case version of your appname)
 ```sh
 $ rhc ssh APPNAME
-$ mysql APPNAME < app-root/repo/initializeDatabase.sql
+$ mysql appname < app-root/repo/initializeDatabase.sql
 $ exit
 ```
 - Your app is now available at http://APPNAME-ONYEN.apps.unc.edu
