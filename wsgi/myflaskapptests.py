@@ -17,9 +17,10 @@ class FlaskrTestCase(unittest.TestCase):
 
     def test_introduces_liability(self):
         sampleSell = Trade(number=1, price=20, year=2016, month=01, day=12)
-        sell = dict(price = 20)
-        buy = dict(price = 10)
-        test = introduces_liability(buy, sell, True, True)
+        sampleBuy = Trade(number = 2, price = 10, year = 2015, month = 03, day=31)
+        # sell = sampleSell[0]
+        # buy = dict(price = 10)
+        test = introduces_liability(sampleSell, sampleBuy, True, True)
         assert test == True 
 
      # Making sure that the data being passed in is a not a list (if not, test_parse_section messes up)
