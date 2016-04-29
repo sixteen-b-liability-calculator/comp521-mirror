@@ -78,7 +78,7 @@ class FlaskrTestCase(unittest.TestCase):
 
     def test_some_json(self):
         response = self.app.get("/ajax/")
-        self.assertEquals(response.json, dict(success=True))
+        self.assertEquals(response.json(), dict(success=True))
     # def test_compute(self):
     #     # note that the inputs must have /unique/ correct outputs or else
     #     # the test is meaningless
