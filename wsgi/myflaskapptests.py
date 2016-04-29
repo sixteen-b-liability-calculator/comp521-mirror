@@ -61,6 +61,10 @@ class FlaskrTestCase(unittest.TestCase):
         assert os.path.isfile("wsgi/tempFiles/"+fileLoc) #Be sure to include this file in this location for this test to pass
         pull_edgar_file("bad_ftp",fileLoc)
 
+    def test_empty_db(self):
+        rv = self.app.get('/')
+        assert "" in rv.data
+
     def test_compute(self):
         # note that the inputs must have /unique/ correct outputs or else
         # the test is meaningless
