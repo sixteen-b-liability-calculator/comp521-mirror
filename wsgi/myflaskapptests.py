@@ -15,8 +15,8 @@ class FlaskrTestCase(unittest.TestCase):
         assert 1==1
 
     def test_introduces_liability(self):
-        sell = [{'price': 20}]
-        buy = [{'price': 10}]
+        sell = dict(price = 20)
+        buy = dict(price = 10)
         test = introduces_liability(buy, sell, True, True)
         assert test == True 
 
