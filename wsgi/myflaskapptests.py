@@ -12,11 +12,6 @@ class FlaskrTestCase(unittest.TestCase):
     def test_blank(self):
         assert 1==1
 
-    def test_parse(self):
-        inputFile = open('wsgi/testing/edgarTestingFile.txt', 'r+')
-        parse = json.load(inputFile)
-        assert not isinstance(parse, basestring)
-
     def test_parse_section_4(self):
 
     	expectedSell = dict(price = 44.10, month = 1, number = 2000, day = 11, year = 2007,
@@ -53,13 +48,13 @@ class FlaskrTestCase(unittest.TestCase):
         data = json.loads(rv.get_data())
         assert data['sells'][0] == {"day": 11,"month": 1,"number": 2000,"price": 44.1, "year": 2007, "securityTitle":"Common Stock", "directOrIndirectOwnership" : "D", "filingURL" : "http://www.sec.gov/Archives/edgar/data/1000180/000124264807000001/0001242648-07-000001-index.htm"}
 
-    def test_pull_daily_filings(self):
-        d = {'dataString': '01/01/2016'}
-        jsonData = json.dumps(d)
-        rv = self.app.post('/pullDailyReport', content_type = 'application/json', data = jsonData)
-        print rv
-        data = json.loads(rv.get_data())
-        assert d == data
+    # def test_pull_daily_filings(self):
+    #     d = {'dataString': '01/01/2016'}
+    #     jsonData = json.dumps(d)
+    #     rv = self.app.post('/pullDailyReport', content_type = 'application/json', data = jsonData)
+    #     print rv
+    #     data = json.loads(rv.get_data())
+    #     assert data['sells'][0] == {"day": 11, "month": 1, "number": 2000, "price": 44.1, "year": 2007, "securityTitle":"Common Stock", "directOrIndirectOwnership" : "D", "filingURL" : "http://www.sec.gov/Archives/edgar/data/1000180/000124264807000001/0001242648-07-000001-index.htm"}
 
     # # Testing the ability to pull files locally
     def test_pull_index_local(self):
