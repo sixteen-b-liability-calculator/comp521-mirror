@@ -16,16 +16,18 @@ class FlaskrTestCase(unittest.TestCase):
         assert 1==1
 
     def test_introduces_liability(self):
-        sell = dict(price = 20)
+        sampleSell = Trade(number=1, price=20, year=2016, month=01, day=12)
+        sell = 
         buy = dict(price = 10)
         test = introduces_liability(buy, sell, True, True)
         assert test == True 
 
+     # Making sure that the data being passed in is a not a list (if not, test_parse_section messes up)
     def test_section(self):
         inputFile = open('wsgi/testing/edgarTestingFile.txt', 'r+')
         tree = parse_section_4(inputFile)
         assert not (isinstance(tree, list))
-    
+
     def test_parse_section_4(self):
 
     	expectedSell = dict(price = 44.10, month = 1, number = 2000, day = 11, year = 2007,
@@ -35,7 +37,6 @@ class FlaskrTestCase(unittest.TestCase):
 
         inputFile = open('wsgi/testing/edgarTestingFile.txt', 'r+')
         tree = parse_section_4(inputFile)
-        print tree
         assert tree.getroot().tag == 'ownershipDocument'
         trades = return_trade_information_from_xml(tree,"")
         assert trades[0][0] == expectedBuy
@@ -44,12 +45,12 @@ class FlaskrTestCase(unittest.TestCase):
 
     # parse_idx ws not used
     
-    # def test_parse_idx(self):
+    def test_get_URLs_for_CIK(self):
 
-    # 	inputFile = open('wsgi/testing/edgarTestIndex.txt', 'r+')
-    # 	edgarFileURLs = parse_idx(inputFile, 1000180, ['4'])
-    # 	assert edgarFileURLs[0] == 'edgar/data/1000180/0001242648-07-000020.txt'
-    # 	assert edgarFileURLs[9] == 'edgar/data/1000180/0001242648-07-000029.txt'
+    	inputFile = open('wsgi/testing/edgarTestIndex.txt', 'r+')
+    	edgarFileURLs = get_URLs_for_CIK(inputFile, 1000180, ['4'])
+    	assert edgarFileURLs[0] == 'edgar/data/1000180/0001242648-07-000020.txt'
+    	assert edgarFileURLs[9] == 'edgar/data/1000180/0001242648-07-000029.txt'
 
     # Making sure that the data being passed in is a list (if not, test_pull_trades messes up)
     def test_trades(self):
