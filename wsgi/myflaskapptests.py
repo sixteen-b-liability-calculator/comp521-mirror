@@ -40,7 +40,7 @@ class FlaskrTestCase(unittest.TestCase):
     def test_trades(self):
         inputFile = open('wsgi/testing/computetest.txt', 'r+')
         data = json.load(inputFile)
-        print data[0]
+        print data[0][0]
         # assert data['buy'][0] == 
 
     def test_pull_trades(self):
