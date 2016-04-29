@@ -37,6 +37,11 @@ class FlaskrTestCase(unittest.TestCase):
 
     # This test can be flaky depending on the connection to the SEC database
 
+    def test_trades(self):
+        data = json.loads('wsgi/testing/computetest.txt')
+        print data['buy'][0]
+        # assert data['buy'][0] == 
+
     def test_pull_trades(self):
         jsonData = json.dumps({ "startYear": 2007, "startMonth": 1, "endYear": 2007, "endMonth": 3, "cik": 1000180 })
         rv = self.app.post('/pullSEC', content_type= 'application/json', data = jsonData)
@@ -61,7 +66,7 @@ class FlaskrTestCase(unittest.TestCase):
         assert os.path.isfile("wsgi/tempFiles/"+fileLoc) #Be sure to include this file in this location for this test to pass
         pull_edgar_file("bad_ftp",fileLoc)
 
-    def test_empty_db(self):
+    def test_empty(self):
         rv = self.app.get('/')
         assert "" in rv.data
 
