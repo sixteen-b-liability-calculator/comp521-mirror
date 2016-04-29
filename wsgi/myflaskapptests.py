@@ -40,8 +40,9 @@ class FlaskrTestCase(unittest.TestCase):
     def test_trades(self):
         inputFile = open('wsgi/testing/computetest.txt', 'r+')
         data = json.load(inputFile)
-        print data[0][0]
-        # assert data['buy'][0] == 
+        
+        for d in data:
+            print d
 
     def test_pull_trades(self):
         jsonData = json.dumps({ "startYear": 2007, "startMonth": 1, "endYear": 2007, "endMonth": 3, "cik": 1000180 })
@@ -78,7 +79,7 @@ class FlaskrTestCase(unittest.TestCase):
         testDicts = json.load(inputFile)
         #print testDicts
         for test in testDicts:
-            print (json.dumps(test['input']).getData())
+            # print (json.dumps(test['input']).getData())
             # computeResult = json.loads(self.app.post('/compute', content_type='application/json', data=json.dumps(test['input'])).get_data())
             # print "This is computeResult" + computeResult
             # greedyResult = json.loads(self.app.post('/greedy', content_type='application/json', data=json.dumps(test['input'])).get_data())
