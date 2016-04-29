@@ -106,6 +106,9 @@ function firstLoad(){
 
     // Sets the Event listener for the CSV upload.
     $("#csv-file").change(populateWithCSVFile);
+
+    // activate tooltips
+    $('[data-toggle="tooltip"]').tooltip(); 
 }
 
 function setStartDate(){
