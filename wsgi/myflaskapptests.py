@@ -28,7 +28,6 @@ class FlaskrTestCase(unittest.TestCase):
         assert not (isinstance(tree, list))
 
     def test_parse_section_4(self):
-
     	expectedSell = dict(price = 44.10, month = 1, number = 2000, day = 11, year = 2007,
                            securityTitle="Common Stock", directOrIndirectOwnership="D", filingURL ="ftp://ftp.sec.gov/")
     	expectedBuy = dict(price= 34.585, month= 1, number= 10000, day= 11, year= 2007,
