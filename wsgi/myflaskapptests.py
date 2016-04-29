@@ -21,7 +21,11 @@ class FlaskrTestCase(unittest.TestCase):
         test = introduces_liability(buy, sell, True, True)
         assert test == True 
 
-
+    def test_section(self):
+        inputFile = open('wsgi/testing/edgarTestingFile.txt', 'r+')
+        tree = parse_section_4(inputFile)
+        assert not (isinstance(tree, list))
+    
     def test_parse_section_4(self):
 
     	expectedSell = dict(price = 44.10, month = 1, number = 2000, day = 11, year = 2007,
