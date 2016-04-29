@@ -38,7 +38,8 @@ class FlaskrTestCase(unittest.TestCase):
     # This test can be flaky depending on the connection to the SEC database
 
     def test_trades(self):
-        data = json.loads('wsgi/testing/computetest.txt')
+        inputFile = open('wsgi/testing/computetest.txt', 'r+')
+        data = json.load(inputFile)
         print data['buy'][0]
         # assert data['buy'][0] == 
 
