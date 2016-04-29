@@ -5,7 +5,7 @@ import tempfile
 import json
 from compute import introduces_liability
 from edgar_api import *
-from flask import requests
+
 
 class FlaskrTestCase(unittest.TestCase):
 
@@ -30,14 +30,16 @@ class FlaskrTestCase(unittest.TestCase):
                             securityTitle="Common Stock", directOrIndirectOwnership="D", filingURL ="ftp://ftp.sec.gov/")
 
         inputFile = open('wsgi/testing/edgarTestingFile.txt', 'r+')
+        print inputFile.type()
         tree = parse_section_4(inputFile)
         assert tree.getroot().tag == 'ownershipDocument'
         trades = return_trade_information_from_xml(tree,"")
         assert trades[0][0] == expectedBuy
         assert trades[1][0] == expectedSell  
 
+
     # parse_idx ws not used
-        
+    
     # def test_parse_idx(self):
 
     # 	inputFile = open('wsgi/testing/edgarTestIndex.txt', 'r+')
@@ -50,12 +52,6 @@ class FlaskrTestCase(unittest.TestCase):
         inputFile = open('wsgi/testing/computetest.txt', 'r+')
         data  = json.load(inputFile)
         assert isinstance(data, list)
-
-    def test_method(self):
-        # now you can do something with the request until the
-        # end of the with block, such as basic g aassertions:
-        assert request.path == '/hello'
-        assert request.method == 'POST'
 
      # This test can be flaky depending on the connection to the SEC database
     def test_pull_trades(self):
