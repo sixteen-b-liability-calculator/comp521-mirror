@@ -16,25 +16,20 @@ After the repo is cloned, you will need to set up a virtual environment (instruc
 If you have never used a virtual environment before:
 
     sudo pip install virtualenv
-or 
-    '''sudo easy_instal virtualenv'''
-    git remote add upstream -m master https://github.com/openshift/flask-example.git
-    git pull -s recursive -X theirs upstream master
     
-Then push the repo upstream
+Navigate to the folder (repo) where the project is stored locally (not the wsgi folder but the parent directory)
 
-    git push
+    virtualenv env
+    source env/bin/activate
+    pip install flask
+    python setup.py install
+    python wsgi/myflaskapp.py
 
-That's it, you can now checkout your application at:
+The last line is how to run the website. For testing, you do the same except:
 
-    http://flask-$yournamespace.rhcloud.com
+    python wsgi/myflaskapptests.py
+
+Note: testing may not work in the virtual environment, it may have to be run directly from the app itself.
 
 ------------------------------
 
-To get more log messages in your OpenShift logs please add the following line to your code
-
-    app.config['PROPAGATE_EXCEPTIONS'] = True
-
-To read more about logging in Flask please see this email
-
-http://librelist.com/browser//flask/2012/1/27/catching-exceptions-from-flask/
