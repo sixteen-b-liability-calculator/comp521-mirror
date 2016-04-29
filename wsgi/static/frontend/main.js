@@ -3,9 +3,9 @@ var undo_p_stack = [];
 var undo_s_stack = [];
 var total_purchases_entered = 0;
 var total_sales_entered = 0;
+var data_table;
 
 // on initial page load, pull data into DataTables
-// test
 $(document).ready( function () {
     $.ajax({
         url: "/queryDB",
@@ -14,9 +14,8 @@ $(document).ready( function () {
             myData = $.map(result['data'], function(el) {
                 return [[el.cik, el.name, el.lp, el.date, el.url]];
             });
-            // console.log("myData: " + myData);
             // initalize data table
-            $('#data_table').DataTable({
+            data_table = $('#data_table').DataTable({
                 paging: true,
                 // scrollY: 400,
                 dataPageLength: 25,
@@ -28,7 +27,49 @@ $(document).ready( function () {
                 columns: [
                     { title: "CIK" },
                     { title: "Name" },
-                    { title: "LP liability" },
+                    { title: "LP liability",
+                        "fnCreatedCell": function (nTd, sData, oData, iRow, iCol) {
+                            $(nTd).click(function() {
+                                // switch to input tab, clear contents, and add searching message
+                                clearInputTab();
+                                $('#tabs').tabs('option','active',0);
+                                $("#input_top").append("<h4 id=\"inputMessage\" style=\"color: red\">Searching EDGAR database... This may take a couple minutes.</h4>");
+
+                                var cik = oData[0];
+                                var end = oData[3];
+
+                                var endDate = new Date(end);
+                                endDate.setDate(endDate.getDate()+1);
+                                var endYear = endDate.getYear() + 1900;
+                                var endMonth = endDate.getMonth() + 1;
+
+                                var startDate = new Date();
+                                startDate.setYear(endDate.getYear()+1900-2);
+                                startDate.setMonth(endDate.getMonth()-6);
+                                startDate.setDate(startDate.getDate()-3);
+                                var startYear = startDate.getYear() + 1900;
+                                var startMonth = startDate.getMonth() + 1;
+
+                                var secJSON = '{ "startYear":'+startYear+',"startMonth":'+startMonth+',"endYear":'+endYear+',"endMonth":'+endMonth+',"cik": "'+cik+'"}';
+
+                                // pull trades for given cik and date
+                                if (cik && cik != "") {
+                                    $.ajax( "/pullSEC",
+                                        ({type: "POST",
+                                        data: secJSON,
+                                        contentType: "application/json",
+                                        dataType: "json",
+                                        success: [populate, removeInputMessage],
+                                        error: function(data) {
+                                            document.open();
+                                            document.write(data.responseText);
+                                            document.close();
+                                        }
+                                    }));
+                                }
+                            });
+                        }
+                    },
                     { title: "Date of most recent form" },
                     { title: "Link to most recent form",
                         "fnCreatedCell": function (nTd, sData, oData, iRow, iCol) {
@@ -37,12 +78,47 @@ $(document).ready( function () {
                     }
                 ],
             });
+            // $('#data_table tbody').on('click', 'td', function () {
+            //     console.log(data_table.row(this).data());
+            // });
         },
         error: function(error) {
             console.log("fail: " + error);
         }
     });
 } );
+
+function test() {
+    console.log("new testing");
+}
+
+// Called by <body> onload
+function firstLoad(){
+    createDefaultInputRows();
+
+    // Sets the Edgar Date range for selecting from the database.
+    $('#secEndDate').datepicker("setDate",'0');
+    $('#secStartDate').datepicker("setDate",setStartDate());
+
+    // Sets yesterday as the default search date
+    $('#searchDate').datepicker("setDate", -1);
+
+    // Sets the Event listener for the CSV upload.
+    $("#csv-file").change(populateWithCSVFile);
+}
+
+function setStartDate(){
+    var date = new Date();
+    // Subtract 2 years
+    date.setYear(1900+date.getYear()-2);
+    //subtract 6 months
+    date.setMonth(date.getMonth()-6);
+    // TODO:valakuzhy
+    // Jammies allow for subtracting up to three days.
+    // Will need something more sophisticated to get this completed right though
+    date.setDate(date.getDate()-3);
+    return date;
+}
 
 // Removes row of data
 function removePSRow(button){
@@ -238,21 +314,6 @@ function checkIfMissingValue() {
     }
 }
 
-// Called by <body> onload
-function firstLoad(){
-    createDefaultInputRows();
-
-    // Sets the Edgar Date range for selecting from the database.
-    $('#secEndDate').datepicker("setDate",'0');
-    $('#secStartDate').datepicker("setDate",setStartDate());
-
-    // Sets yesterday as the default search date
-    $('#searchDate').datepicker("setDate", -1);
-
-    // Sets the Event listener for the CSV upload.
-    $("#csv-file").change(populateWithCSVFile);
-}
-
 // Download data from text box
 function downloadCSV() {
     data = $('#csv-data')[0].value;
@@ -266,19 +327,6 @@ function createDefaultInputRows() {
     	insertPSRow(purchases);
     	insertPSRow(sales);
     }
-}
-
-function setStartDate(){
-    var date = new Date();
-    // Subtract 2 years
-    date.setYear(1900+date.getYear()-2);
-    //subtract 6 months
-    date.setMonth(date.getMonth()-6);
-    // TODO:valakuzhy
-    // Jammies allow for subtracting up to three days.
-    // Will need something more sophisticated to get this completed right though
-    date.setDate(date.getDate()-3);
-    return date;
 }
 
 // Called by "Clear Input" button
@@ -480,6 +528,10 @@ function searchMessage() {
 
 function removeMessage() {
     $("#searching").remove();
+}
+
+function removeInputMessage() {
+    $("#inputMessage").remove();
 }
 
 // Takes month, year and CIK parameters for SEC database pull
@@ -747,44 +799,6 @@ function clearInputTab() {
     document.getElementById('undo-purchases').disabled = true;
     document.getElementById('undo-sales').disabled = true;
 
-}
-
-// test databse connection
-function testDatabase() {
-    // debug (test that form draws data correctly)
-    console.log($('form').serialize());
-    // send data through ajax calll
-    $.ajax({
-        url: "/testDB",
-        data: $('form').serialize(),
-        dataType: "text",
-        type: "POST",
-        success: function(result) {
-            console.log(result);
-            alert("success" + result);
-            // alert(response);
-        },
-        error: function(error) {
-            // console.log(error);
-            alert("fail: " + error);
-        }
-    });
-}
-
-// query database
-function queryDB() {
-    // get data through ajax calll
-    $.ajax({
-        url: "/queryDB",
-        type: "GET",
-        success: function(result) {
-            console.log(result);
-            alert("success" + result);
-        },
-        error: function(error) {
-            alert("fail: " + error);
-        }
-    });
 }
 
 // reload database with data for selected date
