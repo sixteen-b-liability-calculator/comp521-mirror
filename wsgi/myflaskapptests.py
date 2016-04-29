@@ -41,8 +41,6 @@ class FlaskrTestCase(unittest.TestCase):
         inputFile = open('wsgi/testing/computetest.txt', 'r+')
         data = json.load(inputFile)
         
-        for d in data:
-            print (d)
 
     def test_pull_trades(self):
         jsonData = json.dumps({ "startYear": 2007, "startMonth": 1, "endYear": 2007, "endMonth": 3, "cik": 1000180 })
