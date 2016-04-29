@@ -42,7 +42,12 @@ class FlaskrTestCase(unittest.TestCase):
         assert trades[1][0] == expectedSell  
 
 
-    # parse_idx ws not used
+    def test_get_all_URLs_from_idx(self):
+
+        inputFile = open('wsgi/testing/edgarTestIndex.txt', 'r+')
+        edgarFileURLs = get_URLs_for_CIK(inputFile, ['4'])
+        assert edgarFileURLs[0] == 'edgar/data/1000180/0001242648-07-000020.txt'
+        assert edgarFileURLs[9] == 'edgar/data/1000180/0001242648-07-000029.txt'
     
     def test_get_URLs_for_CIK(self):
 
