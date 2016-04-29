@@ -16,10 +16,11 @@ class FlaskrTestCase(unittest.TestCase):
         assert 1==1
 
     def test_introduces_liability(self):
-        sampleSell = Trade(number=1, price=20, year=2016, month=01, day=12)
-        sampleBuy = Trade(number = 2, price = 10, year = 2015, month = 03, day=31)
+        sampleSell = Trade(number = 1, price = 20, year = 2016, month = 01, day = 12)
+        sampleBuy = Trade(number = 2, price = 10, year = 2015, month = 03, day = 31)
         # sell = sampleSell[0]
         # buy = dict(price = 10)
+        print sampleSell.price > sampleBuy.price
         test = introduces_liability(sampleSell, sampleBuy, True, True)
         assert test == True 
 
