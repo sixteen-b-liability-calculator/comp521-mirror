@@ -35,7 +35,7 @@ $(document).ready( function () {
 
                                 clearInputTab();
                                 $('#tabs').tabs('option','active',0);
-                                $("#input_top").append("<h3 id=\"pulling\">Searching EDGAR database... This may take a couple minutes.</h3>");
+                                $("#input_top").append("<h3 id=\"inputMessage\" style=\"color: red\">Searching EDGAR database... This may take a couple minutes.</h3>");
 
                                 var cik = oData[0];
                                 var end = oData[3];
@@ -71,7 +71,7 @@ $(document).ready( function () {
                                         data: secJSON,
                                         contentType: "application/json",
                                         dataType: "json",
-                                        success: [populate, removeMessage],
+                                        success: [populate, removeInputMessage],
                                         error: function(data) {
                                             document.open();
                                             document.write(data.responseText);
@@ -540,6 +540,10 @@ function searchMessage() {
 
 function removeMessage() {
     $("#searching").remove();
+}
+
+function removeInputMessage() {
+    $("#inputMessage").remove();
 }
 
 // Takes month, year and CIK parameters for SEC database pull
