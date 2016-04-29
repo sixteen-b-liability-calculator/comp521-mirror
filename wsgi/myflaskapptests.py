@@ -89,5 +89,5 @@ class FlaskrTestCase(unittest.TestCase):
             # for (key, expected) in test['output_greedy'].iteritems():
             #     assert greedyResult.get(key) == expected
 
-if __name__ == '__main__':
-    unittest.main()
+    if __name__ == '__main__':
+        unittest.main()
