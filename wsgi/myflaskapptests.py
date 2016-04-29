@@ -51,6 +51,7 @@ class FlaskrTestCase(unittest.TestCase):
     
     def test_get_URLs_for_CIK(self):
 
+
     	inputFile = open('wsgi/testing/edgarTestIndex.txt', 'r+')
     	edgarFileURLs = get_URLs_for_CIK(inputFile, 1000180, ['4'])
     	assert edgarFileURLs[0] == 'edgar/data/1000180/0001242648-07-000020.txt'
