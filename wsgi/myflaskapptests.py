@@ -3,7 +3,6 @@ import myflaskapp
 import unittest
 import tempfile
 import json
-import requests # trying
 from edgar_api import *
 class FlaskrTestCase(unittest.TestCase):
 
@@ -49,13 +48,13 @@ class FlaskrTestCase(unittest.TestCase):
         data = json.loads(rv.get_data())
         assert data['sells'][0] == {"day": 11,"month": 1,"number": 2000,"price": 44.1, "year": 2007, "securityTitle":"Common Stock", "directOrIndirectOwnership" : "D", "filingURL" : "http://www.sec.gov/Archives/edgar/data/1000180/000124264807000001/0001242648-07-000001-index.htm"}
 
-    # def test_pull_daily_filings(self):
-    #     d = {'dataString': '01/01/2016'}
-    #     jsonData = json.dumps(d)
-    #     rv = self.app.post('/pullDailyReport', content_type = 'application/json', data = jsonData)
-    #     print rv
-    #     data = json.loads(rv.get_data())
-    #     assert data['sells'][0] == {"day": 11, "month": 1, "number": 2000, "price": 44.1, "year": 2007, "securityTitle":"Common Stock", "directOrIndirectOwnership" : "D", "filingURL" : "http://www.sec.gov/Archives/edgar/data/1000180/000124264807000001/0001242648-07-000001-index.htm"}
+    def test_pull_daily_filings(self):
+        d = {'dataString': '01/01/2016'}
+        jsonData = json.dumps(d)
+        rv = self.app.post('/pullDailyReport', content_type = 'application/json', data = jsonData)
+        print rv
+        data = json.loads(rv.get_data())
+        assert d == data
 
     # # Testing the ability to pull files locally
     def test_pull_index_local(self):
@@ -72,13 +71,6 @@ class FlaskrTestCase(unittest.TestCase):
         assert "" in rv.data
 
 
-
-    def some_json():
-        return jsonify(success=True)
-
-    def test_some_json(self):
-        response = self.app.get("/ajax/")
-        self.assertEquals(response.json(), dict(success=True))
     # def test_compute(self):
     #     # note that the inputs must have /unique/ correct outputs or else
     #     # the test is meaningless
