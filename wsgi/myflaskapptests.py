@@ -5,6 +5,7 @@ import tempfile
 import json
 from compute import introduces_liability
 from edgar_api import *
+
 class FlaskrTestCase(unittest.TestCase):
 
     def setUp(self):
