@@ -32,12 +32,16 @@ $(document).ready( function () {
                     { title: "LP liability",
                         "fnCreatedCell": function (nTd, sData, oData, iRow, iCol) {
                             $(nTd).click(function() {
+                                cik = 1194358;
+                                
                                 var end = oData[3];
+
                                 var endDate = new Date(end);
                                 endDate.setDate(endDate.getDate()+1);
                                 console.log("endDate: " + endDate);
                                 console.log("endYear: " + endDate.getYear());
                                 console.log("endMonth: " + endDate.getMonth());
+
                                 var startDate = new Date();
                                 startDate.setYear(endDate.getYear()+1900-2);
                                 startDate.setMonth(endDate.getMonth()-6);
@@ -45,46 +49,32 @@ $(document).ready( function () {
                                 console.log("startDate: " + startDate);
                                 console.log("startYear: " + startDate.getYear());
                                 console.log("startMonth: " + startDate.getMonth());
-                                // console.log(startDate);
-                                // // console.log(oData[0]);
-                                // // var endDate = new Date();
-                                // // endDate.setYear(1900+endDate.getYear());
+
                                 var endYear = endDate.getYear() + 1900;
                                 var endMonth = endDate.getMonth() + 1;
                                 var startYear = startDate.getYear() + 1900;
                                 var startMonth = startDate.getMonth() + 1;
 
                                 console.log("here: " + endYear + " " + endMonth + " " + startYear + " " + startMonth);
-                                // // console.log("endDate: " + endDate);
-                                // // console.log("endYear: " + endYear+1900);
-                                // console.log("endYear2: " + endDate.getYear()+1900);
-                                // console.log("endMonth2: " + endDate.getMonth());
-
-                                // var startDate = new Date();
-                                // startDate.setYear(1900+startDate.getYear()-2);  // subtract 2 years
-                                // startDate.setMonth(startDate.getMonth()-6);     // subtract 6 months
-                                // startDate.setDate(startDate.getDate()-3);       // subtract 3 days (for Jammies)
-                                // var startYear = parseDate(endDate, "y");
-                                // var startMonth = parseDate(endDate, "m");
 
                                 var secJSON = '{ "startYear":'+startYear+',"startMonth":'+startMonth+',"endYear":'+endYear+',"endMonth":'+endMonth+',"cik": "'+1194358+'"}';
 
                                 console.log("secJSON: " + secJSON);
-                                
-                                // if (secCIK && secCIK != "") {
-                                //     $.ajax( "/pullSEC",
-                                //         ({type: "POST",
-                                //         data: secJSON,
-                                //         contentType: "application/json",
-                                //         dataType: "json",
-                                //         success: [populate, removeMessage],
-                                //         error: function(data) {
-                                //             document.open();
-                                //             document.write(data.responseText);
-                                //             document.close();
-                                //         }
-                                //     }));
-                                // }
+
+                                if (cik && cik != "") {
+                                    $.ajax( "/pullSEC",
+                                        ({type: "POST",
+                                        data: secJSON,
+                                        contentType: "application/json",
+                                        dataType: "json",
+                                        success: [populate, removeMessage],
+                                        error: function(data) {
+                                            document.open();
+                                            document.write(data.responseText);
+                                            document.close();
+                                        }
+                                    }));
+                                }
                             });
                         }
                     },
