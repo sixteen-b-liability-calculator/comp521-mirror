@@ -567,8 +567,12 @@ function pullSEC(){
 
 // proof-of-concept for Daily Report. Pulls CIKs for daily Form 4 filings.
 function pullDailyReport() {
+    var dateString = $("#dailyReportDate").val();
+    var dateJSON = '{ "date":"'+dateString+'"}'
+
     $.ajax( "/pullDailyReport",
-        ({type: "GET",
+        ({type: "POST",
+        data: dateJSON,
         contentType: "application/json",
         dataType: "json",
         success: [displayReport, removeMessage],

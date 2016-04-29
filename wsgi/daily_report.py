@@ -35,8 +35,6 @@ def generate_daily_report(inputDate):
             startMonth = endMonth - 6
 
         for idx, filing in enumerate(filings):
-            if idx > 0:
-                break
             trades = pull_trades(filing['cik'], startYear, startMonth, endYear, endMonth)
             from myflaskapp import gen_compute_endpoint
             compute_result = gen_compute_endpoint(run_problem, trades)
@@ -51,14 +49,14 @@ def generate_daily_report(inputDate):
             date = filings[idx]['lastfiling']
             dateString = date[6:10] + "-" + date[0:2] + "-" + date[3:5]
             url = filings[idx]['url']
-            print("******************  CIK: " + str(cik) + " Name: " + str(name))
+            
             cursor.callproc('add_person', (cik, name, liability))
             cursor.callproc('add_form', (cik, url, dateString))
             conn.commit()
-            
+
         # close mysql connection
-        cursor.close() 
-        conn.close()  
+        cursor.close()
+        conn.close()
 
 
     return {'filings': filings}
