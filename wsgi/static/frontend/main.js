@@ -33,33 +33,35 @@ $(document).ready( function () {
                         "fnCreatedCell": function (nTd, sData, oData, iRow, iCol) {
                             $(nTd).click(function() {
 
+                                clearInputTab();
+
                                 var cik = oData[0];
                                 var end = oData[3];
 
                                 var endDate = new Date(end);
                                 endDate.setDate(endDate.getDate()+1);
-                                console.log("endDate: " + endDate);
-                                console.log("endYear: " + endDate.getYear());
-                                console.log("endMonth: " + endDate.getMonth());
+                                // console.log("endDate: " + endDate);
+                                // console.log("endYear: " + endDate.getYear());
+                                // console.log("endMonth: " + endDate.getMonth());
 
                                 var startDate = new Date();
                                 startDate.setYear(endDate.getYear()+1900-2);
                                 startDate.setMonth(endDate.getMonth()-6);
                                 startDate.setDate(startDate.getDate()-3);
-                                console.log("startDate: " + startDate);
-                                console.log("startYear: " + startDate.getYear());
-                                console.log("startMonth: " + startDate.getMonth());
+                                // console.log("startDate: " + startDate);
+                                // console.log("startYear: " + startDate.getYear());
+                                // console.log("startMonth: " + startDate.getMonth());
 
                                 var endYear = endDate.getYear() + 1900;
                                 var endMonth = endDate.getMonth() + 1;
                                 var startYear = startDate.getYear() + 1900;
                                 var startMonth = startDate.getMonth() + 1;
 
-                                console.log("here: " + endYear + " " + endMonth + " " + startYear + " " + startMonth);
+                                // console.log("here: " + endYear + " " + endMonth + " " + startYear + " " + startMonth);
 
                                 var secJSON = '{ "startYear":'+startYear+',"startMonth":'+startMonth+',"endYear":'+endYear+',"endMonth":'+endMonth+',"cik": "'+cik+'"}';
 
-                                console.log("secJSON: " + secJSON);
+                                // console.log("secJSON: " + secJSON);
 
                                 if (cik && cik != "") {
                                     $.ajax( "/pullSEC",
@@ -569,39 +571,39 @@ function pullSEC(){
     }
 }
 
-// Query SEC database for given row's CIK
-// use today as end date and 2.5 yrs and 3 days ago as default start date (using Jammies)
-function tableLiability(cik) {
+// // Query SEC database for given row's CIK
+// // use today as end date and 2.5 yrs and 3 days ago as default start date (using Jammies)
+// function tableLiability(cik) {
 
-    var endDate = new Date();
-    var endYear = parseDate(endDate, "y");
-    var endMonth = parseDate(endDate, "m");
+//     var endDate = new Date();
+//     var endYear = parseDate(endDate, "y");
+//     var endMonth = parseDate(endDate, "m");
 
-    var startDate = new Date();
-    startDate.setYear(1900+startDate.getYear()-2);  // subtract 2 years
-    startDate.setMonth(startDate.getMonth()-6);     // subtract 6 months
-    startDate.setDate(startDate.getDate()-3);       // subtract 3 days (for Jammies)
-    var startYear = parseDate(endDate, "y");
-    var startMonth = parseDate(endDate, "m");
+//     var startDate = new Date();
+//     startDate.setYear(1900+startDate.getYear()-2);  // subtract 2 years
+//     startDate.setMonth(startDate.getMonth()-6);     // subtract 6 months
+//     startDate.setDate(startDate.getDate()-3);       // subtract 3 days (for Jammies)
+//     var startYear = parseDate(endDate, "y");
+//     var startMonth = parseDate(endDate, "m");
 
-    var secJSON = '{ "startYear":'+startYear+',"startMonth":'+startMonth+',"endYear":'+endYear+',"endMonth":'+endMonth+',"cik": "'+cik+'"}';
+//     var secJSON = '{ "startYear":'+startYear+',"startMonth":'+startMonth+',"endYear":'+endYear+',"endMonth":'+endMonth+',"cik": "'+cik+'"}';
 
 
-    if (secCIK && secCIK != "") {
-        $.ajax( "/pullSEC",
-            ({type: "POST",
-            data: secJSON,
-            contentType: "application/json",
-            dataType: "json",
-            success: [populate, removeMessage],
-            error: function(data) {
-                document.open();
-                document.write(data.responseText);
-                document.close();
-            }
-        }));
-    }
-}
+//     if (secCIK && secCIK != "") {
+//         $.ajax( "/pullSEC",
+//             ({type: "POST",
+//             data: secJSON,
+//             contentType: "application/json",
+//             dataType: "json",
+//             success: [populate, removeMessage],
+//             error: function(data) {
+//                 document.open();
+//                 document.write(data.responseText);
+//                 document.close();
+//             }
+//         }));
+//     }
+// }
 
 
 // proof-of-concept for Daily Report. Pulls CIKs for daily Form 4 filings.
@@ -840,27 +842,27 @@ function clearInputTab() {
 
 }
 
-// test databse connection
-function testDatabase() {
-    // debug (test that form draws data correctly)
-    console.log($('form').serialize());
-    // send data through ajax calll
-    $.ajax({
-        url: "/testDB",
-        data: $('form').serialize(),
-        dataType: "text",
-        type: "POST",
-        success: function(result) {
-            console.log(result);
-            alert("success" + result);
-            // alert(response);
-        },
-        error: function(error) {
-            // console.log(error);
-            alert("fail: " + error);
-        }
-    });
-}
+// // test databse connection
+// function testDatabase() {
+//     // debug (test that form draws data correctly)
+//     console.log($('form').serialize());
+//     // send data through ajax calll
+//     $.ajax({
+//         url: "/testDB",
+//         data: $('form').serialize(),
+//         dataType: "text",
+//         type: "POST",
+//         success: function(result) {
+//             console.log(result);
+//             alert("success" + result);
+//             // alert(response);
+//         },
+//         error: function(error) {
+//             // console.log(error);
+//             alert("fail: " + error);
+//         }
+//     });
+// }
 
 // query database
 function queryDB() {
