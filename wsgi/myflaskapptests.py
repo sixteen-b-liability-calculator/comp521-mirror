@@ -3,6 +3,7 @@ import myflaskapp
 import unittest
 import tempfile
 import json
+from compute import introduces_liability
 from edgar_api import *
 class FlaskrTestCase(unittest.TestCase):
 
@@ -15,6 +16,7 @@ class FlaskrTestCase(unittest.TestCase):
     def test_introduces_liability(self):
         test = introduces_liability(10, 20, "", "")
         assert test == True 
+
 
     def test_parse_section_4(self):
 
