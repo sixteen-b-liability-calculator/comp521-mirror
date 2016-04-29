@@ -37,12 +37,8 @@ class FlaskrTestCase(unittest.TestCase):
 
     # This test can be flaky depending on the connection to the SEC database
 
-    def test_trades(self):
-        inputFile = open('wsgi/testing/computetest.txt', 'r+')
-        data = json.load(inputFile)
-        
-        #assert data['buy'][0] == 
 
+    
     def test_pull_trades(self):
         jsonData = json.dumps({ "startYear": 2007, "startMonth": 1, "endYear": 2007, "endMonth": 3, "cik": 1000180 })
         rv = self.app.post('/pullSEC', content_type= 'application/json', data = jsonData)
@@ -78,7 +74,7 @@ class FlaskrTestCase(unittest.TestCase):
         testDicts = json.load(inputFile)
         #print testDicts
         for test in testDicts:
-            #print (json.dumps(test['input']).getData())
+            print (json.dumps(test['input']).getData())
             # computeResult = json.loads(self.app.post('/compute', content_type='application/json', data=json.dumps(test['input'])).get_data())
             # print "This is computeResult" + computeResult
             # greedyResult = json.loads(self.app.post('/greedy', content_type='application/json', data=json.dumps(test['input'])).get_data())
