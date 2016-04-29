@@ -12,6 +12,11 @@ class FlaskrTestCase(unittest.TestCase):
     def test_blank(self):
         assert 1==1
 
+    def test_parse(self):
+        inputFile = open('wsgi/testing/edgarTestingFile.txt', 'r+')
+        parse = json.load(inputFile)
+        assert not isinstance(parse, basestring)
+        
     def test_parse_section_4(self):
 
     	expectedSell = dict(price = 44.10, month = 1, number = 2000, day = 11, year = 2007,
@@ -39,8 +44,8 @@ class FlaskrTestCase(unittest.TestCase):
 
     def test_trades(self):
         inputFile = open('wsgi/testing/computetest.txt', 'r+')
-        data = json.load(inputFile)
-        assert isinstance(data, list)
+        trades = json.load(inputFile)
+        assert isinstance(trades, list)
 
     def test_pull_trades(self):
         jsonData = json.dumps({ "startYear": 2007, "startMonth": 1, "endYear": 2007, "endMonth": 3, "cik": 1000180 })
