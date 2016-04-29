@@ -3,7 +3,7 @@ import myflaskapp
 import unittest
 import tempfile
 import json
-from compute import introduces_liability
+from compute import introduces_liability, Trade
 from edgar_api import *
 
 
