@@ -37,8 +37,13 @@ class FlaskrTestCase(unittest.TestCase):
 
     # This test can be flaky depending on the connection to the SEC database
 
+    def test_trades(self):
+        inputFile = open('wsgi/testing/computetest.txt', 'r+')
+        data = json.load(inputFile)
 
-    
+        for d in data:
+            print d
+
     def test_pull_trades(self):
         jsonData = json.dumps({ "startYear": 2007, "startMonth": 1, "endYear": 2007, "endMonth": 3, "cik": 1000180 })
         rv = self.app.post('/pullSEC', content_type= 'application/json', data = jsonData)
