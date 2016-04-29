@@ -72,7 +72,7 @@ class FlaskrTestCase(unittest.TestCase):
         year = 2008
         quarter = 1
         indexType = 'master'
-        fileLoc = 'edgar/full-index/'+str(year)+'/QTR'+str(quarter)+'/'+indexType+'.gz'
+        fileLoc = 'edgar/full-index/' + str(year) + '/QTR' + str(quarter) + '/' + indexType + '.gz'
         assert os.path.isfile("wsgi/tempFiles/"+fileLoc) #Be sure to include this file in this location for this test to pass
         pull_edgar_file("bad_ftp",fileLoc)
 
