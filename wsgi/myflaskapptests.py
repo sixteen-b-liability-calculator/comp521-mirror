@@ -66,8 +66,9 @@ class FlaskrTestCase(unittest.TestCase):
         # the test is meaningless
         inputFile = open('wsgi/testing/computetest.txt', 'r+')
         testDicts = json.load(inputFile)
-        print testDicts
-        # for test in testDicts:
+        #print testDicts
+        for test in testDicts:
+            print json.dumps(test['input'])).get_data()
             # computeResult = json.loads(self.app.post('/compute', content_type='application/json', data=json.dumps(test['input'])).get_data())
             # print "This is computeResult" + computeResult
             # greedyResult = json.loads(self.app.post('/greedy', content_type='application/json', data=json.dumps(test['input'])).get_data())
