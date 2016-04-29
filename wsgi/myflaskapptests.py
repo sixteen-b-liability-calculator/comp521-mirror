@@ -43,15 +43,12 @@ class FlaskrTestCase(unittest.TestCase):
 
 
     def test_get_all_URLs_from_idx(self):
-
         inputFile = open('wsgi/testing/edgarTestIndex.txt', 'r+')
         edgarFileURLs = get_all_URLs_from_idx(inputFile, ['4'])
         assert edgarFileURLs[0] == 'edgar/data/1000180/0001242648-07-000020.txt'
         assert edgarFileURLs[9] == 'edgar/data/1000180/0001242648-07-000029.txt'
     
     def test_get_URLs_for_CIK(self):
-
-
     	inputFile = open('wsgi/testing/edgarTestIndex.txt', 'r+')
     	edgarFileURLs = get_URLs_for_CIK(inputFile, 1000180, ['4'])
     	assert edgarFileURLs[0] == 'edgar/data/1000180/0001242648-07-000020.txt'
@@ -84,23 +81,6 @@ class FlaskrTestCase(unittest.TestCase):
     def test_if_empty(self):
         rv = self.app.get('/')
         assert "" in rv.data
-
-
-    # def test_compute(self):
-    #     # note that the inputs must have /unique/ correct outputs or else
-    #     # the test is meaningless
-    #     inputFile = open('wsgi/testing/computetest.txt', 'r+')
-    #     testDicts = json.load(inputFile)
-    #     #print testDicts
-    #     for test in testDicts:
-    #        # print test['input'].get_data()
-    #         computeResult = json.loads(self.app.post('/compute', content_type='application/json', data=json.dumps(test['input'])).get_data())
-    #         greedyResult = json.loads(self.app.post('/greedy', content_type='application/json', data=json.dumps(test['input'])).get_data())
-    #         # only check the top-level keys from expected output
-    #         for (key, expected) in test['output_compute'].iteritems():
-    #             assert computeResult.get(key) == expected
-    #         for (key, expected) in test['output_greedy'].iteritems():
-    #             assert greedyResult.get(key) == expected
 
 if __name__ == '__main__':
     unittest.main()
