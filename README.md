@@ -38,11 +38,25 @@ $ rhc ssh APPNAME
 $ mysql appname < app-root/repo/initializeDatabase.sql
 $ exit
 ```
+- You'll need to push some changes to the app in order for the app to register the database initialization
+- Navigate into the repository of the app you created
+```sh
+$ cd APPNAME
+```
+- Edit the README.md file (simply add a space or a new line)
+```sh
+$ emacs README.md
+```
+- Push the changes to your app
+```sh
+$ git commit -a -m "Pushing change so app can register database"
+$ git push origin master
+```
 - Your app is now available at http://APPNAME-ONYEN.apps.unc.edu
 
 Testing the app
 ------------
-- In terminal, cd into your project folder (the one created when you called "git clone")
+- In terminal, navigate into your project folder (the one created when you called "git clone")
 ```sh
 $ rhc ssh APPNAME
 ```
