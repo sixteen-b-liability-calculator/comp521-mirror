@@ -34,7 +34,7 @@ $(document).ready( function () {
                             $(nTd).click(function() {
                                 // cik = 1194358;
 
-                                var cik = oData[1];
+                                var cik = oData[0];
                                 var end = oData[3];
 
                                 var endDate = new Date(end);
