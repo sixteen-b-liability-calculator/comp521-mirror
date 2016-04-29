@@ -42,7 +42,6 @@ class FlaskrTestCase(unittest.TestCase):
         data = json.load(inputFile)
         
         for d in data:
-            print d
 
     def test_pull_trades(self):
         jsonData = json.dumps({ "startYear": 2007, "startMonth": 1, "endYear": 2007, "endMonth": 3, "cik": 1000180 })
@@ -89,5 +88,5 @@ class FlaskrTestCase(unittest.TestCase):
             # for (key, expected) in test['output_greedy'].iteritems():
             #     assert greedyResult.get(key) == expected
 
-    if __name__ == '__main__':
-        unittest.main()
+if __name__ == '__main__':
+    unittest.main()
