@@ -68,7 +68,6 @@ $(document).ready( function () {
                                     }));
                                 }
                             });
-                            $(nTd).html("<a href=\"#\" data-toggle=\"tooltip\" data-placement=\"bottom\" title=\"Tool Tip!\">"+ oData[2] +"</a>");
                         }
                     },
                     { title: "Date of most recent form" },
@@ -106,9 +105,6 @@ function firstLoad(){
 
     // Sets the Event listener for the CSV upload.
     $("#csv-file").change(populateWithCSVFile);
-
-    // activate tooltips
-    $('[data-toggle="tooltip"]').tooltip(); 
 }
 
 function setStartDate(){
