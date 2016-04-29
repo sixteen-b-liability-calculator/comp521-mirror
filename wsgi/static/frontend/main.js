@@ -32,8 +32,9 @@ $(document).ready( function () {
                     { title: "LP liability",
                         "fnCreatedCell": function (nTd, sData, oData, iRow, iCol) {
                             $(nTd).click(function() {
-                                cik = 1194358;
-                                
+                                // cik = 1194358;
+
+                                var cik = oData[1];
                                 var end = oData[3];
 
                                 var endDate = new Date(end);
@@ -57,7 +58,7 @@ $(document).ready( function () {
 
                                 console.log("here: " + endYear + " " + endMonth + " " + startYear + " " + startMonth);
 
-                                var secJSON = '{ "startYear":'+startYear+',"startMonth":'+startMonth+',"endYear":'+endYear+',"endMonth":'+endMonth+',"cik": "'+1194358+'"}';
+                                var secJSON = '{ "startYear":'+startYear+',"startMonth":'+startMonth+',"endYear":'+endYear+',"endMonth":'+endMonth+',"cik": "'+cik+'"}';
 
                                 console.log("secJSON: " + secJSON);
 
