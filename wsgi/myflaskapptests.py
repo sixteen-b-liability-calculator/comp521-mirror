@@ -3,7 +3,7 @@ import myflaskapp
 import unittest
 import tempfile
 import json
-from compute import introduces_liability, Trade
+from compute import introduces_liability, Trade, dates_within_range
 from edgar_api import *
 
 
@@ -18,8 +18,7 @@ class FlaskrTestCase(unittest.TestCase):
     def test_introduces_liability(self):
         sampleSell = Trade(number = 1, price = 20, year = 2016, month = 01, day = 12)
         sampleBuy = Trade(number = 2, price = 10, year = 2016, month = 01, day = 10)
-        print sampleSell.price > sampleBuy.price
-        test = introduces_liability(sampleSell, sampleBuy, True, True)
+        test = introduces_liability(sampleBuy, sampleSell, True, True)
         assert test == True 
 
      # Making sure that the data being passed in is a not a list (if not, test_parse_section messes up)
