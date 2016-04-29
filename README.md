@@ -5,7 +5,7 @@
 Running/Testing locally
 ----------------------------
 
-Note: not all of the features will work on local machines. Go to http://16b.law.unc.edu/ to see the finished product.
+Note: not all of the features will work on local machines due to database and server dependencies. Go to http://16b.law.unc.edu/ to see the finished product.
 
 To clone the repo:
 
