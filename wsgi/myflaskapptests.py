@@ -40,7 +40,7 @@ class FlaskrTestCase(unittest.TestCase):
     def test_trades(self):
         inputFile = open('wsgi/testing/computetest.txt', 'r+')
         data = json.load(inputFile)
-        assert not isinstance(data, list)
+        assert isinstance(data, list)
 
     def test_pull_trades(self):
         jsonData = json.dumps({ "startYear": 2007, "startMonth": 1, "endYear": 2007, "endMonth": 3, "cik": 1000180 })
