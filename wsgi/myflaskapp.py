@@ -143,35 +143,35 @@ def populateWithCSV():
     trades = csv2trade(request.data)
     return jsonify(trades)
 
-@app.route("/testDB", methods=['POST'])
-@add_response_headers({'Access-Control-Allow-Origin': 'example.com'})
-def testDB():
-    try:
-        # read the posted values from the UI
-        form = request.form
-        _cik = request.form['inputCIK']
-        _name = request.form['inputName']
-        _lp = request.form['inputLP']
-        # _liho = request.form['inputLIHO']
-        # validate the received values
-        if _cik and _name and _lp and _liho:
-            conn = mysql.connect()
-            cursor = conn.cursor()
-            cursor.callproc('add_person',(_cik, _name, _lp))
-            data = cursor.fetchall()
-            if len(data) is 0:
-                conn.commit()
-                return json.dumps({'message':'Person added successfully !'})
-            else:
-                return json.dumps({'error':str(data[0])})
-        else:
-            return json.dumps({'html':'<span>Enter the required fields</span>'})
-    except Exception as e:
-        return json.dumps({'error':str(e)})
-    finally:
-        cursor.close()
-        conn.close()
-        # return form
+# @app.route("/testDB", methods=['POST'])
+# @add_response_headers({'Access-Control-Allow-Origin': 'example.com'})
+# def testDB():
+#     try:
+#         # read the posted values from the UI
+#         form = request.form
+#         _cik = request.form['inputCIK']
+#         _name = request.form['inputName']
+#         _lp = request.form['inputLP']
+#         # _liho = request.form['inputLIHO']
+#         # validate the received values
+#         if _cik and _name and _lp and _liho:
+#             conn = mysql.connect()
+#             cursor = conn.cursor()
+#             cursor.callproc('add_person',(_cik, _name, _lp))
+#             data = cursor.fetchall()
+#             if len(data) is 0:
+#                 conn.commit()
+#                 return json.dumps({'message':'Person added successfully !'})
+#             else:
+#                 return json.dumps({'error':str(data[0])})
+#         else:
+#             return json.dumps({'html':'<span>Enter the required fields</span>'})
+#     except Exception as e:
+#         return json.dumps({'error':str(e)})
+#     finally:
+#         cursor.close() 
+#         conn.close()
+#         # return form
 
 @app.route("/queryDB", methods=['GET'])
 @add_response_headers({'Access-Control-Allow-Origin': 'example.com'})
