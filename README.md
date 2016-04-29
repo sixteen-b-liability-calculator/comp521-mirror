@@ -1,22 +1,23 @@
-Flask on OpenShift
+16b Liability Calculator
 ==================
 
-This git repository helps you get up and running quickly w/ a Flask installation
-on OpenShift.
 
-
-Running on OpenShift
+Running on local computer
 ----------------------------
 
-Create an account at https://www.openshift.com
+Note: not all of the features will work on local machines. Go to http://16b.law.unc.edu/ to see the finished product.
 
-Create a python application
+To clone the repo:
 
-    rhc app create flask python-2.6
+    git clone https://github.com/sixteen-b-liability-calculator/comp521-mirror.git
 
-Add this upstream flask repo
+After the repo is cloned, you will need to set up a virtual environment (instructions are for Mac and Linux only):
 
-    cd flask
+If you have never used a virtual environment before:
+
+    sudo pip install virtualenv
+or 
+    '''sudo easy_instal virtualenv'''
     git remote add upstream -m master https://github.com/openshift/flask-example.git
     git pull -s recursive -X theirs upstream master
     
