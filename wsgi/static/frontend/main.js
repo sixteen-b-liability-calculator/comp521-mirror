@@ -35,6 +35,7 @@ $(document).ready( function () {
 
                                 clearInputTab();
                                 $('#tabs').tabs('option','active',0);
+                                $("#indent_top").append("<h3 id=\"pulling\">Searching EDGAR database... This may take a couple minutes.</h3>");
 
                                 var cik = oData[0];
                                 var end = oData[3];
