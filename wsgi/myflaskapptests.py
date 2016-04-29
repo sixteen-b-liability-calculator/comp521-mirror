@@ -3,6 +3,7 @@ import myflaskapp
 import unittest
 import tempfile
 import json
+import requests
 from edgar_api import *
 class FlaskrTestCase(unittest.TestCase):
 
@@ -76,7 +77,7 @@ class FlaskrTestCase(unittest.TestCase):
         return jsonify(success=True)
 
     def test_some_json(self):
-        response = self.app.get("/")
+        response = self.app.get("/ajax/")
         self.assertEquals(response.json, dict(success=True))
     # def test_compute(self):
     #     # note that the inputs must have /unique/ correct outputs or else
