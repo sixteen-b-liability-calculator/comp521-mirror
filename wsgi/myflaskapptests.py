@@ -21,6 +21,7 @@ class FlaskrTestCase(unittest.TestCase):
         # sell = sampleSell[0]
         # buy = dict(price = 10)
         print sampleSell.price > sampleBuy.price
+        
         test = introduces_liability(sampleSell, sampleBuy, True, True)
         assert test == True 
 
