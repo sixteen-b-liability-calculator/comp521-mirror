@@ -30,8 +30,8 @@ class FlaskrTestCase(unittest.TestCase):
                             securityTitle="Common Stock", directOrIndirectOwnership="D", filingURL ="ftp://ftp.sec.gov/")
 
         inputFile = open('wsgi/testing/edgarTestingFile.txt', 'r+')
-        print inputFile.type()
         tree = parse_section_4(inputFile)
+        print tree
         assert tree.getroot().tag == 'ownershipDocument'
         trades = return_trade_information_from_xml(tree,"")
         assert trades[0][0] == expectedBuy
