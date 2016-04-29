@@ -5,6 +5,7 @@ var total_purchases_entered = 0;
 var total_sales_entered = 0;
 
 // on initial page load, pull data into DataTables
+// test
 $(document).ready( function () {
     $.ajax({
         url: "/queryDB",
@@ -17,7 +18,7 @@ $(document).ready( function () {
             // initalize data table
             $('#data_table').DataTable({
                 paging: true,
-                scrollY: 400,
+                // scrollY: 400,
                 dataPageLength: 25,
                 data: myData,
                 "order": [[ 0, 'asc' ]],
@@ -28,8 +29,8 @@ $(document).ready( function () {
                     { title: "CIK" },
                     { title: "Name" },
                     { title: "LP liability" },
-                    { title: "Date of most recent form 4/4A" },
-                    { title: "URL of most recent form 4/4A",
+                    { title: "Date of most recent form" },
+                    { title: "Link to most recent form",
                         "fnCreatedCell": function (nTd, sData, oData, iRow, iCol) {
                             $(nTd).html("<a href='"+oData[4]+"' target='_blank'>Link to filing</a>");
                         }
@@ -655,15 +656,13 @@ function downloadOutput() {
     output[output.length-1][4] = "Total";
 
     // create csv
-    var csvContent = "data:text/csv;charset=utf-8,";
+    var csvContent = "";
     output.forEach(function(infoArray, index){
     dataString = infoArray.join(",");
     csvContent += index < output.length ? dataString+ "\n" : dataString;
     });
 
-    // download csv
-    var encodedUri = encodeURI(csvContent);
-    window.open(encodedUri);
+     $("#downloadOutput").attr('href','data:text/csv;charset=utf8,' + encodeURIComponent(csvContent))
 
 }
 
