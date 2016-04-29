@@ -34,6 +34,7 @@ $(document).ready( function () {
                             $(nTd).click(function() {
 
                                 clearInputTab();
+                                $('#tabs').tabs('option','active',0);
 
                                 var cik = oData[0];
                                 var end = oData[3];
