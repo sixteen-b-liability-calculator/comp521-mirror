@@ -10,6 +10,25 @@ import datetime
 
 import itertools
 
+#EXTRA INSTALLATIONS
+#pip install mpld3
+#pip install matplotlib
+#pip install numpy
+
+# For Python Visualizations
+# import matplotlib
+# matplotlib.use('Agg') # this allows 'png' plotting 
+# from pylab import *
+# import matplotlib.pyplot as plt # or possibly use --> to make interactive, mpld3
+# from matplotlib.dates import MonthLocator, WeekdayLocator, DateFormatter, YearLocator
+# %matplotlib inline
+# #testgraph
+# #import cStringIO
+# from matplotlib.figure import Figure                      
+# from matplotlib.backends.backend_agg import FigureCanvasAgg
+# import cgi
+
+
 from aux_code.httpExceptions import *
 
 class Trade:
@@ -293,3 +312,98 @@ def run_greedy(purchases, sales, stella_correction, jammies_correction):
                     amt = 0
 
     return ret
+    
+#Python Visualizations with matplotlib
+# def makeGraph(sale_dates, purchase_dates, sale_amounts, purchase_amounts, sale_price, purchase_price, op_solution):
+
+#     #set up graph's x axis span with the min and max date
+#     dates = []
+
+#     for s in sale_dates:
+#         dates.append(s)
+#     for p in purchase_dates:
+#         dates.append(p)
+#     earlier_date = min(dates)
+#     later_date = max(dates)
+
+#     #Format the x axis on the graph
+#     years = YearLocator()   # every year
+#     months = MonthLocator(range(1, 13), bymonthday=1, interval=3)  # every month, displaying month name of every 3rd month
+#     yearsFmt = DateFormatter('%B %Y') #written out Month and full year
+
+#     # # x-axis
+#     # sell_dates = [s[0] for s in sale_dates]
+#     # buy_dates = [b[0] for b in purchase_dates]
+#     # #y-axis
+#     # sell_prices = [s[1] for s in sale_amounts]
+#     # buy_prices = [b[1] for b in purchase_amounts]
+
+#     #optimal solution
+#     op_purchases_dates = []
+#     op_purchases_amounts = []
+#     op_sales_dates = []
+#     op_sales_amounts = []
+#     op_pair = []
+
+    
+    
+#     fig, ax = plt.subplots()
+# #     ax.plot_date(sale_dates, sale_amounts, '.', label="sale", color="green", markersize=25)
+# #     ax.plot_date(purchase_dates, purchase_amounts, '.', label="purchase", color="red", markersize=25)
+#     ax.plot_date(sale_dates, s_price, '.', label="Sale", color="green", markersize=25)
+#     ax.plot_date(purchase_dates, p_price, '.', label="Purchase", color="red", markersize=25)
+
+
+#     for opsol in op_solution["pairs"]:
+#         opp = opsol[0][0], opsol[0][1]
+#         ops = opsol[1][0], opsol[1][1]
+#         db = []
+#         ab = []
+#         db.append(opsol[0][0])
+#         db.append(opsol[1][0])
+#         ab.append(opsol[0][1])
+#         ab.append(opsol[1][1])
+        
+# #         oppair = opp, ops
+# #         op_purchases_dates.append(opp[0])
+# #         op_purchases_amounts.append(opp[1])
+# #         op_sales_dates.append(ops[0])
+# #         op_sales_amounts.append(ops[1])
+# #         op_pair.append(oppair)
+#         ax.plot_date(db,ab,'-', color="dodgerblue", linewidth=4)
+    
+#     for s in range(len(sale_dates)):
+#         for p in range(len(purchase_dates)):
+#             d = []
+#             a = []
+#             d.append(sale_dates[s])
+#             d.append(purchase_dates[p])
+#             a.append(s_price[s])
+#             a.append(p_price[p])
+#             ax.plot_date(d,a,'--', color="plum", linewidth=1)
+            
+#     ax.plot_date(d,a,'--', label="All Possible",color="plum", linewidth=1)
+#     ax.plot_date(db,ab,'-', label="Optimal", color="dodgerblue", linewidth=4)
+#     #plot lines between possible connections
+#     #plot optimal solution
+#     #ax.plot_date()
+#     ax.set_title('Liability Graph',fontsize=20, fontweight='bold')
+#     ax.set_xlabel('Date (Month Year)',fontsize=12, fontweight='bold')
+#     #ax.set_ylabel('Purchase/Sale Amount',fontsize=12, fontweight='bold')
+#     ax.set_ylabel('Price Per Share ($)',fontsize=12, fontweight='bold')
+#     ax.legend(loc=2, numpoints=1)
+
+# #     ax.text(0.95, 0.01,'optimal solution', verticalalignment='bottom', horizontalalignment='right', transform=ax.transAxes, color='dodgerblue', fontsize=12)
+# #     ax.text(0.95, 0.08,'all possible paths', verticalalignment='bottom', horizontalalignment='right', transform=ax.transAxes, color='plum', fontsize=12)
+
+#     ax.xaxis.set_major_locator(months)
+#     ax.xaxis.set_major_formatter(yearsFmt)
+#     #ax.xaxis.set_minor_locator(years)
+#     ax.autoscale_view()
+
+#     ax.fmt_xdata = DateFormatter('%Y-%m-%d')
+#     ax.grid(True)
+
+#     fig.autofmt_xdate()
+#     plt.show()
+
